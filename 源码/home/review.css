@@ -1,0 +1,13 @@
+#review-bar{height:64px;display:flex;align-items:center;gap:8px;padding:0 22px;background:#111;border-bottom:1px solid #333;color:#eee;font:14px sans-serif}
+#review-bar strong{margin-right:auto;font-size:16px;white-space:nowrap}
+#review-bar button,#review-bar a,#annotation-editor button{font:inherit;color:#ddd;background:#292929;border:1px solid #444;border-radius:6px;padding:8px 12px;text-decoration:none;cursor:pointer;white-space:nowrap}
+#review-bar button[aria-pressed=true]{background:#174777;border-color:#5098e2;color:white}
+#viewport{position:relative;overflow:hidden;width:100%;height:calc(100vh - 116px);background:#080808}
+#canvas{position:absolute;width:1920px;height:1080px;transform-origin:top left}
+#canvas>#screen{left:0!important;top:0!important;transform:none!important}
+#reference{position:absolute;inset:0;width:1920px;height:1080px;display:none;pointer-events:none;z-index:10}
+#canvas[data-mode=reference]>#screen{visibility:hidden}
+#canvas[data-mode=reference]>#reference,#canvas[data-mode=overlay]>#reference{display:block}
+#review-footer{height:52px;display:flex;align-items:center;gap:20px;padding:0 22px;background:#111;color:#aaa;font:12px sans-serif}
+#blend{display:none;align-items:center;gap:8px;white-space:nowrap}#alpha{width:100px;accent-color:#78adf1}
+@media(max-width:1000px){#review-bar{padding:0 10px;gap:6px}#review-bar strong{font-size:13px}#review-bar button,#review-bar a{font-size:12px;padding:8px}}

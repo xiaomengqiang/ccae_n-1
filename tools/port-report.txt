@@ -1,0 +1,17 @@
+css swaps: 28, js swaps: 135, skeleton swaps: 25
+unswapped: css=3 js=0 skel=0
+leftover ;base64,: 3, leftover atob: 2
+leftover atob ctx: onst glyph=icon(iconName==='节能中'?'叶子-圆底托':iconName,24);if(glyph.src.startsWith('data:image/svg+xml;base64,')){const raw=atob(glyph.src.split(',')[1]);const clean=raw.replace(/(<svg\b[^>]*?)\sclip-path="[^"]*"/,'$1');glyph.src='data:image/sv
+unswapped samples:
+  css@3022210: pearance:none;padding:0 28px 0 12px;background:#303030 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='
+  css@3053176: h:14px;height:14px;background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'
+  css@4027541: flex: 0 0 auto; width: 14px; height: 14px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'
+
+:root blocks relocated: 2 (total 2264 chars)
+runtime vars declared: 50
+body> selectors patched: 0
+unreferenced manifest paths: 0
+intentionally inline (data URI kept): icons/agent-panel-opaque.svg
+skeleton top-level tags: ["main@1"]
+empty css declarations stripped: 28
+sizes: css=482005 js=449054 skeleton=86134

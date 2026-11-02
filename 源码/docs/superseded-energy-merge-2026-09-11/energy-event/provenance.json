@@ -1,0 +1,11 @@
+{
+  "source": "/Users/mac/Documents/codex/HC展会/figma-plugin-figma-openai-curated-remote-demo/outputs/index-续作副本-2026-08-29.html",
+  "sha256": "c329b53fe512f0a0a26caddbfbcefab7b7fe62f92dd058848eb93f7a97a4b5ad",
+  "scripts": {
+    "strategy": 2168,
+    "polish": 2382,
+    "report": 2621,
+    "monitor": 3839
+  },
+  "scope": "Qwen3.7 strategy and August 2026 cluster report; not current homepage service metrics"
+}

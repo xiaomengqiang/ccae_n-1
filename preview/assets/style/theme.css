@@ -1,0 +1,195 @@
+:root {
+  --primary: var(--color-brand);
+  --on-primary: var(--color-text-inverse);
+  --primary-hover: var(--color-brand-hover);
+  --primary-active: var(--color-brand-active);
+  --primary-disabled: var(--color-brand-disabled);
+  --primary-container: var(--color-info-primary-subtler);
+  --on-primary-container: var(--color-text-primary);
+  --primary-fixed: var(--color-brand);
+  --primary-fixed-dim: var(--color-brand-active);
+  --on-primary-fixed: var(--color-text-inverse);
+  --on-primary-fixed-variant: var(--color-text-inverse);
+
+  --surface: var(--color-bg-1);
+  --surface-dim: var(--color-bg-2);
+  --surface-bright: var(--color-bg-2);
+  --on-surface: var(--color-text-primary);
+  --surface-variant: var(--color-bg-1);
+  --on-surface-variant: var(--color-text-secondary);
+  --surface-container-lowest: var(--color-bg-1);
+  --surface-container-low: var(--color-bg-2);
+  --surface-container: var(--color-bg-2);
+  --surface-container-high: var(--color-bg-2);
+  --surface-container-highest: var(--color-bg-2);
+
+  --inverse-surface: var(--color-text-primary);
+  --inverse-on-surface: var(--color-text-inverse);
+  --inverse-on-surface-variant: var(--color-text-inverse-disabled);
+  --inverse-primary: var(--color-brand);
+
+  --error: var(--color-error);
+  --on-error: var(--color-text-inverse);
+  --error-container: var(--color-message-bg-error);
+  --on-error-container: var(--color-text-primary);
+
+  --success: var(--color-success);
+  --on-success: var(--color-text-inverse);
+  --success-container: var(--color-message-bg-success);
+  --on-success-container: var(--color-text-primary);
+
+  --critical: var(--color-alert);
+  --on-critical: var(--color-text-inverse);
+  --critical-container: var(--color-message-bg-alert);
+  --on-critical-container: var(--color-text-primary);
+
+  --warning: var(--color-warning);
+  --on-warning: var(--color-text-inverse);
+  --warning-container: var(--color-message-bg-warning);
+  --on-warning-container: var(--color-text-primary);
+
+  --info: var(--color-info-primary);
+  --on-info: var(--color-text-inverse);
+  --info-container: var(--color-message-bg-info);
+  --on-info-container: var(--color-text-primary);
+
+  --text-placeholder: var(--color-text-placeholder);
+  --text-disabled: var(--color-text-disabled);
+  --text-inverse-disabled: var(--color-text-inverse-disabled);
+
+  --interactive-link: var(--color-link);
+  --interactive-link-hover: var(--color-link-hover);
+  --interactive-link-active: var(--color-link-active);
+  --interactive-link-visited: var(--color-link-visited);
+  --interactive-link-disabled: var(--color-link-disabled);
+  
+  --scrim: var(--color-bg-mask);
+  --outline: var(--color-border);
+  --outline-variant: var(--color-border-separator);
+  --divider: var(--color-border-separator);
+  --focus-ring: var(--color-border-focus);
+  --selected: var(--color-border-focus);
+
+  /* ── spacing → --spacing-* ── */
+  --spacing-inline: var(--spacing-2);   /* 8px */
+  --spacing-stack: var(--spacing-3);    /* 12px */
+  --spacing-gutter: var(--spacing-4);  /* 16px */
+  --spacing-inset: var(--spacing-6);    /* 24px */
+  --spacing-section: var(--spacing-4); /* 16px */
+  --spacing-page: var(--spacing-8);      /* 32px */
+
+  /* ── boxShadow ── */
+  --shadow-card: var(--shadow-sm);
+  --shadow-popover: var(--shadow-lg);
+  --shadow-modal: var(--shadow-xl);
+
+  /* ── borderRadius → --radius-* ── */
+  --radius-badge: var(--radius-base);  /* 4px */
+  --radius-action: var(--radius-base); /* 4px */
+  --radius-container: var(--radius-lg); /* 8px */
+  --radius-overlay: var(--radius-lg);  /* 8px */
+
+  /* ── border & outline width ── */
+  --border-width-thin: 1px;    
+  --border-width-thick: 2px;  
+  --outline-width-focus: 1px;
+  --outline-offset-gap: 2px;
+
+  /* ── typography → --font-*（角色化 font 简写：字号/行高 字族；字重另行用 --font-weight-* 组合）── */
+  /* Display 展示文本 — 英雄标语、数据看板大数字 */
+  --font-display-l: var(--font-size-7xl)/var(--line-height-xs) var(--font-family);    /* 60px/1.25 */
+  --font-display-m: var(--font-size-6xl)/var(--line-height-sm) var(--font-family);    /* 48px/1.375 */
+  --font-display-s: var(--font-size-5xl)/var(--line-height-sm) var(--font-family);    /* 36px/1.375 */
+  /* Headline 标题 — 页面区块标题(H3)→卡片标题→表单区标题 */
+  --font-headline-l: var(--font-size-2xl)/var(--line-height-sm) var(--font-family);   /* 20px/1.375 */
+  --font-headline-m: var(--font-size-xl)/var(--line-height-sm) var(--font-family);    /* 18px/1.375 */
+  --font-headline-s: var(--font-size-lg)/var(--line-height-base) var(--font-family);  /* 16px/1.5 */
+  /* Body 正文 — 表单标签/按钮文字→表格正文→辅助说明 */
+  --font-body-l: var(--font-size-lg)/var(--line-height-base) var(--font-family);      /* 16px/1.5 */
+  --font-body-m: var(--font-size-md)/var(--line-height-base) var(--font-family);      /* 14px/1.5 */
+  --font-body-s: var(--font-size-base)/var(--line-height-md) var(--font-family);      /* 12px/1.625 */
+  /* Caption 注释 — 时间戳/表格附加信息→底部免责声明 */
+  --font-caption-m: var(--font-size-base)/var(--line-height-md) var(--font-family);   /* 12px/1.625 */
+  --font-caption-s: var(--font-size-sm)/var(--line-height-lg) var(--font-family);    /* 10px/1.8 */
+}
+/* === ported :root tokens (from demo html) === */
+:root{
+  /* —— duration-tokens（全局域） —— */
+  --duration-instant:50ms;   /* ripple 起始、颜色高亮 */
+  --duration-micro:100ms;    /* 按下反馈、快退场 */
+  --duration-small:200ms;    /* 退场上限、Tooltip */
+  --duration-medium:300ms;   /* 弹窗出现、内容入场 */
+  --duration-large:400ms;    /* 页面转场、用户触发上限 */
+  --duration-xl:500ms;       /* 全屏展开（系统触发） */
+  --duration-xxl:700ms;      /* 品牌级 Splash */
+
+  --stagger-tight:30ms;      /* 密集小元素 */
+  --stagger-normal:50ms;     /* 常规列表 */
+  --stagger-loose:80ms;      /* 大卡片列表 */
+  /* stagger 上限 8 项，超出直接同显 */
+
+  /* —— data-visualization 内联令牌（仅图表域：图表/拓扑/数字） —— */
+  --dv-micro:80ms;
+  --dv-small:150ms;
+  --dv-medium:250ms;
+  --dv-large:400ms;
+  --dv-xl:500ms;
+
+  /* —— 循环周期（提案值 · 待规范组注册；调整只改此处） —— */
+  --loop-flow-sm:1600ms;     /* 流光·小组件（屏占比<5%） */
+  --loop-flow-md:2600ms;     /* 流光·中面板（~20%） */
+  --loop-flow-lg:9000ms;     /* 流光·大横幅（>60%）· 间歇出场：前30%扫过后70%驻留 */
+  --loop-guide-cycle:7200ms; /* 流程引导光整轮（单跳1800ms×3+驻留） */
+  --loop-pulse:3000ms;       /* 节点脉冲 */
+  --loop-optical:2600ms;     /* 光互联扫光波次 */
+  --loop-elec:2600ms;        /* 电互联粒子簇走线周期（节拍=周期/簇数） */
+  --flow-ring-in:1200ms;     /* 描边流光顺时针描绘入场（一次性 · 提案） */
+
+  /* —— 业务流光四色（提案 · 待注册） —— */
+  --fc1:#669FFF; --fc2:#7A66FF; --fc3:#FF666B; --fc4:#FFAD66;
+
+  /* —— easing-system 注册曲线（全量） —— */
+  --ease-standard:cubic-bezier(.40,0,.20,1);            /* 通用默认 */
+  --ease-standard-soft:cubic-bezier(.20,0,.10,1);       /* 大面积柔和 */
+  --ease-standard-snappy:cubic-bezier(.33,0,.67,1);     /* 小组件利落 */
+  --ease-standard-symmetric:cubic-bezier(.40,0,.40,1);  /* 双向对称（引导光单跳） */
+  --ease-decelerate:cubic-bezier(0,0,.20,1);            /* 标准入场 */
+  --ease-decelerate-gentle:cubic-bezier(0,0,0,1);       /* 极缓收尾 */
+  --ease-accelerate:cubic-bezier(.40,0,1,1);            /* 标准退场 */
+  --ease-accelerate-sharp:cubic-bezier(1,0,1,1);        /* 极速离场 */
+  --ease-emphasized:cubic-bezier(.20,0,.10,1);          /* 强调通用 */
+  --ease-emphasized-decelerate:cubic-bezier(.05,.70,.10,1); /* 强调入场（图表描绘/柱/数字） */
+  --ease-emphasized-accelerate:cubic-bezier(.30,0,.80,.15); /* 强调退场 */
+  --ease-linear:cubic-bezier(0,0,1,1);                  /* 仅颜色/透明度/background-position */
+}
+:root{--hc-text:#eee;--hc-muted:#b3b3b3;--hc-panel:#191919;--hc-selected:#007dff;--hc-radius:8px;--hc-font:Harmony,"Microsoft YaHei",sans-serif}
+:root{
+--hc-item-index:initial;
+--hc-ring-width:initial;
+--hc-flow-angle:initial;
+--ept-grade-color:initial;
+--event-icon-size:initial;
+--linked-glow:initial;
+--nic-arrow-x:270px;
+--nic-cabinet-source:initial;
+--leaf:initial;
+--evt-enter-delay:0ms;
+--evt-bar-index:initial;
+--evt-data-angle:initial;
+--evt-light-peak:1;
+--metric-delay:initial;
+--typing-steps:20;
+--legend-color:initial;
+--leaf-image:initial;
+--metric-color:initial;
+--load-hover:initial;
+--home-scale:1;
+--control-height:initial;
+--control-font:initial;
+--page-size:initial;
+--summary-severity:#fa6870;
+--arrow-x:initial;
+--evt-isolation-x:initial;
+--evt-isolation-y:initial;
+--status-color:initial;
+}

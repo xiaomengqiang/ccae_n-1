@@ -1,0 +1,61 @@
+<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40.000000" height="40.000000" fill="none">
+	<defs>
+		<g id="pixso_custom_effect_83">
+			<effect x="-0.833333" y="-0.833333" visibility="visible" fill="rgb(255,255,255)" fill-opacity="0.749019623" effectType="innerShadow" stdDeviation="3.33333325" radius="0" />
+		</g>
+		<filter id="filter_83" width="37.500000" height="37.500000" x="1.250000" y="1.250000" filterUnits="userSpaceOnUse" customEffect="url(#pixso_custom_effect_83)" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix" />
+			<feBlend result="shape" in="SourceGraphic" in2="BackgroundImageFix" mode="normal" />
+			<feColorMatrix result="hardAlpha" in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.25 0 " />
+			<feOffset dx="-0.833333" dy="-0.833333" in="hardAlpha" />
+			<feGaussianBlur stdDeviation="1.11111104" />
+			<feComposite k2="-1" k3="1" in2="hardAlpha" operator="arithmetic" />
+			<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.74902 0 " />
+			<feBlend result="effect_innerShadow_1" in2="shape" mode="normal" />
+		</filter>
+		<clipPath id="clipPath_13">
+			<rect width="24.166666" height="24.166666" x="8.333008" y="7.500000" fill="rgb(255,255,255)" />
+		</clipPath>
+		<g id="pixso_custom_effect_84">
+			<effect x="0.833333" y="1.666667" visibility="visible" fill="rgb(45,45,45)" fill-opacity="0.125490203" effectType="dropShadow" stdDeviation="1.66666663" radius="0" />
+		</g>
+		<filter id="filter_84" width="20.666992" height="30.458008" x="10.893555" y="5.365479" filterUnits="userSpaceOnUse" customEffect="url(#pixso_custom_effect_84)" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix" />
+			<feColorMatrix result="hardAlpha" in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0 " />
+			<feOffset dx="0.833333" dy="1.666667" in="hardAlpha" />
+			<feGaussianBlur stdDeviation="0.555555522" />
+			<feComposite k2="-1" k3="1" in2="hardAlpha" operator="out" />
+			<feColorMatrix type="matrix" values="0 0 0 0 0.176471 0 0 0 0 0.176471 0 0 0 0 0.176471 0 0 0 0.12549 0 " />
+			<feBlend result="effect_dropShadow_1" in2="BackgroundImageFix" mode="normal" />
+			<feBlend result="shape" in="SourceGraphic" in2="effect_dropShadow_1" mode="normal" />
+		</filter>
+		<linearGradient id="paint_linear_60" x1="20.3816605" x2="46.6835175" y1="5.36547852" y2="29.4075489" gradientUnits="userSpaceOnUse">
+			<stop stop-color="rgb(235,235,235)" offset="0.0499773659" stop-opacity="1" />
+			<stop stop-color="rgb(255,255,255)" offset="0.409302235" stop-opacity="0.917647064" />
+			<stop stop-color="rgb(255,255,255)" offset="1" stop-opacity="0.574712634" />
+		</linearGradient>
+		<linearGradient id="paint_linear_61" x1="13.5396881" x2="32.2963524" y1="15.1790133" y2="23.0661697" gradientUnits="userSpaceOnUse">
+			<stop stop-color="rgb(255,255,255)" offset="0" stop-opacity="1" />
+			<stop stop-color="rgb(255,255,255)" offset="1" stop-opacity="0" />
+		</linearGradient>
+	</defs>
+	<rect id="ic_ict_interruption_times" width="40.000000" height="40.000000" x="0.000000" y="0.000000" />
+	<g id="ic_ict_interruption_times-信令面中断次数/base/ic_ict_interruption_times">
+		<g opacity="0.799999952" filter="url(#filter_83)">
+			<path id="path1" d="M1.25456 19.9847C1.25456 17.0555 1.2443 14.1263 1.25456 11.197C1.24866 9.77957 1.42288 8.36711 1.77303 6.99357C2.54049 4.0863 4.43424 2.36098 7.33858 1.69165C8.79485 1.37701 10.2823 1.2296 11.772 1.25227C17.3893 1.25227 23.007 1.25227 28.6253 1.25227C30.0442 1.24346 31.459 1.40574 32.839 1.73559C35.8312 2.4679 37.6269 4.36312 38.3108 7.34508C38.6183 8.7544 38.7652 10.194 38.7487 11.6364C38.7487 17.3142 38.7487 22.9926 38.7487 28.6714C38.7564 30.0766 38.5946 31.4776 38.2669 32.8441C37.5346 35.8377 35.6306 37.6246 32.6486 38.3086C31.1922 38.622 29.7049 38.7694 28.2152 38.7479C22.6214 38.7479 17.028 38.7479 11.4351 38.7479C10.0054 38.7596 8.5794 38.5998 7.18772 38.2719C4.18233 37.5396 2.37792 35.6356 1.69541 32.639C1.34683 31.1158 1.25456 29.5882 1.25456 28.0474C1.25456 25.3604 1.25456 22.6728 1.25456 19.9847Z" fill="rgb(83,83,83)" fill-rule="nonzero" />
+		</g>
+		<g id="svg 11" clip-path="url(#clipPath_13)" customFrame="url(#clipPath_13)">
+			<rect id="svg 11" width="24.166666" height="24.166666" x="8.333008" y="7.500000" />
+			<g filter="url(#filter_84)">
+				<path id="path6" d="M21.2797 16.6911L21.4051 6.80465C21.4101 6.41167 20.8912 6.26628 20.6912 6.60465L11.8692 21.5369C11.7182 21.7926 11.9025 22.1156 12.1995 22.1156L19.5535 22.1159L19.3813 32.0151C19.3745 32.4044 19.8851 32.555 20.0907 32.2243L25.4995 23.5238L28.9256 17.2588C29.0654 17.0032 28.8804 16.6912 28.589 16.6912L21.2797 16.6911Z" fill="url(#paint_linear_60)" fill-rule="evenodd" />
+				<path id="path6" d="M21.2797 16.6911L28.589 16.6912C28.8804 16.6912 29.0654 17.0032 28.9256 17.2588L25.4995 23.5238L20.0907 32.2243C19.8851 32.555 19.3745 32.4044 19.3813 32.0151L19.5535 22.1159L12.1995 22.1156C11.9025 22.1156 11.7182 21.7926 11.8692 21.5369L20.6912 6.60465C20.8912 6.26628 21.4101 6.41167 21.4051 6.80465L21.2797 16.6911Z" fill-rule="evenodd" stroke="url(#paint_linear_61)" stroke-width="0.166667" />
+			</g>
+		</g>
+		<path id="path2" d="M1.25456 19.9847C1.25456 17.0555 1.2443 14.1263 1.25456 11.197C1.24866 9.77957 1.42288 8.36711 1.77303 6.99357C2.54049 4.0863 4.43424 2.36098 7.33858 1.69165C8.79485 1.37701 10.2823 1.2296 11.772 1.25227C17.3893 1.25227 23.007 1.25227 28.6253 1.25227C30.0442 1.24346 31.459 1.40574 32.839 1.73559C35.8312 2.4679 37.6269 4.36312 38.3108 7.34508C38.6183 8.7544 38.7652 10.194 38.7487 11.6364C38.7487 17.3142 38.7487 22.9926 38.7487 28.6714C38.7564 30.0766 38.5946 31.4776 38.2669 32.8441C37.5346 35.8377 35.6306 37.6246 32.6486 38.3086C31.1922 38.622 29.7049 38.7694 28.2152 38.7479C22.6214 38.7479 17.028 38.7479 11.4351 38.7479C10.0054 38.7596 8.5794 38.5998 7.18772 38.2719C4.18233 37.5396 2.37792 35.6356 1.69541 32.639C1.34683 31.1158 1.25456 29.5882 1.25456 28.0474C1.25456 25.3604 1.25456 22.6728 1.25456 19.9847Z" fill="rgb(0,0,0)" fill-opacity="0" fill-rule="nonzero" />
+		<path id="path2" d="M1.25456 11.197C1.24866 9.77957 1.42288 8.36711 1.77303 6.99357C2.54049 4.0863 4.43424 2.36098 7.33858 1.69165C8.79485 1.37701 10.2823 1.2296 11.772 1.25227C17.3893 1.25227 23.007 1.25227 28.6253 1.25227C30.0442 1.24346 31.459 1.40574 32.839 1.73559C35.8312 2.4679 37.6269 4.36312 38.3108 7.34508C38.6183 8.7544 38.7652 10.194 38.7487 11.6364C38.7487 17.3142 38.7487 22.9926 38.7487 28.6714C38.7564 30.0766 38.5946 31.4776 38.2669 32.8441C37.5346 35.8378 35.6306 37.6246 32.6486 38.3086C31.1922 38.622 29.7049 38.7694 28.2152 38.7479C22.6214 38.7479 17.028 38.7479 11.4351 38.7479C10.0054 38.7596 8.5794 38.5998 7.18772 38.2719C4.18233 37.5396 2.37792 35.6356 1.69541 32.639C1.34683 31.1158 1.25456 29.5882 1.25456 28.0474C1.25456 25.3604 1.25456 22.6728 1.25456 19.9847C1.25456 17.0555 1.2443 14.1263 1.25456 11.197Z" fill-rule="nonzero" stroke="rgb(255,255,255)" stroke-opacity="0" stroke-width="0.833333" />
+		<circle id="path3" cx="20" cy="20" r="20" fill="rgb(255,255,255)" fill-opacity="0" />
+		<circle id="path3" cx="20" cy="20" r="20" stroke="rgb(0,0,0)" stroke-opacity="0" stroke-width="0.833333" />
+		<path id="path4" d="M20 12.5L20 15.4166M20 24.5834L20 27.5" stroke="rgb(255,255,255)" stroke-opacity="0" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.833333" />
+		<path id="path5" d="M15.5367 13.75L17.183 15.393C17.3459 15.5556 17.3462 15.8194 17.1836 15.9823C17.1055 16.0606 16.9994 16.1046 16.8887 16.1046L14.167 16.1046C12.7863 16.1046 11.667 17.2239 11.667 18.6046L11.667 21.3954C11.667 22.7761 12.7863 23.8954 14.167 23.8954L16.8887 23.8954C17.1188 23.8954 17.3054 24.0819 17.3054 24.312C17.3054 24.4227 17.2614 24.5288 17.183 24.607L15.5367 26.25M24.464 13.75L22.8176 15.393C22.6547 15.5556 22.6545 15.8194 22.817 15.9823C22.8952 16.0606 23.0013 16.1046 23.1119 16.1046L25.8337 16.1046C27.2144 16.1046 28.3337 17.2239 28.3337 18.6046L28.3337 21.3954C28.3337 22.7761 27.2144 23.8954 25.8337 23.8954L23.1119 23.8954C22.8818 23.8954 22.6953 24.0819 22.6953 24.312C22.6953 24.4227 22.7393 24.5288 22.8176 24.607L24.464 26.25" stroke="rgb(255,255,255)" stroke-opacity="0" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.833333" />
+	</g>
+</svg>

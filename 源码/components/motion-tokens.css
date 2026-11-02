@@ -1,0 +1,65 @@
+/* ============================================================
+   motion-tokens.css — 动效令牌唯一来源
+   依据：duration-tokens / easing-system / data-visualization
+   使用规则见 AGENTS.md。禁止在业务代码中出现此文件之外的
+   时长毫秒值或 cubic-bezier。
+   ============================================================ */
+:root{
+  /* —— duration-tokens（全局域） —— */
+  --duration-instant:50ms;   /* ripple 起始、颜色高亮 */
+  --duration-micro:100ms;    /* 按下反馈、快退场 */
+  --duration-small:200ms;    /* 退场上限、Tooltip */
+  --duration-medium:300ms;   /* 弹窗出现、内容入场 */
+  --duration-large:400ms;    /* 页面转场、用户触发上限 */
+  --duration-xl:500ms;       /* 全屏展开（系统触发） */
+  --duration-xxl:700ms;      /* 品牌级 Splash */
+
+  --stagger-tight:30ms;      /* 密集小元素 */
+  --stagger-normal:50ms;     /* 常规列表 */
+  --stagger-loose:80ms;      /* 大卡片列表 */
+  /* stagger 上限 8 项，超出直接同显 */
+
+  /* —— data-visualization 内联令牌（仅图表域：图表/拓扑/数字） —— */
+  --dv-micro:80ms;
+  --dv-small:150ms;
+  --dv-medium:250ms;
+  --dv-large:400ms;
+  --dv-xl:500ms;
+
+  /* —— 循环周期（提案值 · 待规范组注册；调整只改此处） —— */
+  --loop-flow-sm:1600ms;     /* 流光·小组件（屏占比<5%） */
+  --loop-flow-md:2600ms;     /* 流光·中面板（~20%） */
+  --loop-flow-lg:9000ms;     /* 流光·大横幅（>60%）· 间歇出场：前30%扫过后70%驻留 */
+  --loop-guide-cycle:7200ms; /* 流程引导光整轮（单跳1800ms×3+驻留） */
+  --loop-pulse:3000ms;       /* 节点脉冲 */
+  --loop-optical:2600ms;     /* 光互联扫光波次 */
+  --loop-elec:2600ms;        /* 电互联粒子簇走线周期（节拍=周期/簇数） */
+  --flow-ring-in:1200ms;     /* 描边流光顺时针描绘入场（一次性 · 提案） */
+
+  /* —— 业务流光四色（提案 · 待注册） —— */
+  --fc1:#669FFF; --fc2:#7A66FF; --fc3:#FF666B; --fc4:#FFAD66;
+
+  /* —— easing-system 注册曲线（全量） —— */
+  --ease-standard:cubic-bezier(.40,0,.20,1);            /* 通用默认 */
+  --ease-standard-soft:cubic-bezier(.20,0,.10,1);       /* 大面积柔和 */
+  --ease-standard-snappy:cubic-bezier(.33,0,.67,1);     /* 小组件利落 */
+  --ease-standard-symmetric:cubic-bezier(.40,0,.40,1);  /* 双向对称（引导光单跳） */
+  --ease-decelerate:cubic-bezier(0,0,.20,1);            /* 标准入场 */
+  --ease-decelerate-gentle:cubic-bezier(0,0,0,1);       /* 极缓收尾 */
+  --ease-accelerate:cubic-bezier(.40,0,1,1);            /* 标准退场 */
+  --ease-accelerate-sharp:cubic-bezier(1,0,1,1);        /* 极速离场 */
+  --ease-emphasized:cubic-bezier(.20,0,.10,1);          /* 强调通用 */
+  --ease-emphasized-decelerate:cubic-bezier(.05,.70,.10,1); /* 强调入场（图表描绘/柱/数字） */
+  --ease-emphasized-accelerate:cubic-bezier(.30,0,.80,.15); /* 强调退场 */
+  --ease-linear:cubic-bezier(0,0,1,1);                  /* 仅颜色/透明度/background-position */
+}
+
+/* 全站必备：reduced motion 适配 */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+  html{scroll-behavior:auto}
+}

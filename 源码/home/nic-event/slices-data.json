@@ -1,0 +1,4523 @@
+{
+  "isFromPlugin": true,
+  "name": "杂七杂八",
+  "document": {
+    "id": "0:0",
+    "name": "杂七杂八",
+    "type": "DOCUMENT",
+    "children": [
+      {
+        "id": "143:106866",
+        "name": "HC",
+        "type": "CANVAS",
+        "backgroundColor": {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.9372549019607843,
+            "g": 0.9372549019607843,
+            "b": 0.9372549019607843
+          },
+          "boundVariables": {}
+        },
+        "children": [
+          {
+            "id": "146:109653",
+            "name": "下拉框样式",
+            "type": "FRAME",
+            "visible": true,
+            "locked": false,
+            "blendMode": "PASS_THROUGH",
+            "clipsContent": false,
+            "absoluteTransform": [
+              [
+                1,
+                0,
+                2374
+              ],
+              [
+                0,
+                1,
+                417
+              ]
+            ],
+            "relativeTransform": [
+              [
+                1,
+                0,
+                2374
+              ],
+              [
+                0,
+                1,
+                417
+              ]
+            ],
+            "effects": [],
+            "isMask": false,
+            "fills": [],
+            "strokes": [],
+            "strokeWeight": 1,
+            "strokeAlign": "INSIDE",
+            "absoluteBoundingBox": {
+              "x": 2374,
+              "y": 417,
+              "width": 234,
+              "height": 100
+            },
+            "exportSettings": [],
+            "children": [
+              {
+                "id": "146:109654",
+                "name": "2.选择面板-默认",
+                "type": "INSTANCE",
+                "visible": true,
+                "locked": false,
+                "blendMode": "PASS_THROUGH",
+                "clipsContent": false,
+                "absoluteTransform": [
+                  [
+                    1,
+                    0,
+                    2374
+                  ],
+                  [
+                    0,
+                    1,
+                    417
+                  ]
+                ],
+                "relativeTransform": [
+                  [
+                    1,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1,
+                    0
+                  ]
+                ],
+                "effects": [
+                  {
+                    "type": "DROP_SHADOW",
+                    "visible": true,
+                    "radius": 12,
+                    "offset": {
+                      "x": 0,
+                      "y": 4
+                    },
+                    "spread": 0,
+                    "showShadowBehindNode": true,
+                    "color": {
+                      "r": 0,
+                      "g": 0,
+                      "b": 0,
+                      "a": 0.5019607843137255
+                    },
+                    "blendMode": "NORMAL"
+                  }
+                ],
+                "isMask": false,
+                "variantProperties": [
+                  [
+                    "组件尺寸",
+                    "小尺寸"
+                  ],
+                  [
+                    "选项数量",
+                    "3"
+                  ]
+                ],
+                "mainComponent": {
+                  "id": "146:109729",
+                  "name": "2.选择面板",
+                  "key": "8e18e658a18aec24c6ab97c05d5dfae89235f3be",
+                  "description": ""
+                },
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "blendMode": "NORMAL",
+                    "opacity": 1,
+                    "visible": true,
+                    "color": {
+                      "r": 0.2235294117647059,
+                      "g": 0.2235294117647059,
+                      "b": 0.2235294117647059
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1,
+                "strokeAlign": "INSIDE",
+                "styles": {
+                  "fill": {
+                    "id": "146:109976",
+                    "key": "6efda4ff44c190e7d65e875de161fd7031e77552",
+                    "name": "场景_Backgroundcolor_color_bg_4",
+                    "description": "弹窗/下拉面板背景色",
+                    "remote": true
+                  },
+                  "effect": {
+                    "id": "146:109977",
+                    "key": "7be0fb8315c63320427e53885c57195d453325b7",
+                    "name": "Shadow_1.1_下拉选择_效果",
+                    "description": "",
+                    "remote": true
+                  }
+                },
+                "cornerRadius": 6,
+                "rectangleCornerRadii": [
+                  6,
+                  6,
+                  6,
+                  6
+                ],
+                "absoluteBoundingBox": {
+                  "x": 2374,
+                  "y": 417,
+                  "width": 96,
+                  "height": 100
+                },
+                "exportSettings": [],
+                "children": [
+                  {
+                    "id": "I146:109654;146:109730",
+                    "name": ".选择单项",
+                    "type": "INSTANCE",
+                    "visible": true,
+                    "locked": false,
+                    "blendMode": "PASS_THROUGH",
+                    "clipsContent": false,
+                    "absoluteTransform": [
+                      [
+                        1,
+                        0,
+                        2378
+                      ],
+                      [
+                        0,
+                        1,
+                        421
+                      ]
+                    ],
+                    "relativeTransform": [
+                      [
+                        1,
+                        0,
+                        4
+                      ],
+                      [
+                        0,
+                        1,
+                        4
+                      ]
+                    ],
+                    "effects": [],
+                    "isMask": false,
+                    "variantProperties": [
+                      [
+                        "组件类型",
+                        "选择项"
+                      ],
+                      [
+                        "组件尺寸",
+                        "小尺寸"
+                      ],
+                      [
+                        "组件状态",
+                        "默认"
+                      ]
+                    ],
+                    "mainComponent": {
+                      "id": "146:109657",
+                      "name": ".选择单项",
+                      "key": "9e06ea33fec96f41357070fb897f49f4140b82b6",
+                      "description": ""
+                    },
+                    "fills": [],
+                    "strokes": [],
+                    "strokeWeight": 1,
+                    "strokeAlign": "INSIDE",
+                    "cornerRadius": 4,
+                    "rectangleCornerRadii": [
+                      4,
+                      4,
+                      4,
+                      4
+                    ],
+                    "absoluteBoundingBox": {
+                      "x": 2378,
+                      "y": 421,
+                      "width": 88,
+                      "height": 28
+                    },
+                    "exportSettings": [],
+                    "children": [
+                      {
+                        "id": "I146:109654;146:109730;146:109658",
+                        "name": "选项内容",
+                        "type": "FRAME",
+                        "visible": true,
+                        "locked": false,
+                        "blendMode": "PASS_THROUGH",
+                        "clipsContent": false,
+                        "absoluteTransform": [
+                          [
+                            1,
+                            0,
+                            2386
+                          ],
+                          [
+                            0,
+                            1,
+                            425
+                          ]
+                        ],
+                        "relativeTransform": [
+                          [
+                            1,
+                            0,
+                            8
+                          ],
+                          [
+                            0,
+                            1,
+                            4
+                          ]
+                        ],
+                        "effects": [],
+                        "isMask": false,
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1,
+                        "strokeAlign": "INSIDE",
+                        "absoluteBoundingBox": {
+                          "x": 2386,
+                          "y": 425,
+                          "width": 36,
+                          "height": 20
+                        },
+                        "exportSettings": [],
+                        "children": [
+                          {
+                            "id": "I146:109654;146:109730;146:109659",
+                            "name": "前缀图标",
+                            "type": "INSTANCE",
+                            "visible": false,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "clipsContent": false,
+                            "absoluteTransform": [
+                              [
+                                1,
+                                0,
+                                2386
+                              ],
+                              [
+                                0,
+                                1,
+                                429
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                4
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "variantProperties": [
+                              [
+                                "尺寸",
+                                "12"
+                              ]
+                            ],
+                            "mainComponent": {
+                              "id": "14:252",
+                              "name": "文件",
+                              "key": "4c2615742824791e5c34ebef6d4902597877d68a",
+                              "description": ""
+                            },
+                            "fills": [],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "absoluteBoundingBox": {
+                              "x": 2386,
+                              "y": 429,
+                              "width": 12,
+                              "height": 12
+                            },
+                            "exportSettings": [],
+                            "children": [
+                              {
+                                "id": "I146:109654;146:109730;146:109659;14:253",
+                                "name": "合并",
+                                "type": "VECTOR",
+                                "visible": true,
+                                "locked": false,
+                                "blendMode": "PASS_THROUGH",
+                                "absoluteTransform": [
+                                  [
+                                    1,
+                                    0,
+                                    2386.8515625
+                                  ],
+                                  [
+                                    0,
+                                    1,
+                                    429
+                                  ]
+                                ],
+                                "relativeTransform": [
+                                  [
+                                    1,
+                                    0,
+                                    0.8515625
+                                  ],
+                                  [
+                                    0,
+                                    1,
+                                    0
+                                  ]
+                                ],
+                                "effects": [],
+                                "isMask": false,
+                                "fills": [
+                                  {
+                                    "type": "SOLID",
+                                    "blendMode": "NORMAL",
+                                    "opacity": 1,
+                                    "visible": true,
+                                    "color": {
+                                      "r": 0.09803921568627451,
+                                      "g": 0.09803921568627451,
+                                      "b": 0.09803921568627451
+                                    }
+                                  }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 1,
+                                "strokeAlign": "INSIDE",
+                                "styles": {
+                                  "fill": {
+                                    "id": "14:339",
+                                    "key": "7fc4a64d47dcc8f5099a76822ff9d7c49aeb3a6b",
+                                    "name": "场景_Iconcolor_color_icon_primary",
+                                    "description": "",
+                                    "remote": true
+                                  }
+                                },
+                                "absoluteBoundingBox": {
+                                  "x": 2386.8515625,
+                                  "y": 429,
+                                  "width": 10.31787109375,
+                                  "height": 12
+                                },
+                                "exportSettings": []
+                              }
+                            ]
+                          },
+                          {
+                            "id": "I146:109654;146:109730;146:109660",
+                            "name": " 选项文本",
+                            "type": "TEXT",
+                            "visible": true,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "absoluteTransform": [
+                              [
+                                1,
+                                0,
+                                2386
+                              ],
+                              [
+                                0,
+                                1,
+                                425
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                0
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "characters": "近一天",
+                            "isMixedText": false,
+                            "textTable": [],
+                            "style": {
+                              "fillStyleId": "74:14477",
+                              "textStyleId": "14:343",
+                              "fontSize": 12,
+                              "fontFamily": "HarmonyOS Sans SC",
+                              "fontWeight": "regular",
+                              "textDecoration": "NONE",
+                              "letterSpacing": 0,
+                              "letterSpacingUnit": "PIXELS",
+                              "lineHeight": 20,
+                              "lineHeightUnit": "PIXELS",
+                              "fills": [
+                                {
+                                  "type": "SOLID",
+                                  "blendMode": "NORMAL",
+                                  "opacity": 1,
+                                  "visible": true,
+                                  "color": {
+                                    "r": 1,
+                                    "g": 1,
+                                    "b": 1
+                                  }
+                                }
+                              ],
+                              "textAlignHorizontal": "LEFT",
+                              "textAlignVertical": "TOP"
+                            },
+                            "fills": [
+                              {
+                                "type": "SOLID",
+                                "blendMode": "NORMAL",
+                                "opacity": 1,
+                                "visible": true,
+                                "color": {
+                                  "r": 1,
+                                  "g": 1,
+                                  "b": 1
+                                }
+                              }
+                            ],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "styles": {
+                              "fill": {
+                                "id": "74:14477",
+                                "key": "22854756b2da07b7034835bf0d68e96d75336e8e",
+                                "name": "场景_Textcolor_color_text_primary",
+                                "description": "",
+                                "remote": true
+                              },
+                              "text": {
+                                "id": "14:343",
+                                "key": "d1052119d1e6068f948db662072a951ac912ae6b",
+                                "name": "Body_font_body_1（Regular）",
+                                "description": "",
+                                "remote": true
+                              }
+                            },
+                            "absoluteBoundingBox": {
+                              "x": 2386,
+                              "y": 425,
+                              "width": 36,
+                              "height": 20
+                            },
+                            "exportSettings": []
+                          }
+                        ]
+                      },
+                      {
+                        "id": "I146:109654;146:109730;146:109661",
+                        "name": "展开箭头",
+                        "type": "INSTANCE",
+                        "visible": false,
+                        "locked": false,
+                        "blendMode": "PASS_THROUGH",
+                        "clipsContent": false,
+                        "absoluteTransform": [
+                          [
+                            1,
+                            0,
+                            2450
+                          ],
+                          [
+                            0,
+                            1,
+                            431
+                          ]
+                        ],
+                        "relativeTransform": [
+                          [
+                            1,
+                            0,
+                            72
+                          ],
+                          [
+                            0,
+                            1,
+                            10
+                          ]
+                        ],
+                        "effects": [],
+                        "isMask": false,
+                        "variantProperties": [
+                          [
+                            "尺寸",
+                            "8"
+                          ],
+                          [
+                            "方向",
+                            "右箭头"
+                          ]
+                        ],
+                        "mainComponent": {
+                          "id": "14:157",
+                          "name": "箭头",
+                          "key": "d45fbfb6ad015a6be28dd8f4a40501e3d72aa67c",
+                          "description": ""
+                        },
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1,
+                        "strokeAlign": "INSIDE",
+                        "absoluteBoundingBox": {
+                          "x": 2450,
+                          "y": 431,
+                          "width": 8,
+                          "height": 8
+                        },
+                        "exportSettings": [],
+                        "children": [
+                          {
+                            "id": "I146:109654;146:109730;146:109661;14:158",
+                            "name": "合并",
+                            "type": "VECTOR",
+                            "visible": true,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "absoluteTransform": [
+                              [
+                                0,
+                                1,
+                                2451.897705078125
+                              ],
+                              [
+                                1,
+                                0,
+                                430.9443359375
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                0,
+                                1,
+                                1.897705078125
+                              ],
+                              [
+                                1,
+                                0,
+                                -0.0556640625
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "fills": [
+                              {
+                                "type": "SOLID",
+                                "blendMode": "NORMAL",
+                                "opacity": 1,
+                                "visible": true,
+                                "color": {
+                                  "r": 0.09803921568627451,
+                                  "g": 0.09803921568627451,
+                                  "b": 0.09803921568627451
+                                }
+                              }
+                            ],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "styles": {
+                              "fill": {
+                                "id": "14:339",
+                                "key": "7fc4a64d47dcc8f5099a76822ff9d7c49aeb3a6b",
+                                "name": "场景_Iconcolor_color_icon_primary",
+                                "description": "",
+                                "remote": true
+                              }
+                            },
+                            "absoluteBoundingBox": {
+                              "x": 2451.897705078125,
+                              "y": 430.9443359375,
+                              "width": 8.0040864944458,
+                              "height": 4.6844329833984375
+                            },
+                            "exportSettings": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "I146:109654;146:109731",
+                    "name": ".选择单项",
+                    "type": "INSTANCE",
+                    "visible": true,
+                    "locked": false,
+                    "blendMode": "PASS_THROUGH",
+                    "clipsContent": false,
+                    "absoluteTransform": [
+                      [
+                        1,
+                        0,
+                        2378
+                      ],
+                      [
+                        0,
+                        1,
+                        453
+                      ]
+                    ],
+                    "relativeTransform": [
+                      [
+                        1,
+                        0,
+                        4
+                      ],
+                      [
+                        0,
+                        1,
+                        36
+                      ]
+                    ],
+                    "effects": [],
+                    "isMask": false,
+                    "variantProperties": [
+                      [
+                        "组件类型",
+                        "选择项"
+                      ],
+                      [
+                        "组件尺寸",
+                        "小尺寸"
+                      ],
+                      [
+                        "组件状态",
+                        "默认"
+                      ]
+                    ],
+                    "mainComponent": {
+                      "id": "146:109657",
+                      "name": ".选择单项",
+                      "key": "9e06ea33fec96f41357070fb897f49f4140b82b6",
+                      "description": ""
+                    },
+                    "fills": [],
+                    "strokes": [],
+                    "strokeWeight": 1,
+                    "strokeAlign": "INSIDE",
+                    "cornerRadius": 4,
+                    "rectangleCornerRadii": [
+                      4,
+                      4,
+                      4,
+                      4
+                    ],
+                    "absoluteBoundingBox": {
+                      "x": 2378,
+                      "y": 453,
+                      "width": 88,
+                      "height": 28
+                    },
+                    "exportSettings": [],
+                    "children": [
+                      {
+                        "id": "I146:109654;146:109731;146:109658",
+                        "name": "选项内容",
+                        "type": "FRAME",
+                        "visible": true,
+                        "locked": false,
+                        "blendMode": "PASS_THROUGH",
+                        "clipsContent": false,
+                        "absoluteTransform": [
+                          [
+                            1,
+                            0,
+                            2386
+                          ],
+                          [
+                            0,
+                            1,
+                            457
+                          ]
+                        ],
+                        "relativeTransform": [
+                          [
+                            1,
+                            0,
+                            8
+                          ],
+                          [
+                            0,
+                            1,
+                            4
+                          ]
+                        ],
+                        "effects": [],
+                        "isMask": false,
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1,
+                        "strokeAlign": "INSIDE",
+                        "absoluteBoundingBox": {
+                          "x": 2386,
+                          "y": 457,
+                          "width": 36,
+                          "height": 20
+                        },
+                        "exportSettings": [],
+                        "children": [
+                          {
+                            "id": "I146:109654;146:109731;146:109659",
+                            "name": "前缀图标",
+                            "type": "INSTANCE",
+                            "visible": false,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "clipsContent": false,
+                            "absoluteTransform": [
+                              [
+                                1,
+                                0,
+                                2386
+                              ],
+                              [
+                                0,
+                                1,
+                                461
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                4
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "variantProperties": [
+                              [
+                                "尺寸",
+                                "12"
+                              ]
+                            ],
+                            "mainComponent": {
+                              "id": "14:252",
+                              "name": "文件",
+                              "key": "4c2615742824791e5c34ebef6d4902597877d68a",
+                              "description": ""
+                            },
+                            "fills": [],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "absoluteBoundingBox": {
+                              "x": 2386,
+                              "y": 461,
+                              "width": 12,
+                              "height": 12
+                            },
+                            "exportSettings": [],
+                            "children": [
+                              {
+                                "id": "I146:109654;146:109731;146:109659;14:253",
+                                "name": "合并",
+                                "type": "VECTOR",
+                                "visible": true,
+                                "locked": false,
+                                "blendMode": "PASS_THROUGH",
+                                "absoluteTransform": [
+                                  [
+                                    1,
+                                    0,
+                                    2386.8515625
+                                  ],
+                                  [
+                                    0,
+                                    1,
+                                    461
+                                  ]
+                                ],
+                                "relativeTransform": [
+                                  [
+                                    1,
+                                    0,
+                                    0.8515625
+                                  ],
+                                  [
+                                    0,
+                                    1,
+                                    0
+                                  ]
+                                ],
+                                "effects": [],
+                                "isMask": false,
+                                "fills": [
+                                  {
+                                    "type": "SOLID",
+                                    "blendMode": "NORMAL",
+                                    "opacity": 1,
+                                    "visible": true,
+                                    "color": {
+                                      "r": 0.09803921568627451,
+                                      "g": 0.09803921568627451,
+                                      "b": 0.09803921568627451
+                                    }
+                                  }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 1,
+                                "strokeAlign": "INSIDE",
+                                "styles": {
+                                  "fill": {
+                                    "id": "14:339",
+                                    "key": "7fc4a64d47dcc8f5099a76822ff9d7c49aeb3a6b",
+                                    "name": "场景_Iconcolor_color_icon_primary",
+                                    "description": "",
+                                    "remote": true
+                                  }
+                                },
+                                "absoluteBoundingBox": {
+                                  "x": 2386.8515625,
+                                  "y": 461,
+                                  "width": 10.31787109375,
+                                  "height": 12
+                                },
+                                "exportSettings": []
+                              }
+                            ]
+                          },
+                          {
+                            "id": "I146:109654;146:109731;146:109660",
+                            "name": " 选项文本",
+                            "type": "TEXT",
+                            "visible": true,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "absoluteTransform": [
+                              [
+                                1,
+                                0,
+                                2386
+                              ],
+                              [
+                                0,
+                                1,
+                                457
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                0
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "characters": "近一周",
+                            "isMixedText": false,
+                            "textTable": [],
+                            "style": {
+                              "fillStyleId": "74:14477",
+                              "textStyleId": "14:343",
+                              "fontSize": 12,
+                              "fontFamily": "HarmonyOS Sans SC",
+                              "fontWeight": "regular",
+                              "textDecoration": "NONE",
+                              "letterSpacing": 0,
+                              "letterSpacingUnit": "PIXELS",
+                              "lineHeight": 20,
+                              "lineHeightUnit": "PIXELS",
+                              "fills": [
+                                {
+                                  "type": "SOLID",
+                                  "blendMode": "NORMAL",
+                                  "opacity": 1,
+                                  "visible": true,
+                                  "color": {
+                                    "r": 1,
+                                    "g": 1,
+                                    "b": 1
+                                  }
+                                }
+                              ],
+                              "textAlignHorizontal": "LEFT",
+                              "textAlignVertical": "TOP"
+                            },
+                            "fills": [
+                              {
+                                "type": "SOLID",
+                                "blendMode": "NORMAL",
+                                "opacity": 1,
+                                "visible": true,
+                                "color": {
+                                  "r": 1,
+                                  "g": 1,
+                                  "b": 1
+                                }
+                              }
+                            ],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "styles": {
+                              "fill": {
+                                "id": "74:14477",
+                                "key": "22854756b2da07b7034835bf0d68e96d75336e8e",
+                                "name": "场景_Textcolor_color_text_primary",
+                                "description": "",
+                                "remote": true
+                              },
+                              "text": {
+                                "id": "14:343",
+                                "key": "d1052119d1e6068f948db662072a951ac912ae6b",
+                                "name": "Body_font_body_1（Regular）",
+                                "description": "",
+                                "remote": true
+                              }
+                            },
+                            "absoluteBoundingBox": {
+                              "x": 2386,
+                              "y": 457,
+                              "width": 36,
+                              "height": 20
+                            },
+                            "exportSettings": []
+                          }
+                        ]
+                      },
+                      {
+                        "id": "I146:109654;146:109731;146:109661",
+                        "name": "展开箭头",
+                        "type": "INSTANCE",
+                        "visible": false,
+                        "locked": false,
+                        "blendMode": "PASS_THROUGH",
+                        "clipsContent": false,
+                        "absoluteTransform": [
+                          [
+                            1,
+                            0,
+                            2450
+                          ],
+                          [
+                            0,
+                            1,
+                            463
+                          ]
+                        ],
+                        "relativeTransform": [
+                          [
+                            1,
+                            0,
+                            72
+                          ],
+                          [
+                            0,
+                            1,
+                            10
+                          ]
+                        ],
+                        "effects": [],
+                        "isMask": false,
+                        "variantProperties": [
+                          [
+                            "尺寸",
+                            "8"
+                          ],
+                          [
+                            "方向",
+                            "右箭头"
+                          ]
+                        ],
+                        "mainComponent": {
+                          "id": "14:157",
+                          "name": "箭头",
+                          "key": "d45fbfb6ad015a6be28dd8f4a40501e3d72aa67c",
+                          "description": ""
+                        },
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1,
+                        "strokeAlign": "INSIDE",
+                        "absoluteBoundingBox": {
+                          "x": 2450,
+                          "y": 463,
+                          "width": 8,
+                          "height": 8
+                        },
+                        "exportSettings": [],
+                        "children": [
+                          {
+                            "id": "I146:109654;146:109731;146:109661;14:158",
+                            "name": "合并",
+                            "type": "VECTOR",
+                            "visible": true,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "absoluteTransform": [
+                              [
+                                0,
+                                1,
+                                2451.897705078125
+                              ],
+                              [
+                                1,
+                                0,
+                                462.9443359375
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                0,
+                                1,
+                                1.897705078125
+                              ],
+                              [
+                                1,
+                                0,
+                                -0.0556640625
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "fills": [
+                              {
+                                "type": "SOLID",
+                                "blendMode": "NORMAL",
+                                "opacity": 1,
+                                "visible": true,
+                                "color": {
+                                  "r": 0.09803921568627451,
+                                  "g": 0.09803921568627451,
+                                  "b": 0.09803921568627451
+                                }
+                              }
+                            ],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "styles": {
+                              "fill": {
+                                "id": "14:339",
+                                "key": "7fc4a64d47dcc8f5099a76822ff9d7c49aeb3a6b",
+                                "name": "场景_Iconcolor_color_icon_primary",
+                                "description": "",
+                                "remote": true
+                              }
+                            },
+                            "absoluteBoundingBox": {
+                              "x": 2451.897705078125,
+                              "y": 462.9443359375,
+                              "width": 8.0040864944458,
+                              "height": 4.6844329833984375
+                            },
+                            "exportSettings": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "I146:109654;146:109732",
+                    "name": ".选择单项",
+                    "type": "INSTANCE",
+                    "visible": true,
+                    "locked": false,
+                    "blendMode": "PASS_THROUGH",
+                    "clipsContent": false,
+                    "absoluteTransform": [
+                      [
+                        1,
+                        0,
+                        2378
+                      ],
+                      [
+                        0,
+                        1,
+                        485
+                      ]
+                    ],
+                    "relativeTransform": [
+                      [
+                        1,
+                        0,
+                        4
+                      ],
+                      [
+                        0,
+                        1,
+                        68
+                      ]
+                    ],
+                    "effects": [],
+                    "isMask": false,
+                    "variantProperties": [
+                      [
+                        "组件类型",
+                        "选择项"
+                      ],
+                      [
+                        "组件尺寸",
+                        "小尺寸"
+                      ],
+                      [
+                        "组件状态",
+                        "默认"
+                      ]
+                    ],
+                    "mainComponent": {
+                      "id": "146:109657",
+                      "name": ".选择单项",
+                      "key": "9e06ea33fec96f41357070fb897f49f4140b82b6",
+                      "description": ""
+                    },
+                    "fills": [],
+                    "strokes": [],
+                    "strokeWeight": 1,
+                    "strokeAlign": "INSIDE",
+                    "cornerRadius": 4,
+                    "rectangleCornerRadii": [
+                      4,
+                      4,
+                      4,
+                      4
+                    ],
+                    "absoluteBoundingBox": {
+                      "x": 2378,
+                      "y": 485,
+                      "width": 88,
+                      "height": 28
+                    },
+                    "exportSettings": [],
+                    "children": [
+                      {
+                        "id": "I146:109654;146:109732;146:109658",
+                        "name": "选项内容",
+                        "type": "FRAME",
+                        "visible": true,
+                        "locked": false,
+                        "blendMode": "PASS_THROUGH",
+                        "clipsContent": false,
+                        "absoluteTransform": [
+                          [
+                            1,
+                            0,
+                            2386
+                          ],
+                          [
+                            0,
+                            1,
+                            489
+                          ]
+                        ],
+                        "relativeTransform": [
+                          [
+                            1,
+                            0,
+                            8
+                          ],
+                          [
+                            0,
+                            1,
+                            4
+                          ]
+                        ],
+                        "effects": [],
+                        "isMask": false,
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1,
+                        "strokeAlign": "INSIDE",
+                        "absoluteBoundingBox": {
+                          "x": 2386,
+                          "y": 489,
+                          "width": 36,
+                          "height": 20
+                        },
+                        "exportSettings": [],
+                        "children": [
+                          {
+                            "id": "I146:109654;146:109732;146:109659",
+                            "name": "前缀图标",
+                            "type": "INSTANCE",
+                            "visible": false,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "clipsContent": false,
+                            "absoluteTransform": [
+                              [
+                                1,
+                                0,
+                                2386
+                              ],
+                              [
+                                0,
+                                1,
+                                493
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                4
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "variantProperties": [
+                              [
+                                "尺寸",
+                                "12"
+                              ]
+                            ],
+                            "mainComponent": {
+                              "id": "14:252",
+                              "name": "文件",
+                              "key": "4c2615742824791e5c34ebef6d4902597877d68a",
+                              "description": ""
+                            },
+                            "fills": [],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "absoluteBoundingBox": {
+                              "x": 2386,
+                              "y": 493,
+                              "width": 12,
+                              "height": 12
+                            },
+                            "exportSettings": [],
+                            "children": [
+                              {
+                                "id": "I146:109654;146:109732;146:109659;14:253",
+                                "name": "合并",
+                                "type": "VECTOR",
+                                "visible": true,
+                                "locked": false,
+                                "blendMode": "PASS_THROUGH",
+                                "absoluteTransform": [
+                                  [
+                                    1,
+                                    0,
+                                    2386.8515625
+                                  ],
+                                  [
+                                    0,
+                                    1,
+                                    493
+                                  ]
+                                ],
+                                "relativeTransform": [
+                                  [
+                                    1,
+                                    0,
+                                    0.8515625
+                                  ],
+                                  [
+                                    0,
+                                    1,
+                                    0
+                                  ]
+                                ],
+                                "effects": [],
+                                "isMask": false,
+                                "fills": [
+                                  {
+                                    "type": "SOLID",
+                                    "blendMode": "NORMAL",
+                                    "opacity": 1,
+                                    "visible": true,
+                                    "color": {
+                                      "r": 0.09803921568627451,
+                                      "g": 0.09803921568627451,
+                                      "b": 0.09803921568627451
+                                    }
+                                  }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 1,
+                                "strokeAlign": "INSIDE",
+                                "styles": {
+                                  "fill": {
+                                    "id": "14:339",
+                                    "key": "7fc4a64d47dcc8f5099a76822ff9d7c49aeb3a6b",
+                                    "name": "场景_Iconcolor_color_icon_primary",
+                                    "description": "",
+                                    "remote": true
+                                  }
+                                },
+                                "absoluteBoundingBox": {
+                                  "x": 2386.8515625,
+                                  "y": 493,
+                                  "width": 10.31787109375,
+                                  "height": 12
+                                },
+                                "exportSettings": []
+                              }
+                            ]
+                          },
+                          {
+                            "id": "I146:109654;146:109732;146:109660",
+                            "name": " 选项文本",
+                            "type": "TEXT",
+                            "visible": true,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "absoluteTransform": [
+                              [
+                                1,
+                                0,
+                                2386
+                              ],
+                              [
+                                0,
+                                1,
+                                489
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                0
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "characters": "近一月",
+                            "isMixedText": false,
+                            "textTable": [],
+                            "style": {
+                              "fillStyleId": "74:14477",
+                              "textStyleId": "14:343",
+                              "fontSize": 12,
+                              "fontFamily": "HarmonyOS Sans SC",
+                              "fontWeight": "regular",
+                              "textDecoration": "NONE",
+                              "letterSpacing": 0,
+                              "letterSpacingUnit": "PIXELS",
+                              "lineHeight": 20,
+                              "lineHeightUnit": "PIXELS",
+                              "fills": [
+                                {
+                                  "type": "SOLID",
+                                  "blendMode": "NORMAL",
+                                  "opacity": 1,
+                                  "visible": true,
+                                  "color": {
+                                    "r": 1,
+                                    "g": 1,
+                                    "b": 1
+                                  }
+                                }
+                              ],
+                              "textAlignHorizontal": "LEFT",
+                              "textAlignVertical": "TOP"
+                            },
+                            "fills": [
+                              {
+                                "type": "SOLID",
+                                "blendMode": "NORMAL",
+                                "opacity": 1,
+                                "visible": true,
+                                "color": {
+                                  "r": 1,
+                                  "g": 1,
+                                  "b": 1
+                                }
+                              }
+                            ],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "styles": {
+                              "fill": {
+                                "id": "74:14477",
+                                "key": "22854756b2da07b7034835bf0d68e96d75336e8e",
+                                "name": "场景_Textcolor_color_text_primary",
+                                "description": "",
+                                "remote": true
+                              },
+                              "text": {
+                                "id": "14:343",
+                                "key": "d1052119d1e6068f948db662072a951ac912ae6b",
+                                "name": "Body_font_body_1（Regular）",
+                                "description": "",
+                                "remote": true
+                              }
+                            },
+                            "absoluteBoundingBox": {
+                              "x": 2386,
+                              "y": 489,
+                              "width": 36,
+                              "height": 20
+                            },
+                            "exportSettings": []
+                          }
+                        ]
+                      },
+                      {
+                        "id": "I146:109654;146:109732;146:109661",
+                        "name": "展开箭头",
+                        "type": "INSTANCE",
+                        "visible": false,
+                        "locked": false,
+                        "blendMode": "PASS_THROUGH",
+                        "clipsContent": false,
+                        "absoluteTransform": [
+                          [
+                            1,
+                            0,
+                            2450
+                          ],
+                          [
+                            0,
+                            1,
+                            495
+                          ]
+                        ],
+                        "relativeTransform": [
+                          [
+                            1,
+                            0,
+                            72
+                          ],
+                          [
+                            0,
+                            1,
+                            10
+                          ]
+                        ],
+                        "effects": [],
+                        "isMask": false,
+                        "variantProperties": [
+                          [
+                            "尺寸",
+                            "8"
+                          ],
+                          [
+                            "方向",
+                            "右箭头"
+                          ]
+                        ],
+                        "mainComponent": {
+                          "id": "14:157",
+                          "name": "箭头",
+                          "key": "d45fbfb6ad015a6be28dd8f4a40501e3d72aa67c",
+                          "description": ""
+                        },
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1,
+                        "strokeAlign": "INSIDE",
+                        "absoluteBoundingBox": {
+                          "x": 2450,
+                          "y": 495,
+                          "width": 8,
+                          "height": 8
+                        },
+                        "exportSettings": [],
+                        "children": [
+                          {
+                            "id": "I146:109654;146:109732;146:109661;14:158",
+                            "name": "合并",
+                            "type": "VECTOR",
+                            "visible": true,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "absoluteTransform": [
+                              [
+                                0,
+                                1,
+                                2451.897705078125
+                              ],
+                              [
+                                1,
+                                0,
+                                494.9443359375
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                0,
+                                1,
+                                1.897705078125
+                              ],
+                              [
+                                1,
+                                0,
+                                -0.0556640625
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "fills": [
+                              {
+                                "type": "SOLID",
+                                "blendMode": "NORMAL",
+                                "opacity": 1,
+                                "visible": true,
+                                "color": {
+                                  "r": 0.09803921568627451,
+                                  "g": 0.09803921568627451,
+                                  "b": 0.09803921568627451
+                                }
+                              }
+                            ],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "styles": {
+                              "fill": {
+                                "id": "14:339",
+                                "key": "7fc4a64d47dcc8f5099a76822ff9d7c49aeb3a6b",
+                                "name": "场景_Iconcolor_color_icon_primary",
+                                "description": "",
+                                "remote": true
+                              }
+                            },
+                            "absoluteBoundingBox": {
+                              "x": 2451.897705078125,
+                              "y": 494.9443359375,
+                              "width": 8.0040864944458,
+                              "height": 4.6844329833984375
+                            },
+                            "exportSettings": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "146:109655",
+                "name": "2.选择面板-悬浮",
+                "type": "INSTANCE",
+                "visible": true,
+                "locked": false,
+                "blendMode": "PASS_THROUGH",
+                "clipsContent": false,
+                "absoluteTransform": [
+                  [
+                    1,
+                    0,
+                    2512
+                  ],
+                  [
+                    0,
+                    1,
+                    417
+                  ]
+                ],
+                "relativeTransform": [
+                  [
+                    1,
+                    0,
+                    138
+                  ],
+                  [
+                    0,
+                    1,
+                    0
+                  ]
+                ],
+                "effects": [
+                  {
+                    "type": "DROP_SHADOW",
+                    "visible": true,
+                    "radius": 12,
+                    "offset": {
+                      "x": 0,
+                      "y": 4
+                    },
+                    "spread": 0,
+                    "showShadowBehindNode": true,
+                    "color": {
+                      "r": 0,
+                      "g": 0,
+                      "b": 0,
+                      "a": 0.5019607843137255
+                    },
+                    "blendMode": "NORMAL"
+                  }
+                ],
+                "isMask": false,
+                "variantProperties": [
+                  [
+                    "组件尺寸",
+                    "小尺寸"
+                  ],
+                  [
+                    "选项数量",
+                    "3"
+                  ]
+                ],
+                "mainComponent": {
+                  "id": "146:109729",
+                  "name": "2.选择面板",
+                  "key": "8e18e658a18aec24c6ab97c05d5dfae89235f3be",
+                  "description": ""
+                },
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "blendMode": "NORMAL",
+                    "opacity": 1,
+                    "visible": true,
+                    "color": {
+                      "r": 0.2235294117647059,
+                      "g": 0.2235294117647059,
+                      "b": 0.2235294117647059
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1,
+                "strokeAlign": "INSIDE",
+                "styles": {
+                  "fill": {
+                    "id": "146:109976",
+                    "key": "6efda4ff44c190e7d65e875de161fd7031e77552",
+                    "name": "场景_Backgroundcolor_color_bg_4",
+                    "description": "弹窗/下拉面板背景色",
+                    "remote": true
+                  },
+                  "effect": {
+                    "id": "146:109977",
+                    "key": "7be0fb8315c63320427e53885c57195d453325b7",
+                    "name": "Shadow_1.1_下拉选择_效果",
+                    "description": "",
+                    "remote": true
+                  }
+                },
+                "cornerRadius": 6,
+                "rectangleCornerRadii": [
+                  6,
+                  6,
+                  6,
+                  6
+                ],
+                "absoluteBoundingBox": {
+                  "x": 2512,
+                  "y": 417,
+                  "width": 96,
+                  "height": 68
+                },
+                "exportSettings": [],
+                "children": [
+                  {
+                    "id": "I146:109655;146:109730",
+                    "name": ".选择单项",
+                    "type": "INSTANCE",
+                    "visible": true,
+                    "locked": false,
+                    "blendMode": "PASS_THROUGH",
+                    "clipsContent": false,
+                    "absoluteTransform": [
+                      [
+                        1,
+                        0,
+                        2516
+                      ],
+                      [
+                        0,
+                        1,
+                        421
+                      ]
+                    ],
+                    "relativeTransform": [
+                      [
+                        1,
+                        0,
+                        4
+                      ],
+                      [
+                        0,
+                        1,
+                        4
+                      ]
+                    ],
+                    "effects": [],
+                    "isMask": false,
+                    "variantProperties": [
+                      [
+                        "组件类型",
+                        "选择项"
+                      ],
+                      [
+                        "组件尺寸",
+                        "小尺寸"
+                      ],
+                      [
+                        "组件状态",
+                        "悬浮"
+                      ]
+                    ],
+                    "mainComponent": {
+                      "id": "146:109672",
+                      "name": ".选择单项",
+                      "key": "6fe199feafd6bce3e04ab6452716ee25050e8ca0",
+                      "description": ""
+                    },
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "blendMode": "NORMAL",
+                        "opacity": 0.05,
+                        "visible": true,
+                        "color": {
+                          "r": 0.09803921568627451,
+                          "g": 0.09803921568627451,
+                          "b": 0.09803921568627451
+                        }
+                      }
+                    ],
+                    "strokes": [],
+                    "strokeWeight": 1,
+                    "strokeAlign": "INSIDE",
+                    "cornerRadius": 4,
+                    "rectangleCornerRadii": [
+                      4,
+                      4,
+                      4,
+                      4
+                    ],
+                    "absoluteBoundingBox": {
+                      "x": 2516,
+                      "y": 421,
+                      "width": 88,
+                      "height": 28
+                    },
+                    "exportSettings": [],
+                    "children": [
+                      {
+                        "id": "I146:109655;146:109730;146:109673",
+                        "name": "选项内容",
+                        "type": "FRAME",
+                        "visible": true,
+                        "locked": false,
+                        "blendMode": "PASS_THROUGH",
+                        "clipsContent": false,
+                        "absoluteTransform": [
+                          [
+                            1,
+                            0,
+                            2524
+                          ],
+                          [
+                            0,
+                            1,
+                            425
+                          ]
+                        ],
+                        "relativeTransform": [
+                          [
+                            1,
+                            0,
+                            8
+                          ],
+                          [
+                            0,
+                            1,
+                            4
+                          ]
+                        ],
+                        "effects": [],
+                        "isMask": false,
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1,
+                        "strokeAlign": "INSIDE",
+                        "absoluteBoundingBox": {
+                          "x": 2524,
+                          "y": 425,
+                          "width": 36,
+                          "height": 20
+                        },
+                        "exportSettings": [],
+                        "children": [
+                          {
+                            "id": "I146:109655;146:109730;146:109674",
+                            "name": "前缀图标",
+                            "type": "INSTANCE",
+                            "visible": false,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "clipsContent": false,
+                            "absoluteTransform": [
+                              [
+                                1,
+                                0,
+                                2524
+                              ],
+                              [
+                                0,
+                                1,
+                                429
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                4
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "variantProperties": [
+                              [
+                                "尺寸",
+                                "12"
+                              ]
+                            ],
+                            "mainComponent": {
+                              "id": "14:252",
+                              "name": "文件",
+                              "key": "4c2615742824791e5c34ebef6d4902597877d68a",
+                              "description": ""
+                            },
+                            "fills": [],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "absoluteBoundingBox": {
+                              "x": 2524,
+                              "y": 429,
+                              "width": 12,
+                              "height": 12
+                            },
+                            "exportSettings": [],
+                            "children": [
+                              {
+                                "id": "I146:109655;146:109730;146:109674;14:253",
+                                "name": "合并",
+                                "type": "VECTOR",
+                                "visible": true,
+                                "locked": false,
+                                "blendMode": "PASS_THROUGH",
+                                "absoluteTransform": [
+                                  [
+                                    1,
+                                    0,
+                                    2524.8515625
+                                  ],
+                                  [
+                                    0,
+                                    1,
+                                    429
+                                  ]
+                                ],
+                                "relativeTransform": [
+                                  [
+                                    1,
+                                    0,
+                                    0.8515625
+                                  ],
+                                  [
+                                    0,
+                                    1,
+                                    0
+                                  ]
+                                ],
+                                "effects": [],
+                                "isMask": false,
+                                "fills": [
+                                  {
+                                    "type": "SOLID",
+                                    "blendMode": "NORMAL",
+                                    "opacity": 1,
+                                    "visible": true,
+                                    "color": {
+                                      "r": 0.09803921568627451,
+                                      "g": 0.09803921568627451,
+                                      "b": 0.09803921568627451
+                                    }
+                                  }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 1,
+                                "strokeAlign": "INSIDE",
+                                "styles": {
+                                  "fill": {
+                                    "id": "14:339",
+                                    "key": "7fc4a64d47dcc8f5099a76822ff9d7c49aeb3a6b",
+                                    "name": "场景_Iconcolor_color_icon_primary",
+                                    "description": "",
+                                    "remote": true
+                                  }
+                                },
+                                "absoluteBoundingBox": {
+                                  "x": 2524.8515625,
+                                  "y": 429,
+                                  "width": 10.31787109375,
+                                  "height": 12
+                                },
+                                "exportSettings": []
+                              }
+                            ]
+                          },
+                          {
+                            "id": "I146:109655;146:109730;146:109675",
+                            "name": " 选项文本",
+                            "type": "TEXT",
+                            "visible": true,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "absoluteTransform": [
+                              [
+                                1,
+                                0,
+                                2524
+                              ],
+                              [
+                                0,
+                                1,
+                                425
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                0
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "characters": "近一天",
+                            "isMixedText": false,
+                            "textTable": [],
+                            "style": {
+                              "fillStyleId": "74:14477",
+                              "textStyleId": "14:343",
+                              "fontSize": 12,
+                              "fontFamily": "HarmonyOS Sans SC",
+                              "fontWeight": "regular",
+                              "textDecoration": "NONE",
+                              "letterSpacing": 0,
+                              "letterSpacingUnit": "PIXELS",
+                              "lineHeight": 20,
+                              "lineHeightUnit": "PIXELS",
+                              "fills": [
+                                {
+                                  "type": "SOLID",
+                                  "blendMode": "NORMAL",
+                                  "opacity": 1,
+                                  "visible": true,
+                                  "color": {
+                                    "r": 1,
+                                    "g": 1,
+                                    "b": 1
+                                  }
+                                }
+                              ],
+                              "textAlignHorizontal": "LEFT",
+                              "textAlignVertical": "TOP"
+                            },
+                            "fills": [
+                              {
+                                "type": "SOLID",
+                                "blendMode": "NORMAL",
+                                "opacity": 1,
+                                "visible": true,
+                                "color": {
+                                  "r": 1,
+                                  "g": 1,
+                                  "b": 1
+                                }
+                              }
+                            ],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "styles": {
+                              "fill": {
+                                "id": "74:14477",
+                                "key": "22854756b2da07b7034835bf0d68e96d75336e8e",
+                                "name": "场景_Textcolor_color_text_primary",
+                                "description": "",
+                                "remote": true
+                              },
+                              "text": {
+                                "id": "14:343",
+                                "key": "d1052119d1e6068f948db662072a951ac912ae6b",
+                                "name": "Body_font_body_1（Regular）",
+                                "description": "",
+                                "remote": true
+                              }
+                            },
+                            "absoluteBoundingBox": {
+                              "x": 2524,
+                              "y": 425,
+                              "width": 36,
+                              "height": 20
+                            },
+                            "exportSettings": []
+                          }
+                        ]
+                      },
+                      {
+                        "id": "I146:109655;146:109730;146:109676",
+                        "name": "展开箭头",
+                        "type": "INSTANCE",
+                        "visible": false,
+                        "locked": false,
+                        "blendMode": "PASS_THROUGH",
+                        "clipsContent": false,
+                        "absoluteTransform": [
+                          [
+                            1,
+                            0,
+                            2588
+                          ],
+                          [
+                            0,
+                            1,
+                            431
+                          ]
+                        ],
+                        "relativeTransform": [
+                          [
+                            1,
+                            0,
+                            72
+                          ],
+                          [
+                            0,
+                            1,
+                            10
+                          ]
+                        ],
+                        "effects": [],
+                        "isMask": false,
+                        "variantProperties": [
+                          [
+                            "尺寸",
+                            "8"
+                          ],
+                          [
+                            "方向",
+                            "右箭头"
+                          ]
+                        ],
+                        "mainComponent": {
+                          "id": "14:157",
+                          "name": "箭头",
+                          "key": "d45fbfb6ad015a6be28dd8f4a40501e3d72aa67c",
+                          "description": ""
+                        },
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1,
+                        "strokeAlign": "INSIDE",
+                        "absoluteBoundingBox": {
+                          "x": 2588,
+                          "y": 431,
+                          "width": 8,
+                          "height": 8
+                        },
+                        "exportSettings": [],
+                        "children": [
+                          {
+                            "id": "I146:109655;146:109730;146:109676;14:158",
+                            "name": "合并",
+                            "type": "VECTOR",
+                            "visible": true,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "absoluteTransform": [
+                              [
+                                0,
+                                1,
+                                2589.897705078125
+                              ],
+                              [
+                                1,
+                                0,
+                                430.9443359375
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                0,
+                                1,
+                                1.897705078125
+                              ],
+                              [
+                                1,
+                                0,
+                                -0.0556640625
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "fills": [
+                              {
+                                "type": "SOLID",
+                                "blendMode": "NORMAL",
+                                "opacity": 1,
+                                "visible": true,
+                                "color": {
+                                  "r": 0.09803921568627451,
+                                  "g": 0.09803921568627451,
+                                  "b": 0.09803921568627451
+                                }
+                              }
+                            ],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "styles": {
+                              "fill": {
+                                "id": "14:339",
+                                "key": "7fc4a64d47dcc8f5099a76822ff9d7c49aeb3a6b",
+                                "name": "场景_Iconcolor_color_icon_primary",
+                                "description": "",
+                                "remote": true
+                              }
+                            },
+                            "absoluteBoundingBox": {
+                              "x": 2589.897705078125,
+                              "y": 430.9443359375,
+                              "width": 8.0040864944458,
+                              "height": 4.6844329833984375
+                            },
+                            "exportSettings": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "I146:109655;146:109731",
+                    "name": ".选择单项",
+                    "type": "INSTANCE",
+                    "visible": false,
+                    "locked": false,
+                    "blendMode": "PASS_THROUGH",
+                    "clipsContent": false,
+                    "absoluteTransform": [
+                      [
+                        1,
+                        0,
+                        2516
+                      ],
+                      [
+                        0,
+                        1,
+                        453
+                      ]
+                    ],
+                    "relativeTransform": [
+                      [
+                        1,
+                        0,
+                        4
+                      ],
+                      [
+                        0,
+                        1,
+                        36
+                      ]
+                    ],
+                    "effects": [],
+                    "isMask": false,
+                    "variantProperties": [
+                      [
+                        "组件类型",
+                        "选择项"
+                      ],
+                      [
+                        "组件尺寸",
+                        "小尺寸"
+                      ],
+                      [
+                        "组件状态",
+                        "默认"
+                      ]
+                    ],
+                    "mainComponent": {
+                      "id": "146:109657",
+                      "name": ".选择单项",
+                      "key": "9e06ea33fec96f41357070fb897f49f4140b82b6",
+                      "description": ""
+                    },
+                    "fills": [],
+                    "strokes": [],
+                    "strokeWeight": 1,
+                    "strokeAlign": "INSIDE",
+                    "cornerRadius": 4,
+                    "rectangleCornerRadii": [
+                      4,
+                      4,
+                      4,
+                      4
+                    ],
+                    "absoluteBoundingBox": {
+                      "x": 2516,
+                      "y": 453,
+                      "width": 88,
+                      "height": 28
+                    },
+                    "exportSettings": [],
+                    "children": [
+                      {
+                        "id": "I146:109655;146:109731;146:109658",
+                        "name": "选项内容",
+                        "type": "FRAME",
+                        "visible": true,
+                        "locked": false,
+                        "blendMode": "PASS_THROUGH",
+                        "clipsContent": false,
+                        "absoluteTransform": [
+                          [
+                            1,
+                            0,
+                            2524
+                          ],
+                          [
+                            0,
+                            1,
+                            457
+                          ]
+                        ],
+                        "relativeTransform": [
+                          [
+                            1,
+                            0,
+                            8
+                          ],
+                          [
+                            0,
+                            1,
+                            4
+                          ]
+                        ],
+                        "effects": [],
+                        "isMask": false,
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1,
+                        "strokeAlign": "INSIDE",
+                        "absoluteBoundingBox": {
+                          "x": 2524,
+                          "y": 457,
+                          "width": 36,
+                          "height": 20
+                        },
+                        "exportSettings": [],
+                        "children": [
+                          {
+                            "id": "I146:109655;146:109731;146:109659",
+                            "name": "前缀图标",
+                            "type": "INSTANCE",
+                            "visible": false,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "clipsContent": false,
+                            "absoluteTransform": [
+                              [
+                                1,
+                                0,
+                                2524
+                              ],
+                              [
+                                0,
+                                1,
+                                461
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                4
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "variantProperties": [
+                              [
+                                "尺寸",
+                                "12"
+                              ]
+                            ],
+                            "mainComponent": {
+                              "id": "14:252",
+                              "name": "文件",
+                              "key": "4c2615742824791e5c34ebef6d4902597877d68a",
+                              "description": ""
+                            },
+                            "fills": [],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "absoluteBoundingBox": {
+                              "x": 2524,
+                              "y": 461,
+                              "width": 12,
+                              "height": 12
+                            },
+                            "exportSettings": [],
+                            "children": [
+                              {
+                                "id": "I146:109655;146:109731;146:109659;14:253",
+                                "name": "合并",
+                                "type": "VECTOR",
+                                "visible": true,
+                                "locked": false,
+                                "blendMode": "PASS_THROUGH",
+                                "absoluteTransform": [
+                                  [
+                                    1,
+                                    0,
+                                    2524.8515625
+                                  ],
+                                  [
+                                    0,
+                                    1,
+                                    461
+                                  ]
+                                ],
+                                "relativeTransform": [
+                                  [
+                                    1,
+                                    0,
+                                    0.8515625
+                                  ],
+                                  [
+                                    0,
+                                    1,
+                                    0
+                                  ]
+                                ],
+                                "effects": [],
+                                "isMask": false,
+                                "fills": [
+                                  {
+                                    "type": "SOLID",
+                                    "blendMode": "NORMAL",
+                                    "opacity": 1,
+                                    "visible": true,
+                                    "color": {
+                                      "r": 0.09803921568627451,
+                                      "g": 0.09803921568627451,
+                                      "b": 0.09803921568627451
+                                    }
+                                  }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 1,
+                                "strokeAlign": "INSIDE",
+                                "styles": {
+                                  "fill": {
+                                    "id": "14:339",
+                                    "key": "7fc4a64d47dcc8f5099a76822ff9d7c49aeb3a6b",
+                                    "name": "场景_Iconcolor_color_icon_primary",
+                                    "description": "",
+                                    "remote": true
+                                  }
+                                },
+                                "absoluteBoundingBox": {
+                                  "x": 2524.8515625,
+                                  "y": 461,
+                                  "width": 10.31787109375,
+                                  "height": 12
+                                },
+                                "exportSettings": []
+                              }
+                            ]
+                          },
+                          {
+                            "id": "I146:109655;146:109731;146:109660",
+                            "name": " 选项文本",
+                            "type": "TEXT",
+                            "visible": true,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "absoluteTransform": [
+                              [
+                                1,
+                                0,
+                                2524
+                              ],
+                              [
+                                0,
+                                1,
+                                457
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                0
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "characters": "近一周",
+                            "isMixedText": false,
+                            "textTable": [],
+                            "style": {
+                              "fillStyleId": "74:14477",
+                              "textStyleId": "14:343",
+                              "fontSize": 12,
+                              "fontFamily": "HarmonyOS Sans SC",
+                              "fontWeight": "regular",
+                              "textDecoration": "NONE",
+                              "letterSpacing": 0,
+                              "letterSpacingUnit": "PIXELS",
+                              "lineHeight": 20,
+                              "lineHeightUnit": "PIXELS",
+                              "fills": [
+                                {
+                                  "type": "SOLID",
+                                  "blendMode": "NORMAL",
+                                  "opacity": 1,
+                                  "visible": true,
+                                  "color": {
+                                    "r": 1,
+                                    "g": 1,
+                                    "b": 1
+                                  }
+                                }
+                              ],
+                              "textAlignHorizontal": "LEFT",
+                              "textAlignVertical": "TOP"
+                            },
+                            "fills": [
+                              {
+                                "type": "SOLID",
+                                "blendMode": "NORMAL",
+                                "opacity": 1,
+                                "visible": true,
+                                "color": {
+                                  "r": 1,
+                                  "g": 1,
+                                  "b": 1
+                                }
+                              }
+                            ],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "styles": {
+                              "fill": {
+                                "id": "74:14477",
+                                "key": "22854756b2da07b7034835bf0d68e96d75336e8e",
+                                "name": "场景_Textcolor_color_text_primary",
+                                "description": "",
+                                "remote": true
+                              },
+                              "text": {
+                                "id": "14:343",
+                                "key": "d1052119d1e6068f948db662072a951ac912ae6b",
+                                "name": "Body_font_body_1（Regular）",
+                                "description": "",
+                                "remote": true
+                              }
+                            },
+                            "absoluteBoundingBox": {
+                              "x": 2524,
+                              "y": 457,
+                              "width": 36,
+                              "height": 20
+                            },
+                            "exportSettings": []
+                          }
+                        ]
+                      },
+                      {
+                        "id": "I146:109655;146:109731;146:109661",
+                        "name": "展开箭头",
+                        "type": "INSTANCE",
+                        "visible": false,
+                        "locked": false,
+                        "blendMode": "PASS_THROUGH",
+                        "clipsContent": false,
+                        "absoluteTransform": [
+                          [
+                            1,
+                            0,
+                            2588
+                          ],
+                          [
+                            0,
+                            1,
+                            463
+                          ]
+                        ],
+                        "relativeTransform": [
+                          [
+                            1,
+                            0,
+                            72
+                          ],
+                          [
+                            0,
+                            1,
+                            10
+                          ]
+                        ],
+                        "effects": [],
+                        "isMask": false,
+                        "variantProperties": [
+                          [
+                            "尺寸",
+                            "8"
+                          ],
+                          [
+                            "方向",
+                            "右箭头"
+                          ]
+                        ],
+                        "mainComponent": {
+                          "id": "14:157",
+                          "name": "箭头",
+                          "key": "d45fbfb6ad015a6be28dd8f4a40501e3d72aa67c",
+                          "description": ""
+                        },
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1,
+                        "strokeAlign": "INSIDE",
+                        "absoluteBoundingBox": {
+                          "x": 2588,
+                          "y": 463,
+                          "width": 8,
+                          "height": 8
+                        },
+                        "exportSettings": [],
+                        "children": [
+                          {
+                            "id": "I146:109655;146:109731;146:109661;14:158",
+                            "name": "合并",
+                            "type": "VECTOR",
+                            "visible": true,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "absoluteTransform": [
+                              [
+                                0,
+                                1,
+                                2589.897705078125
+                              ],
+                              [
+                                1,
+                                0,
+                                462.9443359375
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                0,
+                                1,
+                                1.897705078125
+                              ],
+                              [
+                                1,
+                                0,
+                                -0.0556640625
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "fills": [
+                              {
+                                "type": "SOLID",
+                                "blendMode": "NORMAL",
+                                "opacity": 1,
+                                "visible": true,
+                                "color": {
+                                  "r": 0.09803921568627451,
+                                  "g": 0.09803921568627451,
+                                  "b": 0.09803921568627451
+                                }
+                              }
+                            ],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "styles": {
+                              "fill": {
+                                "id": "14:339",
+                                "key": "7fc4a64d47dcc8f5099a76822ff9d7c49aeb3a6b",
+                                "name": "场景_Iconcolor_color_icon_primary",
+                                "description": "",
+                                "remote": true
+                              }
+                            },
+                            "absoluteBoundingBox": {
+                              "x": 2589.897705078125,
+                              "y": 462.9443359375,
+                              "width": 8.0040864944458,
+                              "height": 4.6844329833984375
+                            },
+                            "exportSettings": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "I146:109655;146:109732",
+                    "name": ".选择单项",
+                    "type": "INSTANCE",
+                    "visible": true,
+                    "locked": false,
+                    "blendMode": "PASS_THROUGH",
+                    "clipsContent": false,
+                    "absoluteTransform": [
+                      [
+                        1,
+                        0,
+                        2516
+                      ],
+                      [
+                        0,
+                        1,
+                        453
+                      ]
+                    ],
+                    "relativeTransform": [
+                      [
+                        1,
+                        0,
+                        4
+                      ],
+                      [
+                        0,
+                        1,
+                        36
+                      ]
+                    ],
+                    "effects": [],
+                    "isMask": false,
+                    "variantProperties": [
+                      [
+                        "组件类型",
+                        "选择项"
+                      ],
+                      [
+                        "组件尺寸",
+                        "小尺寸"
+                      ],
+                      [
+                        "组件状态",
+                        "默认"
+                      ]
+                    ],
+                    "mainComponent": {
+                      "id": "146:109657",
+                      "name": ".选择单项",
+                      "key": "9e06ea33fec96f41357070fb897f49f4140b82b6",
+                      "description": ""
+                    },
+                    "fills": [],
+                    "strokes": [],
+                    "strokeWeight": 1,
+                    "strokeAlign": "INSIDE",
+                    "cornerRadius": 4,
+                    "rectangleCornerRadii": [
+                      4,
+                      4,
+                      4,
+                      4
+                    ],
+                    "absoluteBoundingBox": {
+                      "x": 2516,
+                      "y": 453,
+                      "width": 88,
+                      "height": 28
+                    },
+                    "exportSettings": [],
+                    "children": [
+                      {
+                        "id": "I146:109655;146:109732;146:109658",
+                        "name": "选项内容",
+                        "type": "FRAME",
+                        "visible": true,
+                        "locked": false,
+                        "blendMode": "PASS_THROUGH",
+                        "clipsContent": false,
+                        "absoluteTransform": [
+                          [
+                            1,
+                            0,
+                            2524
+                          ],
+                          [
+                            0,
+                            1,
+                            457
+                          ]
+                        ],
+                        "relativeTransform": [
+                          [
+                            1,
+                            0,
+                            8
+                          ],
+                          [
+                            0,
+                            1,
+                            4
+                          ]
+                        ],
+                        "effects": [],
+                        "isMask": false,
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1,
+                        "strokeAlign": "INSIDE",
+                        "absoluteBoundingBox": {
+                          "x": 2524,
+                          "y": 457,
+                          "width": 36,
+                          "height": 20
+                        },
+                        "exportSettings": [],
+                        "children": [
+                          {
+                            "id": "I146:109655;146:109732;146:109659",
+                            "name": "前缀图标",
+                            "type": "INSTANCE",
+                            "visible": false,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "clipsContent": false,
+                            "absoluteTransform": [
+                              [
+                                1,
+                                0,
+                                2524
+                              ],
+                              [
+                                0,
+                                1,
+                                461
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                4
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "variantProperties": [
+                              [
+                                "尺寸",
+                                "12"
+                              ]
+                            ],
+                            "mainComponent": {
+                              "id": "14:252",
+                              "name": "文件",
+                              "key": "4c2615742824791e5c34ebef6d4902597877d68a",
+                              "description": ""
+                            },
+                            "fills": [],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "absoluteBoundingBox": {
+                              "x": 2524,
+                              "y": 461,
+                              "width": 12,
+                              "height": 12
+                            },
+                            "exportSettings": [],
+                            "children": [
+                              {
+                                "id": "I146:109655;146:109732;146:109659;14:253",
+                                "name": "合并",
+                                "type": "VECTOR",
+                                "visible": true,
+                                "locked": false,
+                                "blendMode": "PASS_THROUGH",
+                                "absoluteTransform": [
+                                  [
+                                    1,
+                                    0,
+                                    2524.8515625
+                                  ],
+                                  [
+                                    0,
+                                    1,
+                                    461
+                                  ]
+                                ],
+                                "relativeTransform": [
+                                  [
+                                    1,
+                                    0,
+                                    0.8515625
+                                  ],
+                                  [
+                                    0,
+                                    1,
+                                    0
+                                  ]
+                                ],
+                                "effects": [],
+                                "isMask": false,
+                                "fills": [
+                                  {
+                                    "type": "SOLID",
+                                    "blendMode": "NORMAL",
+                                    "opacity": 1,
+                                    "visible": true,
+                                    "color": {
+                                      "r": 0.09803921568627451,
+                                      "g": 0.09803921568627451,
+                                      "b": 0.09803921568627451
+                                    }
+                                  }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 1,
+                                "strokeAlign": "INSIDE",
+                                "styles": {
+                                  "fill": {
+                                    "id": "14:339",
+                                    "key": "7fc4a64d47dcc8f5099a76822ff9d7c49aeb3a6b",
+                                    "name": "场景_Iconcolor_color_icon_primary",
+                                    "description": "",
+                                    "remote": true
+                                  }
+                                },
+                                "absoluteBoundingBox": {
+                                  "x": 2524.8515625,
+                                  "y": 461,
+                                  "width": 10.31787109375,
+                                  "height": 12
+                                },
+                                "exportSettings": []
+                              }
+                            ]
+                          },
+                          {
+                            "id": "I146:109655;146:109732;146:109660",
+                            "name": " 选项文本",
+                            "type": "TEXT",
+                            "visible": true,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "absoluteTransform": [
+                              [
+                                1,
+                                0,
+                                2524
+                              ],
+                              [
+                                0,
+                                1,
+                                457
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                0
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "characters": "近一月",
+                            "isMixedText": false,
+                            "textTable": [],
+                            "style": {
+                              "fillStyleId": "74:14477",
+                              "textStyleId": "14:343",
+                              "fontSize": 12,
+                              "fontFamily": "HarmonyOS Sans SC",
+                              "fontWeight": "regular",
+                              "textDecoration": "NONE",
+                              "letterSpacing": 0,
+                              "letterSpacingUnit": "PIXELS",
+                              "lineHeight": 20,
+                              "lineHeightUnit": "PIXELS",
+                              "fills": [
+                                {
+                                  "type": "SOLID",
+                                  "blendMode": "NORMAL",
+                                  "opacity": 1,
+                                  "visible": true,
+                                  "color": {
+                                    "r": 1,
+                                    "g": 1,
+                                    "b": 1
+                                  }
+                                }
+                              ],
+                              "textAlignHorizontal": "LEFT",
+                              "textAlignVertical": "TOP"
+                            },
+                            "fills": [
+                              {
+                                "type": "SOLID",
+                                "blendMode": "NORMAL",
+                                "opacity": 1,
+                                "visible": true,
+                                "color": {
+                                  "r": 1,
+                                  "g": 1,
+                                  "b": 1
+                                }
+                              }
+                            ],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "styles": {
+                              "fill": {
+                                "id": "74:14477",
+                                "key": "22854756b2da07b7034835bf0d68e96d75336e8e",
+                                "name": "场景_Textcolor_color_text_primary",
+                                "description": "",
+                                "remote": true
+                              },
+                              "text": {
+                                "id": "14:343",
+                                "key": "d1052119d1e6068f948db662072a951ac912ae6b",
+                                "name": "Body_font_body_1（Regular）",
+                                "description": "",
+                                "remote": true
+                              }
+                            },
+                            "absoluteBoundingBox": {
+                              "x": 2524,
+                              "y": 457,
+                              "width": 36,
+                              "height": 20
+                            },
+                            "exportSettings": []
+                          }
+                        ]
+                      },
+                      {
+                        "id": "I146:109655;146:109732;146:109661",
+                        "name": "展开箭头",
+                        "type": "INSTANCE",
+                        "visible": false,
+                        "locked": false,
+                        "blendMode": "PASS_THROUGH",
+                        "clipsContent": false,
+                        "absoluteTransform": [
+                          [
+                            1,
+                            0,
+                            2588
+                          ],
+                          [
+                            0,
+                            1,
+                            463
+                          ]
+                        ],
+                        "relativeTransform": [
+                          [
+                            1,
+                            0,
+                            72
+                          ],
+                          [
+                            0,
+                            1,
+                            10
+                          ]
+                        ],
+                        "effects": [],
+                        "isMask": false,
+                        "variantProperties": [
+                          [
+                            "尺寸",
+                            "8"
+                          ],
+                          [
+                            "方向",
+                            "右箭头"
+                          ]
+                        ],
+                        "mainComponent": {
+                          "id": "14:157",
+                          "name": "箭头",
+                          "key": "d45fbfb6ad015a6be28dd8f4a40501e3d72aa67c",
+                          "description": ""
+                        },
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1,
+                        "strokeAlign": "INSIDE",
+                        "absoluteBoundingBox": {
+                          "x": 2588,
+                          "y": 463,
+                          "width": 8,
+                          "height": 8
+                        },
+                        "exportSettings": [],
+                        "children": [
+                          {
+                            "id": "I146:109655;146:109732;146:109661;14:158",
+                            "name": "合并",
+                            "type": "VECTOR",
+                            "visible": true,
+                            "locked": false,
+                            "blendMode": "PASS_THROUGH",
+                            "absoluteTransform": [
+                              [
+                                0,
+                                1,
+                                2589.897705078125
+                              ],
+                              [
+                                1,
+                                0,
+                                462.9443359375
+                              ]
+                            ],
+                            "relativeTransform": [
+                              [
+                                0,
+                                1,
+                                1.897705078125
+                              ],
+                              [
+                                1,
+                                0,
+                                -0.0556640625
+                              ]
+                            ],
+                            "effects": [],
+                            "isMask": false,
+                            "fills": [
+                              {
+                                "type": "SOLID",
+                                "blendMode": "NORMAL",
+                                "opacity": 1,
+                                "visible": true,
+                                "color": {
+                                  "r": 0.09803921568627451,
+                                  "g": 0.09803921568627451,
+                                  "b": 0.09803921568627451
+                                }
+                              }
+                            ],
+                            "strokes": [],
+                            "strokeWeight": 1,
+                            "strokeAlign": "INSIDE",
+                            "styles": {
+                              "fill": {
+                                "id": "14:339",
+                                "key": "7fc4a64d47dcc8f5099a76822ff9d7c49aeb3a6b",
+                                "name": "场景_Iconcolor_color_icon_primary",
+                                "description": "",
+                                "remote": true
+                              }
+                            },
+                            "absoluteBoundingBox": {
+                              "x": 2589.897705078125,
+                              "y": 462.9443359375,
+                              "width": 8.0040864944458,
+                              "height": 4.6844329833984375
+                            },
+                            "exportSettings": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "146:111388",
+            "name": "隔离芯片",
+            "type": "FRAME",
+            "visible": true,
+            "locked": false,
+            "blendMode": "PASS_THROUGH",
+            "clipsContent": false,
+            "absoluteTransform": [
+              [
+                1,
+                0,
+                2657
+              ],
+              [
+                0,
+                1,
+                443
+              ]
+            ],
+            "relativeTransform": [
+              [
+                1,
+                0,
+                2657
+              ],
+              [
+                0,
+                1,
+                443
+              ]
+            ],
+            "effects": [],
+            "isMask": false,
+            "fills": [],
+            "strokes": [],
+            "strokeWeight": 1,
+            "strokeAlign": "INSIDE",
+            "absoluteBoundingBox": {
+              "x": 2657,
+              "y": 443,
+              "width": 24,
+              "height": 24
+            },
+            "exportSettings": [],
+            "children": [
+              {
+                "id": "146:111389",
+                "name": "矩形 8064",
+                "type": "RECTANGLE",
+                "visible": true,
+                "locked": false,
+                "blendMode": "PASS_THROUGH",
+                "absoluteTransform": [
+                  [
+                    1,
+                    0,
+                    2659
+                  ],
+                  [
+                    0,
+                    1,
+                    445
+                  ]
+                ],
+                "relativeTransform": [
+                  [
+                    1,
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    1,
+                    2
+                  ]
+                ],
+                "effects": [],
+                "isMask": false,
+                "fills": [],
+                "strokes": [
+                  {
+                    "type": "SOLID",
+                    "blendMode": "NORMAL",
+                    "opacity": 1,
+                    "visible": true,
+                    "color": {
+                      "r": 0.8745098039215686,
+                      "g": 0.8745098039215686,
+                      "b": 0.8745098039215686
+                    }
+                  }
+                ],
+                "strokeWeight": 1,
+                "strokeAlign": "INSIDE",
+                "cornerRadius": 2,
+                "rectangleCornerRadii": [
+                  2,
+                  2,
+                  2,
+                  2
+                ],
+                "absoluteBoundingBox": {
+                  "x": 2659,
+                  "y": 445,
+                  "width": 20,
+                  "height": 20
+                },
+                "exportSettings": []
+              },
+              {
+                "id": "146:111390",
+                "name": "矩形 8065",
+                "type": "RECTANGLE",
+                "visible": true,
+                "locked": false,
+                "blendMode": "PASS_THROUGH",
+                "absoluteTransform": [
+                  [
+                    1,
+                    0,
+                    2662
+                  ],
+                  [
+                    0,
+                    1,
+                    448
+                  ]
+                ],
+                "relativeTransform": [
+                  [
+                    1,
+                    0,
+                    5
+                  ],
+                  [
+                    0,
+                    1,
+                    5
+                  ]
+                ],
+                "effects": [],
+                "isMask": false,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "blendMode": "NORMAL",
+                    "opacity": 1,
+                    "visible": true,
+                    "color": {
+                      "r": 0.8745098039215686,
+                      "g": 0.8745098039215686,
+                      "b": 0.8745098039215686
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1,
+                "strokeAlign": "INSIDE",
+                "cornerRadius": 2,
+                "rectangleCornerRadii": [
+                  2,
+                  2,
+                  2,
+                  2
+                ],
+                "absoluteBoundingBox": {
+                  "x": 2662,
+                  "y": 448,
+                  "width": 14,
+                  "height": 14
+                },
+                "exportSettings": []
+              }
+            ]
+          },
+          {
+            "id": "146:111404",
+            "name": "ic_ict_interruption_times",
+            "type": "FRAME",
+            "visible": true,
+            "locked": false,
+            "blendMode": "PASS_THROUGH",
+            "clipsContent": true,
+            "absoluteTransform": [
+              [
+                1,
+                0,
+                2379
+              ],
+              [
+                0,
+                1,
+                552
+              ]
+            ],
+            "relativeTransform": [
+              [
+                1,
+                0,
+                2379
+              ],
+              [
+                0,
+                1,
+                552
+              ]
+            ],
+            "effects": [],
+            "isMask": false,
+            "fills": [],
+            "strokes": [],
+            "strokeWeight": 0.8333333134651184,
+            "strokeAlign": "INSIDE",
+            "absoluteBoundingBox": {
+              "x": 2379,
+              "y": 552,
+              "width": 40,
+              "height": 40
+            },
+            "exportSettings": [
+              {
+                "format": "SVG",
+                "contentsOnly": true,
+                "suffix": "",
+                "svgIdAttribute": true
+              }
+            ],
+            "children": [
+              {
+                "id": "146:111405",
+                "name": "ic_ict_interruption_times-信令面中断次数/base/ic_ict_interruption_times",
+                "type": "GROUP",
+                "visible": true,
+                "locked": false,
+                "blendMode": "PASS_THROUGH",
+                "absoluteTransform": [
+                  [
+                    1,
+                    0,
+                    2379
+                  ],
+                  [
+                    0,
+                    1,
+                    552
+                  ]
+                ],
+                "relativeTransform": [
+                  [
+                    1,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1,
+                    0
+                  ]
+                ],
+                "effects": [],
+                "isMask": false,
+                "fills": [],
+                "strokes": [],
+                "strokeWeight": 1,
+                "strokeAlign": "INSIDE",
+                "absoluteBoundingBox": {
+                  "x": 2379,
+                  "y": 552,
+                  "width": 40,
+                  "height": 40
+                },
+                "exportSettings": [],
+                "children": [
+                  {
+                    "id": "146:111406",
+                    "name": "path1",
+                    "type": "VECTOR",
+                    "visible": true,
+                    "locked": false,
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteTransform": [
+                      [
+                        1,
+                        0,
+                        2380.25
+                      ],
+                      [
+                        0,
+                        1,
+                        553.25
+                      ]
+                    ],
+                    "relativeTransform": [
+                      [
+                        1,
+                        0,
+                        1.25
+                      ],
+                      [
+                        0,
+                        1,
+                        1.25
+                      ]
+                    ],
+                    "effects": [
+                      {
+                        "type": "INNER_SHADOW",
+                        "visible": true,
+                        "radius": 3.3333332538604736,
+                        "offset": {
+                          "x": -0.8333333134651184,
+                          "y": 0.8333333134651184
+                        },
+                        "spread": 0,
+                        "color": {
+                          "r": 1,
+                          "g": 1,
+                          "b": 1,
+                          "a": 0.7176470588235294
+                        },
+                        "blendMode": "NORMAL"
+                      }
+                    ],
+                    "isMask": false,
+                    "fills": [
+                      {
+                        "type": "GRADIENT_LINEAR",
+                        "blendMode": "NORMAL",
+                        "opacity": 1,
+                        "visible": true,
+                        "gradientTransform": [
+                          [
+                            -0.8446663618087769,
+                            -0.7964965105056763,
+                            1.334133505821228
+                          ],
+                          [
+                            0.7964962720870972,
+                            -0.8446661829948425,
+                            0.37064409255981445
+                          ]
+                        ],
+                        "gradientStops": [
+                          {
+                            "color": {
+                              "r": 0.03529411764705882,
+                              "g": 0.6666666666666666,
+                              "b": 0.44313725490196076,
+                              "a": 1
+                            },
+                            "position": 0.014864696189761162,
+                            "boundVariables": {}
+                          },
+                          {
+                            "color": {
+                              "r": 0.5357868269378063,
+                              "g": 0.8377976959826899,
+                              "b": 0.7601377599379595,
+                              "a": 1
+                            },
+                            "position": 1,
+                            "boundVariables": {}
+                          }
+                        ]
+                      }
+                    ],
+                    "strokes": [],
+                    "strokeWeight": 0.8333333134651184,
+                    "strokeAlign": "INSIDE",
+                    "absoluteBoundingBox": {
+                      "x": 2380.25,
+                      "y": 553.25,
+                      "width": 37.5,
+                      "height": 37.499996185302734
+                    },
+                    "exportSettings": []
+                  },
+                  {
+                    "id": "146:111407",
+                    "name": "svg 11",
+                    "type": "FRAME",
+                    "visible": true,
+                    "locked": false,
+                    "blendMode": "PASS_THROUGH",
+                    "clipsContent": true,
+                    "absoluteTransform": [
+                      [
+                        1,
+                        0,
+                        2387.333251953125
+                      ],
+                      [
+                        0,
+                        1,
+                        559.5
+                      ]
+                    ],
+                    "relativeTransform": [
+                      [
+                        1,
+                        0,
+                        8.333333015441895
+                      ],
+                      [
+                        0,
+                        1,
+                        7.5
+                      ]
+                    ],
+                    "effects": [],
+                    "isMask": false,
+                    "fills": [],
+                    "strokes": [],
+                    "strokeWeight": 0.17528045177459717,
+                    "strokeAlign": "INSIDE",
+                    "absoluteBoundingBox": {
+                      "x": 2387.333251953125,
+                      "y": 559.5,
+                      "width": 24.16666603088379,
+                      "height": 24.16666603088379
+                    },
+                    "exportSettings": [],
+                    "children": []
+                  },
+                  {
+                    "id": "146:111408",
+                    "name": "path2",
+                    "type": "VECTOR",
+                    "visible": true,
+                    "locked": false,
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteTransform": [
+                      [
+                        1,
+                        0,
+                        2380.25
+                      ],
+                      [
+                        0,
+                        1,
+                        553.25
+                      ]
+                    ],
+                    "relativeTransform": [
+                      [
+                        1,
+                        0,
+                        1.25
+                      ],
+                      [
+                        0,
+                        1,
+                        1.25
+                      ]
+                    ],
+                    "effects": [],
+                    "isMask": false,
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "blendMode": "NORMAL",
+                        "opacity": 0,
+                        "visible": true,
+                        "color": {
+                          "r": 0,
+                          "g": 0,
+                          "b": 0
+                        }
+                      }
+                    ],
+                    "strokes": [
+                      {
+                        "type": "SOLID",
+                        "blendMode": "NORMAL",
+                        "opacity": 0,
+                        "visible": true,
+                        "color": {
+                          "r": 1,
+                          "g": 1,
+                          "b": 1
+                        }
+                      }
+                    ],
+                    "strokeWeight": 0.8333333134651184,
+                    "strokeAlign": "CENTER",
+                    "absoluteBoundingBox": {
+                      "x": 2380.25,
+                      "y": 553.25,
+                      "width": 37.5,
+                      "height": 37.499996185302734
+                    },
+                    "exportSettings": []
+                  },
+                  {
+                    "id": "146:111409",
+                    "name": "path3",
+                    "type": "ELLIPSE",
+                    "visible": true,
+                    "locked": false,
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteTransform": [
+                      [
+                        1,
+                        0,
+                        2379
+                      ],
+                      [
+                        0,
+                        1,
+                        552
+                      ]
+                    ],
+                    "relativeTransform": [
+                      [
+                        1,
+                        0,
+                        0
+                      ],
+                      [
+                        0,
+                        1,
+                        0
+                      ]
+                    ],
+                    "effects": [],
+                    "isMask": false,
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "blendMode": "NORMAL",
+                        "opacity": 0,
+                        "visible": true,
+                        "color": {
+                          "r": 1,
+                          "g": 1,
+                          "b": 1
+                        }
+                      }
+                    ],
+                    "strokes": [
+                      {
+                        "type": "SOLID",
+                        "blendMode": "NORMAL",
+                        "opacity": 0,
+                        "visible": true,
+                        "color": {
+                          "r": 0,
+                          "g": 0,
+                          "b": 0
+                        }
+                      }
+                    ],
+                    "strokeWeight": 0.8333333134651184,
+                    "strokeAlign": "CENTER",
+                    "absoluteBoundingBox": {
+                      "x": 2379,
+                      "y": 552,
+                      "width": 40,
+                      "height": 40
+                    },
+                    "exportSettings": []
+                  },
+                  {
+                    "id": "146:111410",
+                    "name": "path4",
+                    "type": "VECTOR",
+                    "visible": true,
+                    "locked": false,
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteTransform": [
+                      [
+                        1,
+                        0,
+                        2399
+                      ],
+                      [
+                        0,
+                        1,
+                        564.5
+                      ]
+                    ],
+                    "relativeTransform": [
+                      [
+                        1,
+                        0,
+                        20
+                      ],
+                      [
+                        0,
+                        1,
+                        12.5
+                      ]
+                    ],
+                    "effects": [],
+                    "isMask": false,
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "blendMode": "NORMAL",
+                        "opacity": 0,
+                        "visible": true,
+                        "color": {
+                          "r": 0,
+                          "g": 0,
+                          "b": 0
+                        }
+                      }
+                    ],
+                    "strokes": [
+                      {
+                        "type": "SOLID",
+                        "blendMode": "NORMAL",
+                        "opacity": 0,
+                        "visible": true,
+                        "color": {
+                          "r": 1,
+                          "g": 1,
+                          "b": 1
+                        }
+                      }
+                    ],
+                    "strokeWeight": 0.8333333134651184,
+                    "strokeAlign": "CENTER",
+                    "absoluteBoundingBox": {
+                      "x": 2399,
+                      "y": 564.5,
+                      "width": 0.0008333333535119891,
+                      "height": 14.999998092651367
+                    },
+                    "exportSettings": []
+                  },
+                  {
+                    "id": "146:111411",
+                    "name": "path5",
+                    "type": "VECTOR",
+                    "visible": true,
+                    "locked": false,
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteTransform": [
+                      [
+                        1,
+                        0,
+                        2390.666748046875
+                      ],
+                      [
+                        0,
+                        1,
+                        565.75
+                      ]
+                    ],
+                    "relativeTransform": [
+                      [
+                        1,
+                        0,
+                        11.666666030883789
+                      ],
+                      [
+                        0,
+                        1,
+                        13.75
+                      ]
+                    ],
+                    "effects": [],
+                    "isMask": false,
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "blendMode": "NORMAL",
+                        "opacity": 0,
+                        "visible": true,
+                        "color": {
+                          "r": 0,
+                          "g": 0,
+                          "b": 0
+                        }
+                      }
+                    ],
+                    "strokes": [
+                      {
+                        "type": "SOLID",
+                        "blendMode": "NORMAL",
+                        "opacity": 0,
+                        "visible": true,
+                        "color": {
+                          "r": 1,
+                          "g": 1,
+                          "b": 1
+                        }
+                      }
+                    ],
+                    "strokeWeight": 0.8333333134651184,
+                    "strokeAlign": "CENTER",
+                    "absoluteBoundingBox": {
+                      "x": 2390.666748046875,
+                      "y": 565.75,
+                      "width": 16.66666603088379,
+                      "height": 12.499999046325684
+                    },
+                    "exportSettings": []
+                  },
+                  {
+                    "id": "146:111412",
+                    "name": "矢量 9534",
+                    "type": "VECTOR",
+                    "visible": true,
+                    "locked": false,
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteTransform": [
+                      [
+                        1,
+                        0,
+                        2389
+                      ],
+                      [
+                        0,
+                        1,
+                        563.35986328125
+                      ]
+                    ],
+                    "relativeTransform": [
+                      [
+                        1,
+                        0,
+                        10
+                      ],
+                      [
+                        0,
+                        1,
+                        11.35986328125
+                      ]
+                    ],
+                    "effects": [
+                      {
+                        "type": "DROP_SHADOW",
+                        "visible": true,
+                        "radius": 1.3888888359069824,
+                        "offset": {
+                          "x": 0.6944444179534912,
+                          "y": 1.3888888359069824
+                        },
+                        "spread": 0,
+                        "showShadowBehindNode": false,
+                        "color": {
+                          "r": 0.17647058823529413,
+                          "g": 0.17647058823529413,
+                          "b": 0.17647058823529413,
+                          "a": 0.12549019607843137
+                        },
+                        "blendMode": "NORMAL"
+                      }
+                    ],
+                    "isMask": false,
+                    "fills": [
+                      {
+                        "type": "GRADIENT_LINEAR",
+                        "blendMode": "NORMAL",
+                        "opacity": 1,
+                        "visible": true,
+                        "gradientTransform": [
+                          [
+                            0.366803377866745,
+                            0.5308733582496643,
+                            -0.18340158462524414
+                          ],
+                          [
+                            -0.5308733582496643,
+                            0.3668033182621002,
+                            0.7654365301132202
+                          ]
+                        ],
+                        "gradientStops": [
+                          {
+                            "color": {
+                              "r": 0.9215686274509803,
+                              "g": 0.9215686274509803,
+                              "b": 0.9215686274509803,
+                              "a": 1
+                            },
+                            "position": 0.049977365881204605,
+                            "boundVariables": {}
+                          },
+                          {
+                            "color": {
+                              "r": 1,
+                              "g": 1,
+                              "b": 1,
+                              "a": 0.9176470588235294
+                            },
+                            "position": 0.4093022346496582,
+                            "boundVariables": {}
+                          },
+                          {
+                            "color": {
+                              "r": 1,
+                              "g": 1,
+                              "b": 1,
+                              "a": 0.5747126560585172
+                            },
+                            "position": 1,
+                            "boundVariables": {}
+                          }
+                        ]
+                      }
+                    ],
+                    "strokes": [
+                      {
+                        "type": "GRADIENT_LINEAR",
+                        "blendMode": "NORMAL",
+                        "opacity": 1,
+                        "visible": true,
+                        "gradientTransform": [
+                          [
+                            0.8022687435150146,
+                            0.5341421365737915,
+                            -0.2781166434288025
+                          ],
+                          [
+                            -0.5341421365737915,
+                            0.8022686839103699,
+                            0.2799038887023926
+                          ]
+                        ],
+                        "gradientStops": [
+                          {
+                            "color": {
+                              "r": 1,
+                              "g": 1,
+                              "b": 1,
+                              "a": 1
+                            },
+                            "position": 0,
+                            "boundVariables": {}
+                          },
+                          {
+                            "color": {
+                              "r": 1,
+                              "g": 1,
+                              "b": 1,
+                              "a": 0
+                            },
+                            "position": 1,
+                            "boundVariables": {}
+                          }
+                        ]
+                      }
+                    ],
+                    "strokeWeight": 0.1388888955116272,
+                    "strokeAlign": "CENTER",
+                    "absoluteBoundingBox": {
+                      "x": 2389,
+                      "y": 563.35986328125,
+                      "width": 20,
+                      "height": 17.280126571655273
+                    },
+                    "exportSettings": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "146:111413",
+            "name": "叶子-圆底托",
+            "type": "FRAME",
+            "visible": true,
+            "locked": false,
+            "blendMode": "PASS_THROUGH",
+            "clipsContent": true,
+            "absoluteTransform": [
+              [
+                1,
+                0,
+                2443
+              ],
+              [
+                0,
+                1,
+                548
+              ]
+            ],
+            "relativeTransform": [
+              [
+                1,
+                0,
+                2443
+              ],
+              [
+                0,
+                1,
+                548
+              ]
+            ],
+            "effects": [],
+            "isMask": false,
+            "fills": [],
+            "strokes": [],
+            "strokeWeight": 1,
+            "strokeAlign": "INSIDE",
+            "absoluteBoundingBox": {
+              "x": 2443,
+              "y": 548,
+              "width": 48.00490188598633,
+              "height": 48.00490188598633
+            },
+            "exportSettings": [],
+            "children": [
+              {
+                "id": "146:111414",
+                "name": "path2",
+                "type": "ELLIPSE",
+                "visible": true,
+                "locked": false,
+                "blendMode": "PASS_THROUGH",
+                "absoluteTransform": [
+                  [
+                    1,
+                    0,
+                    2443.0029296875
+                  ],
+                  [
+                    0,
+                    1,
+                    548.00390625
+                  ]
+                ],
+                "relativeTransform": [
+                  [
+                    1,
+                    0,
+                    0.0029296875
+                  ],
+                  [
+                    0,
+                    1,
+                    0.00390625
+                  ]
+                ],
+                "effects": [],
+                "isMask": false,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "blendMode": "NORMAL",
+                    "opacity": 1,
+                    "visible": true,
+                    "color": {
+                      "r": 0.21176470588235294,
+                      "g": 0.7568627450980392,
+                      "b": 0.5529411764705883
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1,
+                "strokeAlign": "INSIDE",
+                "absoluteBoundingBox": {
+                  "x": 2443.0029296875,
+                  "y": 548.00390625,
+                  "width": 48,
+                  "height": 48
+                },
+                "exportSettings": []
+              },
+              {
+                "id": "146:111415",
+                "name": "矢量 9534",
+                "type": "VECTOR",
+                "visible": true,
+                "locked": false,
+                "blendMode": "PASS_THROUGH",
+                "absoluteTransform": [
+                  [
+                    1,
+                    0,
+                    2455.001953125
+                  ],
+                  [
+                    0,
+                    1,
+                    561.63427734375
+                  ]
+                ],
+                "relativeTransform": [
+                  [
+                    1,
+                    0,
+                    12.001953125
+                  ],
+                  [
+                    0,
+                    1,
+                    13.63427734375
+                  ]
+                ],
+                "effects": [],
+                "isMask": false,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "blendMode": "NORMAL",
+                    "opacity": 1,
+                    "visible": true,
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 7.008965492248535,
+                "strokeAlign": "INSIDE",
+                "styles": {
+                  "fill": {
+                    "id": "146:111417",
+                    "key": "833329ac6b9631ae68f27ad226ae19e96c5bd983",
+                    "name": "场景_Iconcolor_color_icon_inverse",
+                    "description": "6-18日DMG评审通过修改为#FFFFFF",
+                    "remote": true
+                  }
+                },
+                "absoluteBoundingBox": {
+                  "x": 2455.001953125,
+                  "y": 561.63427734375,
+                  "width": 24,
+                  "height": 20.73615264892578
+                },
+                "exportSettings": []
+              },
+              {
+                "id": "146:111416",
+                "name": "path1",
+                "type": "VECTOR",
+                "visible": true,
+                "locked": false,
+                "blendMode": "PASS_THROUGH",
+                "absoluteTransform": [
+                  [
+                    1,
+                    0,
+                    2442.9970703125
+                  ],
+                  [
+                    0,
+                    1,
+                    547.9969482421875
+                  ]
+                ],
+                "relativeTransform": [
+                  [
+                    1,
+                    0,
+                    -0.0029928041622042656
+                  ],
+                  [
+                    0,
+                    1,
+                    -0.003071427345275879
+                  ]
+                ],
+                "effects": [],
+                "isMask": false,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "blendMode": "NORMAL",
+                    "opacity": 0,
+                    "visible": true,
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1,
+                "strokeAlign": "INSIDE",
+                "absoluteBoundingBox": {
+                  "x": 2442.9970703125,
+                  "y": 547.9969482421875,
+                  "width": 48.00587463378906,
+                  "height": 48.00450134277344
+                },
+                "exportSettings": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "0:1",
+        "name": "页面 1",
+        "type": "CANVAS",
+        "backgroundColor": {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.9372549019607843,
+            "g": 0.9372549019607843,
+            "b": 0.9372549019607843
+          },
+          "boundVariables": {}
+        },
+        "children": []
+      },
+      {
+        "id": "15:401",
+        "name": "页面 2",
+        "type": "CANVAS",
+        "backgroundColor": {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.9372549019607843,
+            "g": 0.9372549019607843,
+            "b": 0.9372549019607843
+          },
+          "boundVariables": {}
+        },
+        "children": []
+      },
+      {
+        "id": "16:386",
+        "name": "页面 3",
+        "type": "CANVAS",
+        "backgroundColor": {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.9372549019607843,
+            "g": 0.9372549019607843,
+            "b": 0.9372549019607843
+          },
+          "boundVariables": {}
+        },
+        "children": []
+      },
+      {
+        "id": "26:397",
+        "name": "页面 4",
+        "type": "CANVAS",
+        "backgroundColor": {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.9372549019607843,
+            "g": 0.9372549019607843,
+            "b": 0.9372549019607843
+          },
+          "boundVariables": {}
+        },
+        "children": []
+      },
+      {
+        "id": "49:1",
+        "name": "李晓帆",
+        "type": "CANVAS",
+        "backgroundColor": {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.9372549019607843,
+            "g": 0.9372549019607843,
+            "b": 0.9372549019607843
+          },
+          "boundVariables": {}
+        },
+        "children": []
+      },
+      {
+        "id": "59:421",
+        "name": "页面 6",
+        "type": "CANVAS",
+        "backgroundColor": {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.9372549019607843,
+            "g": 0.9372549019607843,
+            "b": 0.9372549019607843
+          },
+          "boundVariables": {}
+        },
+        "children": []
+      },
+      {
+        "id": "63:421",
+        "name": "页面 7",
+        "type": "CANVAS",
+        "backgroundColor": {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.4627450980392157,
+            "g": 0.4549019607843137,
+            "b": 0.4549019607843137
+          },
+          "boundVariables": {}
+        },
+        "children": []
+      },
+      {
+        "id": "74:8110",
+        "name": "0422",
+        "type": "CANVAS",
+        "backgroundColor": {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.9372549019607843,
+            "g": 0.9372549019607843,
+            "b": 0.9372549019607843
+          },
+          "boundVariables": {}
+        },
+        "children": []
+      },
+      {
+        "id": "76:11839",
+        "name": "规范补充",
+        "type": "CANVAS",
+        "backgroundColor": {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.9372549019607843,
+            "g": 0.9372549019607843,
+            "b": 0.9372549019607843
+          },
+          "boundVariables": {}
+        },
+        "children": []
+      },
+      {
+        "id": "86:11983",
+        "name": "开发进展",
+        "type": "CANVAS",
+        "backgroundColor": {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.9372549019607843,
+            "g": 0.9372549019607843,
+            "b": 0.9372549019607843
+          },
+          "boundVariables": {}
+        },
+        "children": []
+      },
+      {
+        "id": "87:1",
+        "name": "页面 11",
+        "type": "CANVAS",
+        "backgroundColor": {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.9372549019607843,
+            "g": 0.9372549019607843,
+            "b": 0.9372549019607843
+          },
+          "boundVariables": {}
+        },
+        "children": []
+      }
+    ]
+  },
+  "styles": {
+    "FILL": [],
+    "TEXT": [],
+    "EFFECT": [],
+    "GRID": []
+  },
+  "components": [],
+  "exportSettings": [
+    {
+      "format": "SVG",
+      "contentsOnly": true,
+      "suffix": "",
+      "svgIdAttribute": true,
+      "id": "146:111404",
+      "name": "ic_ict_interruption_times",
+      "fileName": "ic_ict_interruption_times.svg"
+    }
+  ]
+}

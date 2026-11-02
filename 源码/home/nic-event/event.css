@@ -1,0 +1,352 @@
+.hc-nic-module{z-index:22}
+.hc-nic-module .evt-left{width:484px}
+.hc-nic-module .evt-right{left:508px;width:1332px}
+.hc-nic-module .evt-heading-copy h1{font-size:16px}
+.hc-nic-module .evt-heading-copy{left:100px}
+.hc-nic-module .evt-diagnostic-scroll{top:82px;padding-top:0}
+.hc-nic-module .nic-close{margin-left:auto;font-size:28px;line-height:26px}
+.hc-nic-module .nic-service{position:absolute;top:48px;width:1332px;height:688px;border-radius:14px;background:#191919;padding:18px 20px}
+.hc-nic-module .nic-service-title{display:flex;align-items:center;gap:8px;font-size:14px}
+.hc-nic-module .nic-metrics{display:grid;grid-template-columns:repeat(6,1fr);margin-top:18px;gap:28px}
+.hc-nic-module .nic-metrics>div{border-right:1px solid #3d3d3d}
+.hc-nic-module .nic-metrics>div:last-child{border:0}
+.hc-nic-module .nic-metrics small{display:block;font-size:14px;color:#aaa;margin-bottom:10px}
+.hc-nic-module .nic-metrics strong{font-size:25px;font-weight:500}
+.hc-nic-module .nic-instance-topology{position:absolute;left:20px;top:129px;width:1292px;height:539px;border-radius:14px;background-image:url('@@NIC_TOPOLOGY@@');background-size:1920px 1080px;background-position:-576px -245px;background-repeat:no-repeat}
+.hc-nic-module .nic-manual-copy{margin-top:12px;background:#333;border:1px solid #515151;border-radius:8px;padding:16px}
+.hc-nic-module .nic-manual-copy strong{color:#ed969a}
+.hc-nic-module .nic-process{position:absolute;top:752px;width:1332px;height:242px;background:#191919;border-radius:14px;padding:20px}
+.hc-nic-module .nic-process h2{margin:0;font-size:16px;font-weight:500}
+.hc-nic-module .nic-flow{position:absolute;inset:0 20px}
+.hc-nic-module .nic-flow:before{content:'';position:absolute;left:0;right:0;bottom:36px;border-top:2px solid #555}
+.hc-nic-module .nic-flow-node{position:absolute;width:138px;min-height:62px;border:1px solid #555;border-radius:34px;background:#393939;display:flex;align-items:center;gap:6px;text-align:left;padding:8px;font-size:12px;line-height:16px;white-space:pre-line}
+.hc-nic-module .nic-flow-node:after{content:'';position:absolute;width:8px;height:1px;background:#666;right:-8px;top:50%}
+.hc-nic-module .nic-flow-node:last-of-type:after{display:none}
+.hc-nic-module .nic-flow-node small{display:block;color:#aaa;font-size:12px}
+.hc-nic-module .nic-flow-node[aria-selected=true]{border-color:#75adf5}
+.hc-nic-module .nic-flow-node.nic-waiting{border-color:#875456}
+.hc-nic-module .nic-flow-time{position:absolute;bottom:14px;width:138px;text-align:center;color:#aaa;font-size:11px}
+/* 0910 source corrections */
+.hc-nic-module .nic-close{display:flex;align-items:center;justify-content:center;width:20px;height:20px;font-size:0}
+.hc-nic-module .evt-expand-all{display:flex;align-items:center;gap:4px}
+.hc-nic-module .nic-section-copy{white-space:pre-line}
+.hc-nic-module .evt-badge.degraded{color:#f69e39;background:#51412b}
+.hc-nic-module .evt-badge.impact{color:#b3b3b3;background:#4a4a4a}
+.hc-nic-module .nic-metrics>div:first-child strong{color:#f4840c}
+.hc-nic-module .evt-cause-list>li{min-height:0;padding-bottom:16px}
+.hc-nic-module .evt-cause-list>li:last-child{padding-bottom:0}
+.hc-nic-module .evt-cause-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:400}
+.hc-nic-module .evt-cause-list>li>img{width:12px;height:12px;margin-top:5px}
+.hc-nic-module .evt-cause-list p:empty{display:none}
+.hc-nic-module .evt-cause-list p{margin-top:6px;font-size:12px}
+.hc-nic-module .evt-step:last-child .evt-step-body{border-left:0}
+.hc-nic-module .nic-manual-copy{margin-top:0}
+.hc-nic-module .nic-recovery-item{position:relative;padding-left:18px;padding-bottom:30px;margin:0}
+.hc-nic-module .nic-recovery-item:last-child{padding-bottom:0}
+.hc-nic-module .nic-recovery-item:before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;background:#36c18d;border-radius:50%}
+.hc-nic-module .nic-recovery-item:not(:last-child):after{content:'';position:absolute;left:3px;top:21px;bottom:3px;border-left:1px dashed #777}
+.hc-nic-module .nic-flow-node{width:calc(100% / 9 - 10px);min-height:54px;max-width:180px;padding:6px;gap:5px;line-height:16px;font-size:12px;z-index:1}
+.hc-nic-module .nic-flow-node>.evt-icon{width:24px;height:24px;flex-shrink:0}
+.hc-nic-module .nic-flow-node>span{min-width:0;overflow-wrap:anywhere}
+.hc-nic-module .nic-flow-node:after{display:none}
+.hc-nic-module .nic-flow-time{width:calc(100% / 9 - 10px);bottom:12px;font-size:10px}
+.hc-nic-module .nic-flow-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;fill:none;stroke:#666;stroke-width:1}
+.nic-native-topology{position:absolute;left:0;top:0;width:100%;height:370px;display:grid;grid-template-columns:2fr 5fr;grid-template-rows:1fr 1fr;gap:8px;background:#303337;padding:8px}
+.nic-instance-group{min-width:0;background:#3d4144;border-radius:6px;padding:10px 12px}
+.nic-instance-group>small{font-size:12px;color:#ccc;display:block}
+.nic-hex-row{display:flex;justify-content:space-around;align-items:center;height:132px;gap:8px}
+.nic-hex-node{min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.nic-hex{width:102px;height:111px;clip-path:polygon(50% 0,96% 25%,96% 75%,50% 100%,4% 75%,4% 25%);background:#27794f;display:grid;place-items:center}
+.nic-hex.fault{background:#b74d59}
+.nic-hex-cells{display:grid;grid-template-columns:repeat(4,17px);gap:4px;margin-top:10px}
+.nic-hex-cells span{width:17px;height:19px;text-align:center;background:#339966;color:#d8ece1;line-height:19px;font-size:12px}
+.nic-hex-cells span:nth-child(9){grid-column:2}
+.nic-ip{font-size:11px;color:#c9c9c9;white-space:nowrap}
+.hc-nic-module .evt-badge-degraded{color:#f69e39;background:#51412b}
+.hc-nic-module .evt-badge-impact{color:#b3b3b3;background:#4a4a4a}
+.hc-nic-module .evt-step:last-child .evt-step-body:before{display:none}
+.hc-nic-module .nic-flow-node:nth-of-type(4){width:225px;max-width:225px}
+
+/* Compact cause-chain spacing and pending NIC recovery. */
+.hc-nic-module .evt-cause-list>li:last-child{min-height:0}
+.hc-nic-module .evt-step:nth-child(2) .evt-cause{margin-top:4px;padding-bottom:14px}
+.hc-nic-module .evt-cause-title .evt-badge{margin-left:0}
+.hc-nic-module .evt-step-select>.evt-badge{margin-left:4px;flex:none}
+.hc-nic-module .nic-recovery-item>strong{display:block;color:#ddd;font-weight:500;margin-bottom:4px}
+.hc-nic-module .nic-recovery-item>p{color:#b3b3b3;font-size:12px;line-height:20px}
+
+/* Original neutral backgrounds and rounded, translucent hexagons. */
+.nic-native-topology{background:#2f2f2f;padding:12px;height:372px}
+.nic-instance-group{background:#434343}
+.nic-hex{clip-path:none;background:transparent;position:relative}
+.nic-hex.fault{background:transparent}
+.nic-hex-cells{position:relative;z-index:1}
+.hc-nic-module .nic-recovery-item:before{top:6px}
+.hc-nic-module .nic-flow:before{border-top-color:#444;border-top-width:3px}
+.hc-nic-module .nic-flow-time{font-size:12px;line-height:21px;color:#b3b3b3;bottom:4px}
+.hc-nic-module .nic-section-copy>.evt-badge{margin-right:4px;vertical-align:baseline}
+.nic-hex{background-image:url("data:image/svg+xml,%3Csvg%20preserveAspectRatio%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20102%20114%22%3E%3Cpath%20d%3D%22M43%205%20Q51%200%2059%205%20L92%2024%20Q100%2029%20100%2039%20L100%2075%20Q100%2085%2092%2090%20L59%20108%20Q51%20113%2043%20108%20L10%2090%20Q2%2085%202%2075%20L2%2039%20Q2%2029%2010%2024%20Z%22%20fill%3D%22%232dc16f%22%20fill-opacity%3D%22.25%22%20stroke%3D%22%23058358%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");background-size:100% 100%}
+.nic-hex.fault{background-image:url("data:image/svg+xml,%3Csvg%20preserveAspectRatio%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20102%20114%22%3E%3Cpath%20d%3D%22M43%205%20Q51%200%2059%205%20L92%2024%20Q100%2029%20100%2039%20L100%2075%20Q100%2085%2092%2090%20L59%20108%20Q51%20113%2043%20108%20L10%2090%20Q2%2085%202%2075%20L2%2039%20Q2%2029%2010%2024%20Z%22%20fill%3D%22%23e7434a%22%20fill-opacity%3D%22.25%22%20stroke%3D%22%23e7434a%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");background-size:100% 100%}
+
+/* Topology styling and replacement-node annotations from 网卡升级2. */
+.nic-native-topology{grid-template-columns:2fr 6fr;grid-template-rows:176px 176px;height:380px;gap:8px}
+.nic-instance-group{padding:8px 10px}
+.nic-hex{width:94px;height:108px}
+.nic-hex-row{height:142px;gap:4px}
+.nic-hex-cells span{border-radius:2px;background:#2fa96a}
+.nic-hex.fault .nic-hex-cells span:last-child{background:#e7434a}
+.nic-hex-node{position:relative}
+.nic-node-state{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:12px;padding:3px 8px;border-radius:4px;white-space:nowrap;color:white;z-index:2}
+.nic-node-state.new{background:#119b64}
+.nic-node-state.exited{background:#888}
+.nic-replacement-range{position:absolute;right:10px;top:192px;width:calc((100% - 36px) * .75 / 7 * 2);height:177px;border:1px dashed #aaa;border-radius:8px;pointer-events:none}
+.nic-upgrade-tip{position:absolute;right:2px;top:60px;width:290px;background:#393939;border-radius:12px;padding:16px 18px;box-shadow:0 5px 16px #0005;z-index:3}
+.nic-upgrade-tip:after{content:'';position:absolute;bottom:-10px;right:62px;border-left:10px solid transparent;border-right:10px solid transparent;border-top:11px solid #393939}
+.nic-upgrade-tip strong{font-size:16px;line-height:24px;font-weight:500;display:flex;align-items:center;gap:8px}
+.nic-upgrade-tip strong:before{content:'▲';color:#e7434a;font-size:16px}
+.nic-upgrade-tip p{font-size:12px;line-height:20px;color:#b3b3b3;margin-top:10px;padding-left:24px}
+
+/* Use source artwork and shared optical timeline cards. */
+.hc-nic-module .nic-instance-topology{background:none;overflow:hidden}
+.hc-nic-module .nic-metric-unit{font-size:14px;font-weight:400;color:#c9c9c9;margin-left:4px}
+.hc-nic-module .nic-metrics>div:first-child .nic-metric-unit{color:#f4840c}
+.hc-nic-module .nic-service-title>.evt-badge-degraded{background:rgba(246,158,57,.15);color:#f69e39}
+.hc-nic-module .nic-flow-node{transform:none;width:132px;min-height:48px;padding:6px 8px;gap:4px;border-radius:40px;background:#383838;border-color:#4c4c4c}
+.hc-nic-module .nic-flow-node>.evt-icon{width:32px;height:32px}
+.hc-nic-module .nic-flow-node:nth-of-type(4){width:225px;max-width:225px}
+.hc-nic-module .nic-flow-time{width:132px}
+/* Live detail and proportional source artwork. */
+.hc-nic-module .nic-instance-topology{overflow:visible}
+.nic-source-tooltip{right:-14px;top:58px;width:330px;z-index:20;min-height:104px}
+.hc-nic-module .nic-flow-node{width:142px;max-width:none;height:auto;min-height:48px}
+.hc-nic-module .nic-flow-node>span{flex:1;min-width:0}
+.hc-nic-module .nic-flow-node .evt-process-title,.hc-nic-module .nic-flow-node .evt-process-description{white-space:normal;overflow-wrap:anywhere;word-break:normal}
+.hc-nic-module .nic-flow-node>.evt-icon{flex:0 0 32px}
+.hc-nic-module .nic-flow-tick{position:absolute;bottom:0;pointer-events:none}
+.hc-nic-module .nic-flow:before{bottom:24px;height:4px;border:0;background:#393939;border-radius:2px}
+
+/* Reallocate 32px from processing to the illustration. */
+.hc-nic-module .nic-service{height:720px}
+.hc-nic-module .nic-instance-topology{height:571px;top:133px}
+.hc-nic-module .nic-instance-topology:before{content:'';position:absolute;left:0;right:0;top:-12px;height:1px;background:#393939}
+.hc-nic-module .nic-process{top:784px;height:210px}
+.hc-nic-module .nic-metrics{gap:0;grid-template-columns:repeat(6,1fr)}
+.hc-nic-module .nic-metrics>div{padding-left:40px;position:relative;border:0}
+.hc-nic-module .nic-metrics>div:first-child{padding-left:0}
+.hc-nic-module .nic-metrics>div:not(:last-child):after{content:'';position:absolute;right:24px;top:2px;bottom:0;width:1px;background:#3d3d3d}
+/* Preserve the original cabinet detail independently of neutral panel recoloring. */
+
+/* Independently laid out source components: no bitmap recoloring or masking. */
+.hc-nic-module .nic-instance-topology{background:none;overflow:visible}
+.hc-nic-module .nic-instance-topology:before{display:none}
+.nic-native-topology{position:absolute;inset:0 0 auto;display:grid;grid-template-columns:310px 1fr;grid-template-rows:172px 172px;gap:8px;height:352px;padding:0;background:none}
+.nic-instance-group{position:relative;background:#242424;border-radius:10px;padding:0 10px}
+.nic-instance-group>small{position:absolute;left:12px;top:10px;font-size:12px;color:#b3b3b3}
+.nic-hex-row{height:100%;display:flex;align-items:center;justify-content:space-around;gap:4px;padding-top:14px}
+.nic-hex-node{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.nic-hex{width:94px;height:108px;flex:none;display:flex;align-items:center;justify-content:center}
+.nic-hex-cells{display:grid;grid-template-columns:repeat(4,18px);gap:3px}
+.nic-hex-cells span{width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:13px;background:#2fa96a;color:#fff;border-radius:2px}
+.nic-hex-cells span:nth-child(9){grid-column:2}
+.nic-ip{font-size:11px;line-height:14px;white-space:nowrap;color:#b3b3b3}
+.nic-node-state{top:-12px;font-size:11px;padding:3px 6px}
+.nic-replacement-range{right:2px;top:180px;width:calc((100% - 318px) * 2 / 7);height:172px;border-color:#aaa}
+.nic-native-topology .nic-upgrade-tip{right:-8px;top:60px;width:330px;z-index:20}
+.nic-cabinet-detail{position:absolute;top:382px;left:270px;width:752px;height:187px}
+.nic-cabinet-detail:before{content:'';position:absolute;left:73.8%;top:-30px;height:30px;border-left:1px solid #aaa}
+.nic-cabinet-image{width:752px;height:172px;background-image:url('@@NIC_TOPOLOGY@@');background-size:1920px 1080px;background-position:-850px -645px;background-repeat:no-repeat}
+.nic-cabinet-labels{display:grid;grid-template-columns:repeat(20,1fr);width:710px;margin-left:20px;font-size:9px;line-height:15px;color:#aaa;text-align:center;white-space:nowrap}
+.nic-cabinet-labels .active{color:#fff;font-weight:600}
+.nic-native-legend{position:absolute;right:16px;bottom:16px;display:flex;gap:30px;font-size:12px;color:#b3b3b3}
+.nic-native-legend span{display:flex;align-items:center;gap:6px}
+.nic-native-legend span:before{content:'';width:18px;height:18px;border-radius:4px;background:#2fa96a}
+.nic-native-legend span:last-child:before{background:#e7434a}
+.nic-hex{background-image:url("data:image/svg+xml,%3Csvg%20preserveAspectRatio%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20124%20124%22%3E%3Cpath%20d%3D%22M%2044.9370124772946%2C10.531493761352698%20L%2044.937%2C10.5315%20Q%2062%2C2%2079.063%2C10.5315%20L%20104.937%2C23.4685%20Q%20122%2C32%20122%2C51.077%20L%20122%2C72.923%20Q%20122%2C92%20104.937%2C100.531%20L%2079.063%2C113.469%20Q%2062%2C122%2044.937%2C113.469%20L%2019.063%2C100.531%20Q%202%2C92%202%2C72.923%20L%202%2C51.077%20Q%202%2C32%2019.063%2C23.4685%20Z%22%20fill%3D%22%232dc16f%22%20fill-opacity%3D%22.25%22%20stroke%3D%22%23058358%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");width:104px;height:104px}
+.nic-hex.fault{background-image:url("data:image/svg+xml,%3Csvg%20preserveAspectRatio%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20124%20124%22%3E%3Cpath%20d%3D%22M%2044.9370124772946%2C10.531493761352698%20L%2044.937%2C10.5315%20Q%2062%2C2%2079.063%2C10.5315%20L%20104.937%2C23.4685%20Q%20122%2C32%20122%2C51.077%20L%20122%2C72.923%20Q%20122%2C92%20104.937%2C100.531%20L%2079.063%2C113.469%20Q%2062%2C122%2044.937%2C113.469%20L%2019.063%2C100.531%20Q%202%2C92%202%2C72.923%20L%202%2C51.077%20Q%202%2C32%2019.063%2C23.4685%20Z%22%20fill%3D%22%23e7434a%22%20fill-opacity%3D%22.25%22%20stroke%3D%22%23e7434a%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");width:104px;height:104px}
+.nic-cabinet-labels{font-size:10px;line-height:12px;white-space:pre-line}
+
+/* 17:35 review: source proportions, clean cabinet edges, one-line labels. */
+.nic-hex,.nic-hex.fault{width:94px;height:108px;min-width:94px;max-width:94px;flex:0 0 108px}
+.nic-cabinet-image{width:710px;margin-left:20px;background-position:-870px -645px}
+.nic-cabinet-labels{font-size:8px;line-height:16px;white-space:nowrap;color:#8e8e8e}
+.nic-cabinet-labels span{min-width:0}
+.nic-cabinet-labels .active{color:#fff;font-weight:500}
+.nic-native-topology .nic-upgrade-tip{padding:17px 20px 14px 24px;background:#393939;border-radius:12px;box-shadow:0 4px 12px #0004}
+.nic-upgrade-tip strong{gap:9px;font-size:16px;line-height:24px;font-weight:500}
+.nic-upgrade-tip strong:before{display:none}
+.nic-upgrade-tip strong>.evt-icon{flex:0 0 17px;width:17px;height:17px}
+.nic-upgrade-tip p{padding-left:26px;margin-top:9px;font-size:12px;line-height:20px;color:#c9c9c9}
+.hc-nic-module .nic-flow-node[data-flow-index="1"]{width:174px}
+.hc-nic-module .nic-flow-node[data-flow-index="1"] .evt-process-description{white-space:pre;overflow-wrap:normal;font-size:12px}
+/* Decode rows share seven node slots; the exited node sits outside the group fill. */
+.nic-instance-group:nth-child(2),.nic-instance-group:nth-child(4){background:linear-gradient(to right,#242424 86%,transparent 86%)}
+.nic-instance-group:nth-child(2) .nic-hex-row,.nic-instance-group:nth-child(4) .nic-hex-row{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));justify-items:center;gap:0}
+
+.nic-hex{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20preserveAspectRatio%3D%22none%22%20viewBox%3D%220%200%20124%20124%22%3E%3Cpath%20d%3D%22M%2053.9502%2C6.02492%20Q%2062%2C2%2070.0498%2C6.02492%20L%20113.95%2C27.9751%20Q%20122%2C32%20122%2C41%20L%20122%2C83%20Q%20122%2C92%20113.95%2C96.0249%20L%2070.0498%2C117.975%20Q%2062%2C122%2053.9502%2C117.975%20L%2010.0498%2C96.0249%20Q%202%2C92%202%2C83%20L%202%2C41%20Q%202%2C32%2010.0498%2C27.9751%20Z%22%20fill%3D%22%232dc16f%22%20fill-opacity%3D%22.25%22%20stroke%3D%22%23058358%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%222%22/%3E%3C/svg%3E")}
+
+.nic-hex.fault{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20preserveAspectRatio%3D%22none%22%20viewBox%3D%220%200%20124%20124%22%3E%3Cpath%20d%3D%22M%2053.9502%2C6.02492%20Q%2062%2C2%2070.0498%2C6.02492%20L%20113.95%2C27.9751%20Q%20122%2C32%20122%2C41%20L%20122%2C83%20Q%20122%2C92%20113.95%2C96.0249%20L%2070.0498%2C117.975%20Q%2062%2C122%2053.9502%2C117.975%20L%2010.0498%2C96.0249%20Q%202%2C92%202%2C83%20L%202%2C41%20Q%202%2C32%2010.0498%2C27.9751%20Z%22%20fill%3D%22%23e7434a%22%20fill-opacity%3D%22.25%22%20stroke%3D%22%23e7434a%22%20stroke-opacity%3D%22.75%22%20stroke-width%3D%222%22/%3E%3C/svg%3E")}
+
+/* Final spacing review: shared 14px timeline bottom inset. */
+.nic-cabinet-labels span:not(.active){font-size:7px}
+.nic-cabinet-labels .active{font-size:8px}
+.nic-hex-cells{position:absolute;left:50%;transform:translateX(-50%);width:81px;margin-left:0;margin-right:0;padding:0;grid-template-columns:repeat(4,18px);column-gap:3px}
+.hc-nic-module .nic-flow{bottom:14px}
+
+/* Align annotations to their actual targets. */
+.nic-cabinet-detail:before{left:588px}
+.nic-instance-group:nth-child(4) .nic-hex-node:last-child{transform:translateX(10px)}
+.nic-native-topology .nic-upgrade-tip:after{right:auto;left:var(--nic-arrow-x,270px);transform:translateX(-50%)}
+
+/* Connectors use the same coordinate space as the cards. */
+.hc-nic-module .nic-flow-node:after{display:none}
+.hc-nic-module .nic-flow-lines{z-index:0}
+.hc-nic-module .nic-flow-node{z-index:2}
+
+/* 节点迁移与执行确认 */
+.hc-nic-module .nic-replacement{transition:transform .65s cubic-bezier(.4,0,.2,1);}
+.hc-nic-module .nic-upgrade-tip:after{transition:left .65s cubic-bezier(.4,0,.2,1);}
+.hc-nic-module .nic-confirm-execute{display:block;margin:12px 0 0 auto;padding:6px 14px;border:1px solid #0067D1;border-radius:4px;background:#0067D1;color:#fff;font:inherit;cursor:pointer;}
+.hc-nic-module .nic-confirm-execute:disabled{opacity:.6;cursor:default;}
+@media(prefers-reduced-motion:reduce){.hc-nic-module .nic-replacement,.hc-nic-module .nic-upgrade-tip:after{transition:none;}}
+
+/* 两类提示共用底边，箭头继续跟随故障节点。 */
+.nic-native-topology .nic-upgrade-tip{top:auto;bottom:188px;}
+.nic-native-topology .nic-upgrade-tip.nic-direct-tip{width:430px;}
+.nic-upgrade-tip.nic-direct-tip strong{white-space:nowrap;}
+
+/* 提示框按内容收宽；框与箭头作为整体跟随故障节点。 */
+.nic-native-topology .nic-upgrade-tip{right:auto;transition:transform .65s cubic-bezier(.4,0,.2,1);}
+.nic-native-topology .nic-upgrade-tip.nic-direct-tip{width:max-content;}
+.nic-native-topology .nic-upgrade-tip:after{left:calc(100% - 72px);transition:none;}
+@media(prefers-reduced-motion:reduce){.nic-native-topology .nic-upgrade-tip{transition:none;}}
+
+/* 初始故障直接就位；仅切换节点时迁移。 */
+.nic-initializing .nic-replacement,.nic-initializing .nic-upgrade-tip{transition:none!important;}
+.nic-native-topology .nic-upgrade-tip{bottom:170px;}
+.nic-recovery-prior{margin:0 0 12px;color:#c9c9c9;font-size:12px;line-height:20px;}
+.nic-upgrade-results{margin:14px 0 0;padding-left:20px;color:#ddd;font-size:12px;line-height:24px;}
+.nic-upgrade-results li::marker{color:#36c18d;}
+.nic-flow-complete .nic-flow-node[data-column]{width:120px;}
+.nic-flow-complete .nic-flow-node[data-flow-index="0"]{width:142px;}
+.nic-flow-complete .nic-flow-node[data-flow-index="1"]{width:174px;}
+.nic-flow-complete .nic-flow-node[data-flow-index="3"]{width:225px;}
+.hc-nic-module .nic-flow-complete .nic-flow-node{padding:6px;gap:4px;}
+.hc-nic-module .nic-flow-complete .nic-flow-node>.evt-icon{width:24px!important;height:24px!important;flex:0 0 24px;margin-right:0;}
+.hc-nic-module .nic-flow-complete .evt-process-title{font-size:10px;line-height:14px;white-space:nowrap;}
+.hc-nic-module .nic-flow-complete .evt-process-description{font-size:11px;line-height:15px;}
+
+.nic-upgrade-results{list-style:none;margin:0;padding:0;}
+.nic-upgrade-results li{position:relative;padding:0 0 20px 20px;line-height:20px;}
+.nic-upgrade-results li:last-child{padding-bottom:0;}
+.nic-upgrade-results li:before{content:'';position:absolute;left:0;top:6px;width:7px;height:7px;border-radius:50%;background:#2fc49a;}
+.nic-upgrade-results li:not(:last-child):after{content:'';position:absolute;left:3px;top:16px;bottom:2px;border-left:1px dashed #777;}
+.nic-node-state.exited.upgraded{background:#069764;}
+.nic-success-check{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;flex:0 0 17px;border-radius:50%;background:#2bb987;color:white;font-size:13px;font-weight:700;}
+.nic-cabinet-detail:before{left:583px;}
+
+.nic-upgrade-results .nic-step-linked{color:#fff;}
+.nic-upgrade-results li{transition:opacity .2s ease,color .2s ease;}
+
+/* 历史回看平滑迁移，首次挂载仍直接就位。 */
+.hc-nic-module .nic-replacement,.nic-native-topology .nic-upgrade-tip{transition:transform .9s cubic-bezier(.4,0,.2,1);}
+@media(prefers-reduced-motion:reduce){.hc-nic-module .nic-replacement,.nic-native-topology .nic-upgrade-tip{transition:none;}}
+
+/* 两个关联故障独立呈现，恢复后的业务保持正常。 */
+.hc-nic-module.evt-linked-intro .evt-diagnostic-scroll{top:172px}
+.hc-nic-module .nic-related-event{display:flex;align-items:baseline;gap:4px;min-width:0;white-space:nowrap;font-size:12px}
+.hc-nic-module .nic-related-event>span{flex:none}
+.hc-nic-module .nic-related-event .evt-isolation-link{min-width:0;font-size:12px}
+.hc-nic-module .nic-intro-status{display:block;padding-right:90px;font-size:12px;line-height:30px}
+.hc-nic-module .nic-business-closed{display:flex;align-items:center;gap:6px;margin-top:14px;font-size:12px;line-height:22px}
+.hc-nic-module .nic-business-closed strong{font-weight:500}
+.hc-nic-module .nic-service-recovered .nic-metrics>div:first-child strong,.hc-nic-module .nic-service-recovered .nic-metrics>div:first-child .nic-metric-unit{color:#fff}
+.hc-nic-module[data-detail-mode="driver"] .nic-flow-node{padding:6px;gap:4px}
+.hc-nic-module[data-detail-mode="driver"] .nic-flow-node>.evt-icon{width:24px!important;height:24px!important;flex:0 0 24px;margin-right:0}
+.hc-nic-module[data-detail-mode="driver"] .nic-flow-node .evt-process-title{font-size:11px;line-height:15px;white-space:nowrap}
+.hc-nic-module[data-detail-mode="driver"] .nic-flow-node .evt-process-description{font-size:11px;line-height:15px}
+.hc-nic-module[data-detail-mode="recovery"] .nic-flow-node .evt-process-title{font-size:12px;line-height:17px}
+.hc-nic-module[data-detail-mode="recovery"] .nic-flow-node .evt-process-description{font-size:12px;line-height:17px}
+
+/* Related NIC follow-up is the final card in the recovery history. */
+.hc-nic-module .nic-related-todo{display:flex;flex-direction:column;align-items:stretch;gap:10px;white-space:normal;margin:18px 4px 16px 24px;padding:16px;background:#303437;border:1px solid #484e52;border-radius:8px;font-size:14px}
+.hc-nic-module .nic-todo-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hc-nic-module .nic-todo-heading>strong{font-size:14px;font-weight:500;color:#ddd}
+.hc-nic-module .nic-related-todo .evt-isolation-link{font-size:14px;align-self:flex-start;white-space:normal;text-align:left}
+.hc-nic-module .nic-related-todo>p{margin:0;font-size:12px;line-height:20px;color:#b3bac0}
+.hc-nic-module[data-detail-mode="recovery"] .evt-heading-copy h1{display:flex;align-items:center;gap:6px;flex-wrap:wrap;white-space:normal;line-height:24px;max-width:360px}
+/* HC Agent-终0915: vertical diagnostic steps and branched process timeline. */
+.hc-nic-module.nic-unified .evt-diagnostic-scroll{top:140px;padding:0 18px 18px}
+.hc-nic-module.nic-unified .evt-diagnosis-intro{position:absolute;top:86px;left:20px;right:20px;display:flex;align-items:flex-start;gap:10px}
+.hc-nic-module.nic-unified .evt-diagnosis-intro>p{flex:1;margin:0;font-size:13px;line-height:22px;color:#ddd}
+.hc-nic-module.nic-unified .evt-expand-all{position:static;flex:none;margin:0;white-space:nowrap}
+.hc-nic-module.nic-unified .evt-step-body{padding-bottom:18px}
+.hc-nic-module.nic-unified .nic-service{height:688px}
+.hc-nic-module.nic-unified .nic-instance-topology{top:133px;height:539px}
+.hc-nic-module.nic-unified .nic-native-topology{top:92px;width:1000px;height:390px;display:grid;grid-template-columns:200px 780px;grid-template-rows:390px;gap:20px}
+.hc-nic-module.nic-unified .nic-instance-group{height:390px;padding:12px 10px}
+.hc-nic-module.nic-unified .nic-instance-group:first-child .nic-hex-row{grid-template-columns:1fr;grid-template-rows:repeat(2,1fr);height:100%}
+.hc-nic-module.nic-unified .nic-instance-group:nth-child(2) .nic-hex-row{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,1fr);height:100%}
+.hc-nic-module.nic-unified .nic-fault-node{position:relative;border:0;border-radius:0;padding:8px 12px}
+.hc-nic-module.nic-unified[data-stage="9"] .nic-fault-node{border-color:#46ad87}
+.hc-nic-module.nic-unified .nic-native-topology .nic-upgrade-tip{left:auto;right:6px;top:94px;bottom:auto;width:340px;max-width:none;transform:none;z-index:20}
+.hc-nic-module.nic-unified .nic-tip-action{display:block;margin-top:8px;background:transparent;color:#8ac7ff;border:0;padding:0;text-align:left;cursor:pointer}
+.hc-nic-module.nic-unified .nic-process{top:752px;height:242px}
+.hc-nic-module.nic-unified .nic-flow{position:absolute;inset:0 20px 14px;width:auto}
+.hc-nic-module.nic-unified .nic-flow-node{max-width:none;min-height:54px;font-size:12px;line-height:16px;padding:6px;gap:5px}
+.hc-nic-module.nic-unified .nic-flow-node>.evt-icon{width:28px;height:28px;flex:0 0 28px}
+.hc-nic-module.nic-unified .nic-flow-node .evt-process-description{white-space:normal;overflow-wrap:anywhere;font-size:12px}
+.hc-nic-module.nic-unified .nic-flow-node[data-flow-index="3"]{border-color:#a36369}
+.hc-nic-module.nic-unified .nic-flow-node[data-flow-index="3"] .evt-process-description{color:#e9a6ad}
+.hc-nic-module.nic-unified .nic-flow:before{bottom:24px}
+.hc-nic-module.nic-unified .nic-flow-tick{bottom:0}
+#home-timeline-markers [data-event-key="qwen"] .story-marker>.fault-status-flags{position:absolute;left:20px;top:-16px;display:flex;align-items:center;gap:6px;padding:3px 5px;border:1px solid #777;border-radius:10px;background:#383838}
+#home-timeline-markers [data-event-key="qwen"] .fault-status-flags .hc-event-manual-hand{position:static;width:13px;height:13px;transform:none}
+#home-timeline-markers [data-event-key="qwen"] .business-impact-symbol{color:#ffc879;font-size:16px}
+
+.hc-nic-module.nic-unified .evt-heading-copy{left:124px;right:16px;width:auto}
+.hc-nic-module.nic-unified .evt-heading-copy h1{font-size:15px;line-height:20px;white-space:normal}
+
+/* Restore the unified event summary and service journey interactions. */
+.hc-nic-module.nic-unified .evt-diagnostic-scroll{top:100px}
+.hc-nic-module.nic-unified .nic-process-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hc-nic-module.nic-unified .nic-process-heading .evt-expand-all{position:static;margin:0;font-size:12px}
+.hc-nic-module.nic-unified .nic-summary-conclusion{text-align:left;width:100%;font:inherit;font-weight:600;line-height:1.6;cursor:pointer}
+
+.hc-nic-module.nic-unified .nic-summary-relation .nic-relation-action{flex:none;white-space:nowrap}
+.hc-nic-module.nic-unified .nic-service-journey{top:58px;bottom:10px}
+.hc-nic-module.nic-unified .nic-service-journey>svg{height:150px}
+.hc-nic-module.nic-unified .nic-flow[hidden],.hc-nic-module.nic-unified .nic-service-journey[hidden]{display:none!important}
+.hc-nic-module.nic-unified .nic-flow-lines{pointer-events:none}
+
+/* Align event spacing with optical detail and contain all instance nodes. */
+.hc-nic-module.nic-unified .evt-diagnostic-scroll{top:76px;left:20px;right:16px;padding:0 4px 18px 0}
+.hc-nic-module.nic-unified .nic-instance-group:nth-child(2){background:#242424}
+.hc-nic-module.nic-unified .nic-native-topology .nic-fault-node .nic-hex{opacity:1;filter:drop-shadow(0 0 5px #e7434a55)}
+.hc-nic-module.nic-unified .nic-fault-node .nic-instance-name{color:#fff;font-weight:600}
+.hc-nic-module.nic-unified .nic-fault-node{background:transparent;border:0}
+.hc-nic-module.nic-unified .nic-fault-node:has(.nic-hex:not(.fault)){border-color:#46ad8766}
+.hc-nic-module.nic-unified .nic-fault-node .nic-hex:not(.fault){filter:drop-shadow(0 0 5px #46ad8755)}
+
+.hc-nic-module.nic-unified .nic-native-topology:before{width:calc(100% + 20px)}
+.hc-nic-module.nic-unified .nic-native-topology .nic-upgrade-tip{top:70px}
+
+.hc-nic-module.nic-unified .nic-summary-conclusion{white-space:normal;overflow-wrap:anywhere;height:auto}
+
+.hc-nic-module .nic-manual-copy .nic-upgrade-object{display:block;font-size:14px;color:#fff;margin-top:14px}
+.hc-nic-module .nic-upgrade-device{font-size:12px;color:#aaa;margin-top:4px}
+.hc-nic-module .nic-upgrade-versions{display:grid;grid-template-columns:1fr 24px 1fr;align-items:center;gap:8px;margin:14px 0}
+.hc-nic-module .nic-upgrade-versions>div{padding:10px 12px;border-radius:6px;background:#ffffff08}
+.hc-nic-module .nic-upgrade-versions small{display:block;font-size:12px;color:#aaa;margin-bottom:6px}
+.hc-nic-module .nic-upgrade-versions strong{font-size:20px;font-weight:600}
+.hc-nic-module .nic-version-before strong{color:#e8b170}
+.hc-nic-module .nic-version-after strong{color:#68d3ae}
+.hc-nic-module .nic-version-arrow{text-align:center;color:#aaa;font-size:20px}
+
+.hc-nic-module.nic-unified .nic-manual-copy{background:transparent;border:0;padding:0}
+.hc-nic-module .nic-upgrade-card{margin-top:10px;padding:14px;background:#333;border:1px solid #515151;border-radius:8px}
+.hc-nic-module .nic-manual-copy .nic-upgrade-card .nic-upgrade-object{margin-top:0}
+
+.hc-nic-module .journey-event-name{display:flex;align-items:center;gap:6px}
+.hc-nic-module .journey-event-name .evt-icon{flex:none}
+
+.hc-nic-module .journey-operation-icon{display:inline-flex;align-items:center;justify-content:center;flex:none;width:14px;height:14px;border:1px solid #7bb8f6;border-radius:50%;color:#7bb8f6;background:#252b33;font-size:12px;line-height:1}

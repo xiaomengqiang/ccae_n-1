@@ -1,0 +1,65 @@
+.story-empty{padding:0 20px;transform:translateY(-8px);text-align:center;color:#aaa;font-size:14px}.story-empty img{display:block;width:150px;margin:0 auto}
+#home-tips .hc-fault-tip.auto{width:max-content;max-width:430px;padding:0 12px;background-size:100% 100%}
+
+.marker-anchor:has(.story-popover){z-index:25}
+#home-tips .hc-fault-tip{pointer-events:auto;cursor:pointer}
+/* Supplied tips 1/2/3: completed, processing and manual steps. */
+#home-timeline-markers>.marker-anchor{top:5px;width:53px;height:22px;transform:translate(-50%,-50%)}
+#home-timeline-markers .story-marker{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;width:53px;height:22px;padding:0;border:1.5px solid #ed4a55;border-radius:12px;background:#393939;color:#eee;font-size:14px;cursor:pointer}
+.story-marker>img{width:14px;height:14px}.story-marker .story-marker-hand{position:absolute;right:-7px;top:-10px;width:19px;height:19px;border:1.5px solid #ed4a55;border-radius:50%;background:#393939;padding:2px;box-sizing:border-box}
+#home-timeline-markers .story-marker.closed{border-color:#777;color:#bbb}
+#home-timeline-markers .story-marker.auto{border:0;--hc-ring-width:1.5px;background:rgba(57,57,57,.2)}
+.story-popover{position:absolute;left:50%;transform:translateX(-50%);z-index:20;display:none;bottom:40px;width:270px;padding:10px;background:#393939;border:0;border-radius:12px;font-size:12px;line-height:20px;box-shadow:none;color:#f4f4f4;pointer-events:none}
+.story-popover::after{content:'';position:absolute;left:calc(50% - 7px);bottom:-7px;width:14px;height:14px;background:#393939;transform:rotate(45deg)}
+.story-popover .story-popover-row{display:flex;align-items:center;gap:8px;margin:0;min-height:26px;color:#f4f4f4;white-space:normal}
+.story-popover-row>span{flex:1}.story-popover .loading>span{color:#aaa}
+.story-step-icon{position:relative;flex:none;width:14px;height:14px;border-radius:50%;box-sizing:border-box}
+.story-step-icon.done{border:0.87px solid #19c98b;background:#19c98b18}.story-step-icon.done::after{content:'';position:absolute;width:5.33px;height:2.67px;left:3.33px;top:4px;border-left:0.87px solid #19c98b;border-bottom:0.87px solid #19c98b;transform:rotate(-45deg)}
+.story-step-icon.working{border:2px solid transparent;background:linear-gradient(#393939,#393939) padding-box,conic-gradient(#a874ff,#ff936b,#a874ff) border-box;animation:story-status-spin 1.8s linear infinite}
+.story-step-icon.loading{background:#007dff;border:0}.story-step-icon.loading::after{content:'';position:absolute;inset:2px;border:1px solid white;border-right-color:transparent;border-radius:50%;animation:story-status-spin 1s linear infinite}
+.story-step-icon.manual{border:1px solid #f14251;background:#f1425120;display:grid;place-items:center}.story-step-icon.manual img{width:10px;height:10px}
+.marker-anchor.story-visible .story-popover{display:block}
+#home-timeline-markers>.marker-anchor:hover,#home-timeline-markers>.marker-anchor:focus-within{z-index:30}
+@keyframes story-status-spin{to{transform:rotate(360deg)}}
+
+#screen>.cabinet-links{position:absolute;left:556px;top:356px;width:1340px;height:72px;z-index:1;pointer-events:none}
+#screen>.cabinet-red{position:absolute;left:1026px;top:577px;width:59.42px;height:11.78px;z-index:1;pointer-events:none}
+#screen>.cabinet-red[hidden],#screen[data-category="training"]>.cabinet-links,#screen[data-category="inference"]>.cabinet-links,#screen[data-category="training"]>.cabinet-red,#screen[data-category="inference"]>.cabinet-red{display:none}
+.health-metrics .row-quality path,.energy-metrics .row-quality path{transition:d .9s ease}
+@media(prefers-reduced-motion:reduce){.story-step-icon{animation:none!important}.health-metrics .row-quality path,.energy-metrics .row-quality path{transition:none}}
+
+
+
+#screen>.cabinet-fault-link{position:absolute;left:556px;top:356px;width:1340px;height:72px;z-index:1;pointer-events:none}
+#screen>.cabinet-fault-link[hidden],#screen[data-category="training"]>.cabinet-fault-link,#screen[data-category="inference"]>.cabinet-fault-link{display:none}
+
+#home-tips{z-index:4}
+#home-tips .hc-fault-tip{transform:translate(-50%,-50%)}
+#home-tips .hc-fault-tip.auto{transform:translate(-50%,-50%);text-align:center}
+
+#home-timeline-markers>.marker-anchor.story-split{width:94px;height:24px;display:flex}
+.story-split-shape{position:absolute;inset:0;width:94px;height:24px;pointer-events:none}
+#home-timeline-markers .story-split>.story-marker{height:24px;border:0;background:transparent;z-index:1}
+#home-timeline-markers .story-split>.story-marker:first-of-type{width:59px;border-radius:12px 0 0 12px}
+#home-timeline-markers .story-split>.story-marker:nth-of-type(2){width:35px;border-radius:0 12px 12px 0}
+.story-marker .story-cleanup-hand{width:16px;height:16px}
+
+.energy-info{position:relative;display:inline-flex;align-items:center;justify-content:center;width:12px;height:12px;border:1px solid #aaa!important;border-radius:50%;font-size:10px!important;line-height:1;vertical-align:middle;color:#bbb}
+.energy-info>[role=tooltip]{display:none;position:absolute;bottom:22px;left:50%;transform:translateX(-50%);padding:7px 10px;background:#393939;border:1px solid #555;border-radius:5px;color:#eee;font-size:12px;white-space:nowrap;z-index:10}
+.energy-info:hover>[role=tooltip],.energy-info:focus-visible>[role=tooltip]{display:block}
+
+.story-split[data-follow-state="closed"] .story-marker[data-part="cleanup"]{gap:3px}
+.story-split[data-follow-state="closed"] .story-cleanup-hand{width:14px;height:14px;filter:brightness(0) invert(.6)}
+
+.hc-event-head .story-guard-ring{width:20px;height:20px;margin:2px;display:inline-block}
+
+
+
+.story-empty-art{width:150px;height:124px;overflow:hidden;margin:auto}
+.story-empty-caption{display:block;color:#aaa;font-size:12px;line-height:20px}
+.story-marker.closed .story-cleanup-hand{filter:brightness(0) invert(.6);}
+/* One visibility owner. The popup cannot steal the pointer from another marker. */
+#home-timeline-markers .story-popover{display:none;pointer-events:none;animation:none;transition:none}
+#home-timeline-markers>.marker-anchor.story-visible .story-popover{display:block}
+#home-timeline-markers>.marker-anchor{transition:none;animation:none;pointer-events:auto}
+

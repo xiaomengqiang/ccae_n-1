@@ -1,0 +1,7 @@
+/* The parent owns the fixed 1920 × 1080 canvas and header. */
+#energyDrillView.energy-v2{inset:0!important;width:100%!important;height:100%!important;grid-template-columns:460px minmax(0,1fr)!important}
+#energyDrillView .energy-side-scroll{overflow-y:auto;min-height:0;flex:1}
+#energyDrillView .energy-main{min-width:0}
+#energyDrillView .energy-chat button:disabled{opacity:.45}
+#energyDrillView .energy-overview{cursor:default}
+#energyDrillView.energy-monitor-active .energy-topology-body{pointer-events:none}

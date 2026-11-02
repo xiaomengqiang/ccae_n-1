@@ -1,0 +1,797 @@
+:where(#optical-event-root) :is(.hc-event-module){position: absolute; left: 48px; top: 48px; width: 1872px; height: 1032px; font-family: Harmony, "Microsoft YaHei", sans-serif; color: rgb(238, 238, 238); background: rgb(0, 0, 0); overflow: hidden; --evt-green: #36c18d; --evt-red: #e7434a; --evt-muted: #b3b3b3;}
+:where(#optical-event-root) :is(.hc-event-module *){box-sizing: border-box;}
+:where(#optical-event-root) :is(.hc-event-module [hidden]){display: none !important;}
+:where(#optical-event-root) :is(.hc-event-module button){cursor: pointer; font: inherit; color: inherit; border: 0px; background: none; padding: 0px;}
+:where(#optical-event-root) :is(.hc-event-module button:focus-visible){outline: rgb(107, 168, 255) solid 2px; outline-offset: 3px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-icon){object-fit: contain; flex-shrink: 0; display: block;}
+:where(#optical-event-root) :is(.hc-event-module .evt-left){position: absolute; inset: 0px auto 0px 0px; width: 484px; background: rgb(40, 40, 40);}
+:where(#optical-event-root) :is(.hc-event-module .evt-event-heading){position: relative; height: 82px; padding: 14px 20px; display: flex; align-items: flex-start; gap: 12px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-back){position: absolute; left: 16px; top: 27px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;}
+:where(#optical-event-root) :is(.hc-event-module .evt-event-heading > .evt-icon){position: absolute; left: 52px; top: 20px; width: 36px; height: 36px; margin: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-heading-copy){position: absolute; left: 100px; top: 15px; padding: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-heading-copy h1){font-size: 16px; line-height: 24px; font-weight: 500; margin: 0px; white-space: nowrap;}
+:where(#optical-event-root) :is(.hc-event-module .evt-heading-copy time){font-size: 12px; color: rgb(179, 179, 179); line-height: 20px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-diagnosis-intro){position: absolute; top: 91px; left: 20px; right: 20px; display: flex; align-items: center; justify-content: space-between; height: 22px; gap: 8px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-diagnosis-intro p){font-size: 14px; line-height: 22px; margin: 0px; white-space: nowrap; letter-spacing: -0.35px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-expand-all){display: flex; gap: 4px; align-items: center; color: rgb(92, 162, 233); font-size: 14px; white-space: nowrap;}
+:where(#optical-event-root) :is(.hc-event-module .evt-diagnostic-scroll){position: absolute; inset: 129px 16px 80px 20px; padding-right: 4px; overflow: auto; scrollbar-width: thin; scrollbar-color: rgb(83, 83, 83) transparent; overscroll-behavior: contain;}
+:where(#optical-event-root) :is(.hc-event-module .evt-diagnostic-scroll::-webkit-scrollbar){width: 4px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-diagnostic-scroll::-webkit-scrollbar-thumb){background: rgb(83, 83, 83); border-radius: 4px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-step){position: relative; margin: 0px 0px 12px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-step-header){display: flex; align-items: center; gap: 8px; min-height: 22px; font-size: 14px; line-height: 22px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-step-select){display: flex; align-items: center; gap: 8px; flex: 1 1 0%; min-width: 0px; text-align: left; white-space: nowrap;}
+:where(#optical-event-root) :is(.hc-event-module .evt-step-select strong){font-weight: 500; font-size: 14px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-step-select time){font-size: 12px; color: rgb(201, 201, 201);}
+:where(#optical-event-root) :is(.hc-event-module .evt-badge){display: inline-flex; align-items: center; justify-content: center; height: 20px; border-radius: 4px; padding: 0px 8px; line-height: 1; font-size: 12px; white-space: nowrap; font-weight: 400; vertical-align: middle;}
+:where(#optical-event-root) :is(.hc-event-module .evt-badge-done){color: rgb(54, 193, 141); background: rgba(9, 170, 113, 0.15);}
+:where(#optical-event-root) :is(.hc-event-module .evt-badge-manual){color: rgb(231, 67, 74); background: rgba(231, 67, 74, 0.15);}
+:where(#optical-event-root) :is(.hc-event-module .evt-collapse){height: 22px; width: 12px; display: flex; justify-content: center; align-items: center; flex-shrink: 0;}
+:where(#optical-event-root) :is(.hc-event-module .evt-chevron){width: 7px; height: 7px; border-style: solid; border-color: rgb(170, 170, 170); border-image: none; border-width: 1px 0px 0px 1px; transform: translateY(2px) rotate(45deg);}
+:where(#optical-event-root) :is(.hc-event-module .evt-collapse[aria-expanded="false"] .evt-chevron){transform: translateY(-2px) rotate(225deg);}
+:where(#optical-event-root) :is(.hc-event-module .evt-step-body){margin-left: 7px; margin-top: 7px; padding: 3px 0px 0px 16px; border-left: 1px solid rgb(42, 170, 128); color: rgb(179, 179, 179); font-size: 12px; line-height: 20px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-step-last > .evt-step-body){border-left-color: transparent;}
+:where(#optical-event-root) :is(.hc-event-module .evt-step-body p){margin: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-step:first-child .evt-step-body){min-height: 45px; padding-top: 5px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-card){background: rgb(51, 51, 51); border: 1px solid rgb(80, 80, 80); border-radius: 8px; padding: 14px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-cause){margin-top: 14px; height: auto; padding: 14px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-cause h3){font-weight: 500; font-size: 12px; line-height: 20px; color: rgb(238, 238, 238); margin: 0px 0px 9px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-cause-list){padding: 0px; list-style: none; margin: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-cause-list li){position: relative; display: flex; gap: 6px; min-height: 55px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-cause-list li:last-child){min-height: 40px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-cause-list li:not(:last-child)::before){content: ""; position: absolute; left: 6px; top: 19px; bottom: 2px; width: 1px; background: rgb(115, 115, 115);}
+:where(#optical-event-root) :is(.hc-event-module .evt-cause-list .evt-icon){margin-top: 3px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-cause-title){color: rgb(221, 221, 221); font-size: 12px; line-height: 20px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-root-cause .evt-cause-title){color: rgb(231, 67, 74);}
+:where(#optical-event-root) :is(.hc-event-module .evt-cause-title .evt-badge){margin-left: 8px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-cause-list p){font-size: 12px; line-height: 18px; color: rgb(170, 170, 170); margin-top: 2px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-decision-copy){padding: 0px 0px 1px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery){margin-top: 3px; min-height: 235px; padding: 14px 15px 12px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row){position: relative; padding-left: 18px; color: rgb(238, 238, 238);}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row::before){content: ""; position: absolute; width: 8px; height: 8px; background: rgb(54, 193, 141); border-radius: 50%; left: 1px; top: 6px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row:first-child::after){content: ""; position: absolute; left: 4px; top: 18px; bottom: -16px; border-left: 1px dashed rgb(102, 102, 102);}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row:last-child::before){background: rgb(231, 67, 74);}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row strong){font-weight: 500; font-size: 12px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row p){color: rgb(179, 179, 179); margin-top: 4px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-metric-compare){position: relative; height: 45.2px; margin-top: 16.5px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-metric-compare > div){position: absolute; left: 0px; top: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-metric-compare > div:last-child){left: 99.5px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-metric-compare small){display: block; font-size: 10px; color: rgb(170, 170, 170); line-height: 14px; white-space: nowrap;}
+:where(#optical-event-root) :is(.hc-event-module .evt-metric-values){display: flex; align-items: baseline; gap: 7px; margin-top: 2.7px; white-space: nowrap;}
+:where(#optical-event-root) :is(.hc-event-module .evt-metric-values b){font-size: 24px; line-height: 28px; font-weight: 500; display: block; margin: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-before){color: rgb(231, 67, 74);}
+:where(#optical-event-root) :is(.hc-event-module .evt-after){color: rgb(38, 183, 155);}
+:where(#optical-event-root) :is(.hc-event-module .evt-metric-arrow){position: absolute; left: 68px; top: 14px; width: 19.6719px; height: 12.9927px; margin: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-metric-growth){display: inline-flex; align-items: center; gap: 2px; font-size: 10px; line-height: 11px; color: rgb(54, 193, 141);}
+:where(#optical-event-root) :is(.hc-event-module .evt-metric-growth .evt-icon){width: 7.46484px; height: 8.91455px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row + .evt-recovery-row){margin-top: 18px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-review-actions){display: flex; justify-content: flex-end; padding-top: 18px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-primary){color: rgb(255, 255, 255); background: rgb(0, 125, 255); padding: 5px 12px; border-radius: 4px; font-size: 12px; line-height: 20px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-primary:hover){background: rgb(35, 143, 255);}
+:where(#optical-event-root) :is(.hc-event-module .evt-composer-wrap){position: absolute; bottom: 0px; left: 0px; width: 484px; height: 80px; padding: 16px; background: linear-gradient(transparent, rgb(40, 40, 40) 24%); z-index: 2;}
+:where(#optical-event-root) :is(.hc-event-module .evt-right){position: absolute; left: 508px; top: 20px; width: 1332px; height: 980px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-detail-toolbar){height: 36px; border-bottom: 1px solid rgb(56, 56, 56); display: flex; align-items: flex-start; justify-content: space-between; font-size: 14px; line-height: 27px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-toolbar-actions){display: flex; gap: 16px; padding-top: 5px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-toolbar-actions button){width: 14px; height: 18px; display: flex; align-items: center; justify-content: center;}
+:where(#optical-event-root) :is(.hc-event-module .evt-toolbar-actions svg){width: 14px; height: 14px; stroke: rgb(187, 187, 187); fill: none; stroke-width: 1.5;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology){position: absolute; top: 48px; width: 1332px; height: 722px; border-radius: 14px; background: rgb(25, 25, 25); overflow: hidden;}
+:where(#optical-event-root) :is(.hc-event-module .evt-breadcrumb){position: absolute; top: 17px; left: 21px; display: flex; gap: 10px; align-items: center; font-size: 14px; line-height: 22px; color: rgb(179, 179, 179);}
+:where(#optical-event-root) :is(.hc-event-module .evt-breadcrumb span:last-child){color: rgb(221, 221, 221);}
+:where(#optical-event-root) :is(.hc-event-module .evt-topo-group){position: absolute; background: rgb(36, 36, 36); border-radius: 14px; left: 21px; width: 1287px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topo-group h3){font-weight: 400; font-size: 14px; line-height: 22px; color: rgb(179, 179, 179); margin: 14px 20px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topo-group.evt-board h3){margin-left: 14px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-device-art){position: absolute; object-fit: contain; pointer-events: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topo-node){background: rgb(56, 56, 56); border-radius: 7px; padding: 10px 14px; color: rgb(221, 221, 221); font-size: 12px; line-height: 19px; z-index: 2;}
+:where(#optical-event-root) :is(.hc-event-module .evt-node-number){position: absolute; top: 14px; right: 15px; border-radius: 12px; width: 34px; line-height: 17px; background: rgb(80, 80, 80); text-align: center; color: rgb(133, 133, 133); font-size: 12px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-node-subtitle){position: absolute; left: 14px; bottom: 10px; color: rgb(179, 179, 179); font-size: 12px; line-height: 19px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-node-subtitle b){font-weight: 400; margin-left: 10px; color: rgb(221, 221, 221);}
+:where(#optical-event-root) :is(.hc-event-module .evt-node-port, .hc-event-module .evt-node-union){padding: 0px; background: rgb(36, 114, 71); display: flex; align-items: center; justify-content: center; text-align: center; color: rgb(226, 255, 236);}
+:where(#optical-event-root) :is(.hc-event-module .evt-node-port){white-space: pre-line; line-height: 16px; border-radius: 6px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-node-port .evt-node-label){font-size: 12px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-node-port.evt-fault){background: rgb(244, 65, 81); color: white;}
+:where(#optical-event-root) :is(.hc-event-module .evt-node-union){font-size: 10px; border-radius: 7px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topo-outline){position: absolute; border: 1px solid rgb(62, 62, 62); border-radius: 7px; left: 258px; width: 1030px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topo-label){position: absolute; font-size: 10px; color: rgb(201, 201, 201); line-height: 17px; z-index: 3;}
+:where(#optical-event-root) :is(.hc-event-module .evt-links){position: absolute; inset: 0px; width: 1332px; height: 722px; pointer-events: none; z-index: 1; overflow: visible;}
+:where(#optical-event-root) :is(.hc-event-module .evt-links path){fill: none; stroke: rgb(73, 135, 108); stroke-width: 1; opacity: 0.75;}
+:where(#optical-event-root) :is(.hc-event-module .evt-links .evt-npu-flow){stroke-dasharray: 6, 5; animation: 1.2s linear 0s infinite normal none running optical-import-evt-npu-dash;}
+@keyframes optical-import-evt-npu-dash { 
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -22; }
+}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-event-module .evt-links .evt-npu-flow){animation: auto ease 0s 1 normal none running none;}}
+:where(#optical-event-root) :is(.hc-event-module .evt-links .evt-fault-link){stroke: rgb(163, 74, 80);}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-view="0"] .evt-fault, .hc-event-module .evt-topology[data-view="1"] .evt-fault){box-shadow: rgb(239, 96, 104) 0px 0px 0px 2px, rgba(239, 96, 104, 0.27) 0px 0px 14px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-view="2"] .evt-fault){box-shadow: rgb(239, 96, 104) 0px 0px 0px 2px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-view="4"] .evt-fault-link){stroke-dasharray: 4, 3; opacity: 0.45;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-view="8"] .evt-fault){background: rgb(36, 114, 71); color: rgb(226, 255, 236);}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-view="8"] .evt-fault-link){stroke: rgb(73, 135, 108);}
+:where(#optical-event-root) :is(.hc-event-module .evt-topo-state-label){position: absolute; left: 258px; top: 268px; padding: 5px 10px; border: 1px solid rgb(120, 76, 80); border-radius: 6px; background: rgb(55, 45, 46); color: rgb(231, 182, 186); font-size: 12px; z-index: 4;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process){position: absolute; top: 783px; width: 1332px; height: 198px; border-radius: 14px; background: rgb(25, 25, 25); overflow: hidden;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process h2){font-size: 16px; line-height: 24px; font-weight: 500; margin: 17px 20px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-list){position: absolute; left: 20px; right: 24px; top: 62px; height: 122px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-list::before){content: ""; position: absolute; left: 50px; right: 50px; top: 33px; height: 4px; background: rgb(65, 65, 65);}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-list::after){content: ""; position: absolute; left: 0px; right: 0px; bottom: 24px; height: 4px; background: rgb(57, 57, 57); border-radius: 2px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-item){position: absolute; top: 0px; height: 122px; z-index: 1;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-card){position: absolute; top: 34px; transform: translateY(-50%); width: 100%; min-height: 48px; padding: 6px 8px; display: flex; gap: 4px; align-items: center; border: 1px solid rgb(76, 76, 76); border-radius: 40px; background: rgb(56, 56, 56); text-align: left;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-item:nth-child(2) .evt-process-card){top: 34px; transform: translateY(-50%); min-height: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-card > span){min-width: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-card .evt-icon){box-shadow: rgba(116, 125, 120, 0.376) 0px 0px 0px 5px; border-radius: 50%; margin-right: 3px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-title){font-size: 12px; line-height: 16px; color: rgb(179, 179, 179); display: block;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-title em){font-style: normal; color: rgb(231, 67, 74); margin-left: 4px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-description){display: block; white-space: pre-line; font-size: 12px; line-height: 17px; color: rgb(238, 238, 238);}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-card.evt-pending){border-color: rgb(255, 77, 87); animation: optical-import-evt-manual-pulse var(--loop-pulse,3s) ease-in-out infinite;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-card:hover){background: rgb(64, 64, 64);}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-card[aria-selected="true"]:not(.evt-pending)){border-color: rgb(109, 169, 232);}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-tick){position: absolute; top: 58px; bottom: 0px; width: 100%; display: flex; justify-content: center;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-tick::before){content: ""; position: absolute; top: 0px; bottom: 26px; left: 50%; border-left: 1px dotted rgb(136, 136, 136);}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-tick::after){content: ""; position: absolute; width: 4px; height: 4px; bottom: 24px; left: calc(50% - 2px); border-radius: 50%; background: rgb(153, 153, 153); box-shadow: rgb(25, 25, 25) 0px 0px 0px 4px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-tick span){position: absolute; bottom: 0px; white-space: nowrap; font-size: 12px; line-height: 21px; color: rgb(179, 179, 179);}
+:where(#optical-event-root) :is(.hc-event-module .evt-current::before){border-left: 1px solid rgb(54, 155, 247);}
+:where(#optical-event-root) :is(.hc-event-module .evt-current::after){background: rgb(54, 155, 247);}
+:where(#optical-event-root) :is(.hc-event-module .evt-current span){background: rgb(39, 143, 235); border-radius: 20px; padding: 0px 8px; color: white;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-tick span){left: 50%; transform: translateX(-50%); text-align: center;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-extended){display: flex; gap: 8px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-extended .evt-process-item){position: relative; flex: 1 1 0%; min-width: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-extended .evt-process-card){border-radius: 24px; min-height: 0px; top: 34px; transform: translateY(-50%); padding: 8px; gap: 3px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-extended .evt-process-card .evt-icon){width: 24px; height: 24px; box-shadow: none; margin: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-extended .evt-process-description){font-size: 11px; line-height: 15px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-extended .evt-process-title){font-size: 10px; line-height: 14px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-extended .evt-process-tick span){font-size: 10px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-conversation){padding-top: 12px; font-size: 12px; line-height: 20px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-user-message){width: fit-content; max-width: 100%; margin: 0px 0px 22px auto; background: rgb(65, 65, 65); border-radius: 16px 0px 16px 16px; padding: 14px 16px; color: rgb(238, 238, 238); font-size: 14px; line-height: 22px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-response){border-left: 1px solid rgb(40, 173, 128); margin-left: 7px; padding: 0px 0px 16px 16px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-response-heading){display: flex; gap: 8px; font-size: 14px; font-weight: 500; margin-left: -24px; align-items: center; margin-bottom: 12px; background: rgb(40, 40, 40);}
+:where(#optical-event-root) :is(.hc-event-module .evt-response-heading button){text-align: left;}
+:where(#optical-event-root) :is(.hc-event-module .evt-response p){margin: 0px 0px 14px; color: rgb(179, 179, 179); line-height: 20px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-card){background: rgb(51, 51, 51); border-radius: 6px; overflow: hidden;}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-banner){background: rgb(49, 73, 62); padding: 12px; color: rgb(238, 238, 238);}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-title){padding: 12px 16px 0px; margin: 0px; font-size: 14px; font-weight: 500;}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-card svg){width: calc(100% - 32px); margin: 0px 16px; height: auto; display: block;}
+:where(#optical-event-root) :is(.hc-event-module .evt-close-row){display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 16px 0px 6px; font-size: 14px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-followup){margin-top: 12px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-followup .evt-response-heading){margin-bottom: 6px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-feedback){font-size: 12px; color: rgb(184, 201, 221); line-height: 18px; padding: 8px 0px; min-height: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-feedback:empty){display: none;}
+:where(#optical-event-root) :is(.hc-event-module.evt-expanded .evt-left){display: none;}
+:where(#optical-event-root) :is(.hc-event-module.evt-expanded .evt-right){left: 270px;}
+@keyframes optical-import-evt-manual-pulse { 
+  0%, 100% { box-shadow: rgba(255, 77, 87, 0) 0px 0px 0px; }
+  50% { box-shadow: rgba(255, 77, 87, 0.2) 0px 0px 12px; }
+}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-event-module .evt-process-card.evt-pending){animation: auto ease 0s 1 normal none running none;}}
+:where(#optical-event-root) :is(.hc-event-module .evt-expand-all[aria-expanded="true"] > .evt-icon){transform: rotate(180deg);}
+:where(#optical-event-root) :is(.hc-event-module .evt-step-body){position: relative; border-left: 0px; padding-left: 17px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-step-body::before){content: ""; position: absolute; left: 0px; top: -2px; bottom: 0px; width: 1px; background: rgb(42, 170, 128);}
+:where(#optical-event-root) :is(.hc-event-module .evt-step-last > .evt-step-body::before){display: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-response){position: relative; border-left: 0px; padding-left: 17px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-response::before){content: ""; position: absolute; left: 0px; top: 27px; bottom: 0px; width: 1px; background: rgb(40, 173, 128);}
+:where(#optical-event-root) :is(.hc-event-module .evt-response-heading){position: relative; margin-left: -24px; min-height: 22px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-response-heading > .evt-icon){background: rgb(40, 40, 40); box-shadow: rgb(40, 40, 40) 0px 8px 0px, rgb(40, 40, 40) 0px -8px 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-response-final::before){display: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-response-final > .evt-response-heading:first-child:not(:nth-last-child(2))::after){content: ""; position: absolute; left: 7px; top: 27px; height: 22px; width: 1px; background: rgb(40, 173, 128);}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-view="6"] .evt-fault, .hc-event-module .evt-topology[data-view="7"] .evt-fault){background: rgb(36, 114, 71); color: rgb(226, 255, 236); box-shadow: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-view="6"] .evt-fault-link, .hc-event-module .evt-topology[data-view="7"] .evt-fault-link){stroke: rgb(73, 135, 108);}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-view="6"] .evt-topo-state-label, .hc-event-module .evt-topology[data-view="7"] .evt-topo-state-label, .hc-event-module .evt-topology[data-view="8"] .evt-topo-state-label){background: rgb(38, 62, 49); border-color: rgb(66, 124, 89); color: rgb(167, 222, 193);}
+:where(#optical-event-root) :is(.hc-event-module){--evt-stream-beat: 45ms; --evt-rail-gap: 8px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-step-body::before){bottom: -7px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-response-final > .evt-response-heading:first-child:not(:nth-last-child(2))::after){height: 30px;}
+:where(#optical-event-root) :is(.hc-event-module .optical-import-evt-line-enter){animation-duration: ; animation-timing-function: ; animation-iteration-count: ; animation-direction: ; animation-fill-mode: ; animation-play-state: ; animation-name: ; animation-timeline: ; animation-range-start: ; animation-range-end: ; animation-delay: var(--evt-enter-delay,0ms);}
+@keyframes optical-import-evt-line-enter { 
+  0% { opacity: 0; translate: 0px 8px; }
+  100% { opacity: 1; translate: 0px; }
+}
+:where(#optical-event-root) :is(.hc-event-module .evt-word){opacity: 0; filter: blur(6px); position: relative; top: 2px; transition: opacity var(--duration-small) var(--ease-standard-snappy),filter var(--duration-small) var(--ease-standard-snappy),top var(--duration-small) var(--ease-standard-snappy),color var(--duration-medium) linear;}
+:where(#optical-event-root) :is(.hc-event-module .evt-word-on){opacity: 1; filter: blur(0px); top: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-word-live){color: inherit; background: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-generating){position: relative;}
+:where(#optical-event-root) :is(.hc-event-module .evt-generating::after){content: ""; position: absolute; left: 0px; right: 0px; bottom: 0px; height: 2px; background-image: ; background-position-x: ; background-position-y: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: ; background-color: ; background-size: 200% 100%; animation: optical-import-evt-stream-band var(--loop-flow-md) linear infinite; pointer-events: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-generating .evt-recovery){box-shadow: rgb(163, 140, 250) 0px 8px 18px -14px; position: relative;}
+@keyframes optical-import-evt-stream-band { 
+  100% { background-position: 200% 0px; }
+}
+:where(#optical-event-root) :is(.hc-event-module .evt-cause-list li:not(:last-child)::after){content: ""; position: absolute; left: 6px; top: 19px; bottom: 2px; width: 1px; background: linear-gradient(transparent 25%, rgb(177, 239, 215) 45%, rgb(109, 178, 255) 50%, transparent 70%) 0% 0% / 100% 300%; animation: optical-import-evt-cause-flow var(--loop-flow-md) linear infinite; pointer-events: none;}
+@keyframes optical-import-evt-cause-flow { 
+  0% { background-position: 0px 100%; }
+  100% { background-position: 0px 0px; }
+}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-bar){transform-origin: 0px 247px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-enter .evt-chart-bar){animation-duration: ; animation-timing-function: ; animation-iteration-count: ; animation-direction: ; animation-fill-mode: ; animation-play-state: ; animation-name: ; animation-timeline: ; animation-range-start: ; animation-range-end: ; animation-delay: calc(var(--evt-bar-index)*var(--stagger-normal));}
+@keyframes optical-import-evt-bar-enter { 
+  0% { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-event-module .evt-word){opacity: 1; filter: none; top: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-cause-list li::after, .hc-event-module .evt-generating::after){display: none;}}
+:where(#optical-event-root) :is(.hc-event-module .evt-generating::after){opacity: 1; transition: opacity var(--duration-medium) linear;}
+:where(#optical-event-root) :is(.hc-event-module .evt-stream-settle::after){opacity: 0;}
+:where(#optical-event-root) :is(.hc-event-module .evt-thinking::before){content: ""; position: absolute; left: 0px; top: 4px; width: 65%; height: 10px; border-radius: 5px; background: linear-gradient(90deg, rgb(73, 73, 73), rgb(112, 112, 112), rgb(73, 73, 73)); animation: optical-import-evt-thinking-in var(--duration-small) var(--ease-decelerate) both; z-index: 3;}
+@keyframes optical-import-evt-thinking-in { 
+  0% { opacity: 0; }
+  100% { opacity: 0.7; }
+}
+@property --evt-data-angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery){position: relative; isolation: isolate; overflow: hidden;}
+:where(#optical-event-root) :is(.hc-event-module .evt-data-content){position: relative; z-index: 1;}
+:where(#optical-event-root) :is(.hc-event-module .evt-data-ring, .hc-event-module .evt-data-halo, .hc-event-module .evt-data-ambient){position: absolute; inset: 0px; border-radius: inherit; pointer-events: none; opacity: 0;}
+:where(#optical-event-root) :is(.hc-event-module .evt-data-ring, .hc-event-module .evt-data-halo > i){background: conic-gradient(from var(--evt-data-angle),#669fff,#7a66ff,#ff666b,#ffad66,#669fff); padding: 2px; mask: linear-gradient(rgb(0, 0, 0) 0px, rgb(0, 0, 0) 0px) content-box exclude, linear-gradient(rgb(0, 0, 0) 0px, rgb(0, 0, 0) 0px); animation: 2600ms linear 0s infinite normal none running optical-import-evt-data-spin;}
+:where(#optical-event-root) :is(.hc-event-module .evt-data-halo){filter: blur(10px);}
+:where(#optical-event-root) :is(.hc-event-module .evt-data-halo > i){position: absolute; inset: 0px; border-radius: inherit;}
+:where(#optical-event-root) :is(.hc-event-module .evt-data-ambient){background: radial-gradient(at 0px 0px, rgba(102, 159, 255, 0.2), transparent 65%), radial-gradient(at 100% 0px, rgba(122, 102, 255, 0.2), transparent 65%), radial-gradient(at 100% 100%, rgba(255, 102, 107, 0.133), transparent 65%), radial-gradient(at 0px 100%, rgba(255, 173, 102, 0.133), transparent 65%);}
+:where(#optical-event-root) :is(.hc-event-module .evt-data-enter > .evt-data-ring){animation: 2600ms linear 0s infinite normal none running optical-import-evt-data-spin, 1600ms linear 0s 1 normal both running optical-import-evt-data-light;}
+:where(#optical-event-root) :is(.hc-event-module .evt-data-enter > .evt-data-halo){animation: 1600ms linear 0s 1 normal both running optical-import-evt-data-light; --evt-light-peak: .55;}
+:where(#optical-event-root) :is(.hc-event-module .evt-data-enter > .evt-data-ambient){animation: 1500ms linear 100ms 1 normal both running optical-import-evt-data-ambient-light;}
+:where(#optical-event-root) :is(.hc-event-module .evt-data-enter > .evt-data-content){animation: 500ms cubic-bezier(0.33, 0, 0.67, 1) 100ms 1 normal both running optical-import-evt-data-focus;}
+:where(#optical-event-root) :is(.hc-event-module .evt-generating:has(.evt-recovery)::after, .hc-event-module .evt-thinking:has(.evt-recovery)::before){display: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-generating .evt-recovery){box-shadow: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-focus-dim){opacity: 0.4 !important;}
+@keyframes optical-import-evt-data-spin { 
+  100% { --evt-data-angle: 360deg; }
+}
+@keyframes optical-import-evt-data-light { 
+  0% { opacity: 0; }
+  31.25%, 68.75% { opacity: var(--evt-light-peak,1); }
+  100% { opacity: 0; }
+}
+@keyframes optical-import-evt-data-focus { 
+  0% { opacity: 0; filter: blur(8px); }
+  100% { opacity: 1; filter: blur(0px); }
+}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-event-module .evt-data-enter > .evt-data-content){animation: auto ease 0s 1 normal none running none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-data-ring, .hc-event-module .evt-data-halo, .hc-event-module .evt-data-ambient){display: none;}}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-item.evt-focus-dim){opacity: 1 !important;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-item.evt-focus-dim .evt-process-card::after){content: ""; position: absolute; inset: -1px; border-radius: inherit; background: rgba(25, 25, 25, 0.6); pointer-events: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-item.evt-focus-dim .evt-process-tick){opacity: 0.4;}
+:where(#optical-event-root) :is(.hc-event-module .evt-close-row::before, .hc-event-module .evt-close-row::after){display: none !important;}
+:where(#optical-event-root) :is(.hc-event-module .evt-left .evt-generating::after){display: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-response-char){filter: none; top: 0px; transition: none; color: inherit;}
+:where(#optical-event-root) :is(.hc-event-module[data-phase="closing"] .evt-response-final){visibility: hidden;}
+@keyframes optical-import-evt-data-ambient-light { 
+  0% { opacity: 0; }
+  33.33%, 66.67% { opacity: 1; }
+  100% { opacity: 0; }
+}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-enter .evt-chart-line){stroke-dasharray: 1; animation: 700ms linear 0s 1 normal both running optical-import-evt-chart-draw;}
+@keyframes optical-import-evt-chart-draw { 
+  0% { stroke-dashoffset: 1; }
+  100% { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-event-module .evt-chart-enter .evt-chart-line){animation: auto ease 0s 1 normal none running none; stroke-dasharray: none;}}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-card){z-index: 2;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-tick){z-index: 1;}
+:where(#optical-event-root) :is(.hc-event-module .evt-step, .hc-event-module .evt-response){scroll-margin-top: 8px; scroll-margin-bottom: 16px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-badge-processing){color: rgb(92, 162, 233); background: rgba(92, 162, 233, 0.15);}
+:where(#optical-event-root) :is(.hc-event-module[data-detail-mode="isolation"] .evt-recovery){min-height: 0px; padding-bottom: 14px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row:only-child::before){background: rgb(54, 193, 141);}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row:only-child::after){display: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-toolbar-actions button:disabled){cursor: default; pointer-events: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-tip-title){display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 500;}
+:where(#optical-event-root) :is(.hc-event-module .evt-tip-title em){font-size: 12px; font-style: normal; color: rgb(231, 67, 74); background: rgba(231, 67, 74, 0.15); border-radius: 4px; padding: 2px 6px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topo-state-label p){margin: 10px 0px 0px 28px; color: rgb(201, 201, 201); line-height: 1.5;}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row:last-child::before){background: rgb(54, 193, 141);}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row .evt-chart-card){margin-top: 12px; width: 100%; box-sizing: border-box;}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row:first-child::before, .hc-event-module .evt-recovery-row:first-child::after){display: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row:first-child){padding-left: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row .evt-chart-title){padding-left: 0px; padding-right: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row .evt-chart-card svg){width: 100%; margin: 0px;}
+:where(#optical-event-root) :is(.hc-event-module[data-detail-mode="full"] .evt-recovery-row:first-child){padding-left: 18px;}
+:where(#optical-event-root) :is(.hc-event-module[data-detail-mode="full"] .evt-recovery-row:first-child::before){display: block; background: rgb(54, 193, 141);}
+:where(#optical-event-root) :is(.hc-event-module[data-detail-mode="full"] .evt-recovery-row:first-child::after){display: block; left: 4px; top: 18px; bottom: -16px; border-left: 1px dashed rgb(102, 102, 102);}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-bar){transform-origin: 0px 222.3px;}
+:where(#optical-event-root) :is(.hc-event-module[data-detail-mode="full"] .evt-recovery-row:not(:last-child)::after){content: ""; display: block; position: absolute; left: 4px; top: 18px; bottom: -16px; border-left: 1px dashed rgb(102, 102, 102);}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-view] .evt-topo-state-label){background: rgb(57, 57, 57); color: rgb(255, 255, 255); border: 0px; box-shadow: rgba(0, 0, 0, 0.533) 0px 4px 12px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-pic-label){position: absolute; text-align: center; font-size: 10px; color: rgb(187, 187, 187); line-height: 16px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-row .evt-chart-title){font-size: 12px; font-weight: 500;}
+:where(#optical-event-root) :is(.hc-event-module .evt-node-device){background: rgb(36, 114, 71);}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-view="4"] .evt-fault-link, .hc-event-module .evt-topology[data-view="5"] .evt-fault-link){stroke: rgb(136, 136, 136);}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology .evt-topo-state-label){top: 256.08px; left: 350px; max-width: 360px; padding: 16px 20px; border: 0px; border-radius: 12px; background: rgb(57, 57, 57); color: rgb(255, 255, 255); box-shadow: rgba(0, 0, 0, 0.533) 0px 4px 12px; font-size: 14px; bottom: auto; transform: translateY(-50%);}
+:where(#optical-event-root) :is(.hc-event-module .evt-topo-state-label::before){content: ""; position: absolute; left: -8px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%) rotate(45deg); background: rgb(57, 57, 57); border-radius: 3px; bottom: auto;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-view="5"] .evt-fault-link){stroke-dasharray: 4, 3; opacity: 0.45;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-view] .evt-fault){box-shadow: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-card .evt-icon){box-shadow: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-icon){position: relative; display: inline-block; flex: 0 0 auto; width: 20px; height: 20px; border: 1.5px solid rgb(238, 238, 238); border-radius: 4px; box-sizing: border-box;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-icon::after){content: ""; position: absolute; inset: 3px; background: rgb(238, 238, 238); border-radius: 2px;}
+:where(#optical-event-root) :is(.hc-event-module[data-detail-mode="isolation"] .evt-heading-copy h1){display: flex; align-items: center; gap: 8px;}
+:where(#optical-event-root) :is(.hc-event-module[data-detail-mode="isolation"] .evt-recovery-row:first-child){padding-left: 18px;}
+:where(#optical-event-root) :is(.hc-event-module[data-detail-mode="isolation"] .evt-recovery-row:first-child::before){display: block; background: rgb(54, 193, 141);}
+:where(#optical-event-root) :is(.hc-event-module[data-detail-mode="isolation"] .evt-recovery-row:first-child::after){display: block;}
+:where(#optical-event-root) :is(.hc-event-module.evt-linked-intro .evt-diagnosis-intro){height: auto; align-items: flex-start;}
+:where(#optical-event-root) :is(.hc-event-module.evt-linked-intro .evt-diagnosis-intro p){white-space: normal; line-height: 30px; flex: 1 1 0%;}
+:where(#optical-event-root) :is(.hc-event-module.evt-linked-intro .evt-diagnostic-scroll){top: 172px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-link){color: rgb(179, 179, 179); text-decoration: underline; text-underline-offset: 3px; text-align: left; display: inline-flex; align-items: center; gap: 6px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-link:hover){text-decoration: underline;}
+:where(#optical-event-root) :is(.hc-event-module .evt-static-chart){margin-top: 14px; width: 100%;}
+:where(#optical-event-root) :is(.hc-event-module[data-detail-mode="full"] .evt-process-list){display: flex; justify-content: space-between; gap: 16px;}
+:where(#optical-event-root) :is(.hc-event-module[data-detail-mode="full"] .evt-process-list .evt-process-item){position: relative; flex: 1 1 0%; min-width: 0px; left: auto !important; width: auto !important;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-list){display: flex; justify-content: space-between; gap: 12px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-list .evt-process-item, .hc-event-module[data-detail-mode="full"] .evt-process-list .evt-process-item){position: relative; flex: 0 1 auto; min-width: 0px; left: auto !important; width: max-content !important;}
+:where(#optical-event-root) :is(.hc-event-module .evt-process-list .evt-process-card){position: relative; width: auto; max-width: 260px; padding: 8px 12px;}
+:where(#optical-event-root) :is(.hc-event-module.evt-linked-intro .evt-step:first-child .evt-step-body){min-height: 28px;}
+:where(#optical-event-root) :is(.hc-event-module.evt-linked-intro .evt-diagnostic-scroll){top: 172px;}
+:where(#optical-event-root) :is(.hc-event-module.evt-linked-intro .evt-diagnosis-intro){display: block;}
+:where(#optical-event-root) :is(.hc-event-module.evt-linked-intro .evt-diagnosis-intro p){padding-right: 0px;}
+:where(#optical-event-root) :is(.hc-event-module.evt-linked-intro .evt-expand-all){position: absolute; right: 0px; top: 34px;}
+:where(#optical-event-root) :is(.hc-event-module.evt-linked-intro .evt-step){margin-bottom: 8px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-jump-icon){display: inline-block; flex: 0 0 auto; width: 14px; height: 14px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M9 2h5v5M14 2L7 9M6 3H3v10h10v-3' fill='none' stroke='%23eee' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center center / contain no-repeat;}
+:where(#optical-event-root) :is(.hc-event-module[data-detail-mode="full"] .evt-heading-copy h1){display: flex; align-items: center; gap: 8px;}
+:where(#optical-event-root) :is(.evt-event-heading h1 > .evt-badge){margin-left: 10px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology .evt-fault){transition: background-color 900ms, color 900ms, box-shadow 900ms;}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-event-module .evt-topology .evt-fault){transition: none;}}
+:where(#optical-event-root) :is(.hc-event-module .evt-recovery-time){margin-left: 8px; color: rgb(179, 179, 179); font-size: 12px; font-weight: 400; white-space: nowrap;}
+:where(#optical-event-root) :is(.hc-event-module .evt-metric-degraded .evt-before){color: rgb(53, 191, 149);}
+:where(#optical-event-root) :is(.hc-event-module .evt-metric-degraded .evt-after, .hc-event-module .evt-metric-degraded .evt-metric-growth){color: rgb(231, 67, 74);}
+:where(#optical-event-root) :is(.hc-event-module .evt-metric-degraded .evt-metric-arrow, .hc-event-module .evt-metric-degraded .evt-metric-growth img){filter: brightness(0) saturate(100%) invert(38%) sepia(91%) saturate(1300%) hue-rotate(326deg) brightness(96%) contrast(91%);}
+:where(#optical-event-root) :is(.hc-event-module .evt-cleanup-event-link){margin-top: 10px; max-width: 100%; font-size: 12px; line-height: 1.5; white-space: normal;}
+:where(#optical-event-root) :is(.hc-event-module .evt-cleanup-related){display: flex; flex-basis: 100%; width: 100%; clear: both; align-items: baseline; gap: 4px; margin-top: 10px; font-size: 12px; line-height: 1.5;}
+:where(#optical-event-root) :is(.hc-event-module .evt-cleanup-related > span){flex: 0 0 auto;}
+:where(#optical-event-root) :is(.hc-event-module .evt-cleanup-related .evt-cleanup-event-link){margin-top: 0px; min-width: 0px;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topo-node){cursor: pointer; transition: opacity 180ms, box-shadow 180ms;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topo-node:focus-visible){outline: rgb(183, 223, 255) solid 2px; outline-offset: 4px;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-has-selection .evt-topo-node:not(.evt-selected)){opacity: 0.42;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-has-selection .evt-device-art, .hc-optical-summary .evt-has-selection .evt-topo-label, .hc-optical-summary .evt-has-selection .evt-pic-label, .hc-optical-summary .evt-has-selection .evt-topo-group h3){opacity: 0.5;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-has-selection .evt-links > path:not(.evt-selected-link), .hc-optical-summary .evt-has-selection .hc-flow-trace:not(.evt-selected-link), .hc-optical-summary .evt-has-selection .evt-links > ellipse){opacity: 0.24 !important;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topology .evt-topo-node.evt-selected){opacity: 1; box-shadow: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topology .evt-fault.evt-selected){box-shadow: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links > path.evt-selected-link){opacity: 1; stroke-width: 2.5;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topology:is([data-view="4"], [data-view="5"]) .evt-links > .evt-fault-link){stroke-width: 1.3; stroke-dasharray: none; stroke-linecap: round; opacity: 1; filter: none; animation: auto ease 0s 1 normal none running none; stroke: rgb(146, 151, 156) !important;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topology:is([data-view="4"], [data-view="5"]) .hc-flow-fault){display: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-selection-hidden){display: none !important;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-confirm-cleaning){margin-top: 12px; padding: 7px 12px; border: 1px solid rgb(107, 175, 226); border-radius: 5px; color: rgb(184, 221, 255); background: rgb(36, 84, 119);}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-optical-summary .evt-topo-node){transition: none;}}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-isolation-sleeve){display: none; pointer-events: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topology:is([data-view="4"], [data-view="5"]) .evt-isolation-sleeve){display: block;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links .evt-sleeve-outline){stroke: rgb(116, 122, 128); stroke-width: 9; stroke-linecap: round; stroke-dasharray: none; opacity: 0.65; fill: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links .evt-sleeve-inner){stroke: rgb(48, 51, 54); stroke-width: 6; stroke-linecap: round; stroke-dasharray: none; opacity: 1; fill: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-isolation-sleeve.evt-sleeve-muted){opacity: 0.35;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links > .evt-npu-flow){stroke: rgb(73, 135, 108); stroke-width: 1; stroke-dasharray: 5, 6; stroke-linecap: butt; animation: 1.4s linear 0s infinite normal none running optical-import-evt-electric-dash;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links > .evt-npu-flow.evt-selected-link){stroke-width: 1.4;}
+@keyframes optical-import-evt-electric-dash { 
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -22; }
+}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-optical-summary .evt-links > .evt-npu-flow){animation: auto ease 0s 1 normal none running none;}}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links > .evt-optical-downlink){display: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links > .evt-optical-downlink.evt-downlink-visible){display: inline;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-illustration){margin: 12px 0px 0px; padding: 10px 12px 8px; background: rgb(41, 44, 46); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-illustration img){display: block; width: 100%; height: 130px; object-fit: contain;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-illustration figcaption){margin-top: 6px; color: rgb(185, 190, 195); font-size: 12px; line-height: 18px; text-align: center;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-illustration[data-state="clean"] figcaption){color: rgb(201, 217, 207);}
+.optical-reference-popup{position: fixed; z-index: 100000; border: 0px; border-radius: 5px; background: rgb(56, 59, 64); color: rgb(221, 221, 221); font-family: Harmony, "Microsoft YaHei", sans-serif; cursor: pointer; box-shadow: rgba(0, 0, 0, 0.333) 0px 3px 12px;}
+.optical-reference-popup:hover{background: rgb(71, 75, 81);}
+:where(#optical-event-root) :is(.hc-event-module .hc-composer){position: relative;}
+:where(#optical-event-root) :is(.hc-event-module .hc-composer.has-reference){height: 84px; margin-top: -36px; border-radius: 20px; padding-top: 38px;}
+:where(#optical-event-root) :is(.hc-reference-chip){position: absolute; left: 12px; right: 12px; top: 8px; display: flex; align-items: center; gap: 8px; height: 26px; padding: 3px 8px; background: rgb(74, 74, 74); border: 0px; border-radius: 5px; color: rgb(210, 210, 210); font-size: 12px; line-height: 20px;}
+:where(#optical-event-root) :is(.hc-reference-chip[hidden], .hc-reference-status[hidden]){display: none !important;}
+:where(#optical-event-root) :is(.hc-reference-chip span){flex: 1 1 0%; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+:where(#optical-event-root) :is(.hc-event-module .hc-reference-chip button){flex: 0 0 auto; width: 20px; height: 20px; font-size: 16px; color: rgb(187, 187, 187);}
+:where(#optical-event-root) :is(.hc-reference-status){position: absolute; left: 0px; right: 0px; bottom: calc(100% + 46px); padding: 12px; background: rgb(41, 47, 53); border: 0px; border-radius: 8px; font-size: 12px; line-height: 20px; color: rgb(197, 206, 216); max-height: 280px; overflow: auto; overflow-wrap: anywhere;}
+:where(#optical-event-root) :is(.hc-reference-outline){position: absolute; inset: -3px; border-radius: inherit; padding: 2px; background: conic-gradient(from var(--hc-flow-angle),#986bff,#73b0e9,#f5a462,#b591ec,#986bff); mask: linear-gradient(rgb(0, 0, 0) 0px, rgb(0, 0, 0) 0px) content-box xor, linear-gradient(rgb(0, 0, 0) 0px, rgb(0, 0, 0) 0px); pointer-events: none; z-index: 8; animation: 4s linear 0s infinite normal none running hc-flow-spin;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-has-selection .evt-topo-node.hc-reference-target){opacity: 1;}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-reference-outline){animation: auto ease 0s 1 normal none running none;}}
+:where(#optical-event-root) :is(.hc-quick-query){position: absolute; left: 0px; right: 0px; bottom: calc(100% + 8px); display: flex; align-items: center; gap: 10px; height: 28px; font-size: 12px; color: rgb(187, 187, 187);}
+:where(#optical-event-root) :is(.hc-event-module .hc-quick-query button){width: auto; height: 26px; padding: 3px 12px; border: 0px; border-radius: 999px; background: rgb(73, 73, 73); color: rgb(238, 238, 238); font-size: 12px; line-height: 20px; white-space: nowrap;}
+:where(#optical-event-root) :is(.hc-event-module .hc-quick-query button:hover){background: rgb(90, 90, 90);}
+:where(#optical-event-root) :is(.hc-chat-message){padding: 9px 10px; border-radius: 8px; margin: 0px 0px 8px; background: rgb(51, 56, 62);}
+:where(#optical-event-root) :is(.hc-chat-message.user){margin-left: 24px; background: rgb(65, 70, 77);}
+:where(#optical-event-root) :is(.hc-chat-message.assistant){margin-right: 8px;}
+:where(#optical-event-root) :is(.hc-chat-role){font-size: 11px; color: rgb(174, 185, 197); margin-bottom: 4px;}
+:where(#optical-event-root) :is(.hc-chat-message p){margin: 0px; white-space: pre-wrap; font-size: 13px; line-height: 21px; color: rgb(224, 228, 232);}
+:where(#optical-event-root) :is(.hc-chat-message:last-child){margin-bottom: 0px;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-experience){margin-top: 20px; padding: 16px; background: rgb(48, 50, 53); border: 1px solid rgba(255, 255, 255, 0.063); border-radius: 12px; font-size: 13px; line-height: 22px; color: rgb(201, 204, 207);}
+:where(#optical-event-root) :is(.evt-experience-heading, .evt-experience-graph-title){display: flex; justify-content: space-between; align-items: center; gap: 8px;}
+:where(#optical-event-root) :is(.evt-experience-heading strong){font-size: 15px; color: rgb(238, 238, 238);}
+:where(#optical-event-root) :is(.evt-experience-heading > span, .evt-experience-graph-title > span){font-size: 11px; color: rgb(170, 170, 170); background: rgba(255, 255, 255, 0.04); padding: 0px 6px; border-radius: 4px;}
+:where(#optical-event-root) :is(.evt-experience-intro){margin: 10px 0px 16px; padding-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.07);}
+:where(#optical-event-root) :is(.evt-experience-lessons){padding-left: 20px; margin: 0px;}
+:where(#optical-event-root) :is(.evt-experience-lessons li){padding-left: 2px; margin-bottom: 14px;}
+:where(#optical-event-root) :is(.evt-experience-lessons strong){color: rgb(227, 229, 231); font-weight: 500;}
+:where(#optical-event-root) :is(.evt-experience-lessons p){margin: 5px 0px 0px; color: rgb(185, 190, 196);}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-report){display: flex; align-items: center; gap: 9px; width: 100%; padding: 12px; margin: 14px 0px; background: rgb(59, 64, 69); border-radius: 8px; text-align: left; font-size: 13px;}
+:where(#optical-event-root) :is(.evt-experience-file){font-size: 22px; color: rgb(142, 191, 232);}
+:where(#optical-event-root) :is(.evt-experience-report strong){flex: 1 1 0%; font-weight: 500;}
+:where(#optical-event-root) :is(.evt-experience-open){font-size: 12px; color: rgb(185, 205, 221);}
+:where(#optical-event-root) :is(.evt-experience-graph){padding: 12px; background: rgb(40, 45, 49); border-radius: 8px;}
+:where(#optical-event-root) :is(.evt-experience-graph-title){margin-bottom: 12px; color: rgb(220, 226, 231);}
+:where(#optical-event-root) :is(.evt-knowledge-root){display: inline-block; padding: 4px 10px; border-radius: 16px; background: rgb(85, 80, 106); color: rgb(228, 220, 248);}
+:where(#optical-event-root) :is(.evt-knowledge-branches){margin: 0px 0px 0px 12px; padding: 10px 0px 0px 14px; border-left: 1px solid rgb(105, 113, 129);}
+:where(#optical-event-root) :is(.evt-knowledge-branch){position: relative; margin: 0px 0px 10px; padding: 7px 10px; border-radius: 6px; background: rgb(53, 59, 66);}
+:where(#optical-event-root) :is(.evt-knowledge-branch::before){content: ""; position: absolute; left: -15px; top: 18px; width: 15px; border-top: 1px solid rgb(105, 113, 129);}
+:where(#optical-event-root) :is(.evt-knowledge-branch span){display: block; font-size: 11px; color: rgb(170, 184, 198);}
+:where(#optical-event-root) :is(.evt-knowledge-branch strong){font-size: 12px; font-weight: 400; color: rgb(211, 221, 229);}
+:where(#optical-event-root) :is(.evt-experience-feedback){margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.07);}
+:where(#optical-event-root) :is(.evt-experience-feedback p){margin: 0px 0px 8px;}
+:where(#optical-event-root) :is(.evt-experience-actions){display: flex; gap: 8px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-actions button, .hc-event-module .evt-experience-editor button){padding: 5px 12px; background: rgb(62, 83, 101); border-radius: 5px; color: rgb(199, 226, 247); font-size: 12px;}
+:where(#optical-event-root) :is(.evt-experience-editor textarea){width: 100%; min-height: 80px; resize: vertical; margin: 10px 0px 8px; padding: 8px; border: 1px solid rgb(98, 107, 116); border-radius: 6px; background: rgb(37, 42, 46); color: rgb(238, 238, 238); font: inherit;}
+:where(#optical-event-root) :is(.hc-quick-query[hidden], .hc-composer:not(.has-reference) .hc-quick-query){display: none !important;}
+:where(#optical-event-root) :is(.hc-composer:not(.has-reference) .hc-reference-status){bottom: calc(100% + 8px);}
+:where(#optical-event-root) :is(.evt-knowledge-map){display: block; width: 100%; height: auto; overflow: hidden;}
+:where(#optical-event-root) :is(.evt-experience-feedback){display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.016); border-radius: 6px; padding: 12px 8px;}
+:where(#optical-event-root) :is(.evt-experience-feedback > p){flex: 1 1 0%; margin: 0px; font-size: 12px;}
+:where(#optical-event-root) :is(.evt-experience-actions){margin-left: auto; gap: 0px; flex-shrink: 0;}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-actions button){border-radius: 0px; padding: 5px 9px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-actions button:first-child){border-radius: 5px 0px 0px 5px; border-right: 1px solid rgba(255, 255, 255, 0.082);}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-actions button:last-child){border-radius: 0px 5px 5px 0px;}
+:where(#optical-event-root) :is(.evt-experience-editor){width: 100%;}
+:where(#optical-event-root) :is(.evt-experience-editor[hidden]){display: none;}
+:where(#optical-event-root) :is(.evt-experience-footer){display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 14px; min-height: 28px;}
+:where(#optical-event-root) :is(.evt-experience-notice){font-size: 11px; color: rgb(170, 180, 189);}
+:where(#optical-event-root) :is(.evt-experience-tools){display: flex; gap: 10px; margin-left: auto; flex-shrink: 0;}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-tools button){display: grid; place-items: center; background: none; border: 0px; padding: 3px; width: 25px; height: 25px; color: rgb(185, 192, 197); border-radius: 4px;}
+:where(#optical-event-root) :is(.evt-experience-tools svg){width: 20px; height: 20px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-tools button:hover){background: rgba(255, 255, 255, 0.07); color: rgb(255, 255, 255);}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-tools button[aria-pressed="true"]){color: rgb(139, 197, 237);}
+:where(#optical-event-root) :is(.evt-experience[hidden], .evt-experience [hidden]){display: none !important;}
+:where(#optical-event-root) :is(.evt-experience-feedback.is-accurate > p){display: flex; align-items: center; gap: 8px; color: rgb(213, 223, 218);}
+:where(#optical-event-root) :is(.evt-experience-confirmed-icon){display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex: 0 0 20px; border-radius: 50%; background: rgb(34, 184, 137); color: rgb(255, 255, 255);}
+:where(#optical-event-root) :is(.evt-experience-confirmed-icon svg){width: 15px; height: 15px;}
+:where(#optical-event-root) :is(.evt-diagnostic-scroll > .hc-reference-status){position: static; max-height: none; overflow: visible; margin: 16px 0px 24px; padding: 0px; background: transparent;}
+:where(#optical-event-root) :is(.evt-diagnostic-scroll .hc-chat-message.user){margin-left: 38px; margin-right: 0px; background: rgb(65, 70, 77);}
+:where(#optical-event-root) :is(.evt-diagnostic-scroll .hc-chat-message.assistant){margin-left: 0px; margin-right: 26px; background: rgb(48, 52, 56);}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-report){padding: 16px 12px; min-height: 64px; background: linear-gradient(110deg, rgb(53, 74, 96), rgb(57, 67, 77)); border: 1px solid rgba(115, 152, 187, 0.333); box-shadow: rgba(0, 0, 0, 0.133) 0px 3px 10px;}
+:where(#optical-event-root) :is(.evt-experience-report strong){font-size: 15px; font-weight: 600; color: rgb(237, 244, 255);}
+:where(#optical-event-root) :is(.evt-experience-file){font-size: 28px; color: rgb(136, 198, 255);}
+:where(#optical-event-root) :is(.evt-experience-open){color: rgb(185, 221, 255);}
+:where(#optical-event-root) :is(.evt-plan-icon){font-size: 25px; color: rgb(138, 191, 231); line-height: 1;}
+:where(#optical-event-root) :is(.hc-event-module .evt-tip-manual){position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 9px; width: 100%; padding: 12px 36px 12px 14px; margin-top: 14px; background: rgba(99, 63, 66, 0.3); border-width: 1px 1px 1px 4px; border-style: solid; border-color: rgba(183, 100, 107, 0.533) rgba(183, 100, 107, 0.533) rgba(183, 100, 107, 0.533) rgb(213, 107, 120); border-image: none; border-radius: 8px; text-align: left; color: rgb(234, 217, 219);}
+:where(#optical-event-root) :is(.evt-tip-task-copy){font-size: 14px;}
+:where(#optical-event-root) :is(.evt-tip-task-arrow){position: absolute; right: 14px; top: 50%; font-size: 21px; transform: translateY(-50%);}
+:where(#optical-event-root) :is(.evt-plan-icon){display: inline-flex; align-items: center; color: rgb(141, 188, 232); flex-shrink: 0;}
+:where(#optical-event-root) :is(.hc-event-module div.evt-tip-manual){cursor: default; padding-right: 14px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-left:has(.hc-composer.has-reference) .evt-diagnostic-scroll){bottom: 168px;}
+:where(#optical-event-root) :is(.evt-left:has(.hc-composer.has-reference) .evt-diagnostic-scroll > .hc-reference-status){margin-bottom: 0px;}
+:where(#optical-event-root) :is(.evt-isolation-animation){margin: 12px 0px 16px; padding: 8px; background: rgb(38, 42, 45); border-radius: 8px; overflow: hidden;}
+:where(#optical-event-root) :is(.evt-isolation-animation svg){display: block; width: 100%; height: auto;}
+:where(#optical-event-root) :is(.evt-isolation-animation figcaption){text-align: center; color: rgb(143, 155, 165); font-size: 11px; line-height: 20px;}
+:where(#optical-event-root) :is(.optical-import-iso-before){animation: 8s ease 0s infinite normal none running optical-import-iso-before;}
+:where(#optical-event-root) :is(.optical-import-iso-after){animation: 8s ease 0s infinite normal none running optical-import-iso-after;}
+:where(#optical-event-root) :is(.iso-fault-line){animation: 8s ease 0s infinite normal none running optical-import-iso-before;}
+@keyframes optical-import-iso-before { 
+  0%, 32% { opacity: 1; }
+  43%, 88% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes optical-import-iso-after { 
+  0%, 32% { opacity: 0; }
+  43%, 88% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.optical-import-iso-before, .iso-fault-line){animation: auto ease 0s 1 normal none running none; opacity: 0;}
+:where(#optical-event-root) :is(.optical-import-iso-after){animation: auto ease 0s 1 normal none running none; opacity: 1;}}
+:where(#optical-event-root) :is(.hc-event-module .evt-knowledge-details){padding: 0px; background: transparent; border: 0px; color: rgb(103, 183, 241); font-size: 12px; line-height: 22px; cursor: pointer;}
+:where(#optical-event-root) :is(.hc-event-module .evt-knowledge-details:hover){color: rgb(163, 215, 255); text-decoration: underline;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary){padding: 14px 16px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; background: linear-gradient(145deg, rgb(43, 44, 43), rgb(35, 38, 37)); box-shadow: rgba(255, 255, 255, 0.035) 0px 1px 0px inset, rgba(0, 0, 0, 0.12) 0px 4px 12px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary[data-recovered="true"]){background: radial-gradient(at 100% 100%, rgba(82, 157, 120, 0.18), transparent 66%), linear-gradient(145deg, rgb(43, 44, 43), rgb(35, 38, 37));}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary::before){display: none;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary[data-recovered="true"]::after){content: ""; position: absolute; right: -14px; bottom: -8px; width: 150px; height: 150px; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20150%20150%22%3E%3Cg%20transform%3D%22rotate%28-12%2085%2078%29%22%3E%3Crect%20x%3D%2235%22%20y%3D%2218%22%20width%3D%2270%22%20height%3D%2282%22%20rx%3D%2212%22%20fill%3D%22%2390c5ae%22%20fill-opacity%3D%22.16%22%20stroke%3D%22%23c0e7d6%22%20stroke-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%2257%22%20y%3D%2248%22%20width%3D%2276%22%20height%3D%2287%22%20rx%3D%2213%22%20fill%3D%22%2391cdb3%22%20fill-opacity%3D%22.22%22%20stroke%3D%22%23d2eee0%22%20stroke-opacity%3D%22.2%22%2F%3E%3Cpath%20d%3D%22M76%2090l13%2013%2024-28%22%20fill%3D%22none%22%20stroke%3D%22%23bde7d2%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center center / contain no-repeat; opacity: 0.28; pointer-events: none; z-index: 0;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary .nic-summary-row){z-index: 1; padding-left: 0px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary .nic-summary-row.resolved){background: transparent; border-top: 1px solid rgba(255, 255, 255, 0.05);}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary){padding: 16px; gap: 0px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary .nic-summary-row, :is(.hc-nic-module, .hc-optical-summary) .nic-event-summary .nic-summary-row.resolved){display: grid; grid-template-columns: 70px minmax(0px, 1fr); column-gap: 12px; align-items: center; min-height: 36px; margin: 0px; padding: 8px 18px 8px 0px; border: 0px; border-radius: 6px; font-family: inherit; font-size: 13px; font-weight: 400; line-height: 20px; letter-spacing: normal; background: transparent;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary .nic-summary-label, :is(.hc-nic-module, .hc-optical-summary) .nic-event-summary .nic-summary-value){font-family: inherit; font-size: 13px; font-weight: 400; line-height: 20px; letter-spacing: normal; margin: 0px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary .nic-summary-row.interactive:hover, :is(.hc-nic-module, .hc-optical-summary) .nic-event-summary .nic-summary-row.interactive:focus-visible){background: rgba(255, 255, 255, 0.035);}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary .nic-summary-row:first-child::after, :is(.hc-nic-module, .hc-optical-summary) .nic-event-summary .nic-summary-row:last-child::after){display: none;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-compact){display: block; padding: 20px 16px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-compact::after){opacity: 0.12; width: 120px; height: 120px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary[data-recovered="true"]::after){background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20170%20120%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x2%3D%221%22%20y2%3D%220%22%3E%3Cstop%20stop-color%3D%22%2391a59b%22%2F%3E%3Cstop%20offset%3D%22.42%22%20stop-color%3D%22%2391a59b%22%2F%3E%3Cstop%20offset%3D%22.75%22%20stop-color%3D%22%236ed7ab%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22f%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2374c6a0%22%20stop-opacity%3D%22.28%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2374c6a0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20x%3D%229%22%20y%3D%2212%22%20width%3D%22152%22%20height%3D%2296%22%20rx%3D%2214%22%20fill%3D%22%239dbbaa%22%20fill-opacity%3D%22.06%22%20stroke%3D%22%23a6c3b3%22%20stroke-opacity%3D%22.18%22%2F%3E%3Cpath%20d%3D%22M22%2039H149M22%2064H149M22%2089H149%22%20stroke%3D%22%23a3baae%22%20stroke-opacity%3D%22.13%22%2F%3E%3Cpath%20d%3D%22M22%2039H44Q49%2039%2053%2047L68%2082Q74%2094%2081%2080L101%2045Q105%2038%20113%2038H145V99H22Z%22%20fill%3D%22url%28%23f%29%22%2F%3E%3Cpath%20d%3D%22M22%2039H44Q49%2039%2053%2047L68%2082Q74%2094%2081%2080L101%2045Q105%2038%20113%2038H145%22%20fill%3D%22none%22%20stroke%3D%22url%28%23g%29%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Ccircle%20cx%3D%22145%22%20cy%3D%2238%22%20r%3D%229%22%20fill%3D%22%23355f4c%22%20stroke%3D%22%2380dab1%22%20stroke-width%3D%221.5%22%2F%3E%3Cpath%20d%3D%22m141%2038%203%203%205-6%22%20fill%3D%22none%22%20stroke%3D%22%23b0eed1%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E"); width: 154px; height: 110px; right: -3px; bottom: 0px; opacity: 0.22;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary.nic-summary-compact[data-recovered="true"]::after){top: 6px; right: 2px; bottom: auto; width: 110px; height: 78px; opacity: 0.18;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary.nic-summary-compact[data-recovered="true"]){background: radial-gradient(at 100% 0%, rgba(65, 170, 117, 0.24), transparent 72%), linear-gradient(145deg, rgb(41, 55, 47), rgb(35, 53, 45)); border-color: rgba(139, 191, 161, 0.22);}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-compact .nic-summary-conclusion){font-size: 15px; line-height: 22px; letter-spacing: 0.2px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-facts){grid-template-columns: minmax(0px, 1fr); gap: 16px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-compact .nic-summary-fact){display: grid; grid-template-columns: 64px minmax(0px, 1fr); column-gap: 12px; align-items: start; width: 100%;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-caption){line-height: 22px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-metric){gap: 5px; font-size: 13px; line-height: 22px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-service){font-size: 13px; line-height: 22px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-metric strong){font-size: 13px; line-height: 22px; font-weight: 500;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-compact[data-recovered="true"] .nic-summary-outcome){color: rgb(222, 223, 223);}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary.nic-summary-compact){padding: 14px 16px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary.nic-summary-compact[data-recovered="true"]){background: radial-gradient(at 100% 0%, rgba(88, 157, 120, 0.13), transparent 65%), linear-gradient(145deg, rgb(43, 44, 43), rgb(35, 38, 37)); border-color: rgba(255, 255, 255, 0.1);}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-heading){margin-bottom: 6px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-facts){margin-top: 10px; padding-top: 0px; border-top: 0px; gap: 8px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-compact .nic-summary-fact){column-gap: 10px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-facts){gap: 4px; margin-top: 8px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-compact .nic-summary-conclusion){padding-right: 0px; white-space: nowrap; letter-spacing: 0px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview){border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; background: rgb(41, 42, 41); overflow: hidden; box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 14px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact){border: 0px; border-radius: 0px; margin: 0px; box-shadow: none; padding: 16px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-summary-heading){font-size: 13px; font-weight: 500; color: rgb(201, 206, 203); margin-bottom: 8px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-process-body){padding: 16px; background: rgba(255, 255, 255, 0.02); border-top: 1px solid rgba(255, 255, 255, 0.067);}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-process-body .nic-process-heading){margin: 0px 0px 12px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-process-body > .evt-step:last-child){margin-bottom: 0px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary)[data-detail-mode="recovery"] .nic-event-overview + .nic-related-todo){margin-top: 16px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary){background: radial-gradient(at 0px 0px, rgba(116, 103, 211, 0.28), transparent 65%), radial-gradient(at 100% 100%, rgba(184, 115, 91, 0.18), transparent 65%), linear-gradient(115deg, rgb(41, 42, 58), rgb(38, 51, 66) 60%, rgb(52, 48, 55));}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact, :is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact[data-recovered="true"]){background: radial-gradient(at 0px 0px, rgba(117, 99, 173, 0.533), transparent 65%), radial-gradient(at 100% 100%, rgba(183, 121, 105, 0.44), transparent 60%), linear-gradient(110deg, rgb(55, 48, 77), rgb(41, 63, 85) 62%, rgb(73, 57, 74)); box-shadow: rgba(180, 160, 239, 0.5) 0px 1px 0px inset;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary::before){left: 0px; right: 0px; background: linear-gradient(90deg, rgb(180, 147, 239), rgb(118, 180, 235), rgb(232, 176, 149)); opacity: 0.9;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact, :is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact[data-recovered="true"]){background: radial-gradient(at 4% 0%, rgba(74, 157, 250, 0.44), transparent 58%), radial-gradient(at 95% 5%, rgba(138, 108, 230, 0.46), transparent 57%), radial-gradient(at 95% 100%, rgba(227, 160, 80, 0.396), transparent 60%), radial-gradient(at 45% 100%, rgba(220, 112, 144, 0.29), transparent 55%), linear-gradient(120deg, rgb(40, 69, 82), rgb(52, 52, 71) 65%, rgb(76, 65, 65));}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact::after){content: ""; position: absolute; right: 2px; top: 5px; bottom: auto; width: 148px; height: 94px; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20160%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%3E%3Cstop%20stop-color%3D%22%2370d6ff%22/%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%23b697ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffcf74%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d%3D%22M10%2056h27l17%2022%2024-35h65%22%20fill%3D%22none%22%20stroke%3D%22url%28%23a%29%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M111%208l5%2016%2016%205-16%205-5%2016-5-16-16-5%2016-5z%22%20fill%3D%22url%28%23a%29%22/%3E%3Cpath%20d%3D%22M143%2048l3%209%209%203-9%203-3%209-3-9-9-3%209-3zM71%2011l2%207%207%202-7%202-2%207-2-7-7-2%207-2z%22%20fill%3D%22%23ffe2a1%22/%3E%3Ccircle%20cx%3D%22144%22%20cy%3D%2243%22%20r%3D%224%22%20fill%3D%22%237de4e8%22/%3E%3C/svg%3E") center center / contain no-repeat; opacity: 0.35; pointer-events: none; z-index: -1;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact, :is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact[data-recovered="true"]){background: radial-gradient(at 0px 0px, rgba(87, 129, 196, 0.2), transparent 65%), radial-gradient(at 100% 0px, rgba(137, 109, 190, 0.17), transparent 60%), radial-gradient(at 100% 100%, rgba(199, 155, 112, 0.09), transparent 55%), linear-gradient(115deg, rgb(41, 48, 59), rgb(48, 48, 60)); box-shadow: rgba(169, 184, 223, 0.157) 0px 1px 0px inset;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact::before){opacity: 0.3;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact::after){top: 7px; right: 14px; width: 64px; height: 30px; opacity: 0.45; z-index: 0; background-size: contain;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-summary-heading){padding-right: 76px; min-height: 22px; margin-bottom: 8px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview){padding: 6px; border-radius: 20px; background: rgb(43, 44, 45); border: 1px solid rgba(255, 255, 255, 0.086); overflow: hidden;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact, :is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact[data-recovered="true"]){margin: 0px; padding: 16px; border: 0px; border-radius: 15px; background: radial-gradient(at 4% 0%, rgba(74, 157, 250, 0.44), transparent 58%), radial-gradient(at 95% 5%, rgba(138, 108, 230, 0.46), transparent 57%), radial-gradient(at 95% 100%, rgba(227, 160, 80, 0.396), transparent 60%), radial-gradient(at 45% 100%, rgba(220, 112, 144, 0.29), transparent 55%), linear-gradient(120deg, rgb(40, 69, 82), rgb(52, 52, 71) 65%, rgb(76, 65, 65)); box-shadow: rgba(180, 185, 227, 0.2) 0px 1px 0px inset;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact::after){right: 2px; top: 5px; bottom: auto; width: 148px; height: 94px; opacity: 0.35; z-index: -1; background-size: contain;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact::before){opacity: 0.55;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-summary-heading){padding-right: 0px; min-height: 0px; margin-bottom: 8px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-process-body){padding: 16px 10px 10px; border-top: 0px; background: transparent;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview .nic-event-summary.nic-summary-compact::after){background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20160%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%3E%3Cstop%20stop-color%3D%22%2370d6ff%22/%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%23b697ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffcf74%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d%3D%22M10%2056h27l17%2022%2024-35h65%22%20fill%3D%22none%22%20stroke%3D%22url%28%23a%29%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M111%208l5%2016%2016%205-16%205-5%2016-5-16-16-5%2016-5z%22%20fill%3D%22url%28%23a%29%22/%3E%3Cpath%20d%3D%22M143%2048l3%209%209%203-9%203-3%209-3-9-9-3%209-3z%22%20fill%3D%22%23ffe2a1%22/%3E%3Ccircle%20cx%3D%22144%22%20cy%3D%2243%22%20r%3D%224%22%20fill%3D%22%237de4e8%22/%3E%3C/svg%3E");}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-facts .nic-summary-outcome){white-space: normal; overflow-wrap: anywhere;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-process-heading .evt-expand-all){position: static; inset: auto; margin-left: auto;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-overview + .nic-related-todo){margin-top: 16px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-related-business-title){display: flex; align-items: center; gap: 8px; flex-wrap: wrap;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-related-business-title .evt-badge){color: rgb(187, 187, 187); background: rgba(255, 255, 255, 0.08); border-radius: 3px; padding: 1px 5px; font-size: 11px; white-space: nowrap;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary .nic-summary-relation){display: block; white-space: normal; position: relative; margin: 16px -16px -16px; padding: 12px 16px; border-width: 1px 0px 0px; border-style: solid none none; border-color: rgba(255, 255, 255, 0.125) currentcolor currentcolor; border-image: none; border-radius: 0px 0px 15px 15px; background: rgb(48, 50, 53); box-shadow: none; min-height: 0px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-relation::before, :is(.hc-nic-module, .hc-optical-summary) .nic-summary-relation::after){display: none;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary .nic-summary-relation[data-state="manual"]){background: rgb(80, 52, 56); border-top-color: rgba(147, 97, 106, 0.333);}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-event-summary .nic-summary-relation[data-state="closed"]){background: rgb(60, 65, 71); border-color: rgba(255, 255, 255, 0.17);}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-relation-label){display: block; font-size: 13px; line-height: 18px; font-weight: 500; color: rgb(201, 206, 203); margin-bottom: 8px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-relation-line){display: flex; align-items: center; justify-content: space-between; gap: 10px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-relation-line .nic-related-business-title){display: flex; flex: 1 1 0%; min-width: 0px; align-items: center; gap: 6px; flex-wrap: wrap;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-relation-name){font-size: 15px; line-height: 22px; color: rgb(240, 242, 241); font-weight: 500;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-relation .evt-badge){display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; font-size: 11px; line-height: 18px; padding: 0px 5px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-relation .evt-badge > .evt-icon){margin: 0px; width: 13px; height: 13px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-relation .nic-relation-action){position: static; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px; min-height: 28px; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 4px; color: rgb(238, 238, 238); background: transparent; font-size: 12px; line-height: 18px; text-decoration: none; margin: 0px;}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-relation[data-state="manual"] .nic-relation-action){background: rgb(8, 121, 212); border-color: rgb(8, 121, 212); color: rgb(255, 255, 255);}
+:where(#optical-event-root) :is(:is(.hc-nic-module, .hc-optical-summary) .nic-summary-relation .nic-relation-action:hover){filter: brightness(1.15);}
+/* Imported optical-detail updates, isolated from all other views. */
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary){padding: 14px 16px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; background: linear-gradient(145deg, rgb(43, 44, 43), rgb(35, 38, 37)); box-shadow: rgba(255, 255, 255, 0.035) 0px 1px 0px inset, rgba(0, 0, 0, 0.12) 0px 4px 12px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary[data-recovered="true"]){background: radial-gradient(at 100% 100%, rgba(82, 157, 120, 0.18), transparent 66%), linear-gradient(145deg, rgb(43, 44, 43), rgb(35, 38, 37));}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary::before){display: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary[data-recovered="true"]::after){content: ""; position: absolute; right: -14px; bottom: -8px; width: 150px; height: 150px; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20150%20150%22%3E%3Cg%20transform%3D%22rotate%28-12%2085%2078%29%22%3E%3Crect%20x%3D%2235%22%20y%3D%2218%22%20width%3D%2270%22%20height%3D%2282%22%20rx%3D%2212%22%20fill%3D%22%2390c5ae%22%20fill-opacity%3D%22.16%22%20stroke%3D%22%23c0e7d6%22%20stroke-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%2257%22%20y%3D%2248%22%20width%3D%2276%22%20height%3D%2287%22%20rx%3D%2213%22%20fill%3D%22%2391cdb3%22%20fill-opacity%3D%22.22%22%20stroke%3D%22%23d2eee0%22%20stroke-opacity%3D%22.2%22%2F%3E%3Cpath%20d%3D%22M76%2090l13%2013%2024-28%22%20fill%3D%22none%22%20stroke%3D%22%23bde7d2%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center center / contain no-repeat; opacity: 0.28; pointer-events: none; z-index: 0;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary .nic-summary-row){z-index: 1; padding-left: 0px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary .nic-summary-row.resolved){background: transparent; border-top: 1px solid rgba(255, 255, 255, 0.05);}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary){padding: 16px; gap: 0px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary .nic-summary-row, .hc-optical-summary .nic-event-summary .nic-summary-row.resolved){display: grid; grid-template-columns: 70px minmax(0px, 1fr); column-gap: 12px; align-items: center; min-height: 36px; margin: 0px; padding: 8px 18px 8px 0px; border: 0px; border-radius: 6px; font-family: inherit; font-size: 13px; font-weight: 400; line-height: 20px; letter-spacing: normal; background: transparent;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary .nic-summary-label, .hc-optical-summary .nic-event-summary .nic-summary-value){font-family: inherit; font-size: 13px; font-weight: 400; line-height: 20px; letter-spacing: normal; margin: 0px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary .nic-summary-row.interactive:hover, .hc-optical-summary .nic-event-summary .nic-summary-row.interactive:focus-visible){background: rgba(255, 255, 255, 0.035);}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary .nic-summary-row:first-child::after, .hc-optical-summary .nic-event-summary .nic-summary-row:last-child::after){display: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-compact){display: block; padding: 20px 16px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-compact::after){opacity: 0.12; width: 120px; height: 120px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary[data-recovered="true"]::after){background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20170%20120%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x2%3D%221%22%20y2%3D%220%22%3E%3Cstop%20stop-color%3D%22%2391a59b%22%2F%3E%3Cstop%20offset%3D%22.42%22%20stop-color%3D%22%2391a59b%22%2F%3E%3Cstop%20offset%3D%22.75%22%20stop-color%3D%22%236ed7ab%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22f%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2374c6a0%22%20stop-opacity%3D%22.28%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2374c6a0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20x%3D%229%22%20y%3D%2212%22%20width%3D%22152%22%20height%3D%2296%22%20rx%3D%2214%22%20fill%3D%22%239dbbaa%22%20fill-opacity%3D%22.06%22%20stroke%3D%22%23a6c3b3%22%20stroke-opacity%3D%22.18%22%2F%3E%3Cpath%20d%3D%22M22%2039H149M22%2064H149M22%2089H149%22%20stroke%3D%22%23a3baae%22%20stroke-opacity%3D%22.13%22%2F%3E%3Cpath%20d%3D%22M22%2039H44Q49%2039%2053%2047L68%2082Q74%2094%2081%2080L101%2045Q105%2038%20113%2038H145V99H22Z%22%20fill%3D%22url%28%23f%29%22%2F%3E%3Cpath%20d%3D%22M22%2039H44Q49%2039%2053%2047L68%2082Q74%2094%2081%2080L101%2045Q105%2038%20113%2038H145%22%20fill%3D%22none%22%20stroke%3D%22url%28%23g%29%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Ccircle%20cx%3D%22145%22%20cy%3D%2238%22%20r%3D%229%22%20fill%3D%22%23355f4c%22%20stroke%3D%22%2380dab1%22%20stroke-width%3D%221.5%22%2F%3E%3Cpath%20d%3D%22m141%2038%203%203%205-6%22%20fill%3D%22none%22%20stroke%3D%22%23b0eed1%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E"); width: 154px; height: 110px; right: -3px; bottom: 0px; opacity: 0.22;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary.nic-summary-compact[data-recovered="true"]::after){top: 6px; right: 2px; bottom: auto; width: 110px; height: 78px; opacity: 0.18;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary.nic-summary-compact[data-recovered="true"]){background: radial-gradient(at 100% 0%, rgba(65, 170, 117, 0.24), transparent 72%), linear-gradient(145deg, rgb(41, 55, 47), rgb(35, 53, 45)); border-color: rgba(139, 191, 161, 0.22);}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-compact .nic-summary-conclusion){font-size: 15px; line-height: 22px; letter-spacing: 0.2px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-facts){grid-template-columns: minmax(0px, 1fr); gap: 16px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-compact .nic-summary-fact){display: grid; grid-template-columns: 64px minmax(0px, 1fr); column-gap: 12px; align-items: start; width: 100%;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-caption){line-height: 22px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-metric){gap: 5px; font-size: 13px; line-height: 22px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-service){font-size: 13px; line-height: 22px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-metric strong){font-size: 13px; line-height: 22px; font-weight: 500;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-compact[data-recovered="true"] .nic-summary-outcome){color: rgb(222, 223, 223);}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary.nic-summary-compact){padding: 14px 16px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary.nic-summary-compact[data-recovered="true"]){background: radial-gradient(at 100% 0%, rgba(88, 157, 120, 0.13), transparent 65%), linear-gradient(145deg, rgb(43, 44, 43), rgb(35, 38, 37)); border-color: rgba(255, 255, 255, 0.1);}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-heading){margin-bottom: 6px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-facts){margin-top: 10px; padding-top: 0px; border-top: 0px; gap: 8px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-compact .nic-summary-fact){column-gap: 10px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-facts){gap: 4px; margin-top: 8px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-compact .nic-summary-conclusion){padding-right: 0px; white-space: nowrap; letter-spacing: 0px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview){border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; background: rgb(41, 42, 41); overflow: hidden; box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 14px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact){border: 0px; border-radius: 0px; margin: 0px; box-shadow: none; padding: 16px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-summary-heading){font-size: 13px; font-weight: 500; color: rgb(201, 206, 203); margin-bottom: 8px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-process-body){padding: 16px; background: rgba(255, 255, 255, 0.02); border-top: 1px solid rgba(255, 255, 255, 0.067);}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-process-body .nic-process-heading){margin: 0px 0px 12px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-process-body > .evt-step:last-child){margin-bottom: 0px;}
+:where(#optical-event-root) :is(.hc-optical-summary[data-detail-mode="recovery"] .nic-event-overview + .nic-related-todo){margin-top: 16px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-summary){background: radial-gradient(at 0px 0px, rgba(116, 103, 211, 0.28), transparent 65%), radial-gradient(at 100% 100%, rgba(184, 115, 91, 0.18), transparent 65%), linear-gradient(115deg, rgb(41, 42, 58), rgb(38, 51, 66) 60%, rgb(52, 48, 55));}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact, .hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact[data-recovered="true"]){background: radial-gradient(at 0px 0px, rgba(117, 99, 173, 0.533), transparent 65%), radial-gradient(at 100% 100%, rgba(183, 121, 105, 0.44), transparent 60%), linear-gradient(110deg, rgb(55, 48, 77), rgb(41, 63, 85) 62%, rgb(73, 57, 74)); box-shadow: rgba(180, 160, 239, 0.5) 0px 1px 0px inset;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-summary::before){left: 0px; right: 0px; background: linear-gradient(90deg, rgb(180, 147, 239), rgb(118, 180, 235), rgb(232, 176, 149)); opacity: 0.9;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact, .hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact[data-recovered="true"]){background: radial-gradient(at 4% 0%, rgba(74, 157, 250, 0.44), transparent 58%), radial-gradient(at 95% 5%, rgba(138, 108, 230, 0.46), transparent 57%), radial-gradient(at 95% 100%, rgba(227, 160, 80, 0.396), transparent 60%), radial-gradient(at 45% 100%, rgba(220, 112, 144, 0.29), transparent 55%), linear-gradient(120deg, rgb(40, 69, 82), rgb(52, 52, 71) 65%, rgb(76, 65, 65));}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact::after){content: ""; position: absolute; right: 2px; top: 5px; bottom: auto; width: 148px; height: 94px; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20160%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%3E%3Cstop%20stop-color%3D%22%2370d6ff%22/%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%23b697ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffcf74%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d%3D%22M10%2056h27l17%2022%2024-35h65%22%20fill%3D%22none%22%20stroke%3D%22url%28%23a%29%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M111%208l5%2016%2016%205-16%205-5%2016-5-16-16-5%2016-5z%22%20fill%3D%22url%28%23a%29%22/%3E%3Cpath%20d%3D%22M143%2048l3%209%209%203-9%203-3%209-3-9-9-3%209-3zM71%2011l2%207%207%202-7%202-2%207-2-7-7-2%207-2z%22%20fill%3D%22%23ffe2a1%22/%3E%3Ccircle%20cx%3D%22144%22%20cy%3D%2243%22%20r%3D%224%22%20fill%3D%22%237de4e8%22/%3E%3C/svg%3E") center center / contain no-repeat; opacity: 0.35; pointer-events: none; z-index: -1;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact, .hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact[data-recovered="true"]){background: radial-gradient(at 0px 0px, rgba(87, 129, 196, 0.2), transparent 65%), radial-gradient(at 100% 0px, rgba(137, 109, 190, 0.17), transparent 60%), radial-gradient(at 100% 100%, rgba(199, 155, 112, 0.09), transparent 55%), linear-gradient(115deg, rgb(41, 48, 59), rgb(48, 48, 60)); box-shadow: rgba(169, 184, 223, 0.157) 0px 1px 0px inset;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact::before){opacity: 0.3;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact::after){top: 7px; right: 14px; width: 64px; height: 30px; opacity: 0.45; z-index: 0; background-size: contain;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-summary-heading){padding-right: 76px; min-height: 22px; margin-bottom: 8px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview){padding: 6px; border-radius: 20px; background: rgb(43, 44, 45); border: 1px solid rgba(255, 255, 255, 0.086); overflow: hidden;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact, .hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact[data-recovered="true"]){margin: 0px; padding: 16px; border: 0px; border-radius: 15px; background: radial-gradient(at 4% 0%, rgba(74, 157, 250, 0.44), transparent 58%), radial-gradient(at 95% 5%, rgba(138, 108, 230, 0.46), transparent 57%), radial-gradient(at 95% 100%, rgba(227, 160, 80, 0.396), transparent 60%), radial-gradient(at 45% 100%, rgba(220, 112, 144, 0.29), transparent 55%), linear-gradient(120deg, rgb(40, 69, 82), rgb(52, 52, 71) 65%, rgb(76, 65, 65)); box-shadow: rgba(180, 185, 227, 0.2) 0px 1px 0px inset;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact::after){right: 2px; top: 5px; bottom: auto; width: 148px; height: 94px; opacity: 0.35; z-index: -1; background-size: contain;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact::before){opacity: 0.55;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-summary-heading){padding-right: 0px; min-height: 0px; margin-bottom: 8px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-process-body){padding: 16px 10px 10px; border-top: 0px; background: transparent;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview .nic-event-summary.nic-summary-compact::after){background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20160%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%3E%3Cstop%20stop-color%3D%22%2370d6ff%22/%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%23b697ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffcf74%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d%3D%22M10%2056h27l17%2022%2024-35h65%22%20fill%3D%22none%22%20stroke%3D%22url%28%23a%29%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M111%208l5%2016%2016%205-16%205-5%2016-5-16-16-5%2016-5z%22%20fill%3D%22url%28%23a%29%22/%3E%3Cpath%20d%3D%22M143%2048l3%209%209%203-9%203-3%209-3-9-9-3%209-3z%22%20fill%3D%22%23ffe2a1%22/%3E%3Ccircle%20cx%3D%22144%22%20cy%3D%2243%22%20r%3D%224%22%20fill%3D%22%237de4e8%22/%3E%3C/svg%3E");}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-facts .nic-summary-outcome){white-space: normal; overflow-wrap: anywhere;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-process-heading .evt-expand-all){position: static; inset: auto; margin-left: auto;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-overview + .nic-related-todo){margin-top: 16px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-related-business-title){display: flex; align-items: center; gap: 8px; flex-wrap: wrap;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-related-business-title .evt-badge){color: rgb(187, 187, 187); background: rgba(255, 255, 255, 0.08); border-radius: 3px; padding: 1px 5px; font-size: 11px; white-space: nowrap;}
+:where(#optical-event-root) :is(.hc-nic-module .nic-manual-copy > .nic-confirm-execute){margin-left: 20px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary .nic-summary-relation){display: block; white-space: normal; position: relative; margin: 16px -16px -16px; padding: 12px 16px; border-width: 1px 0px 0px; border-style: solid none none; border-color: rgba(255, 255, 255, 0.125) currentcolor currentcolor; border-image: none; border-radius: 0px 0px 15px 15px; background: rgb(48, 50, 53); box-shadow: none; min-height: 0px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-relation::before, .hc-optical-summary .nic-summary-relation::after){display: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary .nic-summary-relation[data-state="manual"]){background: rgb(80, 52, 56); border-top-color: rgba(147, 97, 106, 0.333);}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-event-summary .nic-summary-relation[data-state="closed"]){background: rgb(60, 65, 71); border-color: rgba(255, 255, 255, 0.17);}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-relation-label){display: block; font-size: 13px; line-height: 18px; font-weight: 500; color: rgb(201, 206, 203); margin-bottom: 8px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-relation-line){display: flex; align-items: center; justify-content: space-between; gap: 10px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-relation-line .nic-related-business-title){display: flex; flex: 1 1 0%; min-width: 0px; align-items: center; gap: 6px; flex-wrap: wrap;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-relation-name){font-size: 15px; line-height: 22px; color: rgb(240, 242, 241); font-weight: 500;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-relation .evt-badge){display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; font-size: 11px; line-height: 18px; padding: 0px 5px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-relation .evt-badge > .evt-icon){margin: 0px; width: 13px; height: 13px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-relation .nic-relation-action){position: static; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px; min-height: 28px; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 4px; color: rgb(238, 238, 238); background: transparent; font-size: 12px; line-height: 18px; text-decoration: none; margin: 0px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-relation[data-state="manual"] .nic-relation-action){background: rgb(8, 121, 212); border-color: rgb(8, 121, 212); color: rgb(255, 255, 255);}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-relation .nic-relation-action:hover){filter: brightness(1.15);}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-bar){transform-origin: 0px 330px;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topo-node){cursor: pointer; transition: opacity 180ms, box-shadow 180ms;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topo-node:focus-visible){outline: rgb(183, 223, 255) solid 2px; outline-offset: 4px;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-has-selection .evt-topo-node:not(.evt-selected)){opacity: 0.42;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-has-selection .evt-device-art, .hc-optical-summary .evt-has-selection .evt-topo-label, .hc-optical-summary .evt-has-selection .evt-pic-label, .hc-optical-summary .evt-has-selection .evt-topo-group h3){opacity: 0.5;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-has-selection .evt-links > path:not(.evt-selected-link), .hc-optical-summary .evt-has-selection .hc-flow-trace:not(.evt-selected-link), .hc-optical-summary .evt-has-selection .evt-links > ellipse){opacity: 0.24 !important;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topology .evt-topo-node.evt-selected){opacity: 1; box-shadow: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topology .evt-fault.evt-selected){box-shadow: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links > path.evt-selected-link){opacity: 1; stroke-width: 2.5;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topology:is([data-view="4"], [data-view="5"]) .evt-links > .evt-fault-link){stroke-width: 1.3; stroke-dasharray: none; stroke-linecap: round; opacity: 1; filter: none; animation: auto ease 0s 1 normal none running none; stroke: rgb(240, 68, 84) !important;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topology:is([data-view="4"], [data-view="5"]) .hc-flow-fault){display: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-selection-hidden){display: none !important;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-confirm-cleaning){margin-top: 12px; padding: 7px 12px; border: 1px solid rgb(107, 175, 226); border-radius: 5px; color: rgb(184, 221, 255); background: rgb(36, 84, 119);}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-optical-summary .evt-topo-node){transition: none;}}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-isolation-sleeve){display: none; pointer-events: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topology:is([data-view="4"], [data-view="5"]) .evt-isolation-sleeve){display: block;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links .evt-sleeve-outline){stroke: rgb(150, 157, 163); stroke-width: 9; stroke-linecap: round; stroke-dasharray: none; opacity: 1; fill: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links .evt-sleeve-inner){stroke: rgb(48, 51, 54); stroke-width: 6; stroke-linecap: round; stroke-dasharray: none; opacity: 1; fill: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-isolation-sleeve.evt-sleeve-muted){opacity: 0.35;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links > .evt-npu-flow){stroke: rgb(73, 135, 108); stroke-width: 1; stroke-dasharray: 5, 6; stroke-linecap: butt; animation: 1.4s linear 0s infinite normal none running evt-electric-dash;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links > .evt-npu-flow.evt-selected-link){stroke-width: 1.4;}
+@keyframes evt-electric-dash { 
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -22; }
+}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-optical-summary .evt-links > .evt-npu-flow){animation: auto ease 0s 1 normal none running none;}}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links > .evt-optical-downlink){display: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-links > .evt-optical-downlink.evt-downlink-visible){display: inline;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-illustration){margin: 12px 0px 0px; padding: 10px 12px 8px; background: rgb(41, 44, 46); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-illustration img){display: block; width: 100%; height: 130px; object-fit: contain;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-illustration figcaption){margin-top: 6px; color: rgb(185, 190, 195); font-size: 12px; line-height: 18px; text-align: center;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-illustration[data-state="clean"] figcaption){color: rgb(201, 217, 207);}
+:where(#optical-event-root) :is(.hc-reference-popup){position: fixed; z-index: 100000; border: 0px; border-radius: 5px; background: rgb(56, 59, 64); color: rgb(221, 221, 221); font-family: Harmony, "Microsoft YaHei", sans-serif; cursor: pointer; box-shadow: rgba(0, 0, 0, 0.333) 0px 3px 12px;}
+:where(#optical-event-root) :is(.hc-reference-popup:hover){background: rgb(71, 75, 81);}
+:where(#optical-event-root) :is(.hc-event-module .hc-composer){position: relative;}
+:where(#optical-event-root) :is(.hc-event-module .hc-composer.has-reference){height: 84px; margin-top: -36px; border-radius: 20px; padding-top: 38px;}
+:where(#optical-event-root) :is(.hc-reference-chip){position: absolute; left: 12px; right: 12px; top: 8px; display: flex; align-items: center; gap: 8px; height: 26px; padding: 3px 8px; background: rgb(74, 74, 74); border: 0px; border-radius: 5px; color: rgb(210, 210, 210); font-size: 12px; line-height: 20px;}
+:where(#optical-event-root) :is(.hc-reference-chip[hidden], .hc-reference-status[hidden]){display: none !important;}
+:where(#optical-event-root) :is(.hc-reference-chip span){flex: 1 1 0%; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+:where(#optical-event-root) :is(.hc-event-module .hc-reference-chip button){flex: 0 0 auto; width: 20px; height: 20px; font-size: 16px; color: rgb(187, 187, 187);}
+:where(#optical-event-root) :is(.hc-reference-status){position: absolute; left: 0px; right: 0px; bottom: calc(100% + 46px); padding: 12px; background: rgb(41, 47, 53); border: 0px; border-radius: 8px; font-size: 12px; line-height: 20px; color: rgb(197, 206, 216); max-height: 280px; overflow: auto; overflow-wrap: anywhere;}
+:where(#optical-event-root) :is(.hc-reference-outline){position: absolute; inset: -3px; border-radius: inherit; padding: 2px; background: conic-gradient(from var(--hc-flow-angle),#986bff,#73b0e9,#f5a462,#b591ec,#986bff); mask: linear-gradient(rgb(0, 0, 0) 0px, rgb(0, 0, 0) 0px) content-box xor, linear-gradient(rgb(0, 0, 0) 0px, rgb(0, 0, 0) 0px); pointer-events: none; z-index: 8; animation: 4s linear 0s infinite normal none running hc-flow-spin;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-has-selection .evt-topo-node.hc-reference-target){opacity: 1;}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-reference-outline){animation: auto ease 0s 1 normal none running none;}}
+:where(#optical-event-root) :is(.hc-quick-query){position: absolute; left: 0px; right: 0px; bottom: calc(100% + 8px); display: flex; align-items: center; gap: 10px; height: 28px; font-size: 12px; color: rgb(187, 187, 187);}
+:where(#optical-event-root) :is(.hc-event-module .hc-quick-query button){width: auto; height: 26px; padding: 3px 12px; border: 0px; border-radius: 999px; background: rgb(73, 73, 73); color: rgb(238, 238, 238); font-size: 12px; line-height: 20px; white-space: nowrap;}
+:where(#optical-event-root) :is(.hc-event-module .hc-quick-query button:hover){background: rgb(90, 90, 90);}
+:where(#optical-event-root) :is(.hc-chat-message){padding: 9px 10px; border-radius: 8px; margin: 0px 0px 8px; background: rgb(51, 56, 62);}
+:where(#optical-event-root) :is(.hc-chat-message.user){margin-left: 24px; background: rgb(65, 70, 77);}
+:where(#optical-event-root) :is(.hc-chat-message.assistant){margin-right: 8px;}
+:where(#optical-event-root) :is(.hc-chat-role){font-size: 11px; color: rgb(174, 185, 197); margin-bottom: 4px;}
+:where(#optical-event-root) :is(.hc-chat-message p){margin: 0px; white-space: pre-wrap; font-size: 13px; line-height: 21px; color: rgb(224, 228, 232);}
+:where(#optical-event-root) :is(.hc-chat-message:last-child){margin-bottom: 0px;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-experience){margin-top: 20px; padding: 16px; background: rgb(48, 50, 53); border: 1px solid rgba(255, 255, 255, 0.063); border-radius: 12px; font-size: 13px; line-height: 22px; color: rgb(201, 204, 207);}
+:where(#optical-event-root) :is(.evt-experience-heading, .evt-experience-graph-title){display: flex; justify-content: space-between; align-items: center; gap: 8px;}
+:where(#optical-event-root) :is(.evt-experience-heading strong){font-size: 15px; color: rgb(238, 238, 238);}
+:where(#optical-event-root) :is(.evt-experience-heading > span, .evt-experience-graph-title > span){font-size: 11px; color: rgb(170, 170, 170); background: rgba(255, 255, 255, 0.04); padding: 0px 6px; border-radius: 4px;}
+:where(#optical-event-root) :is(.evt-experience-intro){margin: 10px 0px 16px; padding-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.07);}
+:where(#optical-event-root) :is(.evt-experience-lessons){padding-left: 20px; margin: 0px;}
+:where(#optical-event-root) :is(.evt-experience-lessons li){padding-left: 2px; margin-bottom: 14px;}
+:where(#optical-event-root) :is(.evt-experience-lessons strong){color: rgb(227, 229, 231); font-weight: 500;}
+:where(#optical-event-root) :is(.evt-experience-lessons p){margin: 5px 0px 0px; color: rgb(185, 190, 196);}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-report){display: flex; align-items: center; gap: 9px; width: 100%; padding: 12px; margin: 14px 0px; background: rgb(59, 64, 69); border-radius: 8px; text-align: left; font-size: 13px;}
+:where(#optical-event-root) :is(.evt-experience-file){font-size: 22px; color: rgb(142, 191, 232);}
+:where(#optical-event-root) :is(.evt-experience-report strong){flex: 1 1 0%; font-weight: 500;}
+:where(#optical-event-root) :is(.evt-experience-open){font-size: 12px; color: rgb(185, 205, 221);}
+:where(#optical-event-root) :is(.evt-experience-graph){padding: 12px; background: rgb(40, 45, 49); border-radius: 8px;}
+:where(#optical-event-root) :is(.evt-experience-graph-title){margin-bottom: 12px; color: rgb(220, 226, 231);}
+:where(#optical-event-root) :is(.evt-knowledge-root){display: inline-block; padding: 4px 10px; border-radius: 16px; background: rgb(85, 80, 106); color: rgb(228, 220, 248);}
+:where(#optical-event-root) :is(.evt-knowledge-branches){margin: 0px 0px 0px 12px; padding: 10px 0px 0px 14px; border-left: 1px solid rgb(105, 113, 129);}
+:where(#optical-event-root) :is(.evt-knowledge-branch){position: relative; margin: 0px 0px 10px; padding: 7px 10px; border-radius: 6px; background: rgb(53, 59, 66);}
+:where(#optical-event-root) :is(.evt-knowledge-branch::before){content: ""; position: absolute; left: -15px; top: 18px; width: 15px; border-top: 1px solid rgb(105, 113, 129);}
+:where(#optical-event-root) :is(.evt-knowledge-branch span){display: block; font-size: 11px; color: rgb(170, 184, 198);}
+:where(#optical-event-root) :is(.evt-knowledge-branch strong){font-size: 12px; font-weight: 400; color: rgb(211, 221, 229);}
+:where(#optical-event-root) :is(.evt-experience-feedback){margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.07);}
+:where(#optical-event-root) :is(.evt-experience-feedback p){margin: 0px 0px 8px;}
+:where(#optical-event-root) :is(.evt-experience-actions){display: flex; gap: 8px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-actions button, .hc-event-module .evt-experience-editor button){padding: 5px 12px; background: rgb(62, 83, 101); border-radius: 5px; color: rgb(199, 226, 247); font-size: 12px;}
+:where(#optical-event-root) :is(.evt-experience-editor textarea){width: 100%; min-height: 80px; resize: vertical; margin: 10px 0px 8px; padding: 8px; border: 1px solid rgb(98, 107, 116); border-radius: 6px; background: rgb(37, 42, 46); color: rgb(238, 238, 238); font: inherit;}
+:where(#optical-event-root) :is(.hc-quick-query[hidden], .hc-composer:not(.has-reference) .hc-quick-query){display: none !important;}
+:where(#optical-event-root) :is(.hc-composer:not(.has-reference) .hc-reference-status){bottom: calc(100% + 8px);}
+:where(#optical-event-root) :is(.evt-knowledge-map){display: block; width: 100%; height: auto; overflow: hidden;}
+:where(#optical-event-root) :is(.evt-experience-feedback){display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.016); border-radius: 6px; padding: 12px 8px;}
+:where(#optical-event-root) :is(.evt-experience-feedback > p){flex: 1 1 0%; margin: 0px; font-size: 12px;}
+:where(#optical-event-root) :is(.evt-experience-actions){margin-left: auto; gap: 0px; flex-shrink: 0;}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-actions button){border-radius: 0px; padding: 5px 9px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-actions button:first-child){border-radius: 5px 0px 0px 5px; border-right: 1px solid rgba(255, 255, 255, 0.082);}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-actions button:last-child){border-radius: 0px 5px 5px 0px;}
+:where(#optical-event-root) :is(.evt-experience-editor){width: 100%;}
+:where(#optical-event-root) :is(.evt-experience-editor[hidden]){display: none;}
+:where(#optical-event-root) :is(.evt-experience-footer){display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 14px; min-height: 28px;}
+:where(#optical-event-root) :is(.evt-experience-notice){font-size: 11px; color: rgb(170, 180, 189);}
+:where(#optical-event-root) :is(.evt-experience-tools){display: flex; gap: 10px; margin-left: auto; flex-shrink: 0;}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-tools button){display: grid; place-items: center; background: none; border: 0px; padding: 3px; width: 25px; height: 25px; color: rgb(185, 192, 197); border-radius: 4px;}
+:where(#optical-event-root) :is(.evt-experience-tools svg){width: 20px; height: 20px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-tools button:hover){background: rgba(255, 255, 255, 0.07); color: rgb(255, 255, 255);}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-tools button[aria-pressed="true"]){color: rgb(139, 197, 237);}
+:where(#optical-event-root) :is(.evt-experience[hidden], .evt-experience [hidden]){display: none !important;}
+:where(#optical-event-root) :is(.evt-experience-feedback.is-accurate > p){display: flex; align-items: center; gap: 8px; color: rgb(213, 223, 218);}
+:where(#optical-event-root) :is(.evt-experience-confirmed-icon){display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex: 0 0 20px; border-radius: 50%; background: rgb(34, 184, 137); color: rgb(255, 255, 255);}
+:where(#optical-event-root) :is(.evt-experience-confirmed-icon svg){width: 15px; height: 15px;}
+:where(#optical-event-root) :is(.evt-diagnostic-scroll > .hc-reference-status){position: static; max-height: none; overflow: visible; margin: 16px 0px 24px; padding: 0px; background: transparent;}
+:where(#optical-event-root) :is(.evt-diagnostic-scroll .hc-chat-message.user){margin-left: 38px; margin-right: 0px; background: rgb(65, 70, 77);}
+:where(#optical-event-root) :is(.evt-diagnostic-scroll .hc-chat-message.assistant){margin-left: 0px; margin-right: 26px; background: rgb(48, 52, 56);}
+:where(#optical-event-root) :is(.hc-event-module .evt-experience-report){padding: 16px 12px; min-height: 64px; background: linear-gradient(110deg, rgb(53, 74, 96), rgb(57, 67, 77)); border: 1px solid rgba(115, 152, 187, 0.333); box-shadow: rgba(0, 0, 0, 0.133) 0px 3px 10px;}
+:where(#optical-event-root) :is(.evt-experience-report strong){font-size: 15px; font-weight: 600; color: rgb(237, 244, 255);}
+:where(#optical-event-root) :is(.evt-experience-file){font-size: 28px; color: rgb(136, 198, 255);}
+:where(#optical-event-root) :is(.evt-experience-open){color: rgb(185, 221, 255);}
+:where(#optical-event-root) :is(.evt-plan-icon){font-size: 25px; color: rgb(138, 191, 231); line-height: 1;}
+:where(#optical-event-root) :is(.hc-event-module .evt-tip-manual){position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 9px; width: 100%; padding: 12px 36px 12px 14px; margin-top: 14px; background: rgba(99, 63, 66, 0.3); border-width: 1px 1px 1px 4px; border-style: solid; border-color: rgba(183, 100, 107, 0.533) rgba(183, 100, 107, 0.533) rgba(183, 100, 107, 0.533) rgb(213, 107, 120); border-image: none; border-radius: 8px; text-align: left; color: rgb(234, 217, 219);}
+:where(#optical-event-root) :is(.evt-tip-task-copy){font-size: 14px;}
+:where(#optical-event-root) :is(.evt-tip-task-arrow){position: absolute; right: 14px; top: 50%; font-size: 21px; transform: translateY(-50%);}
+:where(#optical-event-root) :is(.evt-plan-icon){display: inline-flex; align-items: center; color: rgb(141, 188, 232); flex-shrink: 0;}
+:where(#optical-event-root) :is(.hc-event-module div.evt-tip-manual){cursor: default; padding-right: 14px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-left:has(.hc-composer.has-reference) .evt-diagnostic-scroll){bottom: 168px;}
+:where(#optical-event-root) :is(.evt-left:has(.hc-composer.has-reference) .evt-diagnostic-scroll > .hc-reference-status){margin-bottom: 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-animation){margin: 12px 0px 16px; padding: 0px; background: rgb(17, 23, 29); border-radius: 8px; overflow: hidden; color: rgb(220, 231, 238);}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-animation .motion-scene){position: relative;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-animation canvas){display: block; width: 100%; aspect-ratio: 62 / 45;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-animation .motion-device-label){position: absolute; white-space: nowrap; transform: translateX(-50%); font-size: 12px; font-weight: 500; line-height: 18px; text-shadow: rgb(16, 24, 32) 0px 1px 2px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-animation .label-l2){left: 66%; top: 17%;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-animation .label-l1){left: 35%; top: 66%;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-animation .motion-legend){display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 12px; padding: 2px 8px 8px; font-size: 12px; line-height: 18px; color: rgb(184, 199, 209); text-align: center;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-animation .motion-legend span){white-space: nowrap;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-animation .cyan-dot){color: rgb(158, 226, 238); font-weight: 400;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-animation .yellow-dot){color: rgb(243, 199, 124); font-weight: 400;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-animation .motion-footer){padding: 0px 10px 12px; color: rgb(184, 199, 209); font-size: 12px; line-height: 18px; text-align: center;}
+:where(#optical-event-root) :is(.hc-event-module .evt-knowledge-details){padding: 0px; background: transparent; border: 0px; color: rgb(103, 183, 241); font-size: 12px; line-height: 22px; cursor: pointer;}
+:where(#optical-event-root) :is(.hc-event-module .evt-knowledge-details:hover){color: rgb(163, 215, 255); text-decoration: underline;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-link-isolated-badge){display: none; position: absolute; left: var(--evt-isolation-x); top: var(--evt-isolation-y); transform: translate(-50%, -50%); box-sizing: border-box; width: 94px; height: 32px; align-items: center; justify-content: center; gap: 6px; border: 1px solid rgb(150, 157, 163); border-radius: 5px; background: rgb(48, 51, 54); color: rgb(237, 242, 245); font-size: 14px; z-index: 5; pointer-events: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topology:is([data-view="4"], [data-view="5"]) .evt-link-isolated-badge){display: flex;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-link-isolated-badge.evt-sleeve-muted){opacity: 0.35;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-link-isolated-symbol){font-size: 18px; line-height: 1;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-topology:is([data-view="4"], [data-view="5"]) .evt-topo-state-label){left: calc(var(--evt-isolation-x) + 58px); top: var(--evt-isolation-y);}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-frame){position: relative; height: 130px;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-frame .evt-cleaning-previous){position: absolute; inset: 0px; pointer-events: none;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-crossfade .evt-cleaning-previous){animation: 900ms ease-in-out 0s 1 normal forwards running evt-cleaning-reveal;}
+@keyframes evt-cleaning-reveal { 
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-crossfade .evt-cleaning-previous){animation: auto ease 0s 1 normal none running none; opacity: 0;}}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-frame:has(.evt-cleaning-previous) > img:first-child){opacity: 0;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-crossfade > img:first-child){animation: 1200ms cubic-bezier(0.22, 0.61, 0.36, 1) 0s 1 normal both running evt-cleaning-center;}
+:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-crossfade .evt-cleaning-previous){animation-duration: 450ms;}
+@keyframes evt-cleaning-center { 
+  0% { opacity: 0; transform: translate(-22%, -12%) scale(0.82); }
+  30% { opacity: 1; transform: translate(-22%, -12%) scale(0.82); }
+  100% { opacity: 1; transform: translate(0px, 0px) scale(1); }
+}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-optical-summary .evt-cleaning-crossfade > img:first-child){animation: auto ease 0s 1 normal none running none; opacity: 1; transform: none;}}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-card:has(.evt-chart-stack)){background: transparent; overflow: visible;}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-stack){position: relative; margin-top: 10px; display: grid; gap: 4px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-panel){position: relative; background: rgb(51, 51, 51); border-radius: 6px; padding: 4px 0px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-guide){position: absolute; top: 24px; bottom: 26px; border-left: 1px dashed rgb(196, 212, 223); pointer-events: none; z-index: 2;}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-tooltip){position: absolute; top: 30px; z-index: 3; padding: 8px 10px; background: rgba(22, 27, 32, 0.96); border: 1px solid rgb(87, 99, 108); border-radius: 5px; color: rgb(238, 238, 238); font-size: 12px; line-height: 1.6; white-space: pre-line; pointer-events: none; max-width: calc(100% - 36px);}
+:where(#optical-event-root) :is(.hc-event-module .evt-chart-stack [hidden]){display: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-isolation-animation .motion-footer){padding: 10px 10px 4px; text-align: left; color: rgb(220, 229, 235);}
+:where(#optical-event-root) :is(.hc-event-module .evt-view-switch){position: absolute; right: 24px; top: 12px; z-index: 30; display: flex; padding: 3px; background: rgb(42, 48, 53); border: 1px solid rgb(72, 83, 92); border-radius: 7px; gap: 3px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-view-switch button){border: 0px; border-radius: 4px; background: transparent; color: rgb(173, 183, 191); padding: 3px 11px; cursor: pointer;}
+:where(#optical-event-root) :is(.hc-event-module .evt-view-switch button[aria-checked="true"]){background: rgb(61, 119, 155); color: white;}
+:where(#optical-event-root) :is(.hc-event-module .evt-view-switch button:focus-visible){outline: rgb(139, 202, 255) solid 2px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-rack-detail){position: absolute; inset: 62px 0px 0px; background: rgb(25, 25, 25); z-index: 10;}
+:where(#optical-event-root) :is(.hc-event-module .evt-rack-detail[hidden]){display: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-rack-detail svg){width: 100%; height: 100%;}
+:where(#optical-event-root) :is(.hc-event-module .evt-rack-detail text){fill: rgb(229, 237, 240); font: 16px -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; paint-order: stroke; stroke: rgb(25, 35, 43); stroke-width: 3px; stroke-linejoin: round;}
+:where(#optical-event-root) :is(.hc-event-module .evt-rack-detail .evt-rack-port-number){font-size: 12px;}
+:where(#optical-event-root) :is(.hc-event-module .evt-rack-detail .evt-rack-caption){font-size: 20px; font-weight: 600;}
+:where(#optical-event-root) :is(.hc-event-module .evt-rack-detail .evt-rack-caption-sub){font-size: 14px; fill: rgb(161, 180, 190);}
+:where(#optical-event-root) :is(.hc-event-module .evt-rack-wire){fill: none; stroke: rgb(99, 184, 171); stroke-width: 2; opacity: 0.7;}
+:where(#optical-event-root) :is(.hc-event-module .evt-rack-fault-wire){stroke: rgb(240, 107, 116); stroke-width: 3; opacity: 1;}
+:where(#optical-event-root) :is(.hc-event-module .evt-rack-port){cursor: pointer; outline: none;}
+:where(#optical-event-root) :is(.hc-event-module .evt-rack-port:hover, .hc-event-module .evt-rack-port:focus){filter: brightness(1.4);}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-dimension="3d"] > .evt-topo-state-label){z-index: 20; max-width: 320px; transform: none; opacity: 1; visibility: visible; left: 860px !important; top: 300px !important;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-dimension="3d"] > .evt-link-isolated-badge){z-index: 20; left: 760px; top: 355px; transform: translateX(-50%);}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-dimension="3d"] .evt-rack-drawer){animation: 850ms cubic-bezier(0.2, 0.8, 0.2, 1) 0s 1 normal both running evt-rack-extract;}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-view="6"] .evt-rack-fault-wire, .hc-event-module .evt-topology[data-view="7"] .evt-rack-fault-wire, .hc-event-module .evt-topology[data-view="8"] .evt-rack-fault-wire){stroke: rgb(99, 184, 171);}
+:where(#optical-event-root) :is(.hc-event-module .evt-topology:is([data-view="6"], [data-view="7"], [data-view="8"]) .evt-rack-fault-port polygon){fill: rgb(85, 142, 126);}
+@keyframes evt-rack-extract { 
+  0% { opacity: 0.2; transform: translate(-45px, -30px); }
+  100% { opacity: 1; transform: translate(0px, 0px); }
+}
+@media (prefers-reduced-motion: reduce){:where(#optical-event-root) :is(.hc-event-module .evt-topology[data-dimension="3d"] .evt-rack-drawer){animation: auto ease 0s 1 normal none running none;}}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-relation[data-state="manual"] .nic-related-business-title .evt-badge-manual){color: rgb(255, 133, 141); background: rgba(199, 74, 85, 0.22);}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-upgrade-tip .nic-tip-todo[data-state="auto"], .hc-optical-summary .nic-event-summary .nic-summary-relation[data-state="auto"]){background: linear-gradient(115deg, rgba(111, 138, 255, 0.14), rgba(173, 102, 255, 0.133), rgba(255, 148, 102, 0.11)); border-color: rgba(173, 153, 227, 0.3);}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-tip-todo[data-state="auto"] .nic-tip-manual-label, .hc-optical-summary .nic-summary-relation[data-state="auto"] .evt-badge-processing){background: linear-gradient(110deg, rgba(111, 138, 255, 0.25), rgba(173, 102, 255, 0.22), rgba(255, 148, 102, 0.19)); color: rgb(226, 219, 247);}
+:where(#optical-event-root) :is(.hc-event-module.hc-optical-summary .evt-diagnosis-intro){display: none;}
+:where(#optical-event-root) :is(.hc-event-module.hc-optical-summary .evt-diagnostic-scroll){top: 82px; padding-top: 0px;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-process-heading .evt-expand-all){position: static; inset: auto; margin-left: auto;}
+:where(#optical-event-root) :is(.hc-optical-summary .nic-summary-compact .nic-summary-conclusion){white-space: normal; overflow-wrap: anywhere;}

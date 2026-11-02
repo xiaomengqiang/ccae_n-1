@@ -1,0 +1,494 @@
+{
+  "training": [
+    {
+      "status": "normal",
+      "data": {
+        "name": "Qwen3-72B 预训练",
+        "start": "08-22 09:10",
+        "npu": "256",
+        "quality": "99.73%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "DeepSeek-R1 微调",
+        "start": "08-22 08:32",
+        "npu": "128",
+        "quality": "99.36%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Llama-3.1-70B SFT",
+        "start": "08-22 07:48",
+        "npu": "64",
+        "quality": "99.68%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "盘古多模态训练",
+        "start": "08-22 06:15",
+        "npu": "128",
+        "quality": "99.42%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Qwen-VL 数据蒸馏",
+        "start": "08-22 05:40",
+        "npu": "32",
+        "quality": "99.81%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "MoE 专家并行实验",
+        "start": "08-22 03:20",
+        "npu": "64",
+        "quality": "99.57%",
+        "faults": "1",
+        "lastInterrupted": "08-22 03:20"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "DeepSeek-R1 微调 · 007",
+        "start": "08-13 07:49",
+        "npu": "128",
+        "quality": "99.23%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Llama-3.1-70B SFT · 008",
+        "start": "08-20 08:56",
+        "npu": "64",
+        "quality": "99.64%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "盘古多模态训练 · 009",
+        "start": "08-19 09:03",
+        "npu": "128",
+        "quality": "99.48%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Qwen-VL 数据蒸馏 · 010",
+        "start": "08-18 10:10",
+        "npu": "32",
+        "quality": "99.76%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Qwen3-72B 预训练 · 011",
+        "start": "08-17 11:17",
+        "npu": "256",
+        "quality": "99.39%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "DeepSeek-R1 微调 · 012",
+        "start": "08-16 12:24",
+        "npu": "128",
+        "quality": "99.61%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Llama-3.1-70B SFT · 013",
+        "start": "08-15 13:31",
+        "npu": "64",
+        "quality": "99.54%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    }
+  ],
+  "inference": [
+    {
+      "status": "degraded",
+      "data": {
+        "name": "Qwen-1.5B 在线服务",
+        "start": "08-22 09:02",
+        "npu": "32",
+        "quality": "99.94%",
+        "faults": "1",
+        "lastInterrupted": "08-22 09:02",
+        "total": "124860",
+        "ok": "124785",
+        "fail": "75",
+        "tokens": "8.42M",
+        "ttft": "182 ms",
+        "tpot": "23.6 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Qwen-14B",
+        "start": "08-22 08:10",
+        "npu": "48",
+        "quality": "99.97%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "286420",
+        "ok": "286334",
+        "fail": "86",
+        "tokens": "16.8M",
+        "ttft": "146 ms",
+        "tpot": "18.2 ms",
+        "energySaving": true,
+        "energyTotal": "5520 kWh",
+        "energySaved": "384.7 kWh",
+        "energyGain": "6.5 %",
+        "energyUnit": 5.6
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "视觉理解服务-3B",
+        "start": "08-22 07:55",
+        "npu": "16",
+        "quality": "99.93%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "68210",
+        "ok": "68162",
+        "fail": "48",
+        "tokens": "3.21M",
+        "ttft": "238 ms",
+        "tpot": "31.4 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 2.36
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "代码生成 Copilot-1.5B",
+        "start": "08-22 06:26",
+        "npu": "24",
+        "quality": "99.95%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "47380",
+        "ok": "47356",
+        "fail": "24",
+        "tokens": "2.08M",
+        "ttft": "520 ms",
+        "tpot": "66.8 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 2.74
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Embedding 检索服务-0.5B",
+        "start": "08-22 05:18",
+        "npu": "8",
+        "quality": "99.78%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "942810",
+        "ok": "940736",
+        "fail": "2074",
+        "tokens": "28.6M",
+        "ttft": "42 ms",
+        "tpot": "6.2 ms",
+        "energySaving": false
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "数字人实时推理-1.5B",
+        "start": "08-22 04:42",
+        "npu": "16",
+        "quality": "99.67%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "32150",
+        "ok": "32044",
+        "fail": "106",
+        "tokens": "1.46M",
+        "ttft": "680 ms",
+        "tpot": "72.5 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "视觉理解服务 · 07-3B",
+        "start": "08-13 07:03",
+        "npu": "16",
+        "quality": "99.73%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "68210",
+        "ok": "68026",
+        "fail": "184",
+        "tokens": "3.21M",
+        "ttft": "238 ms",
+        "tpot": "31.4 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "代码生成 Copilot · 08-1.5B",
+        "start": "08-20 08:12",
+        "npu": "24",
+        "quality": "99.61%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "47380",
+        "ok": "47195",
+        "fail": "185",
+        "tokens": "2.08M",
+        "ttft": "520 ms",
+        "tpot": "66.8 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Embedding 检索服务 · 09-0.5B",
+        "start": "08-19 09:21",
+        "npu": "8",
+        "quality": "99.82%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "942810",
+        "ok": "941113",
+        "fail": "1697",
+        "tokens": "28.6M",
+        "ttft": "42 ms",
+        "tpot": "6.2 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "数字人实时推理 · 10-1.5B",
+        "start": "08-18 10:30",
+        "npu": "16",
+        "quality": "99.69%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "32150",
+        "ok": "32050",
+        "fail": "100",
+        "tokens": "1.46M",
+        "ttft": "680 ms",
+        "tpot": "72.5 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Deepseek-1",
+        "start": "08-17 11:39",
+        "npu": "64",
+        "quality": "99.76%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "286420",
+        "ok": "285733",
+        "fail": "687",
+        "tokens": "16.8M",
+        "ttft": "146 ms",
+        "tpot": "18.2 ms",
+        "energySaving": false,
+        "energyUnit": 12.8,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "视觉理解服务 · 12-3B",
+        "start": "08-16 12:48",
+        "npu": "16",
+        "quality": "99.58%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "68210",
+        "ok": "67924",
+        "fail": "286",
+        "tokens": "3.21M",
+        "ttft": "238 ms",
+        "tpot": "31.4 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "代码生成 Copilot · 13-1.5B",
+        "start": "08-15 13:57",
+        "npu": "24",
+        "quality": "99.71%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "47380",
+        "ok": "47243",
+        "fail": "137",
+        "tokens": "2.08M",
+        "ttft": "520 ms",
+        "tpot": "66.8 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Embedding 检索服务 · 14-0.5B",
+        "start": "08-14 14:06",
+        "npu": "8",
+        "quality": "99.64%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "942810",
+        "ok": "939416",
+        "fail": "3394",
+        "tokens": "28.6M",
+        "ttft": "42 ms",
+        "tpot": "6.2 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "数字人实时推理 · 15-1.5B",
+        "start": "08-13 15:15",
+        "npu": "16",
+        "quality": "99.79%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "32150",
+        "ok": "32082",
+        "fail": "68",
+        "tokens": "1.46M",
+        "ttft": "680 ms",
+        "tpot": "72.5 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Llama-3-70B",
+        "start": "08-20 16:24",
+        "npu": "64",
+        "quality": "99.68%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "286420",
+        "ok": "285503",
+        "fail": "917",
+        "tokens": "16.8M",
+        "ttft": "146 ms",
+        "tpot": "18.2 ms",
+        "energySaving": true,
+        "energyUnit": 13.6
+      }
+    }
+  ]
+}

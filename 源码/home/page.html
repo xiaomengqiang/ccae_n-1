@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>iMaster CCAE · 完整首页 · 组件组装版</title><style>@@CSS@@</style></head>
+<body>
+<main id="screen" class="hc-surface home-entrance-pending" aria-label="iMaster CCAE 智能总览">
+  <div class="cabinet-floor-extension" aria-hidden="true"></div>
+  <img class="cabinet-art" src="@@CABINET@@" alt="16个计算柜与4个互联柜的集群机柜拓扑"><img class="cabinet-npu-art" src="@@CABINET_NPU@@" alt="NPU利用率分布"><img class="cabinet-hbm-art" src="@@CABINET_HBM@@" alt="HBM利用率分布"><img class="cabinet-energy-art" src="@@CABINET_ENERGY@@" alt="机柜能耗分布"><div class="cabinet-energy-legend"><label class="cabinet-power-ratio">当前功耗与额定功耗占比</label><span><i style="background:#087f90"></i>&lt;30%</span><span><i style="background:#27b5c8"></i>30%~60%</span><span><i style="background:#ffeb55"></i>60%~90%</span><span><i style="background:#ffa12e"></i>&gt;90%</span><span><i style="background:#999"></i>无独立计量(Union/端口/lane/光模块)</span></div>
+  <img class="cabinet-fault-link" src="@@FAULT_LINK@@" alt="异常光链路" hidden><img class="cabinet-links" src="@@LINKS@@" alt="" aria-hidden="true"><img class="cabinet-red" src="@@RED_CABINET@@" alt="故障网卡所在机柜槽位" hidden>
+  <div class="cabinet-shade top"></div><div class="cabinet-shade bottom"></div>
+  <aside class="agent-panel" aria-label="运维智能体">
+    <div class="agent-motion" aria-label="算小维">
+      <img data-motion="bg-beam" src="@@BG_BEAM@@" alt="">
+      <img data-motion="bg-burst-in" src="@@BG_BURST_IN@@" alt="">
+      <img data-motion="bg-particles" src="@@BG_PARTICLES@@" alt="">
+      <img data-motion="bg-ring" src="@@BG_RING@@" alt="">
+      <img data-motion="ip-wave" src="@@IP_WAVE@@" alt="">
+      <img data-motion="ip-glasses" src="@@IP_GLASSES@@" alt="">
+      <img data-motion="ip-typing" src="@@IP_TYPING@@" alt="">
+    </div><div class="agent-sky-fade"></div><svg class="agent-v1" aria-label="V1" viewBox="0 0 149.812 94.7878" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="149.812500" height="94.787842" fill="none" customFrame="#000000">
+	<rect id="V1-图层叠加效果" width="149.812500" height="94.787598" x="0.000000" y="0.000000" />
+	<g style="mix-blend-mode:overlay">
+		<path id="矢量 9537" d="M98.7344 16.5452L91.8672 35.6797L121.305 22.1025L95.25 94.7878L115.836 94.7878L149.812 0L133.898 0L98.7344 16.5452ZM23.8281 66.0862L23.2734 0.126221L0 0.126221L4.35156 94.7878L21.6797 94.7878L92.7031 0.126221L70.8516 0.126221L23.8281 66.0862Z" opacity="0.600000024" fill="rgb(255,255,255)" fill-opacity="0.5" fill-rule="evenodd" />
+	</g>
+</svg>
+
+    <img class="panel-contour" src="@@PANEL@@" alt="">
+    <span class="greeting">算小维为您守护集群中~</span>
+    <label class="range-label"><select id="range" aria-label="时间范围"><option>近一天</option><option>近一周</option><option>近一月</option></select><span>⌄</span></label>
+    <section class="guard-summary"><h1>守护效果</h1><p>正在为您保障 <b class="blue">1</b> 超节点，<b class="purple">1024</b> 卡、<b class="orange">13</b> 训练作业、<b class="orange">16</b> 推理服务</p></section>
+    <section class="health-metrics" aria-label="守护效果指标">
+      <div class="health-row"><div class="row-label"><img src="@@灰色的故障@@" alt=""><strong>故障恢复</strong></div><div class="row-value"><span>待人工处理/总数</span><p>2 <small>/ 12项</small></p></div><div class="row-quality"><span>作业可用度</span><p>99.56%</p><svg viewBox="0 0 70 30"><path d="M1 20L14 24L27 23L40 20L53 15L69 12V29H1Z" fill="#21b3c1" opacity=".2"/><path d="M1 20L14 24L27 23L40 20L53 15L69 12" fill="none" stroke="#1cc4d7" stroke-width="2"/></svg></div></div>
+      <div class="health-row"><div class="row-label"><img src="@@灰色隐患@@" alt=""><strong>隐患处理</strong></div><div class="row-value"><span>待人工处理/总数</span><p>2 <small>/ 18项</small></p></div><div class="row-quality"><span>请求成功率</span><p>99.78%</p><svg viewBox="0 0 70 30"><path d="M1 13L13 14L26 21L39 22L51 25L59 23L69 17V29H1Z" fill="#8275de" opacity=".2"/><path d="M1 13L13 14L26 21L39 22L51 25L59 23L69 17" fill="none" stroke="#9180ea" stroke-width="2"/></svg></div></div>
+    </section>
+    <section class="energy-metrics" aria-label="节能效果"><div class="row-label"><img src="@@灰色闪电@@" alt=""><strong>能效优化</strong></div><div class="row-value"><span>节能中/节点总数</span><p>86 <small>/ 128个</small></p></div><div class="row-quality"><span>中型模型百万Token能耗</span><p>0.50 <small>kWh/Mtoken</small></p><svg viewBox="0 0 70 30"><path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20V29H1Z" fill="#3ac58d" opacity=".2"/><path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20" fill="none" stroke="#3ac58d" stroke-width="2"/></svg></div><div class="row-quality"><span>大型模型百万Token能耗</span><p>0.50 <small>kWh/Mtoken</small></p><svg viewBox="0 0 70 30"><path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20V29H1Z" fill="#3ac58d" opacity=".2"/><path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20" fill="none" stroke="#3ac58d" stroke-width="2"/></svg></div></section>
+    <div id="home-events"></div>
+    <div id="home-composer"></div>
+  </aside>
+  <div id="home-header"></div>
+  <div id="home-sidebar"></div>
+  <div id="home-metrics"></div>
+  <div class="node-summary"><img src="@@超节点@@" width="18" height="18" alt=""><strong>超节点01</strong><span>POD <em>4</em> | 20</span><span>L1交换板&nbsp; 64</span><span>L2交换机&nbsp; 16</span><span>NPU卡&nbsp; <em>2</em> | 1024</span><span>光模块&nbsp; 10860</span></div>
+  <div id="home-tips"></div>
+  <button class="flip" disabled><img src="@@翻转@@" alt="">翻转机柜至背面</button>
+  <svg class="timeline-backdrop" width="1390" height="292" viewBox="0 0 1390 292" aria-hidden="true"><defs><linearGradient id="cabinet-bottom-fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000000" stop-opacity="0"/><stop offset="1" stop-color="#000000" stop-opacity="0.8"/></linearGradient></defs><rect width="1390" height="292" fill="url(#cabinet-bottom-fade)"/></svg><section class="timeline" aria-label="集群保障时间轴"><div class="timeline-head"><h2>集群保障时间轴</h2><div class="legend"><span><img src="@@红色的故障@@" alt="">故障</span><span><img src="@@橙色隐患@@" alt="">隐患</span><span><img src="@@绿色叶子@@" alt="">节能机会</span><i></i><span><img src="@@红色小手@@" alt="">待人工处理</span><span><img src="@@自动处理中@@" alt="">自动处理中</span><span><img src="@@已闭环@@" alt="">已闭环</span><span><b class="business-impact-symbol" aria-hidden="true">✱</b>影响业务</span></div><span class="timeline-range"><svg class="timeline-clock" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5.3" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M6 2.6V6l2.4 1.4" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>近24h</span></div><div class="timeline-track"><div class="track-fill"></div><div id="home-timeline-markers"></div><i class="time-now"><b>12:00:00</b></i></div><div class="ticks" id="ticks"></div></section>
+</main><script>@@JS@@</script></body></html>

@@ -1,0 +1,62 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.000000" height="48.000000" fill="none" customFrame="#000000">
+	<mask id="mask_12" width="16.000000" height="16.000000" x="16.000000" y="16.000488" maskUnits="userSpaceOnUse">
+		<g filter="url(#pixso_custom_mask_type_alpha)">
+			<g id="mask_15">
+				<g id="mask431_5756">
+					<path id="减去顶层" d="M32 16.0005L16 16.0005L16 32.0005L32 32.0005L32 16.0005ZM24.5 23.6742L24.5 19.3245C24.5 19.0446 24.2799 18.8245 24 18.8245C23.7199 18.8245 23.5 19.0446 23.5 19.3245L23.5 23.8727C23.5 23.939 23.5112 24.0007 23.534 24.0579C23.5566 24.1151 23.5908 24.1678 23.6362 24.2158L25.8167 26.5272C26.0088 26.7308 26.3198 26.7399 26.5234 26.5479C26.7272 26.3556 26.7362 26.0446 26.5441 25.841L24.5 23.6742Z" fill="rgb(255,255,255)" fill-rule="evenodd" />
+				</g>
+			</g>
+		</g>
+	</mask>
+	<mask id="mask_11" width="16.000000" height="16.000000" x="16.000000" y="16.000000" maskUnits="userSpaceOnUse">
+		<g filter="url(#pixso_custom_mask_type_alpha)">
+			<g id="mask_14">
+				<g id="clip431_5747">
+					<rect id="support" width="16.000000" height="16.000000" x="16.000000" y="16.000000" fill="rgb(0,0,0)" />
+				</g>
+			</g>
+		</g>
+	</mask>
+	<defs>
+		<filter id="pixso_custom_mask_type_alpha">
+			<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0 " />
+		</filter>
+	</defs>
+	<mask id="mask_10" width="16.000000" height="16.000000" x="16.000000" y="16.000000" maskUnits="userSpaceOnUse">
+		<g filter="url(#pixso_custom_mask_type_alpha)">
+			<g id="mask_13">
+				<g id="clip431_5746">
+					<rect id="ic_public_clock-时钟/base/ic_public_clock" width="16.000000" height="16.000000" x="16.000000" y="16.000000" fill="rgb(0,0,0)" />
+				</g>
+			</g>
+		</g>
+	</mask>
+	<rect id="Interaction=default 1" width="48.000000" height="48.000000" x="0.000000" y="0.000000" />
+	<rect id="Interaction=default" width="48.000000" height="48.000000" x="0.000000" y="0.000000" fill="rgb(255,255,255)" fill-opacity="0" />
+	<rect id="矩形" width="48.000000" height="48.000000" x="0.000000" y="0.000000" fill="rgb(216,216,216)" fill-opacity="0" />
+	<rect id="矩形" width="47.000000" height="47.000000" x="0.500000" y="0.500000" stroke="rgb(151,151,151)" stroke-opacity="0" stroke-width="1.000000" />
+	<g id="mask" mask="url(#mask_10)">
+		<g id="clip path group">
+			<g id="组合 1111466">
+				<g id="mask" mask="url(#mask_11)">
+					<g id="clip path group">
+						<g id="组合 1111468">
+							<path id="path1" d="M15.9995 23.9934C15.9995 22.7434 15.9962 21.4934 15.9995 20.2434C15.9962 19.6367 16.0729 19.0334 16.2195 18.45C16.5462 17.21 17.3528 16.47 18.5962 16.1867C19.2129 16.0534 19.8528 15.99 20.4862 16C22.8795 16 25.2762 16 27.6795 16C28.2828 15.9967 28.8862 16.06 29.4762 16.2067C30.7528 16.5167 31.5195 17.3234 31.8095 18.6C31.9428 19.2 32.0028 19.81 31.9962 20.43C31.9962 22.8534 31.9962 25.2767 31.9962 27.6967C31.9995 28.2967 31.9328 28.8934 31.7895 29.4767C31.4762 30.7567 30.6662 31.5168 29.3928 31.81C28.7695 31.9434 28.1362 32.0067 27.5028 31.9967C25.1162 31.9967 22.7262 31.9967 20.3428 31.9967C19.7328 32.0034 19.1229 31.9334 18.5328 31.7934C17.2495 31.4834 16.4762 30.67 16.1862 29.3867C16.0395 28.74 15.9995 28.09 15.9995 27.4334C15.9995 26.2867 15.9995 25.1367 15.9995 23.9934Z" fill="rgb(25,25,25)" fill-opacity="0" fill-rule="evenodd" />
+							<circle id="path2" cx="24" cy="24" r="8" fill="rgb(25,25,25)" fill-opacity="0" />
+						</g>
+					</g>
+				</g>
+				<ellipse id="path3" rx="7.333334" ry="7.333101" cx="24.0003262" cy="24.0000935" stroke="rgb(25,25,25)" stroke-opacity="0" stroke-width="0.886667" />
+				<path id="path4" d="M24 19.3198L24 23.8698L26.18 26.1798" fill-rule="nonzero" stroke="rgb(25,25,25)" stroke-opacity="0" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.886667" />
+				<g id="mask" mask="url(#mask_12)">
+					<g id="mask">
+						<g id="组合 1111470">
+							<ellipse id="path4" rx="8.000000" ry="7.999748" cx="24" cy="24.0002365" fill="rgb(255,255,255)" />
+						</g>
+					</g>
+				</g>
+				<path id="path4 (边框)" d="M24.5 19.3198L24.5 23.6698L26.5433 25.8365C26.7333 26.0398 26.7267 26.3532 26.5233 26.5432C26.3167 26.7365 26.0067 26.7265 25.8167 26.5232L23.6333 24.2132C23.59 24.1632 23.5567 24.1098 23.5333 24.0532C23.51 23.9965 23.5 23.9365 23.5 23.8698L23.5 19.3198C23.5 19.0398 23.72 18.8198 24 18.8198C24.2767 18.8198 24.5 19.0398 24.5 19.3198Z" fill="rgb(25,25,25)" fill-opacity="0" fill-rule="evenodd" />
+			</g>
+		</g>
+	</g>
+</svg>

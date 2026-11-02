@@ -1,0 +1,48 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.000000" height="48.000000" fill="none" customFrame="#000000">
+	<rect id="Interaction=default" width="48.000000" height="48.000000" x="0.000000" y="0.000000" fill="rgb(255,255,255)" fill-opacity="0" />
+	<rect id="矩形" width="48.000000" height="48.000000" x="0.000000" y="0.000000" fill="rgb(216,216,216)" fill-opacity="0" />
+	<rect id="矩形" width="47.000000" height="47.000000" x="0.500000" y="0.500000" stroke="rgb(151,151,151)" stroke-opacity="0" stroke-width="1.000000" />
+	<rect id="矩形" width="36.000000" height="28.000000" x="6.000000" y="10.000000" rx="14.000000" opacity="0.100000001" fill="rgb(228,227,227)" />
+	<rect id="矩形" width="35.000000" height="27.000000" x="6.500000" y="10.500000" rx="13.500000" opacity="0.100000001" stroke="rgb(151,151,151)" stroke-opacity="0" stroke-width="1.000000" />
+	<g id="面性/ic_home_filled">
+		<g id="编组">
+			<rect id="矩形" width="16.000000" height="16.000000" x="16.000000" y="16.000000" opacity="0" fill="rgb(216,216,216)" />
+			<rect id="矩形" width="15.200000" height="15.200000" x="16.400000" y="16.400000" opacity="0" stroke="rgb(151,151,151)" stroke-opacity="0" stroke-width="0.800000" />
+			<g id="grid 2" opacity="0">
+				<g id="grid">
+					<g id="bg">
+						<path id="Fill 1" d="M32 32L16 32L16 16L32 16L32 32ZM31.3335 31.3333L16.6668 31.3333L16.6668 16.6666L31.3335 16.6666L31.3335 31.3333Z" fill="rgb(249,249,249)" fill-opacity="0.400000006" fill-rule="evenodd" />
+						<path id="Fill 2" d="M17.3336 30.6668L30.667 30.6668L30.667 17.3335L17.3336 17.3335L17.3336 30.6668Z" fill="rgb(247,247,247)" fill-opacity="0.400000006" fill-rule="evenodd" />
+						<path id="Fill 3" d="M18 30L30 30L30 18L18 18L18 30Z" fill="rgb(236,236,236)" fill-opacity="0.101960786" fill-rule="evenodd" />
+					</g>
+					<g id="Group 5">
+						<rect id="Rectangle 2" width="13.333321" height="13.333332" x="17.329285" y="17.329102" rx="2.400000" opacity="0.800000012" fill="rgb(216,216,216)" fill-opacity="0" />
+						<rect id="Rectangle 2" width="12.933321" height="12.933332" x="17.529285" y="17.529102" rx="2.200000" opacity="0.800000012" stroke="rgb(255,0,84)" stroke-width="0.400000" />
+						<rect id="Rectangle 2" width="8.000012" height="8.000001" x="19.998047" y="19.998047" opacity="0.800000012" fill="rgb(216,216,216)" fill-opacity="0" />
+						<rect id="Rectangle 2" width="7.600012" height="7.600001" x="20.198048" y="20.198048" opacity="0.800000012" stroke="rgb(255,0,84)" stroke-width="0.400000" />
+						<rect id="Rectangle 2" width="12.000013" height="14.666670" x="17.994141" y="16.664551" rx="2.400000" opacity="0.800000012" fill="rgb(216,216,216)" fill-opacity="0" />
+						<rect id="Rectangle 2" width="11.600014" height="14.266670" x="18.194141" y="16.864552" rx="2.200000" opacity="0.800000012" stroke="rgb(255,0,84)" stroke-width="0.400000" />
+						<rect id="Rectangle 2" width="14.666679" height="12.000001" x="16.665222" y="17.993652" rx="2.400000" opacity="0.800000012" fill="rgb(216,216,216)" fill-opacity="0" />
+						<rect id="Rectangle 2" width="14.266680" height="11.600001" x="16.865223" y="18.193653" rx="2.200000" opacity="0.800000012" stroke="rgb(255,0,84)" stroke-width="0.400000" />
+						<ellipse id="Oval 2" rx="7.333340" ry="7.333335" cx="23.9985619" cy="23.9978867" opacity="0.800000012" fill="rgb(216,216,216)" fill-opacity="0" />
+						<ellipse id="Oval 2" rx="7.133340" ry="7.133335" cx="23.9985619" cy="23.9978867" opacity="0.800000012" stroke="rgb(255,0,84)" stroke-width="0.400000" />
+						<ellipse id="Oval 2" rx="4.666661" ry="4.666667" cx="23.9983253" cy="23.9977226" opacity="0.800000012" fill="rgb(216,216,216)" fill-opacity="0" />
+						<ellipse id="Oval 2" rx="4.466661" ry="4.466668" cx="23.9983253" cy="23.9977226" opacity="0.800000012" stroke="rgb(255,0,84)" stroke-width="0.400000" />
+					</g>
+					<g id="Group 3">
+						<path id="Path 3" d="M16.0168 24.0234L31.9782 24.0234" opacity="0.300000012" stroke="rgb(0,0,0)" stroke-width="0.400000" />
+						<path id="Path 3" d="M0 0L15.9615 0" opacity="0.300000012" stroke="rgb(0,0,0)" stroke-width="0.400000" transform="matrix(0,-1,1,0,23.9969,31.981)" />
+						<path id="Path 7" d="M0 0L22.5872 0" opacity="0.300000012" stroke="rgb(0,0,0)" stroke-width="0.400000" transform="matrix(0.707106,-0.707107,0.707107,0.707106,16,31.9717)" />
+						<path id="Path 7" d="M0 0L22.5872 0" opacity="0.300000012" stroke="rgb(0,0,0)" stroke-width="0.400000" transform="matrix(-0.707107,-0.707106,0.707106,-0.707107,31.9883,31.9883)" />
+					</g>
+				</g>
+				<rect id="矩形" width="14.666679" height="14.666670" x="16.666809" y="16.666504" opacity="0.448823482" fill="rgb(50,197,255)" />
+				<rect id="矩形" width="13.866679" height="13.866670" x="17.066809" y="17.066504" opacity="0.448823482" stroke="rgb(151,151,151)" stroke-opacity="0" stroke-width="0.800000" />
+				<ellipse id="椭圆形" rx="7.333340" ry="7.333335" cx="24.0001488" cy="23.9998398" opacity="0.448823482" fill="rgb(247,181,0)" />
+				<ellipse id="椭圆形" rx="6.933340" ry="6.933335" cx="24.0001488" cy="23.9998398" opacity="0.448823482" stroke="rgb(151,151,151)" stroke-opacity="0" stroke-width="0.800000" />
+			</g>
+			<path id="Fill 1" d="M29.6292 22.7835L24.8252 17.9802C24.3705 17.5235 23.6285 17.5249 23.1752 17.9802L18.3692 22.7855C18.0245 23.1322 17.8332 23.5928 17.8332 24.0815L17.8332 28.3622C17.8332 29.4669 18.7285 30.3622 19.8332 30.3622L22.3339 30.3622L22.3339 29.3602L22.3339 28.4175L22.3339 26.3002C22.3339 25.3835 23.0839 24.6335 24.0005 24.6335C24.9172 24.6335 25.6672 25.3835 25.6672 26.3002L25.6672 28.4175L25.6672 29.3609L25.6672 30.3622L28.1665 30.3622C29.2712 30.3622 30.1665 29.4669 30.1665 28.3622L30.1665 24.0815C30.1665 23.5949 29.9732 23.1275 29.6292 22.7835" fill="rgb(238,238,238)" fill-rule="evenodd" />
+			<path id="Fill 1" d="" fill="rgb(151,151,151)" fill-opacity="0" fill-rule="nonzero" />
+		</g>
+	</g>
+</svg>

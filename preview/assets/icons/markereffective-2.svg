@@ -1,0 +1,40 @@
+<svg viewBox="0 0 76 52" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="76.000000" height="52.000000" fill="none">
+	<defs>
+		<g id="pixso_custom_effect_7951">
+			<effect visibility="visible" effectType="backgroundBlur" saturation="0" stdDeviation="4" />
+		</g>
+		<filter id="filter_7951" width="53.000000" height="22.000000" x="10.000000" y="16.000000" filterUnits="userSpaceOnUse" customEffect="url(#pixso_custom_effect_7951)" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix" />
+			<feBlend result="shape" in="SourceGraphic" in2="BackgroundImageFix" mode="normal" />
+		</filter>
+		<clipPath id="outline_mask_119" transform="matrix(1,0,0,1,-10,-16)">
+			<path d="M63 27C63 20.9249 58.0751 16 52 16L21 16C14.9249 16 10 20.9249 10 27C10 33.0751 14.9249 38 21 38L52 38C58.0751 38 63 33.0751 63 27Z" fill="rgb(255,255,255)" fill-rule="evenodd" />
+		</clipPath>
+		<clipPath id="clipPath_4361">
+			<rect width="33.000000" height="22.000000" x="20.000000" y="16.000000" fill="rgb(255,255,255)" />
+		</clipPath>
+		<clipPath id="clipPath_4362">
+			<rect width="14.000001" height="14.000001" x="20.000000" y="20.000000" fill="rgb(255,255,255)" />
+		</clipPath>
+	</defs>
+	<rect id="5.5已生效机会点" width="76.000000" height="52.000000" x="0.000000" y="0.000000" />
+	<g id="组合 1115276">
+		<g data-pixso-skip-parse="true">
+			<foreignObject width="53.000000" height="22.000000" x="10.000000" y="16.000000">
+				<div xmlns="http://www.w3.org/1999/xhtml" style="clip-path:url(#outline_mask_119);height:100%;backdrop-filter:blur(2.000000px);width:100%;-webkit-backdrop-filter:blur(2.000000px);" />
+			</foreignObject>
+		</g>
+		<g filter="url(#filter_7951)">
+			<rect id="矩形 545074" width="53.000000" height="22.000000" x="10.000000" y="16.000000" rx="11.000000" fill="rgb(57,57,57)" fill-opacity="0.720000029" />
+			<rect id="矩形 545074" width="51.500000" height="20.500000" x="10.750000" y="16.750000" rx="10.250000" stroke="rgb(119,119,119)" stroke-width="1.500000" />
+		</g>
+		<g id="容器 1113436" customFrame="url(#clipPath_4361)">
+			<rect id="容器 1113436" width="33.000000" height="22.000000" x="20.000000" y="16.000000" />
+			<g id="svg 12" clip-path="url(#clipPath_4362)" customFrame="url(#clipPath_4362)">
+				<rect id="svg 12" width="14.000001" height="14.000001" x="20.000000" y="20.000000" />
+				<path id="path6" d="M27.5002 25.3247L27.5615 20.4907C27.5675 20.0191 26.9448 19.8446 26.7049 20.2507L22.2609 27.7728C22.0796 28.0796 22.3008 28.4672 22.6572 28.4672L26.5002 28.4674L26.4155 33.3399C26.4073 33.8071 27.02 33.9877 27.2667 33.5909L29.9448 29.283L31.7369 26.006C31.9046 25.6992 31.6826 25.3248 31.333 25.3248L27.5002 25.3247Z" fill="rgb(119,119,119)" fill-rule="evenodd" />
+			</g>
+			<path id="" d="M45.3296 24.9863L45.3296 23.4893L48.3682 21.7393L49.5303 21.7393L49.5303 32L48.0024 32L48.0024 23.4756L45.3296 24.9863Z" fill="rgb(255,255,255)" fill-rule="nonzero" />
+		</g>
+	</g>
+</svg>

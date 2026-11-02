@@ -1,0 +1,13 @@
+{
+  "output": "首页样板.html",
+  "bytes": 42314199,
+  "sha256": "9dd62fe5462be83ae042055dfd52fddbefd9f1ac1c8cef9bda36e5f6ea8b4042",
+  "canvas": [
+    1920,
+    1080
+  ],
+  "font": "/Users/mac/Downloads/HarmonyOS Sans/HarmonyOS_Sans_SC.ttf",
+  "source": "首页-基础设施-故障数.zip",
+  "stage": "单页视觉样板；非完整交互demo",
+  "externalResources": 0
+}

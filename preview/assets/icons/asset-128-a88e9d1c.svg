@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><ns0:defs xmlns:ns0="http://www.w3.org/2000/svg">
+		<ns0:g id="pixso_custom_effect_77">
+			<ns0:effect x="-0.833333" y="-0.833333" visibility="visible" fill="rgb(255,255,255)" fill-opacity="0.749019623" effectType="innerShadow" stdDeviation="3.33333325" radius="0" />
+		</ns0:g>
+		<ns0:filter id="filter_77" width="37.500000" height="37.500000" x="1.250000" y="1.250000" filterUnits="userSpaceOnUse" customEffect="url(#pixso_custom_effect_77)" color-interpolation-filters="sRGB">
+			<ns0:feFlood flood-opacity="0" result="BackgroundImageFix" />
+			<ns0:feBlend result="shape" in="SourceGraphic" in2="BackgroundImageFix" mode="normal" />
+			<ns0:feColorMatrix result="hardAlpha" in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.25 0 " />
+			<ns0:feOffset dx="-0.833333" dy="-0.833333" in="hardAlpha" />
+			<ns0:feGaussianBlur stdDeviation="1.11111104" />
+			<ns0:feComposite k2="-1" k3="1" in2="hardAlpha" operator="arithmetic" />
+			<ns0:feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.74902 0 " />
+			<ns0:feBlend result="effect_innerShadow_1" in2="shape" mode="normal" />
+		</ns0:filter>
+		<ns0:linearGradient id="paint_linear_53" x1="0.833251953" x2="64.856636" y1="32.9165039" y2="19.2044144" gradientUnits="userSpaceOnUse">
+			<ns0:stop stop-color="rgb(111,138,255)" offset="0" stop-opacity="1" />
+			<ns0:stop stop-color="rgb(173,102,255)" offset="0.452850044" stop-opacity="1" />
+			<ns0:stop stop-color="rgb(255,148,102)" offset="1" stop-opacity="1" />
+		</ns0:linearGradient>
+	</ns0:defs>
+	<ns0:path xmlns:ns0="http://www.w3.org/2000/svg" id="path1" d="M1.25456 19.9847C1.25456 17.0555 1.2443 14.1263 1.25456 11.197C1.24866 9.77957 1.42288 8.36711 1.77303 6.99357C2.54049 4.0863 4.43424 2.36098 7.33858 1.69165C8.79485 1.37701 10.2823 1.2296 11.772 1.25227C17.3893 1.25227 23.007 1.25227 28.6253 1.25227C30.0442 1.24346 31.459 1.40574 32.839 1.73559C35.8312 2.4679 37.6269 4.36312 38.3108 7.34508C38.6183 8.7544 38.7652 10.194 38.7487 11.6364C38.7487 17.3142 38.7487 22.9926 38.7487 28.6714C38.7564 30.0766 38.5946 31.4776 38.2669 32.8441C37.5346 35.8377 35.6306 37.6246 32.6486 38.3086C31.1922 38.622 29.7049 38.7694 28.2152 38.7479C22.6214 38.7479 17.028 38.7479 11.4351 38.7479C10.0054 38.7596 8.5794 38.5998 7.18772 38.2719C4.18233 37.5396 2.37792 35.6356 1.69541 32.639C1.34683 31.1158 1.25456 29.5882 1.25456 28.0474C1.25456 25.3604 1.25456 22.6728 1.25456 19.9847Z" fill="url(#paint_linear_53)" fill-rule="nonzero" />
+		<path transform="translate(8 8)" fill="white" d="M3 3c5 4 13-2 17 5 2 4 1 8-1 11-2-5-7-5-11-9 2 5 7 5 10 10C6 22 1 14 3 3z"/></svg>

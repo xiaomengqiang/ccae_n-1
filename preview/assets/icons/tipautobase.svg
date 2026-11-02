@@ -1,0 +1,61 @@
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" viewBox="0 0 176 36" width="176" height="36"><ns0:defs>
+		<ns0:g id="pixso_custom_effect_3265">
+			<ns0:effect visibility="visible" effectType="" stdDeviation="12" />
+		</ns0:g>
+		<ns0:filter id="filter_3265" width="176.000000" height="36.000000" x="0.000000" y="0.000000" filterUnits="userSpaceOnUse" customEffect="url(#pixso_custom_effect_3265)" color-interpolation-filters="sRGB">
+			<ns0:feFlood flood-opacity="0" result="BackgroundImageFix" />
+			<ns0:feBlend result="shape" in="SourceGraphic" in2="BackgroundImageFix" mode="normal" />
+		</ns0:filter>
+		<ns0:radialGradient id="paint_radial_86" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-142.066,0,0,-29.0589,88.0011,36)">
+			<ns0:stop stop-color="rgb(103,150,244)" offset="0" stop-opacity="1" />
+			<ns0:stop stop-color="rgb(0,0,0)" offset="1" stop-opacity="0" />
+		</ns0:radialGradient>
+		<ns0:linearGradient id="paint_custom_gradient_39">
+			<ns0:stop stop-color="rgb(102,160,255)" offset="0.0953282937" stop-opacity="1" />
+			<ns0:stop stop-color="rgb(122,102,255)" offset="0.346863121" stop-opacity="0.326447904" />
+			<ns0:stop stop-color="rgb(137,102,255)" offset="0.396518856" stop-opacity="0.258266091" />
+			<ns0:stop stop-color="rgb(173,102,255)" offset="0.423575044" stop-opacity="0" />
+			<ns0:stop stop-color="rgb(255,102,108)" offset="0.470644027" stop-opacity="0" />
+			<ns0:stop stop-color="rgb(254,133,103)" offset="0.572409809" stop-opacity="0.674509823" />
+			<ns0:stop stop-color="rgb(254,148,102)" offset="0.753119588" stop-opacity="1" />
+			<ns0:stop stop-color="rgb(255,174,102)" offset="0.895024955" stop-opacity="0" />
+		</ns0:linearGradient>
+		<ns0:mask id="outline_mask_60">
+			<ns0:path d="M168 0C172.418 0 176 3.58172 176 8L176 28C176 32.4183 172.418 36 168 36L8 36C3.58172 36 0 32.4183 0 28L0 8C0 3.58172 3.58172 0 8 0L168 0ZM8 1.54C4.43224 1.54 1.54 4.43224 1.54 8L1.54 28C1.54 31.5678 4.43224 34.46 8 34.46L168 34.46C171.568 34.46 174.46 31.5678 174.46 28L174.46 8C174.46 4.43224 171.568 1.54 168 1.54L8 1.54Z" fill="rgb(255,255,255)" fill-rule="evenodd" />
+		</ns0:mask>
+		<ns0:linearGradient id="paint_custom_gradient_40">
+			<ns0:stop stop-color="rgb(102,160,255)" offset="0.0953282937" stop-opacity="1" />
+			<ns0:stop stop-color="rgb(122,102,255)" offset="0.346863121" stop-opacity="0.326447904" />
+			<ns0:stop stop-color="rgb(137,102,255)" offset="0.396518856" stop-opacity="0.258266091" />
+			<ns0:stop stop-color="rgb(173,102,255)" offset="0.423575044" stop-opacity="0.269999981" />
+			<ns0:stop stop-color="rgb(170,102,255)" offset="0.470644027" stop-opacity="0.209999993" />
+			<ns0:stop stop-color="rgb(103,254,234)" offset="0.572409809" stop-opacity="0.674509823" />
+			<ns0:stop stop-color="rgb(102,166,254)" offset="0.753119588" stop-opacity="1" />
+			<ns0:stop stop-color="rgb(104,102,255)" offset="0.895024955" stop-opacity="0.200000003" />
+		</ns0:linearGradient>
+		<ns0:mask id="outline_mask_61">
+			<ns0:path d="M168 0C172.418 0 176 3.58172 176 8L176 28C176 32.4183 172.418 36 168 36L8 36C3.58172 36 0 32.4183 0 28L0 8C0 3.58172 3.58172 0 8 0L168 0ZM8 1.54C4.43224 1.54 1.54 4.43224 1.54 8L1.54 28C1.54 31.5678 4.43224 34.46 8 34.46L168 34.46C171.568 34.46 174.46 31.5678 174.46 28L174.46 8C174.46 4.43224 171.568 1.54 168 1.54L8 1.54Z" fill="rgb(255,255,255)" fill-rule="evenodd" />
+		</ns0:mask>
+		<ns0:linearGradient id="paint_custom_gradient_41">
+			<ns0:stop stop-color="rgb(255,174,102)" offset="0.104975045" stop-opacity="0.200000003" />
+			<ns0:stop stop-color="rgb(254,148,102)" offset="0.246880412" stop-opacity="1" />
+			<ns0:stop stop-color="rgb(254,133,103)" offset="0.427590191" stop-opacity="0.674509823" />
+			<ns0:stop stop-color="rgb(255,102,108)" offset="0.529356003" stop-opacity="0.209999993" />
+			<ns0:stop stop-color="rgb(173,102,255)" offset="0.576424956" stop-opacity="0.269999981" />
+			<ns0:stop stop-color="rgb(137,102,255)" offset="0.603481174" stop-opacity="0.258266091" />
+			<ns0:stop stop-color="rgb(122,102,255)" offset="0.653136849" stop-opacity="0.326447904" />
+			<ns0:stop stop-color="rgb(102,160,255)" offset="0.904671729" stop-opacity="1" />
+		</ns0:linearGradient>
+		<ns0:mask id="outline_mask_62">
+			<ns0:path d="M168 0C172.418 0 176 3.58172 176 8L176 28C176 32.4183 172.418 36 168 36L8 36C3.58172 36 0 32.4183 0 28L0 8C0 3.58172 3.58172 0 8 0L168 0ZM8 1.54C4.43224 1.54 1.54 4.43224 1.54 8L1.54 28C1.54 31.5678 4.43224 34.46 8 34.46L168 34.46C171.568 34.46 174.46 31.5678 174.46 28L174.46 8C174.46 4.43224 171.568 1.54 168 1.54L8 1.54Z" fill="rgb(255,255,255)" fill-rule="evenodd" />
+		</ns0:mask>
+		<ns0:clipPath id="clipPath_3938">
+			<ns0:rect width="176.000000" height="36.000000" x="0.000000" y="0.000000" rx="8.000000" fill="rgb(255,255,255)" />
+		</ns0:clipPath>
+		<ns0:clipPath id="clipPath_3939">
+			<ns0:rect width="156.000000" height="20.000000" x="10.000000" y="8.000000" fill="rgb(255,255,255)" />
+		</ns0:clipPath>
+	</ns0:defs>
+	<ns0:rect id="8.1&#33258;&#21160;&#22788;&#29702;tips" width="176.000000" height="36.000000" x="0.000000" y="0.000000" rx="8.000000" fill="rgb(215,214,214)" fill-opacity="0.219999999" />
+		<ns0:rect id="8.1&#33258;&#21160;&#22788;&#29702;tips" width="176.000000" height="36.000000" x="0.000000" y="0.000000" rx="8.000000" fill="url(#paint_radial_86)" fill-opacity="0.200000003" />
+		</ns0:svg>

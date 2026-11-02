@@ -1,0 +1,47 @@
+from pathlib import Path
+import base64,json,re,hashlib
+R=Path(__file__).resolve().parent.parent
+C=R/'components'
+def uri(p,mime):return 'data:'+mime+';base64,'+base64.b64encode(p.read_bytes()).decode()
+icons={p.stem:uri(p,'image/svg+xml') for p in Path('/Users/mac/Downloads/3、图标切图').glob('*.svg')}
+icons['绿色叶子']=json.loads((C/'data.json').read_text())['icons']['绿色叶子']
+icons['灰色叶子']=json.loads((C/'data.json').read_text())['icons']['灰色叶子']
+O=R/'assets/optimized'
+icons.update(FAULT_LINK=uri(R/'assets/cabinet-fault-link.svg','image/svg+xml'),LINKS=uri(R/'assets/cabinet-links.svg','image/svg+xml'),RED_CABINET=uri(R/'assets/cabinet-red.svg','image/svg+xml'),PANEL=uri(R/'assets/agent-panel-opaque.svg','image/svg+xml'),FONT=uri(O/'HarmonyOS-subset.woff2','font/woff2'),CABINET=uri(R/'assets/cabinet-original.svg','image/svg+xml'),SKY=uri(O/'agent-background.webp','image/webp'),MASCOT=uri(O/'mascot-entrance.webp','image/webp'))
+icons.update({name.upper().replace('-', '_'):uri(R/'home/mascot-assets'/(name+'.webp'),'image/webp') for name in ['bg-beam','bg-burst-in','bg-particles','bg-ring','ip-wave','ip-glasses','ip-typing','ip-static']})
+icons['CABINET_ENERGY']=uri(R/'assets/cabinet-palette-2.svg','image/svg+xml')
+icons['CABINET_NPU']=uri(R/'assets/cabinet-palette-0.svg','image/svg+xml')
+icons['CABINET_HBM']=uri(R/'assets/cabinet-palette-1.svg','image/svg+xml')
+icons['NIC_TOPOLOGY']=uri(R/'home/nic-event/reference2/data/exports/故障详情_网卡升级2@2x.webp','image/webp')
+css=(R/'style.css').read_text()+'\n'+(C/'motion-tokens.css').read_text()+'\n'+(C/'components.css').read_text()+'\n'+(R/'home/layout.css').read_text()+'\n'+(R/'home/events.css').read_text()+'\n'+(R/'home/optical-event/event.css').read_text()+'\n'+(R/'home/story.css').read_text()+'\n'+(R/'home/nic-event/event.css').read_text()+'\n'+(R/'home/reference-0909/enhancements.css').read_text()
+js='const HOME_WORKLOADS='+ (R/'home/workloads.json').read_text()+';\n'+'const HC_ASSETS='+json.dumps(json.loads((C/'data.json').read_text()),ensure_ascii=False)+';\n'+(C/'motion-runtime.js').read_text()+'\n'+(C/'components.js').read_text()+'\n'+(R/'home/demo-clock.js').read_text()+'\n'+(R/'home/main.js').read_text()+'\n'+(R/'home/events.js').read_text()+'\nconst HOME_LINKS_SVG='+json.dumps((R/'assets/cabinet-links.svg').read_text())+';\n'+(R/'home/reference-0909/enhancements.js').read_text()+'\nconst OPTICAL_ASSETS='+ (R/'home/optical-event/assets.json').read_text()+';\n'+'\n'.join((R/'home/optical-event'/f).read_text() for f in ['detail-components.js','entrance.js','event.js'])+'\n'+(R/'home/optical-host.js').read_text()+'\n'+(R/'home/nic-event/event.js').read_text()+'\n'+'\n'.join((R/'home'/f).read_text() for f in ['story-state.js','story.js','guardian-metrics.js','mascot-motion.js'])
+# Dedicated energy document: CSS/JS cannot touch the current homepage or fault modules.
+E=R/'home/energy-event'
+energy_css='\n'.join((E/f).read_text() for f in ['base.css','legacy.css','adapter.css'])
+energy_js='\n'.join((E/f).read_text() for f in ['strategy.js','polish.js','report.js','monitor.js','adapter.js'])
+energy_page='<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><style>'+energy_css+'</style></head><body><div id="app"></div><script>'+energy_js+'</script></body></html>'
+energy_page=energy_page.replace('./agent-logo.png',icons['MASCOT'])
+css+='\n'+(R/'home/energy-host.css').read_text()
+js+='\nconst ENERGY_PAGE='+json.dumps(energy_page,ensure_ascii=False).replace('</','<\\/')+';\n'+(R/'home/energy-host.js').read_text()
+s=(R/'home/page.html').read_text().replace('@@CSS@@',css).replace('@@JS@@',js)
+s=s.replace("format('truetype')", "format('woff2')")
+# Optical icons retain their namespace but share identical embedded data with home icons.
+shared=json.loads((C/'data.json').read_text())
+s=s.replace('const HC_ASSETS='+json.dumps(shared,ensure_ascii=False), 'const HC_ASSETS='+json.dumps({'icons':shared['icons']},ensure_ascii=False))
+optical=json.loads((R/'home/optical-event/assets.json').read_text())
+unique={k:v for k,v in optical['icons'].items() if shared['icons'].get(k)!=v}
+shared_names=[k for k,v in optical['icons'].items() if shared['icons'].get(k)==v]
+compact='{icons:{'+','.join(json.dumps(k,ensure_ascii=False)+':HC_ASSETS.icons['+json.dumps(k,ensure_ascii=False)+']' for k in shared_names)
+compact+=(',' if shared_names and unique else '')+','.join(json.dumps(k,ensure_ascii=False)+':'+json.dumps(v) for k,v in unique.items())+'}}'
+s=s.replace('const OPTICAL_ASSETS='+ (R/'home/optical-event/assets.json').read_text(), 'const OPTICAL_ASSETS='+compact)
+s=re.sub(r'@@([^@]+)@@',lambda m:icons[m[1]],s)
+assert '@@' not in s
+assert not re.search(r'(?:src|href)=["\']https?://',s)
+(R/'完整首页-组装版.html').write_text(s)
+print('Built 完整首页-组装版.html',round(len(s.encode())/1024/1024,1),'MiB')
+review_css=(R/'home/review.css').read_text()+'\n'+(R/'annotations.css').read_text().replace('header', '#review-bar')
+review_js=(R/'home/review.js').read_text()+'\n'+(R/'home/annotations.js').read_text()
+review=s.replace('</head>','<style>'+review_css+'</style></head>',1)
+review=review.rsplit('</body>',1)[0]+'<script>'+review_js+'</script></body>'+review.rsplit('</body>',1)[1]
+(R/'home-review.html').write_text(review)
+print('Built home-review.html (direct DOM, no iframe)')

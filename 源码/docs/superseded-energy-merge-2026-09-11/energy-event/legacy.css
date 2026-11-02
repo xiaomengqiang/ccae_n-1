@@ -1,0 +1,1609 @@
+@keyframes scan{from{top:15%}to{top:88%}}
+@keyframes pulse{50%{opacity:.45;transform:scale(.88)}}
+@keyframes flow{to{stroke-dashoffset:-120}}
+
+    .thin-scroll::-webkit-scrollbar{width:4px}
+.thin-scroll::-webkit-scrollbar-thumb{background:#293846;border-radius:9px}
+@keyframes agentSpin{to{transform:rotate(360deg)}}
+@keyframes agentBreath{50%{transform:scale(.93);filter:brightness(1.15)}}
+@keyframes gradientMove{to{background-position:200% 0}}
+@keyframes logoRotate{to{transform:rotate(360deg)}}
+@keyframes ringPulse{50%{transform:scale(1.03);opacity:.72}}
+
+    @keyframes tipSpin{to{transform:rotate(360deg)}}
+@keyframes tipFlash{from{opacity:.58}to{opacity:1}}
+
+    .timeline-legend .legend-energy i{color:#9c9f98!important}
+
+    .energy-drill{left:64px!important}
+
+    @keyframes autoBorder{to{--auto-angle:360deg}}
+
+    @keyframes autoSpin{to{transform:rotate(360deg)}}
+
+    @keyframes diagPulse{50%{transform:scale(1.35);box-shadow:0 0 14px rgba(103,167,255,.7)}}
+@keyframes thinkReveal{0%,12%{opacity:.25}20%,62%{opacity:1}78%,100%{opacity:.25}}
+@keyframes dotThink{0%,70%,100%{opacity:.25;transform:translateY(0)}35%{opacity:1;transform:translateY(-2px)}}
+@keyframes stageCycle{0%,12%,100%{opacity:.42;border-color:#3b3f39}18%,42%{opacity:1;border-color:#5797ff;box-shadow:0 0 14px rgba(87,151,255,.18)}}
+@keyframes flowMove{to{left:100%}}
+
+    @keyframes causeArrow{50%{transform:translateY(3px) rotate(45deg);opacity:.45}}
+@keyframes agentGlow{50%{box-shadow:0 0 18px rgba(36,211,238,.5),0 0 30px rgba(168,139,250,.3)}}
+
+    @keyframes causeLight{0%{transform:translateY(-5px);opacity:0}35%{opacity:1}100%{transform:translateY(12px);opacity:0}}
+@keyframes causeStream{0%{transform:translateY(0);opacity:0}25%{opacity:1}100%{transform:translateY(17px);opacity:0}}
+@keyframes stageReveal{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+@keyframes drillSlideIn{from{opacity:0;transform:translateX(70px)}to{opacity:1;transform:none}}
+@keyframes drillSideIn{from{transform:translateX(-34px);opacity:.35}to{transform:none;opacity:1}}
+@keyframes drillDetailIn{from{transform:translateY(24px) scale(.985);opacity:0}to{transform:none;opacity:1}}
+@keyframes portFlow{to{left:100%}}
+@keyframes arcFlow{to{stroke-dashoffset:-100}}
+@keyframes homeTipFlow{to{background-position:0 0,300% 0}}
+@keyframes storyStream{from{opacity:0;transform:translateY(8px);max-height:0}to{opacity:1;transform:none;max-height:520px}}
+@keyframes storyTypeLine{to{opacity:1;clip-path:inset(0 0 0 0)}}
+@keyframes storyCompleteFade{from{opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(-6px)}to{opacity:1;clip-path:inset(0);transform:none}}
+@keyframes metricCatEase{from{opacity:.72;transform:scaleX(.975)}to{opacity:1;transform:scaleX(1)}}
+@keyframes metricViewEase{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  @keyframes sfuLinkFlow{to{stroke-dashoffset:-36}}
+
+  @keyframes qwenZoneReveal{from{opacity:0;transform:translateX(-72px)}to{opacity:1;transform:translateX(-24px)}}
+
+  @keyframes qwenNodeReveal{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(.82)}}
+
+  @keyframes qwenFaultReveal{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(.82)}}
+
+  .energy-main{display:flex;flex-direction:column;min-height:0}
+.energy-trend{margin-top:auto;margin-bottom:32px;flex:none}
+.energy-inline-actions{margin:12px 0 18px}
+.energy-chat{height:42px;flex:none;display:flex;align-items:center;gap:8px;margin-top:10px;padding:0 8px 0 13px;border:1px solid #343d37;border-radius:12px;background:#181d1a;color:#737d75;font-size:10px}
+.energy-chat span{flex:1}
+.energy-chat button{width:28px;height:28px;border-radius:8px;background:#318ceb;color:#fff}
+.energy-status.enabled{background:rgba(52,211,153,.17)!important;border:1px solid rgba(52,211,153,.32);color:#49d99e!important}
+.energy-strategy{cursor:pointer}
+.energy-strategy.active:after{content:"已选中";position:absolute;right:12px;top:9px;color:#47d9b6;font-size:8px}
+.energy-strategy.active i{top:62%}
+
+  #events>.energy-opportunity-entry{border:1px solid rgba(52,211,153,.28);background:linear-gradient(100deg,rgba(52,211,153,.08),rgba(255,255,255,.025));box-shadow:inset 0 0 18px rgba(52,211,153,.035)}
+#events>.energy-opportunity-entry:hover,#events>.energy-opportunity-entry:focus-visible{border-color:rgba(52,211,153,.68);background:linear-gradient(100deg,rgba(52,211,153,.14),rgba(255,255,255,.045));outline:none;box-shadow:0 0 16px rgba(52,211,153,.12)}
+#events>.energy-opportunity-entry .text-\[9px\]{color:#49d99e!important}
+
+  .energy-drill{position:absolute;z-index:120;top:48px;left:40px;right:0;bottom:0;display:grid;grid-template-columns:500px 1fr;background:#0b0d0b;color:#edf1eb}
+.energy-drill.hidden{display:none}
+.energy-side{display:flex;flex-direction:column;min-height:0;padding:18px 20px 14px;border-right:1px solid #2a302c;background:linear-gradient(155deg,#232925,#171b18)}
+.energy-head{display:flex;align-items:center;gap:12px;padding-bottom:15px;border-bottom:1px solid rgba(255,255,255,.08)}
+.energy-back{width:30px;height:30px;border-radius:8px;color:#b8beb7}
+.energy-back:hover{background:rgba(255,255,255,.07);color:#fff}
+.energy-head-icon{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(145deg,#4ccff5,#5689ff);box-shadow:0 0 18px rgba(76,207,245,.38)}
+.energy-head h2{font-size:15px;font-weight:650}
+.energy-head p{margin-top:3px;color:#858d85;font-size:10px}
+.energy-side-scroll{min-height:0;flex:1;overflow:auto;padding-right:3px}
+.energy-copy-section{padding:18px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.energy-copy-section h3{font-size:13px;font-weight:650}
+.energy-copy-section p{margin-top:8px;color:#aab1aa;font-size:11px;line-height:1.75}
+.energy-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:11px}
+.energy-fact{padding:9px;border:1px solid #343b36;border-radius:9px;background:#202522}
+.energy-fact span{display:block;color:#818a82;font-size:9px}
+.energy-fact b{display:block;margin-top:4px;font-size:14px;color:#fff}
+.energy-fact b.good{color:#43d698}
+.energy-strategy-title{display:flex;align-items:center;justify-content:space-between;margin:16px 0 9px}
+.energy-strategy-title h3{font-size:13px}
+.energy-strategy-title span{color:#778079;font-size:9px}
+.energy-strategy{position:relative;width:100%;margin-bottom:8px;padding:12px 44px 12px 13px;border:1px solid #3c433e;border-radius:11px;background:linear-gradient(100deg,#2a2f2c,#232724);text-align:left}
+.energy-strategy.active{border-color:#39c9ec;box-shadow:0 0 0 1px rgba(57,201,236,.25),0 0 14px rgba(57,201,236,.12)}
+.energy-strategy h4{font-size:13px;font-weight:650}
+.energy-strategy.active h4{color:#42d9d1}
+.energy-strategy-grid{display:grid;grid-template-columns:1fr 1fr;margin-top:8px}
+.energy-strategy-grid span{color:#8e968e;font-size:9px}
+.energy-strategy-grid b{display:block;margin-top:3px;color:#f4f6f2;font-size:12px}
+.energy-strategy-grid b.good{color:#40d59a}
+.energy-strategy i{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:22px;color:#59625b}
+.energy-strategy.active i{color:#48d6bb}
+.energy-actions{display:flex;gap:10px;margin-top:10px}
+.energy-actions button{height:34px;border-radius:8px;font-size:11px}
+.energy-export{flex:1;border:1px solid #4a514b;color:#aeb5ae}
+.energy-apply{flex:1.25;background:#2689ed;color:#fff;box-shadow:0 4px 14px rgba(38,137,237,.25)}
+.energy-main{min-width:0;overflow:auto;padding:22px 28px 28px;background:#0b0d0b}
+.energy-main-head{display:flex;align-items:center;justify-content:space-between}
+.energy-service{display:flex;align-items:center;gap:12px}
+.energy-service h2{font-size:18px;font-weight:650}
+.energy-status{padding:5px 10px;border-radius:7px;background:#343936;color:#cdd2cc;font-size:10px}
+.energy-status.enabled{background:rgba(52,211,153,.15);color:#49d99e}
+.energy-view-switch{display:flex;padding:3px;border:1px solid #303732;border-radius:9px;background:#151916}
+.energy-view-switch button{height:28px;padding:0 13px;border-radius:6px;color:#7f8880;font-size:10px}
+.energy-view-switch button.active{background:#303733;color:#fff}
+.energy-overview{display:grid;grid-template-columns:1.05fr 1fr;gap:14px;margin-top:16px}
+.energy-card{border:1px solid #303632;border-radius:14px;background:#1b1e1b}
+.energy-overview-card{padding:15px 18px}
+.energy-card h3{font-size:14px;font-weight:650}
+.energy-metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:12px}
+.energy-metric span{display:block;color:#8c948d;font-size:10px}
+.energy-metric b{display:block;margin-top:5px;font-size:17px}
+.energy-metric b small{font-size:10px;color:#9da49d}
+.energy-predict{padding:15px 18px}
+.energy-predict-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.energy-predict-item{padding:10px;border:1px solid #363c37;border-radius:9px;background:#242724}
+.energy-predict-item.primary{border-color:#268ee8}
+.energy-predict-item span{color:#9da49d;font-size:9px}
+.energy-predict-item b{display:block;margin-top:5px;font-size:15px}
+.energy-delta{margin-left:5px;color:#3fd293;font-size:9px}
+.energy-delta.warn{color:#f0b93f}
+.energy-topology{margin-top:14px;padding:15px 18px 12px}
+.energy-topo-head{display:flex;align-items:center;gap:22px}
+.energy-topo-head h3{font-size:14px}
+.energy-topo-head span{color:#b0b7b0;font-size:10px}
+.energy-instance-shell{display:grid;grid-template-columns:24% 1fr;gap:24px;margin-top:12px;padding:14px;border:1px solid #404741;border-radius:13px}
+.energy-instance-col{display:grid;grid-template-rows:1fr 1fr;gap:14px}
+.energy-instance-group>span{display:block;margin-bottom:7px;color:#d5dad4;font-size:11px}
+.energy-node-row{height:108px;display:flex;align-items:center;justify-content:space-around;gap:8px;padding:10px;border:1px solid #3c433e;border-radius:12px;background:#222522}
+.energy-node{min-width:62px;text-align:center}
+.energy-hex{position:relative;width:57px;height:52px;margin:auto;display:grid;place-items:center;background:#2b7557;clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%);transition:.35s}
+.energy-hex:before{content:"";position:absolute;inset:2px;background:#36584a;clip-path:inherit}
+.energy-node.load-mid .energy-hex{background:#6d90ee}
+.energy-node.load-high .energy-hex{background:#f0bd42}
+.energy-node.sleep .energy-hex{background:#345044;opacity:.42}
+.energy-chip-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,8px);gap:2px}
+.energy-chip-grid i{width:8px;height:8px;display:grid;place-items:center;background:#259967;color:#b8f3d8;font-size:5px;font-style:normal}
+.energy-chip-grid i.cpu{grid-column:auto;background:#2f8a63}
+.energy-node small{display:block;margin-top:5px;color:#c6ccc5;font-size:7px}
+.energy-node em{display:block;margin-top:2px;color:#6f7870;font-size:6px;font-style:normal}
+.energy-topo-foot{display:flex;align-items:center;justify-content:center;gap:28px;margin-top:10px;color:#888f88;font-size:9px}
+.energy-legend{display:flex;align-items:center;gap:6px}
+.energy-legend i{width:25px;height:5px;border-radius:4px}
+.energy-trend{margin-top:14px;padding:14px 18px}
+.energy-trend-head{display:flex;justify-content:space-between}
+.energy-trend-head h3{font-size:13px}
+.energy-trend-head span{color:#7d857e;font-size:9px}
+.energy-chart{position:relative;height:108px;margin-top:9px;border-left:1px solid #38403a;border-bottom:1px solid #38403a;background:repeating-linear-gradient(to bottom,transparent 0,transparent 26px,rgba(255,255,255,.045) 27px)}
+.energy-chart svg{width:100%;height:100%;overflow:visible}
+.energy-chart-label{display:flex;justify-content:space-between;margin-top:5px;color:#737c74;font-size:8px}
+.energy-note{margin-top:7px;color:#919991;font-size:9px;text-align:center}
+
+  #energyDrillView .energy-main{display:flex;flex-direction:column;min-height:0}
+
+  #energyDrillView .energy-trend{margin-top:auto;margin-bottom:32px;flex:none}
+
+  #energyDrillView .energy-inline-actions{margin:12px 0 18px}
+
+  @keyframes guardianSparkFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.2px)}}
+
+  /* Energy detail v2 — rebuilt from Figma frame 56:2169 */
+  #energyDrillView.energy-v2{grid-template-columns:minmax(330px,26.2%) 1fr!important;background:#090b09!important}
+
+  #energyDrillView.energy-v2 .energy-side{padding:0 18px 14px!important;background:#181c19!important}
+
+  #energyDrillView.energy-v2 .energy-head{min-height:78px;padding:0 4px 0 0!important;background:linear-gradient(110deg,rgba(255,255,255,.1),transparent);border-bottom:1px solid rgba(255,255,255,.08)}
+
+  #energyDrillView.energy-v2 .energy-head-icon{width:40px;height:40px;flex:none}
+
+  #energyDrillView.energy-v2 .energy-head h2{font-size:14px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-side-scroll{padding-right:4px}
+
+  #energyDrillView.energy-v2 .energy-copy-section{padding:18px 0 20px}
+
+  #energyDrillView.energy-v2 .energy-copy-section h3{font-size:14px}
+
+  #energyDrillView.energy-v2 .energy-copy-section p{font-size:12px;line-height:1.8;color:#c0c5bf}
+
+  #energyDrillView.energy-v2 .energy-strategy-title{margin:16px 0 10px}
+
+  #energyDrillView.energy-v2 .energy-strategy{min-height:88px;margin-bottom:10px;padding:14px 48px 14px 16px;border-radius:10px}
+
+  #energyDrillView.energy-v2 .energy-strategy h4{font-size:15px}
+
+  #energyDrillView.energy-v2 .energy-strategy-grid span{font-size:10px}
+
+  #energyDrillView.energy-v2 .energy-strategy-grid b{font-size:14px}
+
+  #energyDrillView.energy-v2 .energy-actions{margin:8px 0 12px}
+
+  #energyDrillView.energy-v2 .energy-actions button{height:38px}
+
+  #energyDrillView.energy-v2 .energy-chat{margin-top:0}
+
+  #energyDrillView.energy-v2 .energy-main{padding:18px 24px 16px!important;overflow:hidden!important}
+
+  #energyDrillView.energy-v2 .energy-main-head{height:40px;flex:none}
+
+  #energyDrillView.energy-v2 .energy-service{gap:14px;flex-wrap:wrap}
+
+  #energyDrillView.energy-v2 .energy-service h2{font-size:20px}
+
+  #energyDrillView.energy-v2 .energy-util-pill{padding:6px 13px;border-radius:999px;background:#252825;color:#c5cac4;font-size:11px}
+
+  #energyDrillView.energy-v2 .energy-util-pill b{margin-left:8px;color:#fff}
+
+  #energyDrillView.energy-v2 .energy-overview{grid-template-columns:1fr 1.08fr;gap:26px;margin-top:10px;flex:none}
+
+  #energyDrillView.energy-v2 .energy-card{border-color:#30342f;background:#1d1f1d}
+
+  #energyDrillView.energy-v2 .energy-overview-card,#energyDrillView.energy-v2 .energy-predict{height:124px;padding:17px 28px;box-sizing:border-box}
+
+  #energyDrillView.energy-v2 .energy-metrics{grid-template-columns:repeat(4,1fr);gap:22px;margin-top:14px}
+
+  #energyDrillView.energy-v2 .energy-metric span{font-size:11px}
+
+  #energyDrillView.energy-v2 .energy-metric b{font-size:19px}
+
+  #energyDrillView.energy-v2 .energy-predict-grid{margin-top:13px}
+
+  #energyDrillView.energy-v2 .energy-predict-item{padding:0;border:0;background:none}
+
+  #energyDrillView.energy-v2 .energy-predict-item.primary{border:0}
+
+  #energyDrillView.energy-v2 .energy-predict-item span{font-size:11px}
+
+  #energyDrillView.energy-v2 .energy-predict-item b{font-size:18px}
+
+  #energyDrillView.energy-v2 .energy-topology{display:flex;flex-direction:column;flex:1;min-height:410px;margin-top:14px;padding:22px 36px 14px!important}
+
+  #energyDrillView.energy-v2 .energy-topo-head{gap:24px;flex:none}
+
+  #energyDrillView.energy-v2 .energy-topo-head h3{font-size:15px}
+
+  #energyDrillView.energy-v2 .energy-topo-head span{font-size:12px;color:#d3d7d2}
+
+  #energyDrillView.energy-v2 .energy-topology-body{flex:1;min-height:0}
+
+  #energyDrillView.energy-v2 .energy-instance-shell{height:100%;box-sizing:border-box;grid-template-columns:25% 1fr;gap:28px;margin-top:16px;padding:20px 28px;border-color:#50544f}
+
+  #energyDrillView.energy-v2 .energy-instance-col{gap:22px;min-width:0}
+
+  #energyDrillView.energy-v2 .energy-instance-group{display:flex;min-height:0;flex-direction:column}
+
+  #energyDrillView.energy-v2 .energy-instance-group>span{font-size:13px;margin-bottom:10px}
+
+  #energyDrillView.energy-v2 .energy-node-row{height:auto;min-height:0;flex:1;padding:12px 14px;gap:14px;border-color:#4b4f4a;background:#222422}
+
+  #energyDrillView.energy-v2 .energy-node{min-width:54px;flex:1}
+
+  #energyDrillView.energy-v2 .energy-hex{width:76px;height:70px;max-width:100%}
+
+  #energyDrillView.energy-v2 .energy-chip-grid{grid-template-columns:repeat(4,10px);gap:3px}
+
+  #energyDrillView.energy-v2 .energy-chip-grid i{width:10px;height:10px;font-size:6px}
+
+  #energyDrillView.energy-v2 .energy-node small{font-size:8px;margin-top:6px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-node em{display:none}
+
+  #energyDrillView.energy-v2 .energy-topo-foot{margin-top:12px;gap:36px;font-size:10px;flex:none}
+
+  #energyDrillView.energy-v2 .energy-power-scale{display:flex;align-items:center;gap:5px;padding:6px 10px;border-radius:7px;background:#242724}
+
+  #energyDrillView.energy-v2 .energy-power-scale i{width:34px;height:5px;border-radius:2px}
+
+  #energyDrillView.energy-v2 .energy-trend{height:164px;margin:14px 0 0!important;padding:13px 22px 10px!important;flex:none}
+
+  #energyDrillView.energy-v2 .energy-trend-head{justify-content:flex-start;align-items:center;gap:24px}
+
+  #energyDrillView.energy-v2 .energy-trend-legend{display:flex;gap:18px;color:#c1c6c0;font-size:10px}
+
+  #energyDrillView.energy-v2 .energy-trend-legend i{display:inline-block;width:15px;height:2px;margin-right:5px;vertical-align:3px}
+
+  #energyDrillView.energy-v2 .energy-chart-v2{position:relative;height:98px;margin-top:5px;padding:0 8px;border-bottom:1px solid #4b504b}
+
+  #energyDrillView.energy-v2 .energy-bars{position:absolute;inset:24px 8px 0;display:flex;align-items:flex-end;gap:3px}
+
+  #energyDrillView.energy-v2 .energy-bars i{flex:1;min-width:2px;background:#4e9ef4;border-radius:2px 2px 0 0}
+
+  #energyDrillView.energy-v2 .energy-bars i.future{background:transparent;border:1px solid #42a5f5;border-bottom:0}
+
+  #energyDrillView.energy-v2 .energy-chart-v2 svg{position:absolute;inset:0;width:100%;height:70px;overflow:visible}
+
+  #energyDrillView.energy-v2 .energy-now{position:absolute;left:50%;top:0;bottom:-8px;border-left:1px solid #d6d8d5}
+
+  #energyDrillView.energy-v2 .energy-now span{position:absolute;top:-16px;left:-20px;padding:2px 5px;background:#30332f;color:#fff;font-size:9px}
+
+  #energyDrillView.energy-v2 .energy-chart-label{font-size:8px;margin-top:4px}
+
+  @media(max-width:1250px){#energyDrillView.energy-v2{grid-template-columns:330px 1fr!important}#energyDrillView.energy-v2 .energy-main{padding-left:16px!important;padding-right:16px!important}#energyDrillView.energy-v2 .energy-overview{gap:12px}#energyDrillView.energy-v2 .energy-topology{padding-left:18px!important;padding-right:18px!important}#energyDrillView.energy-v2 .energy-instance-shell{padding:14px;gap:14px}#energyDrillView.energy-v2 .energy-hex{width:62px;height:57px}}
+
+  #energyDrillView.energy-v2{grid-template-columns:460px minmax(0,1fr)!important}
+
+  #energyDrillView.energy-v2 .energy-side{padding:0 16px 12px!important;background:linear-gradient(155deg,rgba(51,60,58,.94),rgba(27,31,29,.98) 48%,rgba(16,18,16,.99))!important;border-right:1px solid rgba(255,255,255,.09)}
+
+  #energyDrillView.energy-v2 .energy-head{min-height:66px;margin:0 -16px;padding:0 16px!important;background:linear-gradient(155deg,rgba(51,60,58,.99),rgba(31,36,34,.99));box-shadow:0 8px 16px rgba(12,14,12,.32)}
+
+  #energyDrillView.energy-v2 .energy-head-icon{width:38px;height:38px;border-radius:9px}
+
+  #energyDrillView.energy-v2 .energy-head h2{font-size:16px}
+
+  #energyDrillView.energy-v2 .energy-head p{font-size:12px}
+
+  #energyDrillView.energy-v2 .energy-side-scroll{padding-right:2px}
+
+  #energyDrillView.energy-v2 .energy-chat{height:42px;display:flex;align-items:center;flex:none;margin:8px 0 0!important;padding:0 7px 0 13px;border-radius:15px;border:1px solid transparent;background:linear-gradient(#22231f,#22231f) padding-box,linear-gradient(100deg,#ed756c,#e4ba62,#50c891,#739ed6,#a977d0) border-box;box-shadow:0 -10px 26px rgba(10,12,10,.45)}
+
+  #energyDrillView.energy-v2 .energy-chat span{flex:1;font-size:10px;color:#777d75}
+
+  #energyDrillView.energy-v2 .energy-chat button{width:29px;height:29px;border-radius:10px;background:#4a90f5;color:#fff}
+
+  #energyDrillView.energy-v2 .energy-overview-card,#energyDrillView.energy-v2 .energy-predict{cursor:pointer;transition:.2s}
+
+  #energyDrillView.energy-v2 .energy-predict{border-color:#338df0!important;box-shadow:0 0 0 1px rgba(51,141,240,.3),0 0 15px rgba(51,141,240,.09)}
+
+  #energyDrillView.energy-v2 .energy-overview-card.energy-selected,#energyDrillView.energy-v2 .energy-predict.energy-selected{border-color:#338df0!important;box-shadow:0 0 0 1px rgba(51,141,240,.3),0 0 15px rgba(51,141,240,.09)}
+
+  #energyDrillView.energy-v2 .energy-overview-card.energy-selected~.energy-predict{border-color:#30342f!important;box-shadow:none}
+
+  #energyDrillView.energy-v2 .energy-trend-head h3,#energyDrillView.energy-v2 .energy-trend-legend,#energyDrillView.energy-v2 .energy-chart-label{font-size:12px!important}
+
+  #energyDrillView.energy-v2 .energy-bars{gap:1px!important}
+
+  #energyDrillView.energy-v2 .energy-bars i{min-width:1px!important}
+
+  #energyDrillView.energy-v2 .energy-bars i.future{background:rgba(78,158,244,.04)!important;border:1px solid rgba(78,158,244,.72)!important;border-bottom:0!important}
+
+  #energyDrillView.energy-v2 .energy-now{border-left:2px solid #f3f4ef!important;filter:drop-shadow(0 0 5px rgba(255,255,255,.55))}
+
+  #energyDrillView.energy-v2 .energy-now span{top:-20px!important;left:-23px!important;padding:4px 8px!important;border:1px solid rgba(255,255,255,.28);border-radius:5px;background:#424842!important;font-size:12px!important;font-weight:700}
+
+  #energyDrillView.energy-v2 .energy-topo-foot{gap:14px!important;font-size:12px!important}
+
+  #energyDrillView.energy-v2 .energy-power-title{white-space:nowrap;color:#c4c9c3}
+
+  #energyDrillView.energy-v2 .energy-power-scale{position:relative;display:grid!important;grid-template-columns:repeat(4,70px);gap:8px!important;padding:4px 0 18px!important;background:transparent!important}
+
+  #energyDrillView.energy-v2 .energy-power-scale i{width:70px!important;height:8px!important;border-radius:4px!important}
+
+  #energyDrillView.energy-v2 .energy-power-scale small{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;color:#929991;font-size:10px}
+
+  #energyDrillView.energy-v2 .energy-node.power-low .energy-hex{background:#65c99d}
+.energy-node.power-low .energy-chip-grid i{background:#3faa7b}
+
+  #energyDrillView.energy-v2 .energy-node.power-mid .energy-hex{background:#7398ef}
+.energy-node.power-mid .energy-chip-grid i{background:#557bd1}
+
+  #energyDrillView.energy-v2 .energy-node.power-high .energy-hex{background:#f1c344}
+.energy-node.power-high .energy-chip-grid i{background:#c99d27;color:#fff7cb}
+
+  #energyDrillView.energy-v2 .energy-node.power-hot .energy-hex{background:#e87535}
+.energy-node.power-hot .energy-chip-grid i{background:#bd5423;color:#ffe2d2}
+
+  #energyDrillView.energy-v2 .energy-node .energy-hex:before{background:rgba(25,38,32,.7)}
+
+  @media(max-width:1250px){#energyDrillView.energy-v2{grid-template-columns:460px minmax(0,1fr)!important}}
+
+  .guardian #energyGain{font-size:14px!important;line-height:20px}
+
+
+  /* Energy opportunity and manual-action cards share one typography scale. */
+  #events .event-content>p:first-child{font-size:14px!important;line-height:20px!important;font-weight:500}
+
+
+  /* Energy detail review: sidebar, topology legend and synchronized trend. */
+  #energyDrillView.energy-v2 .energy-copy-section{border-bottom:0!important}
+
+  #energyDrillView.energy-v2 .energy-saving-facts{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+
+  #energyDrillView.energy-v2 .energy-saving-facts .energy-fact{position:relative;min-width:0;padding:12px 10px;border-color:rgba(74,214,157,.24);background:linear-gradient(145deg,rgba(62,200,143,.11),rgba(255,255,255,.025));overflow:hidden}
+
+  #energyDrillView.energy-v2 .energy-saving-facts .energy-fact:after{content:"";position:absolute;left:10px;right:10px;bottom:7px;height:2px;border-radius:2px;background:linear-gradient(90deg,#45d59a,rgba(69,213,154,.08))}
+
+  #energyDrillView.energy-v2 .energy-saving-facts span{font-size:10px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-saving-facts b{font-size:17px;padding-bottom:5px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-saving-facts small{font-size:9px;font-weight:400;color:#9da69f}
+
+  #energyDrillView.energy-v2 .energy-actions{justify-content:flex-end!important}
+
+  #energyDrillView.energy-v2 .energy-actions .energy-export{flex:0 1 142px}
+
+  #energyDrillView.energy-v2 .energy-actions .energy-apply{flex:0 0 auto!important;width:auto!important;padding-left:16px!important;padding-right:16px!important}
+
+
+  #energyDrillView.energy-v2 .energy-instance-shell{position:relative;grid-template-columns:259px 1fr!important;column-gap:68px!important;padding:20px 38px!important;border-color:#515151!important;border-radius:16px!important}
+
+  #energyDrillView.energy-v2 .energy-instance-shell:before{content:"";position:absolute;left:299px;top:0;bottom:0;width:1px;background:#515151}
+
+  #energyDrillView.energy-v2 .energy-instance-col{gap:24px!important}
+
+  #energyDrillView.energy-v2 .energy-instance-group>span{font-size:16px!important;line-height:22px;margin-bottom:12px!important;color:#fff}
+
+  #energyDrillView.energy-v2 .energy-node-row{padding:12px!important;border-color:#515151!important;border-radius:16px!important;background:#212121!important}
+
+  #energyDrillView.energy-v2 .energy-hex{width:88px!important;height:84px!important}
+
+  #energyDrillView.energy-v2 .energy-chip-grid{grid-template-columns:repeat(4,12px)!important;gap:3px!important}
+
+  #energyDrillView.energy-v2 .energy-chip-grid i{width:12px!important;height:12px!important;font-size:8px!important}
+
+  #energyDrillView.energy-v2 .energy-node small{font-size:10px!important;line-height:14px}
+
+  #energyDrillView.energy-v2 .energy-topo-foot{justify-content:center!important;gap:24px!important}
+
+  #energyDrillView.energy-v2 .energy-power-scale{display:grid!important;grid-template-columns:repeat(4,70px)!important;gap:8px!important}
+
+  #energyDrillView.energy-v2 .energy-power-scale i{display:block!important;width:70px!important;height:8px!important;opacity:1!important}
+
+
+  #energyDrillView.energy-v2 .energy-trend-head h3{font-size:16px!important;line-height:22px}
+
+  #energyDrillView.energy-v2 .energy-trend-legend{font-size:12px!important;line-height:18px;flex-wrap:wrap}
+
+  #energyDrillView.energy-v2 .energy-now span{writing-mode:horizontal-tb!important;white-space:nowrap!important;word-break:keep-all!important;min-width:38px;text-align:center;left:-20px!important}
+
+  #energyDrillView.energy-v2 .energy-bars i:not(.future){background:rgba(78,158,244,.8)!important}
+
+  #energyDrillView.energy-v2 .energy-bars i.future{background:rgba(78,158,244,.03)!important;border-color:rgba(78,158,244,.58)!important}
+
+  @media(max-width:1500px){
+    #energyDrillView.energy-v2 .energy-instance-shell{grid-template-columns:23% 1fr!important;column-gap:5%!important;padding-left:28px!important;padding-right:28px!important}
+    #energyDrillView.energy-v2 .energy-instance-shell:before{left:calc(28% + 28px)!important}
+    #energyDrillView.energy-v2 .energy-hex{width:72px!important;height:68px!important}
+    #energyDrillView.energy-v2 .energy-instance-group>span{font-size:13px!important}
+  }
+
+  #energyDrillView.energy-v2 .energy-instance-shell:before{left:331px!important}
+
+  #energyDrillView.energy-v2 .energy-node small{font-size:14px!important;line-height:18px!important}
+
+  #energyDrillView.energy-v2 .energy-hex{transform:rotate(60deg);transform-origin:center;transition:background .25s ease,transform .25s ease}
+
+  #energyDrillView.energy-v2 .energy-chip-grid{transform:rotate(-60deg)!important;transform-origin:center}
+
+  #energyDrillView.energy-v2 .energy-node.power-high .energy-hex{background:#65c99d!important}
+
+  #energyDrillView.energy-v2 .energy-node.power-high .energy-chip-grid i{background:#3faa7b!important;color:#eafff5!important}
+
+  #energyDrillView.energy-v2 .energy-node.power-hot .energy-hex{background:#e87535!important}
+
+  #energyDrillView.energy-v2 .energy-node.power-hot .energy-chip-grid i{background:#bd5423!important;color:#ffe2d2!important}
+
+  #energyDrillView.energy-v2 .energy-power-scale{transform:translateY(8px)}
+
+  #energyDrillView.energy-v2 .energy-overview-card,#energyDrillView.energy-v2 .energy-predict{cursor:pointer}
+
+  #energyDrillView.energy-v2 .energy-overview-card,#energyDrillView.energy-v2 .energy-predict{position:relative;transition:border-color .22s ease,box-shadow .22s ease,background .22s ease,transform .22s ease}
+
+  #energyDrillView.energy-v2 .energy-overview-card:hover,#energyDrillView.energy-v2 .energy-predict:hover{transform:translateY(-1px);border-color:#59635c!important}
+
+  #energyDrillView.energy-v2 .energy-predict.energy-selected{border-color:#41cc99!important;background:linear-gradient(135deg,rgba(47,101,75,.22),#1b1e1b 58%)!important;box-shadow:0 0 0 1px rgba(65,204,153,.24),0 0 18px rgba(65,204,153,.1)!important}
+
+  #energyDrillView.energy-v2 .energy-overview-card.energy-selected{border-color:#338df0!important;background:linear-gradient(135deg,rgba(45,91,135,.18),#1b1e1b 58%)!important}
+
+  #energyDrillView.energy-v2 .energy-overview-card.energy-selected:after,#energyDrillView.energy-v2 .energy-predict.energy-selected:after{content:"";position:absolute;left:50%;bottom:-7px;width:12px;height:12px;background:inherit;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:translateX(-50%) rotate(45deg);color:inherit}
+
+  #energyDrillView.energy-v2 .energy-predict .predict-title:after{content:"智能体推荐";display:inline-flex;align-items:center;height:18px;margin-left:8px;padding:0 7px;border-radius:6px;background:rgba(65,204,153,.16);color:#50dba5;font-size:10px;font-weight:500;vertical-align:1px}
+
+  #energyDrillView.energy-v2 .energy-topo-head{min-height:26px}
+
+  #energyDrillView.energy-v2 .energy-topo-head h3{min-width:104px}
+
+  #energyDrillView.energy-v2 .energy-topo-head span{padding:3px 8px;border-radius:6px;background:rgba(255,255,255,.045)}
+
+  #energyDrillView.energy-v2 .energy-node.energy-expected-sleep{opacity:.56}
+
+  #energyDrillView.energy-v2 .energy-node.energy-expected-sleep em{display:block;margin-top:3px;color:#62dba8;font-size:10px;line-height:14px;font-style:normal;white-space:nowrap}
+
+  @media(max-width:1500px){
+    #energyDrillView.energy-v2 .energy-instance-shell:before{left:calc(28% + 60px)!important}
+  }
+.guard-stat.energy-wait .guard-stat-icon{color:#44e5b1;background:linear-gradient(145deg,#17644f,#19bd8d);box-shadow:0 0 16px rgba(31,210,155,.25)}
+.guard-stat.energy-done .guard-stat-icon{color:#e7fff7;background:linear-gradient(145deg,#369878,#235f50)}
+@keyframes guardFlow{to{background-position:0 0,300% 0}}
+.guard-name-icon.energy{color:#50dda9;background:rgba(80,221,169,.12)}
+.guard-state.energy-wait{color:#5be2b1;background:rgba(52,211,153,.1)}
+.guard-state.energy-done{color:#8bd8ff;background:rgba(73,168,221,.1)}
+@keyframes guardPulse{50%{box-shadow:0 0 0 4px rgba(255,255,255,.12);transform:scale(.72)}}
+
+  .guard-stat.energy-wait .guard-stat-icon{color:#fff5bf;background:linear-gradient(145deg,#a87912,#e2b62f);box-shadow:0 0 16px rgba(226,182,47,.25)}
+
+  .guard-stat.energy-done .guard-stat-icon{color:#b7bcb7;background:rgba(155,162,156,.14);border:1px solid rgba(155,162,156,.22);box-shadow:none}
+
+  .guard-state.auto-closed,.guard-state.human-closed,.guard-state.energy-done{color:#aeb3ae;background:rgba(155,162,156,.1)}
+
+  .guard-state.energy-wait{color:#f2c94c;background:rgba(242,201,76,.1)}
+
+  .guard-all-table tr.auto-closed .guard-name-icon,.guard-all-table tr.human-closed .guard-name-icon,.guard-all-table tr.energy-done .guard-name-icon{color:#a5aaa5;background:rgba(155,162,156,.1)}
+
+  .guard-all-table tr.energy-wait .guard-name-icon{color:#f2c94c;background:rgba(242,201,76,.12)}
+
+  #events .energy-opportunity-entry>i{color:#f2c94c!important}
+
+  .guard-stat.energy-wait .guard-stat-icon{color:#e9fff5;background:linear-gradient(145deg,#17644f,#19bd8d);box-shadow:0 0 16px rgba(31,210,155,.25)}
+
+  .guard-state.energy-wait{color:#52d99b;background:rgba(52,211,153,.1)}
+
+  .guard-all-table tr.energy-wait .guard-name-icon{color:#52d99b;background:rgba(52,211,153,.12)}
+
+  #events .energy-opportunity-entry>i{color:#34d399!important}
+
+  @keyframes qwenSeqZoneIn{from{opacity:0}to{opacity:1}}
+
+  @keyframes qwenSeqNodeIn{from{opacity:0;transform:scale(.58)}to{opacity:1;transform:scale(.82)}}
+
+  /* Energy detail v2 — rebuilt from Figma frame 56:2169 */
+  #energyDrillView.energy-v2{grid-template-columns:minmax(330px,26.2%) 1fr!important;background:#090b09!important}
+
+  #energyDrillView.energy-v2 .energy-side{padding:0 18px 14px!important;background:#181c19!important}
+
+  #energyDrillView.energy-v2 .energy-head{min-height:78px;padding:0 4px 0 0!important;background:linear-gradient(110deg,rgba(255,255,255,.1),transparent);border-bottom:1px solid rgba(255,255,255,.08)}
+
+  #energyDrillView.energy-v2 .energy-head-icon{width:40px;height:40px;flex:none}
+
+  #energyDrillView.energy-v2 .energy-head h2{font-size:14px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-side-scroll{padding-right:4px}
+
+  #energyDrillView.energy-v2 .energy-copy-section{padding:18px 0 20px}
+
+  #energyDrillView.energy-v2 .energy-copy-section h3{font-size:14px}
+
+  #energyDrillView.energy-v2 .energy-copy-section p{font-size:12px;line-height:1.8;color:#c0c5bf}
+
+  #energyDrillView.energy-v2 .energy-strategy-title{margin:16px 0 10px}
+
+  #energyDrillView.energy-v2 .energy-strategy{min-height:88px;margin-bottom:10px;padding:14px 48px 14px 16px;border-radius:10px}
+
+  #energyDrillView.energy-v2 .energy-strategy h4{font-size:15px}
+
+  #energyDrillView.energy-v2 .energy-strategy-grid span{font-size:10px}
+
+  #energyDrillView.energy-v2 .energy-strategy-grid b{font-size:14px}
+
+  #energyDrillView.energy-v2 .energy-actions{margin:8px 0 12px}
+
+  #energyDrillView.energy-v2 .energy-actions button{height:38px}
+
+  #energyDrillView.energy-v2 .energy-chat{margin-top:0}
+
+  #energyDrillView.energy-v2 .energy-main{padding:18px 24px 16px!important;overflow:hidden!important}
+
+  #energyDrillView.energy-v2 .energy-main-head{height:40px;flex:none}
+
+  #energyDrillView.energy-v2 .energy-service{gap:14px;flex-wrap:wrap}
+
+  #energyDrillView.energy-v2 .energy-service h2{font-size:20px}
+
+  #energyDrillView.energy-v2 .energy-util-pill{padding:6px 13px;border-radius:999px;background:#252825;color:#c5cac4;font-size:11px}
+
+  #energyDrillView.energy-v2 .energy-util-pill b{margin-left:8px;color:#fff}
+
+  #energyDrillView.energy-v2 .energy-overview{grid-template-columns:1fr 1.08fr;gap:26px;margin-top:10px;flex:none}
+
+  #energyDrillView.energy-v2 .energy-card{border-color:#30342f;background:#1d1f1d}
+
+  #energyDrillView.energy-v2 .energy-overview-card,#energyDrillView.energy-v2 .energy-predict{height:124px;padding:17px 28px;box-sizing:border-box}
+
+  #energyDrillView.energy-v2 .energy-metrics{grid-template-columns:repeat(4,1fr);gap:22px;margin-top:14px}
+
+  #energyDrillView.energy-v2 .energy-metric span{font-size:11px}
+
+  #energyDrillView.energy-v2 .energy-metric b{font-size:19px}
+
+  #energyDrillView.energy-v2 .energy-predict-grid{margin-top:13px}
+
+  #energyDrillView.energy-v2 .energy-predict-item{padding:0;border:0;background:none}
+
+  #energyDrillView.energy-v2 .energy-predict-item.primary{border:0}
+
+  #energyDrillView.energy-v2 .energy-predict-item span{font-size:11px}
+
+  #energyDrillView.energy-v2 .energy-predict-item b{font-size:18px}
+
+  #energyDrillView.energy-v2 .energy-topology{display:flex;flex-direction:column;flex:1;min-height:410px;margin-top:14px;padding:22px 36px 14px!important}
+
+  #energyDrillView.energy-v2 .energy-topo-head{gap:24px;flex:none}
+
+  #energyDrillView.energy-v2 .energy-topo-head h3{font-size:15px}
+
+  #energyDrillView.energy-v2 .energy-topo-head span{font-size:12px;color:#d3d7d2}
+
+  #energyDrillView.energy-v2 .energy-topology-body{flex:1;min-height:0}
+
+  #energyDrillView.energy-v2 .energy-instance-shell{height:100%;box-sizing:border-box;grid-template-columns:25% 1fr;gap:28px;margin-top:16px;padding:20px 28px;border-color:#50544f}
+
+  #energyDrillView.energy-v2 .energy-instance-col{gap:22px;min-width:0}
+
+  #energyDrillView.energy-v2 .energy-instance-group{display:flex;min-height:0;flex-direction:column}
+
+  #energyDrillView.energy-v2 .energy-instance-group>span{font-size:13px;margin-bottom:10px}
+
+  #energyDrillView.energy-v2 .energy-node-row{height:auto;min-height:0;flex:1;padding:12px 14px;gap:14px;border-color:#4b4f4a;background:#222422}
+
+  #energyDrillView.energy-v2 .energy-node{min-width:54px;flex:1}
+
+  #energyDrillView.energy-v2 .energy-hex{width:76px;height:70px;max-width:100%}
+
+  #energyDrillView.energy-v2 .energy-chip-grid{grid-template-columns:repeat(4,10px);gap:3px}
+
+  #energyDrillView.energy-v2 .energy-chip-grid i{width:10px;height:10px;font-size:6px}
+
+  #energyDrillView.energy-v2 .energy-node small{font-size:8px;margin-top:6px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-node em{display:none}
+
+  #energyDrillView.energy-v2 .energy-topo-foot{margin-top:12px;gap:36px;font-size:10px;flex:none}
+
+  #energyDrillView.energy-v2 .energy-power-scale{display:flex;align-items:center;gap:5px;padding:6px 10px;border-radius:7px;background:#242724}
+
+  #energyDrillView.energy-v2 .energy-power-scale i{width:34px;height:5px;border-radius:2px}
+
+  #energyDrillView.energy-v2 .energy-trend{height:164px;margin:14px 0 0!important;padding:13px 22px 10px!important;flex:none}
+
+  #energyDrillView.energy-v2 .energy-trend-head{justify-content:flex-start;align-items:center;gap:24px}
+
+  #energyDrillView.energy-v2 .energy-trend-legend{display:flex;gap:18px;color:#c1c6c0;font-size:10px}
+
+  #energyDrillView.energy-v2 .energy-trend-legend i{display:inline-block;width:15px;height:2px;margin-right:5px;vertical-align:3px}
+
+  #energyDrillView.energy-v2 .energy-chart-v2{position:relative;height:98px;margin-top:5px;padding:0 8px;border-bottom:1px solid #4b504b}
+
+  #energyDrillView.energy-v2 .energy-bars{position:absolute;inset:24px 8px 0;display:flex;align-items:flex-end;gap:3px}
+
+  #energyDrillView.energy-v2 .energy-bars i{flex:1;min-width:2px;background:#4e9ef4;border-radius:2px 2px 0 0}
+
+  #energyDrillView.energy-v2 .energy-bars i.future{background:transparent;border:1px solid #42a5f5;border-bottom:0}
+
+  #energyDrillView.energy-v2 .energy-chart-v2 svg{position:absolute;inset:0;width:100%;height:70px;overflow:visible}
+
+  #energyDrillView.energy-v2 .energy-now{position:absolute;left:50%;top:0;bottom:-8px;border-left:1px solid #d6d8d5}
+
+  #energyDrillView.energy-v2 .energy-now span{position:absolute;top:-16px;left:-20px;padding:2px 5px;background:#30332f;color:#fff;font-size:9px}
+
+  #energyDrillView.energy-v2 .energy-chart-label{font-size:8px;margin-top:4px}
+
+  @media(max-width:1250px){#energyDrillView.energy-v2{grid-template-columns:330px 1fr!important}#energyDrillView.energy-v2 .energy-main{padding-left:16px!important;padding-right:16px!important}#energyDrillView.energy-v2 .energy-overview{gap:12px}#energyDrillView.energy-v2 .energy-topology{padding-left:18px!important;padding-right:18px!important}#energyDrillView.energy-v2 .energy-instance-shell{padding:14px;gap:14px}#energyDrillView.energy-v2 .energy-hex{width:62px;height:57px}}
+
+  #energyDrillView.energy-v2{grid-template-columns:460px minmax(0,1fr)!important}
+
+  #energyDrillView.energy-v2 .energy-side{padding:0 16px 12px!important;background:linear-gradient(155deg,rgba(51,60,58,.94),rgba(27,31,29,.98) 48%,rgba(16,18,16,.99))!important;border-right:1px solid rgba(255,255,255,.09)}
+
+  #energyDrillView.energy-v2 .energy-head{min-height:66px;margin:0 -16px;padding:0 16px!important;background:linear-gradient(155deg,rgba(51,60,58,.99),rgba(31,36,34,.99));box-shadow:0 8px 16px rgba(12,14,12,.32)}
+
+  #energyDrillView.energy-v2 .energy-head-icon{width:38px;height:38px;border-radius:9px}
+
+  #energyDrillView.energy-v2 .energy-head h2{font-size:16px}
+
+  #energyDrillView.energy-v2 .energy-head p{font-size:12px}
+
+  #energyDrillView.energy-v2 .energy-side-scroll{padding-right:2px}
+
+  #energyDrillView.energy-v2 .energy-chat{height:42px;display:flex;align-items:center;flex:none;margin:8px 0 0!important;padding:0 7px 0 13px;border-radius:15px;border:1px solid transparent;background:linear-gradient(#22231f,#22231f) padding-box,linear-gradient(100deg,#ed756c,#e4ba62,#50c891,#739ed6,#a977d0) border-box;box-shadow:0 -10px 26px rgba(10,12,10,.45)}
+
+  #energyDrillView.energy-v2 .energy-chat span{flex:1;font-size:10px;color:#777d75}
+
+  #energyDrillView.energy-v2 .energy-chat button{width:29px;height:29px;border-radius:10px;background:#4a90f5;color:#fff}
+
+  #energyDrillView.energy-v2 .energy-overview-card,#energyDrillView.energy-v2 .energy-predict{cursor:pointer;transition:.2s}
+
+  #energyDrillView.energy-v2 .energy-predict{border-color:#338df0!important;box-shadow:0 0 0 1px rgba(51,141,240,.3),0 0 15px rgba(51,141,240,.09)}
+
+  #energyDrillView.energy-v2 .energy-overview-card.energy-selected,#energyDrillView.energy-v2 .energy-predict.energy-selected{border-color:#338df0!important;box-shadow:0 0 0 1px rgba(51,141,240,.3),0 0 15px rgba(51,141,240,.09)}
+
+  #energyDrillView.energy-v2 .energy-overview-card.energy-selected~.energy-predict{border-color:#30342f!important;box-shadow:none}
+
+  #energyDrillView.energy-v2 .energy-trend-head h3,#energyDrillView.energy-v2 .energy-trend-legend,#energyDrillView.energy-v2 .energy-chart-label{font-size:12px!important}
+
+  #energyDrillView.energy-v2 .energy-bars{gap:1px!important}
+
+  #energyDrillView.energy-v2 .energy-bars i{min-width:1px!important}
+
+  #energyDrillView.energy-v2 .energy-bars i.future{background:rgba(78,158,244,.04)!important;border:1px solid rgba(78,158,244,.72)!important;border-bottom:0!important}
+
+  #energyDrillView.energy-v2 .energy-now{border-left:2px solid #f3f4ef!important;filter:drop-shadow(0 0 5px rgba(255,255,255,.55))}
+
+  #energyDrillView.energy-v2 .energy-now span{top:-20px!important;left:-23px!important;padding:4px 8px!important;border:1px solid rgba(255,255,255,.28);border-radius:5px;background:#424842!important;font-size:12px!important;font-weight:700}
+
+  #energyDrillView.energy-v2 .energy-topo-foot{gap:14px!important;font-size:12px!important}
+
+  #energyDrillView.energy-v2 .energy-power-title{white-space:nowrap;color:#c4c9c3}
+
+  #energyDrillView.energy-v2 .energy-power-scale{position:relative;display:grid!important;grid-template-columns:repeat(4,70px);gap:8px!important;padding:4px 0 18px!important;background:transparent!important}
+
+  #energyDrillView.energy-v2 .energy-power-scale i{width:70px!important;height:8px!important;border-radius:4px!important}
+
+  #energyDrillView.energy-v2 .energy-power-scale small{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;color:#929991;font-size:10px}
+
+  #energyDrillView.energy-v2 .energy-node.power-low .energy-hex{background:#65c99d}
+.energy-node.power-low .energy-chip-grid i{background:#3faa7b}
+
+  #energyDrillView.energy-v2 .energy-node.power-mid .energy-hex{background:#7398ef}
+.energy-node.power-mid .energy-chip-grid i{background:#557bd1}
+
+  #energyDrillView.energy-v2 .energy-node.power-high .energy-hex{background:#f1c344}
+.energy-node.power-high .energy-chip-grid i{background:#c99d27;color:#fff7cb}
+
+  #energyDrillView.energy-v2 .energy-node.power-hot .energy-hex{background:#e87535}
+.energy-node.power-hot .energy-chip-grid i{background:#bd5423;color:#ffe2d2}
+
+  #energyDrillView.energy-v2 .energy-node .energy-hex:before{background:rgba(25,38,32,.7)}
+
+  @media(max-width:1250px){#energyDrillView.energy-v2{grid-template-columns:460px minmax(0,1fr)!important}}
+
+  .guardian #energyGain{font-size:14px!important;line-height:20px}
+
+
+  /* Energy opportunity and manual-action cards share one typography scale. */
+  #events .event-content>p:first-child{font-size:14px!important;line-height:20px!important;font-weight:500}
+
+
+  /* Energy detail review: sidebar, topology legend and synchronized trend. */
+  #energyDrillView.energy-v2 .energy-copy-section{border-bottom:0!important}
+
+  #energyDrillView.energy-v2 .energy-saving-facts{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+
+  #energyDrillView.energy-v2 .energy-saving-facts .energy-fact{position:relative;min-width:0;padding:12px 10px;border-color:rgba(74,214,157,.24);background:linear-gradient(145deg,rgba(62,200,143,.11),rgba(255,255,255,.025));overflow:hidden}
+
+  #energyDrillView.energy-v2 .energy-saving-facts .energy-fact:after{content:"";position:absolute;left:10px;right:10px;bottom:7px;height:2px;border-radius:2px;background:linear-gradient(90deg,#45d59a,rgba(69,213,154,.08))}
+
+  #energyDrillView.energy-v2 .energy-saving-facts span{font-size:10px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-saving-facts b{font-size:17px;padding-bottom:5px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-saving-facts small{font-size:9px;font-weight:400;color:#9da69f}
+
+  #energyDrillView.energy-v2 .energy-actions{justify-content:flex-end!important}
+
+  #energyDrillView.energy-v2 .energy-actions .energy-export{flex:0 1 142px}
+
+  #energyDrillView.energy-v2 .energy-actions .energy-apply{flex:0 0 auto!important;width:auto!important;padding-left:16px!important;padding-right:16px!important}
+
+
+  #energyDrillView.energy-v2 .energy-instance-shell{position:relative;grid-template-columns:259px 1fr!important;column-gap:68px!important;padding:20px 38px!important;border-color:#515151!important;border-radius:16px!important}
+
+  #energyDrillView.energy-v2 .energy-instance-shell:before{content:"";position:absolute;left:299px;top:0;bottom:0;width:1px;background:#515151}
+
+  #energyDrillView.energy-v2 .energy-instance-col{gap:24px!important}
+
+  #energyDrillView.energy-v2 .energy-instance-group>span{font-size:16px!important;line-height:22px;margin-bottom:12px!important;color:#fff}
+
+  #energyDrillView.energy-v2 .energy-node-row{padding:12px!important;border-color:#515151!important;border-radius:16px!important;background:#212121!important}
+
+  #energyDrillView.energy-v2 .energy-hex{width:88px!important;height:84px!important}
+
+  #energyDrillView.energy-v2 .energy-chip-grid{grid-template-columns:repeat(4,12px)!important;gap:3px!important}
+
+  #energyDrillView.energy-v2 .energy-chip-grid i{width:12px!important;height:12px!important;font-size:8px!important}
+
+  #energyDrillView.energy-v2 .energy-node small{font-size:10px!important;line-height:14px}
+
+  #energyDrillView.energy-v2 .energy-topo-foot{justify-content:center!important;gap:24px!important}
+
+  #energyDrillView.energy-v2 .energy-power-scale{display:grid!important;grid-template-columns:repeat(4,70px)!important;gap:8px!important}
+
+  #energyDrillView.energy-v2 .energy-power-scale i{display:block!important;width:70px!important;height:8px!important;opacity:1!important}
+
+
+  #energyDrillView.energy-v2 .energy-trend-head h3{font-size:16px!important;line-height:22px}
+
+  #energyDrillView.energy-v2 .energy-trend-legend{font-size:12px!important;line-height:18px;flex-wrap:wrap}
+
+  #energyDrillView.energy-v2 .energy-now span{writing-mode:horizontal-tb!important;white-space:nowrap!important;word-break:keep-all!important;min-width:38px;text-align:center;left:-20px!important}
+
+  #energyDrillView.energy-v2 .energy-bars i:not(.future){background:rgba(78,158,244,.8)!important}
+
+  #energyDrillView.energy-v2 .energy-bars i.future{background:rgba(78,158,244,.03)!important;border-color:rgba(78,158,244,.58)!important}
+
+  @media(max-width:1500px){
+    #energyDrillView.energy-v2 .energy-instance-shell{grid-template-columns:23% 1fr!important;column-gap:5%!important;padding-left:28px!important;padding-right:28px!important}
+    #energyDrillView.energy-v2 .energy-instance-shell:before{left:calc(28% + 28px)!important}
+    #energyDrillView.energy-v2 .energy-hex{width:72px!important;height:68px!important}
+    #energyDrillView.energy-v2 .energy-instance-group>span{font-size:13px!important}
+  }
+
+  #energyDrillView.energy-v2 .energy-instance-shell:before{left:331px!important}
+
+  #energyDrillView.energy-v2 .energy-node small{font-size:14px!important;line-height:18px!important}
+
+  #energyDrillView.energy-v2 .energy-hex{transform:rotate(60deg);transform-origin:center;transition:background .25s ease,transform .25s ease}
+
+  #energyDrillView.energy-v2 .energy-chip-grid{transform:rotate(-60deg)!important;transform-origin:center}
+
+  #energyDrillView.energy-v2 .energy-node.power-high .energy-hex{background:#65c99d!important}
+
+  #energyDrillView.energy-v2 .energy-node.power-high .energy-chip-grid i{background:#3faa7b!important;color:#eafff5!important}
+
+  #energyDrillView.energy-v2 .energy-node.power-hot .energy-hex{background:#e87535!important}
+
+  #energyDrillView.energy-v2 .energy-node.power-hot .energy-chip-grid i{background:#bd5423!important;color:#ffe2d2!important}
+
+  #energyDrillView.energy-v2 .energy-power-scale{transform:translateY(8px)}
+
+  #energyDrillView.energy-v2 .energy-overview-card,#energyDrillView.energy-v2 .energy-predict{cursor:pointer}
+
+  #energyDrillView.energy-v2 .energy-overview-card,#energyDrillView.energy-v2 .energy-predict{position:relative;transition:border-color .22s ease,box-shadow .22s ease,background .22s ease,transform .22s ease}
+
+  #energyDrillView.energy-v2 .energy-overview-card:hover,#energyDrillView.energy-v2 .energy-predict:hover{transform:translateY(-1px);border-color:#59635c!important}
+
+  #energyDrillView.energy-v2 .energy-predict.energy-selected{border-color:#41cc99!important;background:linear-gradient(135deg,rgba(47,101,75,.22),#1b1e1b 58%)!important;box-shadow:0 0 0 1px rgba(65,204,153,.24),0 0 18px rgba(65,204,153,.1)!important}
+
+  #energyDrillView.energy-v2 .energy-overview-card.energy-selected{border-color:#338df0!important;background:linear-gradient(135deg,rgba(45,91,135,.18),#1b1e1b 58%)!important}
+
+  #energyDrillView.energy-v2 .energy-overview-card.energy-selected:after,#energyDrillView.energy-v2 .energy-predict.energy-selected:after{content:"";position:absolute;left:50%;bottom:-7px;width:12px;height:12px;background:inherit;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:translateX(-50%) rotate(45deg);color:inherit}
+
+  #energyDrillView.energy-v2 .energy-overview{position:relative;gap:34px!important;margin-bottom:0;padding:14px 14px 18px;border:1px solid #30342f;border-bottom:0;border-radius:14px 14px 0 0;background:#1d1f1d}
+
+  #energyDrillView.energy-v2 .energy-overview:after{content:"V.S.";position:absolute;z-index:4;left:50%;top:50%;display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(115,152,239,.55);border-radius:50%;background:#252b29;color:#9ebcff;font-size:12px;font-weight:800;letter-spacing:.5px;box-shadow:0 0 16px rgba(82,132,224,.16);transform:translate(-50%,-50%)}
+
+  #energyDrillView.energy-v2 .energy-overview-card,#energyDrillView.energy-v2 .energy-predict{height:110px!important}
+
+  #energyDrillView.energy-v2 .energy-topology{margin-top:0!important;border-top-color:rgba(255,255,255,.06)!important;border-radius:0 0 14px 14px!important}
+
+  #energyDrillView.energy-v2 .energy-overview-card.energy-selected:before,#energyDrillView.energy-v2 .energy-predict.energy-selected:before{content:"";position:absolute;left:50%;top:100%;width:1px;height:19px;background:linear-gradient(currentColor,transparent);color:inherit;transform:translateX(-50%)}
+
+  #energyDrillView.energy-v2 .energy-overview{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
+
+  #energyDrillView.energy-v2 .energy-overview-card{border-color:#515151!important}
+
+  #energyDrillView.energy-v2 .energy-overview-card,#energyDrillView.energy-v2 .energy-predict{height:132px!important;padding:18px 28px!important}
+
+  #energyDrillView.energy-v2 .energy-overview-card>h3,#energyDrillView.energy-v2 .energy-predict>h3{display:flex;align-items:center;height:18px;margin:0 0 24px!important;line-height:18px}
+
+  #energyDrillView.energy-v2 .energy-metrics,#energyDrillView.energy-v2 .energy-predict-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))!important;align-items:start;gap:22px!important;margin:0!important}
+
+  #energyDrillView.energy-v2 .energy-metric,#energyDrillView.energy-v2 .energy-predict-item{min-width:0}
+
+  #energyDrillView.energy-v2 .energy-metric>span,#energyDrillView.energy-v2 .energy-predict-item>span{display:block;height:16px;line-height:16px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-metric>b,#energyDrillView.energy-v2 .energy-predict-item>b{display:block;margin-top:5px;line-height:22px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-node-row{padding:16px 14px!important;border:0!important;border-radius:10px!important;background:rgba(255,255,255,.028)!important;box-shadow:none!important}
+
+  #energyDrillView.energy-v2 .energy-hex{width:84px!important;height:97px!important;max-width:100%;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)!important;transform:rotate(60deg)!important;transform-origin:50% 50%!important}
+
+  #energyDrillView.energy-v2 .energy-chip-grid i.cpu:nth-last-child(2){grid-column:2!important}
+
+  #energyDrillView.energy-v2 .energy-chip-grid i.cpu:last-child{grid-column:3!important}
+
+  #energyDrillView.energy-v2 .energy-overview-card>h3:after{content:"空闲态策略已开启";display:inline-flex;align-items:center;height:18px;margin-left:8px;padding:0 7px;border-radius:6px;background:rgba(74,144,191,.16);color:#78bde8;font-size:10px;font-weight:500;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-overview{border-bottom:0!important}
+
+  #energyDrillView.energy-v2 .energy-topology{margin-top:-12px!important;padding-left:14px!important;padding-right:14px!important;border-top:0!important}
+
+  #energyDrillView.energy-v2 .energy-predict .predict-title:after{content:"智能体推荐";display:inline-flex;align-items:center;height:18px;margin-left:8px;padding:0 7px;border-radius:6px;background:rgba(65,204,153,.16);color:#50dba5;font-size:10px;font-weight:500;vertical-align:1px}
+
+  #energyDrillView.energy-v2 .energy-topo-head{min-height:26px}
+
+  #energyDrillView.energy-v2 .energy-topo-head h3{min-width:104px}
+
+  #energyDrillView.energy-v2 .energy-topo-head span{padding:3px 8px;border-radius:6px;background:rgba(255,255,255,.045)}
+
+  #energyDrillView.energy-v2 .energy-device-legend{display:flex;align-items:center;justify-content:center;gap:12px;margin:0;color:#aeb5ae;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-device-legend>span{display:inline-flex;align-items:center;gap:5px}
+
+  #energyDrillView.energy-v2 .energy-device-legend svg{width:18px;height:20px;overflow:visible}
+
+  #energyDrillView.energy-v2 .energy-device-legend polygon{fill:rgba(151,158,153,.18);stroke:#8f9691;stroke-width:1.5}
+
+  #energyDrillView.energy-v2 .energy-device-legend i{width:15px;height:15px;display:grid;place-items:center;border:1px solid #8f9691;background:#4a4f4b;color:#d6dad7;font-size:8px;font-style:normal;line-height:1}
+
+  #energyDrillView.energy-v2 .energy-power-title{margin-left:28px}
+
+  #energyDrillView.energy-v2 .energy-topo-foot{justify-content:center!important}
+
+  #energyDrillView.energy-v2 .energy-device-legend,#energyDrillView.energy-v2 .energy-power-title{font-size:11px!important}
+
+  #energyDrillView.energy-v2 .energy-power-scale small{font-size:10px!important}
+
+  #energyDrillView.energy-v2 .energy-trend-legend{gap:16px!important;font-size:13px!important;line-height:20px!important}
+
+  #energyDrillView.energy-v2 .energy-trend-legend i{width:18px!important;margin-right:6px!important}
+
+  #energyDrillView.energy-v2 .energy-chart-label{font-size:10px!important;color:#929a93!important}
+
+  #energyDrillView.energy-v2 .energy-trend{height:184px!important}
+
+  #energyDrillView.energy-v2 .energy-request-swatch{width:12px!important;height:8px!important;margin-right:6px!important;border:1px solid #4e9ef4!important;border-radius:2px;vertical-align:0!important}
+
+  #energyDrillView.energy-v2 .energy-request-swatch.actual{background:#4e9ef4!important}
+
+  #energyDrillView.energy-v2 .energy-request-swatch.forecast{background:transparent!important}
+
+  #energyDrillView.energy-v2 .energy-now-panel{position:absolute;z-index:6;top:-20px;left:10px;width:164px;padding:7px 10px 8px;border:1px solid rgba(255,255,255,.2);border-radius:7px;background:rgba(43,48,44,.97);box-shadow:0 6px 18px rgba(0,0,0,.28);filter:none;color:#aeb5ae;font-size:10px;line-height:17px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-now-panel strong{display:block;margin:0 -10px 6px;padding:0 10px 6px;border-bottom:1px solid rgba(255,255,255,.12);color:#fff;font-size:11px;line-height:16px}
+
+  #energyDrillView.energy-v2 .energy-now-panel p{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0}
+
+  #energyDrillView.energy-v2 .energy-now-panel b{color:#f2f5f1;font-size:11px;font-weight:650}
+
+  #energyDrillView.energy-v2 .energy-overview{margin-top:10px!important;padding-bottom:18px!important;border-color:#353a36!important;border-bottom:0!important;border-radius:14px 14px 0 0!important;background:#1d201e!important}
+
+  #energyDrillView.energy-v2 .energy-topology{min-height:380px!important;margin-top:-12px!important;border-color:#353a36!important;border-top:0!important;border-bottom:0!important;border-radius:0!important;background:#1d201e!important}
+
+  #energyDrillView.energy-v2 .energy-trend{height:178px!important;margin:0!important;padding-top:12px!important;border-color:#353a36!important;border-top:1px solid rgba(255,255,255,.1)!important;border-radius:0 0 14px 14px!important;background:#1d201e!important}
+
+  #energyDrillView.energy-v2 .energy-trend-head{min-height:22px}
+
+  #energyDrillView.energy-v2 .energy-chart-v2{height:112px!important;margin-top:4px!important}
+
+  #energyDrillView.energy-v2 .energy-chart-v2 svg{top:28px!important;height:70px!important}
+
+  #energyDrillView.energy-v2 .energy-bars{inset:52px 8px 0!important}
+
+  #energyDrillView.energy-v2 .energy-now{top:28px!important}
+
+  #energyDrillView.energy-v2 .energy-now-panel{top:-28px;left:0;width:auto;min-width:272px;height:28px;box-sizing:border-box;display:flex;align-items:center;gap:12px;padding:4px 9px;transform:translateX(-50%);border-radius:6px;font-size:9px;line-height:18px}
+
+  #energyDrillView.energy-v2 .energy-now-panel strong{display:block;flex:none;margin:0;padding:0 10px 0 0;border:0;border-right:1px solid rgba(255,255,255,.14);font-size:10px;line-height:18px}
+
+  #energyDrillView.energy-v2 .energy-now-panel p{display:flex;gap:5px;flex:none;margin:0;line-height:18px}
+
+  #energyDrillView.energy-v2 .energy-now-panel b{font-size:10px}
+
+  #energyDrillView.energy-v2 .energy-overview{margin-bottom:18px!important;padding:14px!important;border:1px solid #353a36!important;border-radius:14px!important;background:#181b19!important}
+
+  #energyDrillView.energy-v2 .energy-overview-card,#energyDrillView.energy-v2 .energy-predict{height:116px!important;padding-top:16px!important;padding-bottom:16px!important}
+
+  #energyDrillView.energy-v2 .energy-overview-card>h3,#energyDrillView.energy-v2 .energy-predict>h3{margin-bottom:18px!important}
+
+  #energyDrillView.energy-v2 .energy-topology{min-height:365px!important;margin-top:0!important;padding-top:0!important;border:1px solid #353a36!important;border-bottom:0!important;border-radius:14px 14px 0 0!important;overflow:hidden;background:#1d201e!important}
+
+  #energyDrillView.energy-v2 .energy-topo-head h3{min-width:128px!important}
+
+  #energyDrillView.energy-v2 .energy-trend{height:180px!important}
+
+  #energyDrillView.energy-v2 .energy-topology{position:relative;padding-top:14px!important}
+
+  #energyDrillView.energy-v2 .energy-topo-head{padding-right:500px}
+
+  #energyDrillView.energy-v2 .energy-instance-shell{grid-template-columns:minmax(0,1fr) minmax(0,3fr)!important;column-gap:40px!important}
+
+  #energyDrillView.energy-v2 .energy-instance-shell:before{left:calc(25% + 18px)!important}
+
+  #energyDrillView.energy-v2 .energy-instance-col:first-child .energy-node-row{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center}
+
+  #energyDrillView.energy-v2 .energy-instance-col:nth-child(2) .energy-node-row{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr));align-items:center}
+
+  #energyDrillView.energy-v2 .energy-node{width:100%;min-width:0!important}
+
+  #energyDrillView.energy-v2 .energy-topo-foot{position:absolute;z-index:3;top:8px;right:16px;display:grid!important;grid-template-columns:auto 304px;grid-template-rows:auto auto;column-gap:14px!important;row-gap:2px!important;margin:0!important}
+
+  #energyDrillView.energy-v2 .energy-device-legend{grid-column:1;grid-row:1/3;align-self:center}
+
+  #energyDrillView.energy-v2 .energy-power-title{grid-column:2;grid-row:1;margin:0!important;text-align:left}
+
+  #energyDrillView.energy-v2 .energy-power-scale{grid-column:2;grid-row:2}
+
+  #energyDrillView.energy-v2 .energy-trend-legend{font-size:15px!important;line-height:22px!important}
+
+  #energyDrillView.energy-v2 .energy-now-panel{min-width:320px;height:32px;font-size:11px;line-height:20px}
+
+  #energyDrillView.energy-v2 .energy-now-panel strong,#energyDrillView.energy-v2 .energy-now-panel b{font-size:12px;line-height:20px}
+
+  #energyDrillView.energy-v2 .energy-now-panel p{line-height:20px}
+
+  @media(max-width:1500px){
+    #energyDrillView.energy-v2 .energy-instance-shell:before{left:calc(25% + 18px)!important}
+    #energyDrillView.energy-v2 .energy-device-legend{gap:8px;font-size:10px}
+    #energyDrillView.energy-v2 .energy-topo-foot{gap:12px!important}
+  }
+
+  @media(max-width:1200px){
+    #energyDrillView.energy-v2 .energy-topo-head{padding-right:0;margin-bottom:48px}
+    #energyDrillView.energy-v2 .energy-topo-foot{top:42px;right:14px}
+    #energyDrillView.energy-v2 .energy-trend{height:194px!important}
+  }
+
+  #events .energy-report-entry{border:1px solid rgba(139,156,255,.16);background:linear-gradient(100deg,rgba(86,95,180,.08),transparent);cursor:pointer}
+
+  #events .energy-report-entry:hover{border-color:rgba(139,156,255,.35)!important;background:rgba(139,156,255,.07)!important}
+
+  #energyMonthlyReportView{position:absolute;inset:0;z-index:90;display:grid;grid-template-columns:430px minmax(0,1fr);background:#0b0e0d;color:#eef2ee;overflow:hidden}
+
+  #energyMonthlyReportView.hidden{display:none!important}
+
+  .emr-side{position:relative;display:flex;flex-direction:column;min-height:0;padding:20px 22px;border-right:1px solid #303532;background:radial-gradient(circle at 10% 8%,rgba(90,104,204,.12),transparent 28%),#141715}
+
+  .emr-side-head{display:flex;align-items:center;gap:12px;height:44px;border-bottom:1px solid #303532;padding-bottom:14}
+
+  .emr-back{width:30px;height:30px;border:1px solid #3a403c;border-radius:8px;background:#202421;color:#bbc3bd}
+
+  .emr-side-head b{font-size:15px}
+.emr-side-head small{display:block;margin-top:2px;color:#727a74;font-size:9px}
+
+  .emr-chat{flex:1;min-height:0;padding:22px 2px 12px;overflow:auto}
+
+  .emr-user{width:max-content;max-width:92%;margin-left:auto;padding:11px 14px;border-radius:12px 12px 3px 12px;background:#343936;color:#f4f6f4;font-size:12px}
+
+  .emr-agent{display:grid;grid-template-columns:30px 1fr;gap:10px;margin-top:20px}
+.emr-agent-logo{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:linear-gradient(135deg,#5c70dc,#39c99a);box-shadow:0 0 18px rgba(88,112,220,.24)}
+
+  .emr-answer>p{margin:2px 0 13px;color:#d7dcd8;font-size:12px;line-height:1.75}
+.emr-answer>p b{color:#fff}
+
+  .emr-steps{display:grid;gap:8px;margin-bottom:16px}
+.emr-step{display:flex;align-items:center;gap:8px;color:#9ba39d;font-size:10px}
+.emr-step i{width:16px;color:#45d6a0}
+.emr-step:last-child{color:#d2d8d3}
+.emr-step:last-child i{animation:emrPulse 1.3s infinite}
+@keyframes emrPulse{50%{opacity:.4}}
+
+  .emr-summary{padding:13px;border:1px solid #353b37;border-radius:11px;background:#1d211e}
+.emr-summary-head{display:flex;align-items:center;justify-content:space-between}
+.emr-summary-head b{font-size:12px}
+.emr-summary-head small{color:#7e8780;font-size:9px}
+.emr-summary-main{display:flex;align-items:end;gap:5px;margin:12px 0;color:#fff}
+.emr-summary-main b{font-size:26px}
+.emr-summary-main span{padding-bottom:4px;color:#9da59f;font-size:11px}
+.emr-summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:11px;border-top:1px solid #343a36}
+.emr-summary-grid span{color:#8d968f;font-size:9px}
+.emr-summary-grid b{display:block;margin-top:3px;color:#4bd6a2;font-size:15px}
+
+  .emr-file{display:flex;align-items:center;gap:10px;margin-top:12px;padding:11px;border:1px solid rgba(111,130,229,.28);border-radius:10px;background:rgba(83,98,181,.09)}
+.emr-file-icon{width:34px;height:38px;display:grid;place-items:center;border-radius:7px;background:linear-gradient(160deg,#7184ed,#5366c9);color:#fff}
+.emr-file-copy{min-width:0;flex:1}
+.emr-file-copy b{display:block;overflow:hidden;color:#e8ebff;font-size:10px;text-overflow:ellipsis;white-space:nowrap}
+.emr-file-copy small{color:#818a9d;font-size:9px}
+.emr-view-file{padding:6px 11px;border:1px solid #596675;border-radius:6px;background:#252b29;color:#dfe4e0;font-size:10px}
+
+  .emr-side-foot{padding-top:12px;border-top:1px solid #303532;color:#69716b;font-size:9px;text-align:center}
+
+  .emr-report{min-width:0;overflow-y:auto;background:radial-gradient(circle at 35% 0,rgba(57,128,155,.08),transparent 25%),#0d100f}
+.emr-report-inner{width:min(1320px,calc(100% - 64px));margin:0 auto;padding:32px 0 52px}
+
+  .emr-title-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px}
+.emr-kicker{color:#4dd4a0;font-size:10px;letter-spacing:2px}
+.emr-title-row h1{margin:7px 0 6px;font-size:27px;letter-spacing:.2px}
+.emr-title-row p{margin:0;color:#7e8881;font-size:10px}
+.emr-shield{display:flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid rgba(70,211,157,.25);border-radius:9px;background:rgba(70,211,157,.06);color:#5ae0ae;font-size:10px}
+
+  .emr-card{border:1px solid #2c322e;border-radius:13px;background:linear-gradient(145deg,rgba(28,33,30,.96),rgba(20,24,22,.96));box-shadow:0 14px 34px rgba(0,0,0,.14)}
+
+  .emr-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.emr-metric{position:relative;padding:17px 18px;overflow:hidden}
+.emr-metric:after{content:"";position:absolute;right:-20px;bottom:-34px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,var(--glow,rgba(77,212,160,.12)),transparent 70%)}
+.emr-metric span{color:#8d958f;font-size:10px}
+.emr-metric b{display:block;margin-top:10px;color:#f7f9f7;font-size:23px}
+.emr-metric b em{margin-left:4px;color:#7f8982;font-size:10px;font-style:normal;font-weight:400}
+.emr-metric small{display:block;margin-top:6px;color:#4bd5a0;font-size:9px}
+.emr-metric.purple b{color:#b0a6ff}
+.emr-metric.green b{color:#46dda6}
+.emr-metric.blue b{color:#75bfff}
+
+  .emr-section{margin-top:14px;padding:18px}
+.emr-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
+.emr-section-head h2{margin:0;font-size:14px}
+.emr-section-head p{margin:4px 0 0;color:#737c75;font-size:9px}
+.emr-section-head>span{color:#667069;font-size:9px}
+
+  .emr-guard-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px}
+.emr-assets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.emr-asset{padding:12px;border-radius:9px;background:#242925;border:1px solid #333a35}
+.emr-asset i{color:#6e9ff5}
+.emr-asset:nth-child(3) i{color:#42d5a0}
+.emr-asset:nth-child(4) i{color:#efbb65}
+.emr-asset b{display:block;margin:8px 0 2px;font-size:20px}
+.emr-asset span{color:#8a938c;font-size:9px}
+.emr-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.emr-action{padding:13px;border-left:2px solid #47d5a0;border-radius:7px;background:rgba(67,213,159,.06)}
+.emr-action.purple{border-color:#8e82ec;background:rgba(126,110,223,.06)}
+.emr-action span{color:#87918a;font-size:9px}
+.emr-action b{display:block;margin-top:6px;font-size:22px}
+.emr-action small{color:#4dd6a2;font-size:9px}
+
+  .emr-chart-wrap{position:relative}
+.emr-chart{position:relative;height:250px;overflow:hidden;border-radius:8px;background:linear-gradient(#1b211e,#171c19)}
+.emr-chart svg,.emr-combo-chart svg{display:block;width:100%;height:100%}
+.emr-legend{display:flex;gap:18px;color:#8b958d;font-size:9px}
+.emr-legend i{display:inline-block;width:15px;height:3px;margin-right:5px;border-radius:2px;background:#63b9fb;vertical-align:2px}
+.emr-legend .saved i{background:#43dba3}
+.emr-shared-line{position:absolute;z-index:4;top:12px;bottom:24px;left:var(--report-day-x,50%);width:1px;background:rgba(255,255,255,.55);pointer-events:none;opacity:0}
+.emr-chart-active .emr-shared-line{opacity:1}
+.emr-tip{position:fixed;z-index:110;display:none;min-width:190px;padding:10px 12px;border:1px solid #56615a;border-radius:8px;background:rgba(28,33,30,.98);box-shadow:0 12px 30px rgba(0,0,0,.4);font-size:10px;line-height:1.7;pointer-events:none}
+.emr-tip b{display:block;margin-bottom:4px;color:#fff}
+.emr-tip span{display:flex;justify-content:space-between;gap:18px;color:#9ba49d}
+.emr-tip em{color:#f0f3f1;font-style:normal}
+
+  .emr-gantt{display:grid;grid-template-columns:110px 1fr;row-gap:8px;align-items:center;margin-top:12px}
+.emr-gantt-label{color:#9ba49d;font-size:9px}
+.emr-gantt-track{position:relative;height:7px;border-radius:6px;background:#272d29}
+.emr-gantt-track i{position:absolute;height:7px;border-radius:5px;background:linear-gradient(90deg,#38ca96,#63e5b6);box-shadow:0 0 10px rgba(56,202,150,.16)}
+.emr-gantt-track.run i{background:linear-gradient(90deg,#568ee3,#8582ec)}
+
+  .emr-combos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.emr-combo-chart{position:relative;height:210px;border-radius:8px;background:#181d1a}
+.emr-combo-legend{display:flex;gap:14px;color:#879188;font-size:9px}
+.emr-combo-legend i{display:inline-block;width:13px;height:3px;margin-right:5px;background:#58b5f6;vertical-align:2px}
+.emr-combo-legend .second i{background:#48dba5}
+.emr-combo-legend .third i{background:#9a86ef}
+
+  .emr-table-wrap{overflow:hidden;border:1px solid #303632;border-radius:10px}
+.emr-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.emr-table th{height:34px;padding:0 10px;background:#202521;color:#737d75;font-size:9px;font-weight:500;text-align:left}
+.emr-table td{height:45px;padding:0 10px;border-top:1px solid #2b312d;color:#c5cbc6;font-size:9px}
+.emr-table td:first-child{color:#f0f3f0;font-weight:600}
+.emr-type{display:inline-flex;padding:3px 6px;border-radius:4px;background:rgba(74,183,232,.1);color:#59c7ea}
+.emr-type.train{background:rgba(233,177,84,.1);color:#e9b154}
+.emr-save{color:#4cdda7!important}
+.emr-ratio{display:flex;align-items:center;gap:7px}
+.emr-ratio-track{width:54px;height:4px;border-radius:4px;background:#303632}
+.emr-ratio-track i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#42d2a0,#69e6b7)}
+.emr-strategy{color:#a6b0aa}
+.emr-note{margin-top:10px;color:#657068;font-size:9px;text-align:right}
+
+  @media(max-width:1350px){#energyMonthlyReportView{grid-template-columns:360px 1fr}.emr-report-inner{width:calc(100% - 36px)}.emr-guard-grid{grid-template-columns:1fr}.emr-metric b{font-size:19px}}
+
+  #energyDrillView.energy-v2 .energy-chat input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:#e4e8e4;font:10px Inter,"PingFang SC",sans-serif}
+
+  #energyDrillView.energy-v2 .energy-chat input::placeholder{color:#777d75}
+
+  #energyDrillView.energy-v2 .energy-report-conversation{display:grid;gap:10px;padding:16px 0 4px;border-top:1px solid rgba(255,255,255,.08)}
+
+  #energyDrillView.energy-v2 .energy-report-user{justify-self:end;max-width:88%;padding:9px 11px;border-radius:10px 10px 3px 10px;background:#343a36;color:#f1f4f1;font-size:11px;line-height:17px}
+
+  #energyDrillView.energy-v2 .energy-report-agent{display:grid;grid-template-columns:27px 1fr;gap:8px}
+
+  #energyDrillView.energy-v2 .energy-report-agent-avatar{width:27px;height:27px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(135deg,#5a71db,#39c99b);color:#fff}
+
+  #energyDrillView.energy-v2 .energy-report-agent-body>p{margin:0 0 9px;color:#cbd1cc;font-size:11px;line-height:17px}
+
+  #energyDrillView.energy-v2 .energy-report-mini-steps{display:grid;gap:5px;margin-bottom:9px;color:#909a92;font-size:9px}
+
+  #energyDrillView.energy-v2 .energy-report-mini-steps i{width:13px;color:#47d5a0}
+
+  #energyDrillView.energy-v2 .energy-report-file-card{display:flex;align-items:center;gap:9px;padding:9px;border:1px solid rgba(115,133,231,.28);border-radius:9px;background:rgba(83,99,183,.1)}
+
+  #energyDrillView.energy-v2 .energy-report-file-card>i{width:31px;height:34px;display:grid;place-items:center;border-radius:7px;background:#596ed7;color:#fff}
+
+  #energyDrillView.energy-v2 .energy-report-file-card>span{min-width:0;flex:1}
+.energy-report-file-card b{display:block;overflow:hidden;color:#e8ebff;font-size:9px;text-overflow:ellipsis;white-space:nowrap}
+.energy-report-file-card small{color:#7e8796;font-size:8px}
+
+  #energyDrillView.energy-v2 .energy-report-open{padding:5px 9px;border:1px solid #687280;border-radius:6px;color:#dce1dd;font-size:9px}
+
+  #energyDrillView.energy-v2 .energy-main{padding:0!important;overflow:hidden!important}
+
+  #energyDrillView.energy-v2 .energy-browser-tabs{height:48px;display:flex;align-items:flex-end;gap:3px;padding:0 16px;border-bottom:1px solid #303632;background:#111512;flex:none}
+
+  #energyDrillView.energy-v2 .energy-browser-tab{position:relative;min-width:176px;height:35px;display:flex;align-items:center;gap:8px;padding:0 13px;border:1px solid transparent;border-radius:9px 9px 0 0;color:#7e8880;font-size:10px;text-align:left}
+
+  #energyDrillView.energy-v2 .energy-browser-tab i{color:#58d5a5}
+.energy-browser-tab.report-tab i{color:#8e9cff!important}
+
+  #energyDrillView.energy-v2 .energy-browser-tab.active{border-color:#343b36;border-bottom-color:#1a1f1b;background:#1a1f1b;color:#eef2ee}
+
+  #energyDrillView.energy-v2 .energy-browser-tab.active:after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:linear-gradient(90deg,#47d5a0,#7e8ff0)}
+
+  #energyDrillView.energy-v2 .energy-browser-tab.report-tab.hidden{display:none}
+
+  #energyDrillView.energy-v2 .energy-tab-page{display:none;min-height:0;flex:1;overflow-y:auto;padding:18px 28px 28px}
+
+  #energyDrillView.energy-v2 .energy-tab-page.active{display:flex;flex-direction:column}
+
+  #energyDrillView.energy-v2 .energy-report-tab-page{padding:0!important;background:#0d100f}
+
+  #energyDrillView.energy-v2 .energy-report-tab-page.active{display:block}
+
+  #energyDrillView.energy-v2 .energy-report-tab-page .emr-report-inner{width:calc(100% - 48px);padding-top:24px}
+
+  #energyDrillView.energy-v2 .energy-report-tab-page .emr-title-row h1{font-size:24px}
+
+  #energyDrillView.energy-v2 .energy-report-tab-page .emr-section{margin-top:12px}
+
+  #energyDrillView.energy-v2 .energy-inline-report-tip{position:fixed;z-index:150}
+
+  #energyDrillView.energy-v2 .energy-report-agent-avatar{overflow:hidden;border:1px solid rgba(100,221,183,.38);background:#111}
+
+  #energyDrillView.energy-v2 .energy-report-agent-avatar img{width:100%;height:100%;object-fit:contain}
+
+  #energyDrillView.energy-v2 .energy-report-agent-body>p{font-size:13px;line-height:20px}
+
+  #energyDrillView.energy-v2 .energy-report-mini-steps{gap:7px;font-size:12px;line-height:18px}
+
+  #energyDrillView.energy-v2 .energy-report-mini-steps i{width:16px}
+
+  #energyDrillView.energy-v2 .energy-report-user{font-size:13px;line-height:20px}
+
+  #energyDrillView.energy-v2 .energy-chat-overview{margin:12px 0;padding:12px;border:1px solid #3b443e;border-radius:10px;background:linear-gradient(135deg,rgba(64,210,157,.09),rgba(86,105,202,.06))}
+
+  #energyDrillView.energy-v2 .energy-chat-overview h4{margin:0 0 10px;font-size:13px;color:#f0f4f0}
+
+  #energyDrillView.energy-v2 .energy-chat-overview>div{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+
+  #energyDrillView.energy-v2 .energy-chat-overview span{color:#939d95;font-size:11px}
+
+  #energyDrillView.energy-v2 .energy-chat-overview b{display:block;margin-top:4px;color:#4cdda7;font-size:15px}
+.energy-chat-overview small{font-size:10px;color:#98a29a}
+
+  #energyDrillView.energy-v2 .energy-report-file-card b{font-size:11px}
+.energy-report-file-card small{font-size:10px}
+
+  #energyDrillView.energy-v2 .energy-report-open,#energyDrillView.energy-v2 .energy-report-download{height:28px;padding:0 9px;border:1px solid #687280;border-radius:6px;color:#e0e5e1;font-size:10px}
+
+  #energyDrillView.energy-v2 .energy-report-open{position:relative;z-index:4;pointer-events:auto!important;cursor:pointer}
+
+  #energyDrillView.energy-v2 .energy-report-download{width:29px;padding:0;color:#8ea3ff}
+
+  #energyDrillView.energy-v2 .energy-report-tab-close{margin-left:auto!important;padding:5px;color:#737d76!important;border-radius:5px}
+.energy-report-tab-close:hover{background:#373d39;color:#fff!important}
+
+  #energyDrillView.energy-v2 .energy-browser-tab.report-tab{min-width:220px}
+
+  #energyDrillView.energy-v2 .emr-title-row{align-items:center;margin-bottom:20px;padding:3px 2px 15px;border-bottom:1px solid #29322d}
+
+  #energyDrillView.energy-v2 .energy-report-tab-page .emr-title-row h1{margin:0 0 8px;font-size:26px!important}
+
+  #energyDrillView.energy-v2 .emr-title-row p{font-size:12px;color:#929c94}
+
+  #energyDrillView.energy-v2 .emr-download{display:flex;align-items:center;gap:8px;height:34px;padding:0 14px;border:1px solid rgba(103,133,239,.48);border-radius:8px;background:linear-gradient(135deg,rgba(75,101,196,.22),rgba(55,196,151,.1));color:#dfe6ff;font-size:12px}
+
+  #energyDrillView.energy-v2 .emr-metric{min-height:112px;padding:18px 18px 16px 60px}
+
+  #energyDrillView.energy-v2 .emr-metric-icon{position:absolute;left:18px;top:19px;width:30px;height:30px;display:grid;place-items:center;border:1px solid rgba(103,184,244,.28);border-radius:8px;background:rgba(81,156,221,.12);color:#78c2fa;font-size:14px}
+
+  #energyDrillView.energy-v2 .emr-metric.green .emr-metric-icon{color:#4ee0aa;background:rgba(67,211,158,.12)}
+#energyDrillView.energy-v2 .emr-metric.purple .emr-metric-icon{color:#b1a7ff;background:rgba(142,130,236,.12)}
+
+  #energyDrillView.energy-v2 .emr-metric span{font-size:12px}
+.energy-report-tab-page .emr-metric b{font-size:25px}
+.energy-report-tab-page .emr-metric b em{font-size:12px}
+.energy-report-tab-page .emr-metric small{font-size:11px}
+
+  #energyDrillView.energy-v2 .emr-section{padding:20px}
+.energy-report-tab-page .emr-section-head h2{font-size:17px}
+.energy-report-tab-page .emr-section-head{margin-bottom:16px}
+
+  #energyDrillView.energy-v2 .emr-guard-grid{grid-template-columns:1fr 1.15fr;align-items:stretch;gap:12px}
+
+  #energyDrillView.energy-v2 .emr-assets{gap:6px}
+.energy-report-tab-page .emr-asset{display:grid;grid-template-columns:20px 1fr;grid-template-rows:auto auto;column-gap:7px;align-content:center;padding:8px 9px}
+.energy-report-tab-page .emr-asset i{grid-row:1/3}
+.energy-report-tab-page .emr-asset b{margin:0;font-size:16px}
+.energy-report-tab-page .emr-asset span{font-size:10px}
+
+  #energyDrillView.energy-v2 .emr-actions{grid-template-columns:.7fr 1.3fr}
+.energy-report-tab-page .emr-action{padding:11px 13px}
+.energy-report-tab-page .emr-action span{font-size:11px}
+.energy-report-tab-page .emr-action b{font-size:19px}
+.energy-report-tab-page .emr-action b em{font-size:11px;color:#89938c;font-style:normal;font-weight:400}
+.energy-report-tab-page .emr-action.purple{position:relative;border:1px solid rgba(77,220,166,.42);background:linear-gradient(135deg,rgba(62,210,153,.14),rgba(93,105,213,.11))}
+.energy-report-tab-page .emr-action.purple strong{position:absolute;right:15px;top:50%;color:#4ee0aa;font-size:25px;transform:translateY(-50%)}
+
+  #energyDrillView.energy-v2 .emr-chart{height:290px}
+.energy-report-tab-page .emr-combo-chart{height:235px}
+.energy-report-tab-page .emr-legend,.energy-report-tab-page .emr-combo-legend{font-size:11px}
+.energy-report-tab-page .emr-gantt-label{font-size:11px}
+
+  #energyDrillView.energy-v2 .emr-table th{font-size:11px;height:38px}
+.energy-report-tab-page .emr-table td{font-size:11px;height:48px}
+.energy-report-tab-page .emr-type{font-size:10px}
+
+  #energyDrillView.energy-v2 .emr-note{display:none}
+
+  /* Restore the compact topology legend used before the monthly-report tab work. */
+  #energyDrillView.energy-v2 .energy-topology{position:relative!important}
+
+  #energyDrillView.energy-v2 .energy-topo-head{padding-right:500px!important;margin-bottom:0!important}
+
+  #energyDrillView.energy-v2 .energy-topo-foot{position:absolute!important;z-index:5!important;top:10px!important;right:16px!important;display:grid!important;grid-template-columns:auto 304px!important;grid-template-rows:auto auto!important;align-items:center!important;column-gap:14px!important;row-gap:2px!important;width:auto!important;margin:0!important;padding:0!important;background:transparent!important;border:0!important}
+
+  #energyDrillView.energy-v2 .energy-device-legend{grid-column:1!important;grid-row:1/3!important;display:flex!important;align-items:center!important;gap:10px!important;margin:0!important;color:#aeb5ae!important;font-size:11px!important;white-space:nowrap!important}
+
+  #energyDrillView.energy-v2 .energy-device-legend svg{width:18px!important;height:20px!important}
+.energy-device-legend i{width:15px!important;height:15px!important;font-size:8px!important}
+
+  #energyDrillView.energy-v2 .energy-power-title{grid-column:2!important;grid-row:1!important;margin:0!important;color:#c4c9c3!important;font-size:11px!important;line-height:14px!important;text-align:left!important;white-space:nowrap!important}
+
+  #energyDrillView.energy-v2 .energy-power-scale{grid-column:2!important;grid-row:2!important;display:grid!important;grid-template-columns:repeat(4,70px)!important;gap:8px!important;width:304px!important;margin:0!important;padding:4px 0 18px!important;background:transparent!important;transform:none!important}
+
+  #energyDrillView.energy-v2 .energy-power-scale i{display:block!important;width:70px!important;height:8px!important;border-radius:4px!important}
+.energy-power-scale small{font-size:10px!important}
+
+  @media(max-width:1250px){#energyDrillView.energy-v2 .energy-topo-head{padding-right:0!important;margin-bottom:48px!important}#energyDrillView.energy-v2 .energy-topo-foot{top:44px!important;right:14px!important;transform:scale(.84);transform-origin:top right}}
+
+  #energyDrillView.energy-v2 .energy-browser-tabs.report-tabs-closed{display:none!important}
+
+  #energyDrillView.energy-v2 .energy-report-tab-page .emr-report-inner{font-size:14px}
+
+  #energyDrillView.energy-v2 .emr-title-row p{font-size:14px!important;line-height:20px}
+
+  #energyDrillView.energy-v2 .emr-metric span{font-size:14px!important}
+.energy-report-tab-page .emr-metric small{font-size:13px!important;line-height:18px}
+.energy-report-tab-page .emr-metric b em{font-size:14px!important}
+
+  #energyDrillView.energy-v2 .energy-report-tab-page .emr-section-head h2{font-size:19px!important}
+.energy-report-tab-page .emr-legend,.energy-report-tab-page .emr-combo-legend,.energy-report-tab-page .emr-gantt-label{font-size:13px!important}
+
+  #energyDrillView.energy-v2 .emr-guard-flow{display:grid;grid-template-columns:minmax(0,1.25fr) 34px minmax(0,.75fr);align-items:stretch;gap:10px}
+
+  #energyDrillView.energy-v2 .emr-guard-stage{padding:12px;border:1px solid #343d37;border-radius:10px;background:rgba(255,255,255,.018)}
+
+  #energyDrillView.energy-v2 .emr-guard-stage h3{display:flex;align-items:center;gap:7px;margin:0 0 10px;color:#aeb8b0;font-size:13px;font-weight:600}
+.energy-report-tab-page .emr-guard-stage h3 i{color:#6fa9ed}
+
+  #energyDrillView.energy-v2 .emr-guard-arrow{align-self:center;color:#4ed8a3;font-size:18px;text-align:center}
+
+  #energyDrillView.energy-v2 .emr-closed-loop{border-color:rgba(73,214,160,.3);background:linear-gradient(135deg,rgba(61,199,147,.07),rgba(99,106,206,.05))}
+
+  #energyDrillView.energy-v2 .emr-guard-stage .emr-assets{grid-template-columns:repeat(4,minmax(0,1fr))}
+.energy-report-tab-page .emr-guard-stage .emr-actions{grid-template-columns:.72fr 1.28fr}
+
+  #energyDrillView.energy-v2 .emr-table th{font-size:13px!important}
+.energy-report-tab-page .emr-table td{font-size:13px!important}
+.energy-report-tab-page .emr-type{font-size:12px!important}
+
+  #energyDrillView.energy-v2 .energy-report-conversation.is-streaming .energy-report-user,#energyDrillView.energy-v2 .energy-report-conversation.is-streaming .energy-report-agent-avatar,#energyDrillView.energy-v2 .energy-report-conversation.is-streaming .energy-report-agent-body>p,#energyDrillView.energy-v2 .energy-report-conversation.is-streaming .energy-report-mini-steps>span,#energyDrillView.energy-v2 .energy-report-conversation.is-streaming .energy-chat-overview,#energyDrillView.energy-v2 .energy-report-conversation.is-streaming .energy-report-file-card{opacity:0;transform:translateY(8px);animation:energyReportLineIn .38s ease forwards}
+
+  #energyDrillView.energy-v2 .energy-report-conversation.is-streaming .energy-report-user{animation-delay:0s}
+.energy-report-conversation.is-streaming .energy-report-agent-avatar{animation-delay:.28s}
+.energy-report-conversation.is-streaming .energy-report-agent-body>p{animation-delay:.38s}
+.energy-report-conversation.is-streaming .energy-report-mini-steps>span:nth-child(1){animation-delay:.72s}
+.energy-report-conversation.is-streaming .energy-report-mini-steps>span:nth-child(2){animation-delay:1.02s}
+.energy-report-conversation.is-streaming .energy-report-mini-steps>span:nth-child(3){animation-delay:1.32s}
+.energy-report-conversation.is-streaming .energy-report-mini-steps>span:nth-child(4){animation-delay:1.62s}
+.energy-report-conversation.is-streaming .energy-chat-overview{animation-delay:1.95s}
+.energy-report-conversation.is-streaming .energy-report-file-card{animation-delay:2.25s}
+
+  @keyframes energyReportLineIn{to{opacity:1;transform:none}}
+
+  /* Final energy/detail polish from browser review. */
+  #energyDrillView.energy-v2 .energy-topo-head{padding-right:0!important;gap:10px!important}
+
+  #energyDrillView.energy-v2 .energy-topo-head h3{margin-right:6px!important}
+.energy-topo-head span{margin:0!important}
+
+  #energyDrillView.energy-v2 .energy-topo-foot{position:static!important;display:flex!important;align-items:flex-end!important;justify-content:center!important;gap:24px!important;width:100%!important;margin:14px 0 0!important;padding:12px 8px 2px!important;border-top:1px solid rgba(255,255,255,.08)!important;transform:none!important}
+
+  #energyDrillView.energy-v2 .energy-device-legend{display:flex!important;gap:10px!important}
+.energy-topo-foot .energy-power-title{display:block!important;margin:0 0 5px!important}
+.energy-topo-foot .energy-power-scale{display:grid!important;margin:0!important}
+
+  #energyDrillView.energy-v2 .energy-strategy.active:after{display:none!important}
+
+  #energyDrillView.energy-v2 .energy-strategy-title>span{display:none!important}
+
+  #energyDrillView.energy-v2 .energy-strategy-grid span{font-size:10px!important}
+.energy-strategy-grid b{font-size:13px!important}
+
+  #energyDrillView.energy-v2 .energy-export{display:none!important}
+.energy-inline-actions{justify-content:flex-end!important}
+.energy-inline-actions .energy-apply{min-width:92px!important;flex:0 0 92px!important}
+
+  #energyDrillView.energy-v2 .energy-inline-actions .energy-apply{font-size:0!important}
+.energy-inline-actions .energy-apply:after{content:"应用";font-size:12px!important}
+
+  #energyDrillView.energy-v2 .energy-trend-legend{font-size:17px!important;gap:18px!important}
+
+  #energyDrillView.energy-v2 .energy-head-icon{background:linear-gradient(145deg,#43d6a0,#2ca77c)!important;box-shadow:0 0 18px rgba(67,214,160,.25)!important}
+
+  #energyDrillView.energy-v2 .energy-report-conversation{border-top:0!important}
+
+  #energyDrillView.energy-v2 .energy-report-file-card{min-height:62px;padding:12px!important;gap:11px!important}
+.energy-report-file-card>i{width:38px!important;height:42px!important;font-size:15px!important}
+.energy-report-file-card b{font-size:13px!important}
+.energy-report-file-card small{font-size:11px!important}
+.energy-report-open{height:32px!important;font-size:11px!important}
+
+  #energyDrillView.energy-v2 .energy-chip-grid{grid-template-columns:repeat(4,14px)!important;gap:3px!important}
+.energy-chip-grid i{width:14px!important;height:14px!important;font-size:9px!important}
+.energy-node .energy-hex{width:94px!important;height:108px!important}
+
+  #energyDrillView.energy-v2 .emr-metrics{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:9px!important}
+.energy-report-tab-page .emr-metric{padding-left:52px!important}
+.energy-report-tab-page .emr-metric b,.energy-report-tab-page .emr-save,.energy-report-tab-page .emr-ratio b,.energy-report-tab-page .emr-loop-metric small{color:#fff!important}
+.energy-report-tab-page .emr-price-note{color:#909a93!important}
+
+  #energyDrillView.energy-v2 .emr-guard-scope{margin-top:7px!important;color:#a7b0aa!important}
+.energy-report-tab-page .emr-guard-scope i{color:#5aa887}
+
+  #energyDrillView.energy-v2 .energy-report-tab-page .emr-section-head h2{font-size:15px!important}
+
+  #energyDrillView.energy-v2 .energy-report-tab-page .emr-report-inner>.emr-section:last-child .emr-section-head h2{font-size:0!important}
+.energy-report-tab-page .emr-report-inner>.emr-section:last-child .emr-section-head h2:after{content:"服务节能效果排行";font-size:15px!important}
+
+  #energyDrillView.energy-v2 .emr-day-chart svg text{font-size:11px!important;font-weight:400!important;fill:#89948d!important}
+
+  #energyDrillView.energy-v2 .emr-chart svg rect[fill*="energyGrad"]{opacity:.82}
+.energy-report-tab-page .emr-chart svg rect[fill*="savedHatch"]{opacity:.74}
+.energy-report-tab-page .emr-combo-chart svg rect{opacity:.65}
+.energy-report-tab-page .emr-combo-chart svg polyline{opacity:.82}
+
+  #energyDrillView.energy-v2 .emr-local-tip{position:absolute;z-index:7;top:12px;left:calc(var(--report-day-x,50%) + 8px);display:none;min-width:142px;padding:8px 10px;border:1px solid #4b5750;border-radius:7px;background:rgba(25,30,27,.96);box-shadow:0 8px 20px rgba(0,0,0,.3);color:#9ba59e;font-size:10px;line-height:17px;pointer-events:none}
+.emr-chart-active .emr-local-tip{display:block}
+.emr-local-tip b{display:block;color:#fff}
+.emr-local-tip span{display:flex;justify-content:space-between;gap:12px}
+.emr-local-tip em{color:#fff;font-style:normal}
+
+  #energyDrillView.energy-v2 .energy-strategy-tab-page{padding-left:12px!important;padding-right:12px!important}
+
+  #energyDrillView.energy-v2 .energy-chat{height:54px!important;margin-top:10px!important;padding:0 9px 0 16px!important;border-radius:16px!important}
+
+  #energyDrillView.energy-v2 .energy-chat input{font-size:13px!important;line-height:20px!important;font-weight:500}
+
+  #energyDrillView.energy-v2 .energy-chat input::placeholder{font-size:13px!important;color:#8d958e!important}
+
+  #energyDrillView.energy-v2 .energy-chat button{width:36px!important;height:36px!important;border-radius:11px!important;font-size:14px!important}
+
+  #energyDrillView.energy-v2{column-gap:12px!important;background:#0b0d0b!important}
+
+  #energyDrillView.energy-v2 .energy-main{margin-right:12px!important}
+
+  #energyDrillView.energy-v2 .energy-topo-foot{align-items:center!important}
+
+  #energyDrillView.energy-v2 .energy-topo-foot .energy-power-title{align-self:center!important;margin:0!important}
+
+  #energyDrillView.energy-v2 .energy-strategy h4{font-size:15px!important}
+.energy-strategy-grid span{font-size:12px!important}
+.energy-strategy-grid b{font-size:15px!important}
+
+  #energyDrillView.energy-v2 .energy-inline-actions .energy-apply:after{font-size:14px!important}
+
+  #energyDrillView.energy-v2 .energy-trend-legend{font-size:19px!important}
+
+  #energyDrillView.energy-v2 .energy-report-tab-page .emr-title-row{align-items:flex-start!important}
+
+  #energyDrillView.energy-v2 .energy-report-tab-page .emr-title-row>div>p:first-of-type{display:none!important}
+
+  #energyDrillView.energy-v2 .emr-loop-metric{border-color:rgba(118,133,224,.38)!important;background:radial-gradient(circle at 88% 20%,rgba(120,86,188,.1),transparent 38%),linear-gradient(145deg,rgba(31,36,34,.98),rgba(20,25,23,.98))!important}
+
+  #energyDrillView.energy-v2 .emr-loop-metric .emr-metric-icon{border-color:rgba(139,121,224,.32)!important;background:linear-gradient(135deg,rgba(88,159,224,.16),rgba(157,101,207,.14))!important;color:#9fa8ee!important}
+
+  #energyDrillView.energy-v2 .emr-loop-metric>span{font-size:0!important}
+.energy-report-tab-page .emr-loop-metric>span:after{content:"策略生效";font-size:14px!important}
+
+  #energyDrillView.energy-v2 .emr-local-tip{display:block!important;opacity:0;visibility:hidden;transition:opacity .12s ease}
+.emr-chart-active .emr-local-tip{opacity:1!important;visibility:visible!important}
+
+  #energyDrillView.energy-v2 .energy-main{margin:12px 18px 12px 0!important;border-radius:12px!important;overflow:hidden!important}
+
+  #energyDrillView.energy-v2 .energy-browser-tab{font-size:12px!important;min-width:194px!important}
+.energy-browser-tab.report-tab{min-width:244px!important}
+
+  #energyDrillView.energy-v2 .emr-loop-metric{position:relative;border:1px solid transparent!important;background:linear-gradient(#1b201e,#171b19) padding-box,linear-gradient(120deg,rgba(70,203,157,.48),rgba(100,137,222,.4),rgba(159,103,204,.35)) border-box!important;box-shadow:inset 0 0 22px rgba(94,121,196,.045)!important}
+
+  #energyDrillView.energy-v2 .emr-loop-metric:before{content:"智能体守护成效";position:absolute;right:11px;top:9px;padding:3px 6px;border-radius:5px;background:linear-gradient(90deg,rgba(65,199,151,.12),rgba(132,103,203,.12));color:#aeb9d7;font-size:9px}
+
+  #energyDrillView.energy-v2 .emr-price-editor{display:flex;align-items:center;gap:5px;margin-top:5px;color:#929c95;font-size:11px}
+.energy-report-tab-page .emr-price-editor input{width:48px;height:22px;padding:0 5px;border:1px solid #4a554e;border-radius:5px;background:#111613;color:#fff;font-size:11px;text-align:center;outline:none}
+.energy-report-tab-page .emr-price-editor input:focus{border-color:#65a9e9}
+
+  #energyDrillView.energy-v2 .emr-income-delta{display:block;margin-top:4px;color:#4dd8a3!important;font-size:11px!important}
+
+  #energyDrillView.energy-v2 .emr-metric:nth-child(4){position:relative;padding-top:38px!important}
+
+  #energyDrillView.energy-v2 .emr-price-editor{position:absolute;right:12px;top:10px;margin:0!important;padding:3px 7px;border:1px solid rgba(117,131,123,.35);border-radius:6px;background:rgba(10,14,12,.58);color:#9aa39d!important;font-size:10px!important}
+
+  #energyDrillView.energy-v2 .emr-price-editor input{width:42px;height:20px;padding:0 4px;border:0;border-bottom:1px solid rgba(101,169,233,.55);border-radius:0;background:transparent;font-size:11px}
+
+  #energyDrillView.energy-v2 .emr-loop-metric:before{right:46px!important}
+
+  #energyDrillView.energy-v2 .emr-loop-orb{position:absolute;right:11px;top:8px;width:28px;height:28px;border-radius:50%;object-fit:cover;filter:saturate(.92);box-shadow:0 0 0 1px rgba(105,210,181,.26),0 0 16px rgba(90,164,210,.15)}
+
+  #energyDrillView.energy-v2 .emr-price-editor input{width:30px!important;padding:0 2px!important}
+
+  #energyDrillView.energy-v2 .emr-loop-metric:before{content:none!important}
+
+  #energyDrillView.energy-v2 .emr-loop-metric>.emr-metric-icon{display:none!important}
+
+  #energyDrillView.energy-v2 .emr-metric:nth-child(4){padding-top:18px!important}
+
+  #energyDrillView.energy-v2 .emr-price-editor{display:none!important}
+
+  #energyDrillView.energy-v2 .emr-loop-orb{left:16px!important;right:auto!important;top:15px!important;width:36px!important;height:36px!important}
+
+  #energyDrillView.energy-v2 .emr-table tbody tr:nth-child(1) .emr-ratio-track>i{width:100%!important}
+
+  #energyDrillView.energy-v2 .emr-table tbody tr:nth-child(2) .emr-ratio-track>i{width:95%!important}
+
+  #energyDrillView.energy-v2 .emr-table tbody tr:nth-child(3) .emr-ratio-track>i{width:90%!important}
+
+  #energyDrillView.energy-v2 .emr-table tbody tr:nth-child(4) .emr-ratio-track>i{width:85%!important}
+
+  #energyDrillView.energy-v2 .emr-table tbody tr:nth-child(5) .emr-ratio-track>i{width:80%!important}
+
+  #energyDrillView.energy-v2 .emr-table tbody tr:nth-child(6) .emr-ratio-track>i{width:75%!important}
+
+  #energyDrillView.energy-v2 .energy-predict-item:nth-child(3) .energy-delta{color:#e9b85b!important}
+
+  #energyDrillView.energy-v2.energy-monitor-active .energy-strategy{opacity:.48;pointer-events:none}
+
+  #energyDrillView.energy-v2.energy-monitor-active .energy-strategy[data-strategy="balanced"]{opacity:1;border-color:#48d6a0!important;box-shadow:0 0 0 1px rgba(72,214,160,.2),0 0 14px rgba(72,214,160,.1)!important}
+
+  #energyDrillView.energy-v2.energy-monitor-active .energy-inline-actions .energy-apply{background:#333936!important;color:#818a83!important;box-shadow:none!important;cursor:default}
+
+  #energyDrillView.energy-v2.energy-monitor-active .energy-inline-actions .energy-apply:after{content:"已应用"!important}
+
+  #energyDrillView.energy-v2 .energy-chat{display:flex!important}
+
+  #energyDrillView.energy-v2 .energy-apply-feedback{margin:12px 0 16px;padding:0;border:0}
+
+  #energyDrillView.energy-v2 .energy-feedback-user{width:max-content;max-width:82%;margin:0 0 12px auto;padding:8px 12px;border:1px solid rgba(150,160,153,.34);border-radius:11px 11px 3px 11px;background:rgba(100,108,103,.2);color:#eef2ef;font-size:12px}
+
+  #energyDrillView.energy-v2 .energy-feedback-agent{padding:2px 4px 0;border:0;border-radius:0;background:transparent;box-shadow:none;color:#dce5df;font-size:12px;line-height:1.65}
+
+  #energyDrillView.energy-v2 .energy-feedback-agent>p{margin:0 0 8px}
+
+  #energyDrillView.energy-v2 .energy-feedback-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;color:#52dda6;font-size:13px;font-weight:700}
+
+  #energyDrillView.energy-v2 .energy-feedback-head i{display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:#36bd87;color:#fff;font-size:10px}
+
+  #energyDrillView.energy-v2 .energy-feedback-steps{position:relative;margin-top:7px;padding-left:20px}
+
+  #energyDrillView.energy-v2 .energy-feedback-steps:before{content:"";position:absolute;left:5px;top:7px;bottom:8px;width:1px;background:rgba(72,214,160,.45)}
+
+  #energyDrillView.energy-v2 .energy-feedback-step{position:relative;margin:7px 0;color:#aeb9b1}
+
+  #energyDrillView.energy-v2 .energy-feedback-step:before{content:"";position:absolute;left:-18px;top:7px;width:7px;height:7px;border-radius:50%;background:#4bd89f;box-shadow:0 0 0 3px rgba(75,216,159,.12)}
+
+  #energyDrillView.energy-v2 .energy-feedback-step b{display:block;color:#edf3ef;font-weight:650}
+
+
+  #energyDrillView.energy-v2.energy-monitor-active .energy-overview{display:block!important;margin:10px 0 14px!important;padding:0!important;border:0!important;background:transparent!important}
+
+  #energyDrillView.energy-v2.energy-monitor-active .energy-overview:after{display:none!important}
+
+  #energyDrillView.energy-v2 .energy-monitor-card{height:126px;padding:16px 20px;border:1px solid #3a413c;border-radius:13px;background:linear-gradient(135deg,rgba(38,54,46,.64),#1b1f1c 58%);box-sizing:border-box}
+
+  #energyDrillView.energy-v2 .energy-monitor-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+
+  #energyDrillView.energy-v2 .energy-monitor-head h3{font-size:14px;font-weight:700;color:#f1f5f2}
+
+  #energyDrillView.energy-v2 .energy-monitor-tags{display:flex;gap:8px}
+
+  #energyDrillView.energy-v2 .energy-monitor-tags span{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 9px;border-radius:7px;background:rgba(64,210,151,.13);border:1px solid rgba(64,210,151,.25);color:#59dca8;font-size:10px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-monitor-tags i{font-size:7px}
+
+  #energyDrillView.energy-v2 .energy-service .energy-monitor-tags{margin-left:2px}
+
+  #energyDrillView.energy-v2 .energy-monitor-metrics{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:14px}
+
+  #energyDrillView.energy-v2 .energy-live-metric{min-width:0}
+
+  #energyDrillView.energy-v2 .energy-live-metric>span{display:block;color:#9ca69e;font-size:12px;line-height:16px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-live-value{display:flex;align-items:center;gap:7px;margin-top:5px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-live-value b{color:#f4f7f4;font-size:19px;line-height:24px}
+
+  #energyDrillView.energy-v2 .energy-live-value small{margin-left:3px;color:#a0aaa2;font-size:10px}
+
+  #energyDrillView.energy-v2 .energy-spark{width:42px;height:18px;overflow:visible;flex:none}
+
+  #energyDrillView.energy-v2 .energy-spark path{fill:none;stroke:#54dca7;stroke-width:1.5;vector-effect:non-scaling-stroke}
+
+  #energyDrillView.energy-v2.energy-monitor-active .energy-topology{margin-top:0!important}
+
+  #energyDrillView.energy-v2.energy-monitor-active .energy-topo-head h3{min-width:auto!important;font-size:0!important}
+
+  #energyDrillView.energy-v2.energy-monitor-active .energy-topo-head h3:after{content:"当前运行拓扑";font-size:15px!important}
+
+  #energyDrillView.energy-v2.energy-monitor-active .energy-trend-head h3{font-size:0!important}
+
+  #energyDrillView.energy-v2.energy-monitor-active .energy-trend-head h3:after{content:"节能实时监控";font-size:16px!important}
+
+  #energyDrillView.energy-v2 .energy-chart-v2 .energy-live-line{fill:none;stroke:#55d58f;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+
+  #energyDrillView.energy-v2 .energy-bars i.energy-observed{background:#4e9ef4!important;border:0!important}
+
+  #energyDrillView.energy-v2.energy-monitor-active .energy-now-panel{border-color:rgba(85,213,143,.35)!important}
+
+  #energyDrillView.energy-v2 .energy-deploy-marker{position:absolute;z-index:5;left:50%;top:28px;bottom:0;border-left:1px dashed rgba(85,213,143,.72);pointer-events:none}
+
+  #energyDrillView.energy-v2 .energy-deploy-marker span{position:absolute;left:7px;top:42px;padding:3px 7px;border:1px solid rgba(85,213,143,.32);border-radius:5px;background:rgba(27,43,35,.94);color:#62dda9;font-size:9px;line-height:14px;white-space:nowrap}
+
+  #energyDrillView.energy-v2 .energy-chat button:disabled{background:#3a403c!important;color:#747c76!important;box-shadow:none!important;cursor:default!important;opacity:.72}
+
+  #energyDrillView.energy-v2 .energy-suggestions{margin:12px 0 18px;padding:0;border:0}
+
+  #energyDrillView.energy-v2 .energy-report-question{margin:12px 0 16px;padding:0;border:0;color:#d9ded9;font-size:12px;line-height:1.65}
+
+  #energyDrillView.energy-v2 .energy-report-question p{margin:0}
+
+  #energyDrillView.energy-v2 .energy-suggestion-list{display:flex;flex-direction:column;align-items:flex-start;gap:7px}
+
+  #energyDrillView.energy-v2 .energy-suggestion{display:inline-flex;width:max-content;max-width:100%;align-items:center;gap:10px;min-height:34px;padding:7px 11px;border:1px solid #3b443e;border-radius:9px;background:rgba(255,255,255,.025);color:#cbd2cc;font-size:11px;text-align:left;white-space:nowrap;transition:.2s}
+
+  #energyDrillView.energy-v2 .energy-suggestion:hover{border-color:#4c8068;background:rgba(65,204,153,.07);color:#eef4f0}
+
+  #energyDrillView.energy-v2 .energy-report-agent{display:block!important;grid-template-columns:minmax(0,1fr)!important;gap:0!important;width:100%}
+
+  #energyDrillView.energy-v2 .energy-report-agent-avatar{display:none!important}
+
+  #energyDrillView.energy-v2 .energy-report-agent-body{width:100%;min-width:0}
+
+  #energyDrillView.energy-v2 .energy-report-agent-body>*{max-width:100%;box-sizing:border-box}
+
+  @media(max-width:1250px){
+    #energyDrillView.energy-v2 .energy-monitor-metrics{gap:8px}
+    #energyDrillView.energy-v2 .energy-spark{width:30px}
+    #energyDrillView.energy-v2 .energy-live-value b{font-size:14px}
+  }

@@ -1,0 +1,70 @@
+body chars: 449054, covered: 449054 (100.00%)
+  evidence-ai: 0 chars (ABSENT)
+  evidence-orig: 12726 chars
+  HOME_WORKLOADS: 11769 chars
+  HC_ASSETS: 4709 chars
+  motion-runtime: 2281 chars
+  components: 15335 chars
+  demo-clock: 309 chars
+  main: 18229 chars
+  events: 15753 chars
+  HOME_LINKS_SVG: 74538 chars
+  enhancements: 5827 chars
+  OPTICAL_ASSETS: 3686 chars
+  optical-detail: 6332 chars
+  optical-entrance: 5779 chars
+  optical-import: 21297 chars
+  optical-event: 66753 chars
+  optical-host: 1544 chars
+  nic-event: 30824 chars
+  story-state: 1469 chars
+  story: 51869 chars
+  guardian: 4988 chars
+  mascot: 2020 chars
+  panel-entrance: 24337 chars
+  ENERGY_CABINET: 73 chars
+  energy-state: 8444 chars
+  energy: 54551 chars
+  multi-cabinet: 3612 chars
+
+cross-module bare refs (review): 217
+  src/shared/motion-runtime.js uses h (defined in src/shared/hc-components.js): 4x, e.g. "s.v += a * h;"
+  src/shared/motion-runtime.js uses icon (defined in src/shared/hc-components.js): 1x, e.g. "/* 图标微动效离场专用（icon-micro-animation：离场可 easeIn 时间轴） */"
+  src/shared/motion-runtime.js uses el (defined in src/views/guard-events-table/legacy.js): 1x, e.g. "springTo(s, 目标值, SPRING.standard, x => el.style.height = x + 'px');"
+  src/shared/motion-runtime.js uses frame (defined in src/views/optical-event/legacy.js): 3x, e.g. "function frame(now) {"
+  src/shared/hc-components.js uses springTo (defined in src/shared/motion-runtime.js): 1x, e.g. "function activate(cat,index=0,notify=false,initial=false){const changed=cat!==category;cat"
+  src/shared/hc-components.js uses metric (defined in src/views/story/legacy.js): 3x, e.g. "const groups=keys.map((key,i)=>{const g=h('section','hc-metric-group');g.dataset.category="
+  src/views/evidence/legacy.js uses icon (defined in src/shared/hc-components.js): 2x, e.g. "<header><h2><svg class="diagnosis-document-icon" viewBox="0 0 32 32" aria-hidden="true"><r"
+  src/views/evidence/legacy.js uses button (defined in src/shared/hc-components.js): 7x, e.g. "<div class="diagnosis-row"><h4>原始日志</h4><div class="diagnosis-log"><div class="diagnosis-l"
+  src/views/evidence/legacy.js uses label (defined in src/shared/hc-components.js): 7x, e.g. "const bar=document.createElement('div');bar.className='evt-evidence-tabs';bar.setAttribute"
+  src/views/evidence/legacy.js uses list (defined in src/views/guard-events-table/legacy.js): 4x, e.g. "const list=document.createElement('ul');list.className='evt-operation-list';"
+  src/views/evidence/legacy.js uses close (defined in src/views/guard-events-table/legacy.js): 1x, e.g. "const close=document.createElement('button');close.type='button';close.textContent='×';clo"
+  src/views/evidence/legacy.js uses select (defined in src/views/guard-events-table/legacy.js): 6x, e.g. "const select=key=>{right.classList.toggle('evt-show-evidence',!!key);panel.hidden=!key;hom"
+  src/views/evidence/legacy.js uses summary (defined in src/views/guard-events-table/legacy.js): 5x, e.g. "const summary=document.createElement('summary');summary.append(glyph('search'));"
+  src/views/evidence/legacy.js uses panel (defined in src/views/guard-events-table/legacy.js): 6x, e.g. "const panel=document.createElement('section');panel.className='evt-evidence-panel';panel.s"
+  src/views/evidence/legacy.js uses footer (defined in src/views/guard-events-table/legacy.js): 2x, e.g. "</section><footer>日志为依据本场景编写的模拟内容，非真实采集；诊断结论对应 12:05:22</footer>"
+  src/views/evidence/legacy.js uses root (defined in src/views/optical-event/legacy.js): 2x, e.g. "<section data-report-view="analysis"><div class="diagnosis-root"><strong>根因：操作系统崩溃重启</stro"
+  src/views/evidence/legacy.js uses p (defined in src/views/optical-event/legacy.js): 3x, e.g. "<div class="diagnosis-row"><h4>原因描述</h4><p>节点操作系统崩溃重启导致 D-08 实例异常退出，服务可用实例减少，Qwen-1.5B 请求成"
+  src/views/evidence/legacy.js uses text (defined in src/views/optical-event/legacy.js): 13x, e.g. "function open(item,title,text,origin){"
+  src/views/evidence/legacy.js uses box (defined in src/views/optical-event/legacy.js): 2x, e.g. "const rect=node.getBoundingClientRect(),box=tip.getBoundingClientRect();const x=Math.max(1"
+  src/views/evidence/legacy.js uses resize (defined in src/views/optical-event/legacy.js): 1x, e.g. "document.addEventListener('click',hide);document.addEventListener('scroll',hide,true);wind"
+  src/views/evidence/legacy.js uses close (defined in src/views/optical-event/legacy.js): 1x, e.g. "const close=document.createElement('button');close.type='button';close.textContent='×';clo"
+  src/views/evidence/legacy.js uses panel (defined in src/views/nic-event/legacy.js): 6x, e.g. "const panel=document.createElement('section');panel.className='evt-evidence-panel';panel.s"
+  src/views/evidence/legacy.js uses close (defined in src/views/nic-event/legacy.js): 1x, e.g. "const close=document.createElement('button');close.type='button';close.textContent='×';clo"
+  src/views/evidence/legacy.js uses open (defined in src/views/story/legacy.js): 4x, e.g. "function open(item,title,text,origin){"
+  src/views/home-screen/legacy.js uses button (defined in src/shared/hc-components.js): 4x, e.g. "const prev=document.createElement('button'),next=document.createElement('button');prev.tex"
+  src/views/home-screen/legacy.js uses label (defined in src/shared/hc-components.js): 14x, e.g. "const select=document.createElement('select');select.setAttribute('aria-label','对象排序');"
+  src/views/home-screen/legacy.js uses Status (defined in src/shared/hc-components.js): 1x, e.g. "const header=document.createElement('header');const name=document.createElement('strong');"
+  src/views/home-screen/legacy.js uses Header (defined in src/shared/hc-components.js): 1x, e.g. "mount('home-header',C.Header());"
+  src/views/home-screen/legacy.js uses metrics (defined in src/shared/hc-components.js): 1x, e.g. "mount('home-metrics',C.MetricRibbon({onChange:(category,index)=>showWorkloads(category,ind"
+  src/views/home-screen/legacy.js uses MetricRibbon (defined in src/shared/hc-components.js): 1x, e.g. "mount('home-metrics',C.MetricRibbon({onChange:(category,index)=>showWorkloads(category,ind"
+  src/views/home-screen/legacy.js uses Composer (defined in src/shared/hc-components.js): 1x, e.g. "mount('home-composer',C.Composer());"
+  src/views/home-screen/legacy.js uses WorkloadIcon (defined in src/shared/hc-components.js): 2x, e.g. "n.append(C.WorkloadIcon(item.data.name),short,copy);n.onclick=()=>{navigate(i);list.queryS"
+  src/views/home-screen/legacy.js uses WorkloadCard (defined in src/shared/hc-components.js): 1x, e.g. "if(!entry||entry.content!==content){const card=category==='inference'&&filter===5?energySe"
+  src/views/home-screen/legacy.js uses screen (defined in src/views/guard-events-table/legacy.js): 3x, e.g. "const isWorkload=category==='training'||category==='inference';document.getElementById('sc"
+  src/views/home-screen/legacy.js uses list (defined in src/views/guard-events-table/legacy.js): 11x, e.g. "const list=document.createElement('div');list.className='workload-list';"
+  src/views/home-screen/legacy.js uses select (defined in src/views/guard-events-table/legacy.js): 8x, e.g. "const select=document.createElement('select');select.setAttribute('aria-label','对象排序');"
+  src/views/home-screen/legacy.js uses summary (defined in src/views/guard-events-table/legacy.js): 1x, e.g. "let glyphs=orbit.querySelector('.hc-summary-glyphs');if(!glyphs){glyphs=document.createEle"
+  src/views/home-screen/legacy.js uses p (defined in src/views/optical-event/legacy.js): 1x, e.g. "if(!items.length){const empty=document.createElement('p');empty.className='workload-browse"
+  src/views/home-screen/legacy.js uses text (defined in src/views/optical-event/legacy.js): 2x, e.g. "for(const [value,text] of [['status','按状态排序'],['quality',category==='training'?'按可用度排序':'按"
+  src/views/home-screen/legacy.js uses screen (defined in src/views/optical-event/legacy.js): 3x, e.g. "const isWorkload=category==='training'||category==='inference';document.getElementById('sc"
