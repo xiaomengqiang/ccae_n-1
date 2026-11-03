@@ -1,5 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useFitScale } from "../../hooks/use-fit-scale.js";
+import { useHealthMetrics } from "../../hooks/use-health-metrics.js";
+import { useLinkedEvent } from "../../hooks/use-linked-event.js";
 import MetricRibbon from "../../components/metric-ribbon/index.jsx";
 import GuardEvents from "../../components/guard-events/index.jsx";
 import Composer from "../../components/composer/index.jsx";
@@ -16,6 +18,8 @@ const createPortal = (node, host) => ReactDOM.createPortal(node, host);
 // MetricRibbon / GuardEvents / Composer 用 useEffect 在 boot 后挂载
 export default function HomeScreen() {
   useFitScale();
+  useHealthMetrics();
+  useLinkedEvent();
 
   return (
     <>
