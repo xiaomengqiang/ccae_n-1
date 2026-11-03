@@ -80,6 +80,7 @@ export default function GuardEventsTable() {
 
   // 窗口 API 桥接：保持与 legacy boot 代码相同的接口（openGuardEvents/getProcessingEnergyEvents/updateStoryRecords）
   useEffect(() => {
+    window.openGuardEvents = () => {
       window.closeEnergyDetail?.();
       resetFilters();
       setVisible(true);
