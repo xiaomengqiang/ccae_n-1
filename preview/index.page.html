@@ -12234,6 +12234,7 @@ function GuardEventsTable() {
   const [size, setSize] = useState(15);                  // 每页条数
   const [query, setQuery] = useState("");
   const [energyResult, setEnergyResult] = useState("all");
+  const [showFilters, setShowFilters] = useState(true);               // 筛选栏可见性（表头触发器切换）
   const [records, setRecords] = useState(() => buildInitialRecords()); // 完整数据集（含能耗动态更新）
   const [selectedRecord, setSelectedRecord] = useState(null);           // 详情弹窗选中项
   const energyEventsRef = useRef(buildEnergyEvents());                 // 节能事件子集（hc-energy-change/reset 操作对象）
@@ -12343,21 +12344,27 @@ function GuardEventsTable() {
   return createPortal(
     <section id="guard-all" className={visible ? "expanded" : ""} data-recognizing={String(hideEnergyResult)} data-energy={String(list === "energy")}>
       <nav className="guard-page-nav">
-        <button type="button" onClick={close}>首页</button>
-        <span className="active">智能体事件</span>
-        <button type="button" onClick={close} aria-label="关闭智能体事件" className="guard-tab-close">×</button>
+        <button type="button" onClick={close}>
+          <img className="guard-asset" src={HC_ASSETS.icons["页签上的首页"]} alt="" />
+          首页
+        </button>
+        <span className="active">
+          <img className="guard-asset" src={HC_ASSETS.icons["盾牌-0910"]} alt="" />
+          智能体事件
+          <button type="button" onClick={close} aria-label="关闭智能体事件" className="guard-tab-close">×</button>
+        </span>
       </nav>
       <div className="guard-page-summary">
         {[["fault", "故障&隐患事件"], ["energy", "节能事件"]].map(([category, title]) => (
           <section key={category} className={"guard-summary-group " + category + (list === category && stateFilter === "all" ? " selected" : "")}
             onClick={(e) => { if (!e.target.closest("button")) { setList(category); setStateFilter("all"); setTypeFilter(category === "energy" ? "节能" : "all"); setQuery(""); setPage(1); } }}>
             <h2>{title}</h2>
+            <button type="button" className="guard-total" aria-label={"查看全部" + title}
+              onClick={() => { setList(category); setStateFilter("all"); setTypeFilter(category === "energy" ? "节能" : "all"); setQuery(""); setPage(1); }}>
+              <span>总数</span>
+              <b>{records.filter((x) => category === "energy" ? x.type === "节能" : x.type !== "节能").length}</b>
+            </button>
             <div className="guard-summary-cards">
-              <button type="button" className="guard-total" aria-label={"查看全部" + title}
-                onClick={() => { setList(category); setStateFilter("all"); setTypeFilter(category === "energy" ? "节能" : "all"); setQuery(""); setPage(1); }}>
-                <span>总数</span>
-                <b>{records.filter((x) => category === "energy" ? x.type === "节能" : x.type !== "节能").length}</b>
-              </button>
               {STATES.filter(([k]) => k.startsWith("energy") === (category === "energy")).map(([key, label, icon]) => (
                 <button key={key} type="button" className={"guard-stat" + (stateFilter === key ? " active" : "")}
                   onClick={() => { setQuery(""); choose(key); }}>
@@ -12370,7 +12377,7 @@ function GuardEventsTable() {
         ))}
       </div>
       <div className="guard-table-panel">
-        <div className="guard-filters" hidden={list !== "energy"}>
+        <div className="guard-filters" hidden={!showFilters || list === "energy"}>
           <input placeholder={list === "energy" ? "搜索节能机会、优化对象或说明" : "搜索名称、发生对象或根因"} aria-label="搜索智能体事件" value={query}
             onChange={(e) => { setQuery(e.target.value); setPage(1); }} />
           <select aria-label="筛选事件状态" value={stateFilter}
@@ -12387,7 +12394,7 @@ function GuardEventsTable() {
           </select>
         </div>
         {list === "energy" && (
-          <div className="guard-result-filter">
+          <div className="guard-result-filter" hidden={!showFilters}>
             <select aria-label="筛选节能结果" value={energyResult}
               onChange={(e) => { setEnergyResult(e.target.value); setPage(1); }}>
               <option value="all">全部结果</option>
@@ -12401,15 +12408,23 @@ function GuardEventsTable() {
           <table>
             <thead>
               <tr>
-                {displayHeaders.map((t) => (
-                  <th key={t}>
-                    {list === "energy" && t === "节能状态" ? null
-                      : list === "energy" && t === "节能结果" ? null
-                      : list !== "energy" && !["操作", "发生时间", "清除时间"].includes(t) ? null
-                      : t.endsWith("时间") ? <span className="guard-sort-symbol">⇅</span>
-                      : t}
-                  </th>
-                ))}
+                {displayHeaders.map((t) => {
+                  const hasTrigger = list === "energy"
+                    ? t === "节能状态" || t === "节能结果"
+                    : !["操作", "发生时间", "清除时间"].includes(t);
+                  return (
+                    <th key={t}>
+                      {t}
+                      {hasTrigger && (
+                        <button type="button" className="guard-filter-trigger" aria-label={"筛选" + t}
+                          onClick={() => setShowFilters((v) => !v)}>
+                          <img className="guard-asset" src={HC_ASSETS.icons["筛选"]} alt="" />
+                        </button>
+                      )}
+                      {t.endsWith("时间") && <span className="guard-sort-symbol">⇅</span>}
+                    </th>
+                  );
+                })}
               </tr>
             </thead>
             <tbody>
