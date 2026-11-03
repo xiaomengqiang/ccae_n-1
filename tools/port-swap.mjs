@@ -164,7 +164,8 @@ while ((lm = layerRe.exec(motionBlock[1])) !== null) mascotLayers.push({ motion:
 if (mascotLayers.length !== 7) throw new Error("expected 7 mascot layers, got " + mascotLayers.length);
 skeleton = skeleton.replace(motionBlock[0], motionBlock[0].replace(motionBlock[1], ""));
 mkdirSync("preview/src/views/agent-panel", { recursive: true });
-writeFileSync("preview/src/views/agent-panel/mascot-layers.js", "export const MASCOT_LAYERS = " + JSON.stringify(mascotLayers) + ";\n", "utf8");
+const layersText = mascotLayers.map((l) => "  " + JSON.stringify(l)).join(",\n");
+writeFileSync("preview/src/views/agent-panel/mascot-layers.js", "export const MASCOT_LAYERS = [\n" + layersText + "\n];\n", "utf8");
 
 const mainIdx = skeleton.indexOf("<main");
 const mainOpen = mainIdx === -1 ? null : skeleton.slice(mainIdx).match(/^<main([^>]*)>/);
