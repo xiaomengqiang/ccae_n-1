@@ -196,7 +196,6 @@ const segOrder = [
   ["ENERGY_CABINET", "src/views/energy-detail/legacy.js", "initEnergyDetail"],
   ["energy-state", "src/views/energy-detail/legacy.js", "initEnergyDetail"],
   ["energy", "src/views/energy-detail/legacy.js", "initEnergyDetail"],
-  ["multi-cabinet", "src/views/room-overview/legacy.js", "initRoomOverview"],
 ];
 const bootImports = [];
 const bootCalls = [];

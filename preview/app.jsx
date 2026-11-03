@@ -1,18 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { runBoot } from "./src/boot.js";
+import RoomOverview from "./src/views/room-overview/index.jsx";
 import { SCREEN_ATTRS, SKELETON_INNER } from "./src/legacy/screen-skeleton.js";
 import "./src/styles/legacy.css";
 
 export default function App() {
+  const [booted, setBooted] = useState(false);
   useEffect(() => {
     runBoot();
+    setBooted(true);
   }, []);
   return (
-    <main
-      id={SCREEN_ATTRS.id}
-      className={SCREEN_ATTRS.class}
-      aria-label={SCREEN_ATTRS["aria-label"]}
-      dangerouslySetInnerHTML={{ __html: SKELETON_INNER }}
-    />
+    <>
+      <main
+        id={SCREEN_ATTRS.id}
+        className={SCREEN_ATTRS.class}
+        aria-label={SCREEN_ATTRS["aria-label"]}
+        dangerouslySetInnerHTML={{ __html: SKELETON_INNER }}
+      />
+      {booted && <RoomOverview />}
+    </>
   );
 }

@@ -10,7 +10,6 @@ import { initNicEvent } from "./views/nic-event/legacy.js";
 import { initStory } from "./views/story/legacy.js";
 import { initAgentPanel } from "./views/agent-panel/legacy.js";
 import { initEnergyDetail } from "./views/energy-detail/legacy.js";
-import { initRoomOverview } from "./views/room-overview/legacy.js";
 
 export function runBoot() {
   initEvidenceOrig();
@@ -25,5 +24,4 @@ export function runBoot() {
   initStory();
   initAgentPanel();
   initEnergyDetail();
-  initRoomOverview();
 }

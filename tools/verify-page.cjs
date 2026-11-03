@@ -158,6 +158,31 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     check(name + " mounts", ok, detail);
   }
 
+  const roomWrap = d.getElementById("home-room-overview");
+  const roomFrame = roomWrap && roomWrap.querySelector("iframe");
+  check("room overview component mounted", !!roomWrap && !!roomFrame);
+  if (roomFrame) {
+    await sleep(1200);
+    check("room scene iframe lazy-loaded", String(roomFrame.getAttribute("src") || "").includes("multi-cabinet-scene.html"), String(roomFrame.getAttribute("src") || "no-src").slice(0, 60));
+  }
+  const legend = d.getElementById("cabinet-device-legend");
+  check("device legend hidden while overview active", !!legend && legend.hidden);
+  const normalBox = legend && legend.querySelector('input[data-state="normal"]');
+  if (normalBox) {
+    normalBox.click();
+    await sleep(200);
+    check("legend toggle updates screen classes", !d.getElementById("screen").classList.contains("cabinet-hide-normal"));
+  }
+  const ribbonForRoom = d.querySelector("#home-metrics .hc-ribbon");
+  if (ribbonForRoom && typeof ribbonForRoom.activate === "function") {
+    ribbonForRoom.activate("training", 0, true);
+    await sleep(300);
+    const wrapHidden = d.getElementById("home-room-overview")?.hidden;
+    check("room overview hides on non-resource category", wrapHidden === true, "hidden=" + wrapHidden);
+    ribbonForRoom.activate("resource", 0, true);
+    await sleep(300);
+  }
+
   check("no runtime js errors", jsErrors.length === 0, jsErrors.length ? jsErrors.slice(0, 3).join(" | ").slice(0, 300) : "");
   check("no fetch() calls (file:// safe)", (w.__verifyFetchCalls || 0) === 0, String(w.__verifyFetchCalls || 0));
 
