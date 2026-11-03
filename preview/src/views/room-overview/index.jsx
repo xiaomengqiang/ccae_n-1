@@ -109,7 +109,7 @@ function RoomOverviewBody() {
   return (
     <>
       <section id="home-room-overview" aria-label="多机柜总览" hidden={!overview || !resource}>
-        <iframe ref={frameRef} title="3D 多机柜总览" sandbox="allow-scripts" />
+        <iframe ref={frameRef} aria-label="3D 多机柜总览" sandbox="allow-scripts" />
       </section>
       <div id="home-room-back" hidden={overview || !resource}>
         <nav aria-label="机柜层级">
