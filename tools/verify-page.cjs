@@ -183,6 +183,14 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     await sleep(300);
   }
 
+  if (typeof w.restartMascotEntrance === "function") {
+    try { w.restartMascotEntrance(); } catch (e) { jsErrors.push("restartMascotEntrance: " + e.message); }
+    await sleep(300);
+    const onLayers = d.querySelectorAll(".agent-motion [data-motion].on").length;
+    check("mascot entrance replays via restartMascotEntrance", onLayers >= 2, onLayers + " layers on");
+  }
+  check("entrance pending class removed", screen ? !screen.classList.contains("home-entrance-pending") : false);
+
   check("no runtime js errors", jsErrors.length === 0, jsErrors.length ? jsErrors.slice(0, 3).join(" | ").slice(0, 300) : "");
   check("no fetch() calls (file:// safe)", (w.__verifyFetchCalls || 0) === 0, String(w.__verifyFetchCalls || 0));
 

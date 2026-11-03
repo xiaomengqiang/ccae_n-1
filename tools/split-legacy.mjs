@@ -191,8 +191,6 @@ const segOrder = [
   ["story-state", "src/views/story/legacy.js", "initStory"],
   ["story", "src/views/story/legacy.js", "initStory"],
   ["guardian", "src/views/story/legacy.js", "initStory"],
-  ["mascot", "src/views/agent-panel/legacy.js", "initAgentPanel"],
-  ["panel-entrance", "src/views/agent-panel/legacy.js", "initAgentPanel"],
   ["ENERGY_CABINET", "src/views/energy-detail/legacy.js", "initEnergyDetail"],
   ["energy-state", "src/views/energy-detail/legacy.js", "initEnergyDetail"],
   ["energy", "src/views/energy-detail/legacy.js", "initEnergyDetail"],

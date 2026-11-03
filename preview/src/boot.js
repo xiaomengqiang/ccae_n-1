@@ -8,7 +8,6 @@ import { initEnhancements } from "./views/home-screen/enhancements.js";
 import { initOpticalEvent } from "./views/optical-event/legacy.js";
 import { initNicEvent } from "./views/nic-event/legacy.js";
 import { initStory } from "./views/story/legacy.js";
-import { initAgentPanel } from "./views/agent-panel/legacy.js";
 import { initEnergyDetail } from "./views/energy-detail/legacy.js";
 
 export function runBoot() {
@@ -22,6 +21,5 @@ export function runBoot() {
   initOpticalEvent();
   initNicEvent();
   initStory();
-  initAgentPanel();
   initEnergyDetail();
 }

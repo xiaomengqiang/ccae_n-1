@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { runBoot } from "./src/boot.js";
+import AgentPanel from "./src/views/agent-panel/index.jsx";
 import RoomOverview from "./src/views/room-overview/index.jsx";
 import { SCREEN_ATTRS, SKELETON_INNER } from "./src/legacy/screen-skeleton.js";
 import "./src/styles/legacy.css";
@@ -18,7 +19,12 @@ export default function App() {
         aria-label={SCREEN_ATTRS["aria-label"]}
         dangerouslySetInnerHTML={{ __html: SKELETON_INNER }}
       />
-      {booted && <RoomOverview />}
+      {booted && (
+        <>
+          <AgentPanel />
+          <RoomOverview />
+        </>
+      )}
     </>
   );
 }
