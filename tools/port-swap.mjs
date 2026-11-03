@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { createHash } from "node:crypto";
 
 const html = readFileSync("演示导出/AgentDemo-当前演示.html", "utf8");
@@ -154,6 +154,17 @@ let leftoverAtob = (jsText.match(/\batob\(/g) || []).length;
 
 const emptyDecls = (cssText.match(/[a-zA-Z-]+:\s*;/g) || []).length;
 cssText = cssText.replace(/[a-zA-Z-]+:\s*;/g, "");
+
+const motionBlock = skeleton.match(/<div class="agent-motion"[^>]*>([\s\S]*?)<\/div>/);
+if (!motionBlock) throw new Error("agent-motion block not found in skeleton");
+const layerRe = /<img data-motion="([^"]+)" src="([^"]+)"[^>]*>/g;
+const mascotLayers = [];
+let lm;
+while ((lm = layerRe.exec(motionBlock[1])) !== null) mascotLayers.push({ motion: lm[1], src: lm[2] });
+if (mascotLayers.length !== 7) throw new Error("expected 7 mascot layers, got " + mascotLayers.length);
+skeleton = skeleton.replace(motionBlock[0], motionBlock[0].replace(motionBlock[1], ""));
+mkdirSync("preview/src/views/agent-panel", { recursive: true });
+writeFileSync("preview/src/views/agent-panel/mascot-layers.js", "export const MASCOT_LAYERS = " + JSON.stringify(mascotLayers) + ";\n", "utf8");
 
 const mainIdx = skeleton.indexOf("<main");
 const mainOpen = mainIdx === -1 ? null : skeleton.slice(mainIdx).match(/^<main([^>]*)>/);
