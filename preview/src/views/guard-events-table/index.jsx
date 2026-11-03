@@ -121,7 +121,8 @@ export default function GuardEventsTable() {
     return () => { window.removeEventListener("hc-energy-reset", onReset); window.removeEventListener("hc-energy-change", onChange); };
   }, []);
 
-  if (!host || !visible) return null;
+  if (!host) return null;
+  if (!visible) return createPortal(<section id="guard-all" hidden aria-label="智能体事件" />, host);
   // 派生渲染数据
   const headers = list === "energy" ? ENERGY_HEADERS : FAULT_HEADERS;
   const displayHeaders = headers.filter((t) => !(hideEnergyResult && t === "节能结果"));

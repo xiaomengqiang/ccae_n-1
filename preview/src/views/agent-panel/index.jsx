@@ -59,6 +59,13 @@ function AgentPanelContour() {
   }, []);
 
   useEffect(() => {
+    if (svgRef.current && prepared && prepared.nodes) {
+      svgRef.current.replaceChildren();
+      svgRef.current.append(...prepared.nodes);
+    }
+  }, [prepared]);
+
+  useEffect(() => {
     if (svgRef.current && geom) applyFit(svgRef.current, geom);
   }, [prepared, geom]);
 
@@ -73,7 +80,6 @@ function AgentPanelContour() {
       fill="none"
       viewBox={`0 0 474 ${rimBottom + 8}`}
       style={{ height: rimBottom + 8 + "px", pointerEvents: "none" }}
-      dangerouslySetInnerHTML={{ __html: prepared.inner }}
     />,
     host
   );

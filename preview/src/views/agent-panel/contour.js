@@ -32,7 +32,7 @@ export function prepareContour(imgEl) {
   rim.setAttribute("stroke-linejoin", "round");
   rim.setAttribute("mask", "url(#home-native-fade-mask)");
   root.append(rim);
-  return { outline, inner: root.innerHTML, width: root.getAttribute("width") || "474.000000" };
+  return { outline, nodes: [...root.childNodes], width: root.getAttribute("width") || "474.000000" };
 }
 
 export function computeFit(outline, eventsEl) {
