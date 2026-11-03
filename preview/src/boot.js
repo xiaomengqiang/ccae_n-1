@@ -3,7 +3,6 @@ import { initMotionRuntime } from "./shared/motion-runtime.js";
 import { initHCComponents } from "./shared/hc-components.js";
 import { initClock } from "./utils/clock.js";
 import { initHomeScreen } from "./views/home-screen/legacy.js";
-import { initGuardEventsTable } from "./views/guard-events-table/legacy.js";
 import { initEnhancements } from "./views/home-screen/enhancements.js";
 import { initOpticalEvent } from "./views/optical-event/legacy.js";
 import { initNicEvent } from "./views/nic-event/legacy.js";
@@ -16,7 +15,6 @@ export function runBoot() {
   initHCComponents();
   initClock();
   initHomeScreen();
-  initGuardEventsTable();
   initEnhancements();
   initOpticalEvent();
   initNicEvent();

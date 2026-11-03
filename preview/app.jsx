@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { runBoot } from "./src/boot.js";
 import AgentPanel from "./src/views/agent-panel/index.jsx";
+import GuardEventsTable from "./src/views/guard-events-table/index.jsx";
 import RoomOverview from "./src/views/room-overview/index.jsx";
 import { SCREEN_ATTRS, SKELETON_INNER } from "./src/legacy/screen-skeleton.js";
 import "./src/styles/legacy.css";
@@ -22,6 +23,7 @@ export default function App() {
       {booted && (
         <>
           <AgentPanel />
+          <GuardEventsTable />
           <RoomOverview />
         </>
       )}

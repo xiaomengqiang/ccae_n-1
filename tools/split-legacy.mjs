@@ -180,7 +180,6 @@ const segOrder = [
   ["components", "src/shared/hc-components.js", "initHCComponents"],
   ["demo-clock", "src/utils/clock.js", "initClock"],
   ["main", "src/views/home-screen/legacy.js", "initHomeScreen"],
-  ["events", "src/views/guard-events-table/legacy.js", "initGuardEventsTable"],
   ["enhancements", "src/views/home-screen/enhancements.js", "initEnhancements"],
   ["optical-detail", "src/views/optical-event/legacy.js", "initOpticalEvent"],
   ["optical-entrance", "src/views/optical-event/legacy.js", "initOpticalEvent"],

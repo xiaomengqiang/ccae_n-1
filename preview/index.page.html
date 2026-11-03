@@ -9422,64 +9422,6 @@ window.energyGradeTag = energyGradeTag;
   Object.assign(__export, { initHomeScreen });
 })();
 
-/* ===== src/views/guard-events-table/legacy.js ===== */
-(function () {
-  const { HOME_WORKLOADS, HC_ASSETS } = __export;
-function initGuardEventsTable() {
-/* Event records preserved from the supplied demo. */
-(()=>{
-    const baseFaultEvents=[
-      {name:'光链路脏污，待清污',state:'待人工处理',stateClass:'manual',type:'故障',icon:'fa-exclamation-triangle',iconClass:'fault',object:'计算柜11-L1交换板02',root:'L1-L2 光模块端面脏污',start:'今天 12:00:40',clear:'—',action:'link'},
-      {name:'Qwen-1.5B 服务劣化',state:'待人工处理',stateClass:'manual',type:'故障',icon:'fa-exclamation-triangle',iconClass:'fault',object:'推理服务 / D-08 实例',root:'hinic3 驱动版本过低',start:'今天 12:05:00',clear:'—',action:'qwen'},
-      {name:'训练集群 RoCE 丢包波动',state:'已闭环',stateClass:'auto-closed',type:'隐患',icon:'fa-shield',iconClass:'hazard',object:'训练作业 / Group18',root:'PFC 水线配置不均衡',start:'今天 11:18:42',clear:'今天 11:19:36',action:''},
-      {name:'NPU 节点温度持续偏高',state:'已闭环',stateClass:'auto-closed',type:'隐患',icon:'fa-thermometer-half',iconClass:'hazard',object:'计算节点 112.34.11.12',root:'风道回流导致散热效率下降',start:'今天 11:20:08',clear:'今天 11:21:02',action:''},
-      {name:'OSFP 光功率劣化',state:'已闭环',stateClass:'auto-closed',type:'隐患',icon:'fa-wrench',iconClass:'hazard',object:'灵衢互联柜02-L2交换机01',root:'光模块瞬时功率抖动',start:'今天 09:35:12',clear:'今天 09:36:04',action:''},
-      {name:'推理实例异常退出',state:'已闭环',stateClass:'auto-closed',type:'隐患',icon:'fa-wrench',iconClass:'hazard',object:'Qwen2.5 / D实例03',root:'容器内存瞬时越限',start:'昨天 23:18:09',clear:'昨天 23:18:42',action:''},
-      {name:'交换机配置漂移',state:'已闭环',stateClass:'human-closed',type:'隐患',icon:'fa-user',iconClass:'hazard',object:'计算柜07-L1交换板01',root:'配置模板版本不一致',start:'昨天 20:06:31',clear:'昨天 20:07:18',action:''}
-    ];
-    const historicalEvents=Array.from({length:22},(_,i)=>{
-      const closed=i<20,stateClass=closed?'auto-closed':'human-closed';
-      return {name:['交换网络瞬时拥塞','光模块温漂告警','NPU 端口误码波动','训练队列链路抖动','推理实例连接闪断'][i%5]+` #${String(i+1).padStart(2,'0')}`,state:closed?'已闭环':'已闭环',stateClass,type:i%3===0?'故障':'隐患',object:`${i%2?'计算节点':'灵衢互联柜'} ${String(i+3).padStart(2,'0')}`,root:['流量突发触发拥塞保护','光功率短时偏离基线','历史配置残留导致漂移'][i%3],start:`${i<8?'今天':'昨天'} ${String(8+i%12).padStart(2,'0')}:${String((i*7)%60).padStart(2,'0')}:18`,clear:`${i<8?'今天':'昨天'} ${String(8+i%12).padStart(2,'0')}:${String((i*7+2)%60).padStart(2,'0')}:06`,action:''}
-    });
-    const energyServiceNames=["Qwen-14B", "Qwen-1.5B 在线服务", "视觉理解服务-3B", "代码生成 Copilot-1.5B", "Embedding 检索服务-0.5B", "数字人实时推理-1.5B", "视觉理解服务 · 07-3B", "代码生成 Copilot · 08-1.5B", "Embedding 检索服务 · 09-0.5B", "数字人实时推理 · 10-1.5B", "DeepSeek-R1-32B", "视觉理解服务 · 12-3B", "代码生成 Copilot · 13-1.5B", "Embedding 检索服务 · 14-0.5B", "数字人实时推理 · 15-1.5B", "Llama-3-70B"];
-    const energyEvents=energyServiceNames.map(name=>{const enabled=HOME_WORKLOADS.inference.some(x=>x.data.name===name&&x.data.energySaving),none=name==='Embedding 检索服务-0.5B';return {name:name+(enabled?' 节能策略执行中':none?' 节能策略优化':' 节能机会识别中'),result:enabled?'已开启节能':none?'暂无节能空间':'—',state:enabled?'自动节能中':none?'无节能空间':'节能机会识别中',stateClass:enabled?'energy-done':none?'energy-none':'energy-wait',type:'节能',object:'推理服务 / '+name,root:enabled?'均衡节能策略已生效，持续监控业务影响':none?'连续 4 个识别周期未发现明显的业务请求变化规律，本轮识别已结束':'正在分析业务请求变化，当前第 1/4 个识别周期',start:'今天 09:00:00',clear:enabled?('今天 10:17:14'):none?'今天 10:00:00':'—',action:name==='Qwen-14B'?'energy':'energy-none'};});
-
-window.getProcessingEnergyEvents=()=>energyEvents.filter(r=>r.stateClass==='energy-wait').map(r=>({...r}));
-const initialEnergyEvents=energyEvents.map(x=>({...x}));
-let records=[...baseFaultEvents,...historicalEvents,...energyEvents];
-const screen=document.getElementById('screen'),view=document.createElement('section');view.id='guard-all';view.hidden=true;screen.append(view);
-const states=[['manual','待人工处理','待人工处理'],['processing','自动处理中','自动处理中-方块'],['auto-closed','已闭环','已自动闭环-方块'],['human-closed','已闭环','已人工闭环-方块'],['energy-wait','节能机会识别中','识别节能-彩色方底'],['energy-done','自动节能中','自动节能-绿色方底'],['energy-none','无节能空间','已生效节能机会点']];
-let list='fault',state='all',type='all',page=1,size=15,query='',energyResult='all';
-const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n};
-const btn=(text,fn,cls='')=>{const b=el('button',cls,text);b.type='button';b.onclick=fn;return b};
-function asset(name){const img=el('img','guard-asset');img.src=HC_ASSETS.icons[name];img.alt='';return img}
-function close(){view.hidden=true;view.classList.remove('expanded');if(parent!==window)parent.postMessage({type:'hc-home-category',category:screen.dataset.category||'resource'},location.origin==='null'?'*':location.origin)}
-window.openGuardEvents=()=>{window.closeEnergyDetail?.();list='fault';state='all';type='all';query='';page=1;view.hidden=false;render();if(parent!==window)parent.postMessage({type:'hc-home-category',category:'events'},location.origin==='null'?'*':location.origin)};
-function choose(s){energyResult='all';state=s;list=s.startsWith('energy')?'energy':'fault';type=list==='energy'?'节能':'all';page=1;render()}
-function select(label,options,value,change){const s=el('select');s.setAttribute('aria-label',label);options.forEach(([v,t])=>{const o=el('option','',t);o.value=v;s.append(o)});s.value=value;s.onchange=()=>change(s.value);return s}
-function render(){const hideEnergyResult=list==='energy';view.dataset.recognizing=String(hideEnergyResult);view.dataset.energy=String(list==='energy');view.replaceChildren();const nav=el('nav','guard-page-nav');nav.append(btn('首页',close),el('span','active','智能体事件'),btn('×',close));nav.firstChild.prepend(asset('页签上的首页'));nav.children[1].prepend(asset('盾牌-0910'));nav.lastChild.setAttribute('aria-label','关闭智能体事件');nav.lastChild.classList.add('guard-tab-close');nav.children[1].append(nav.lastChild);view.append(nav);
-const summary=el('div','guard-page-summary');
-[['fault','故障&隐患事件'],['energy','节能事件']].forEach(([category,title])=>{
- const group=el('section','guard-summary-group '+category+(list===category&&state==='all'?' selected':''));group.append(el('h2','',title));const cards=el('div','guard-summary-cards');
- const total=btn('',()=>{list=category;state='all';type=category==='energy'?'节能':'all';query='';page=1;render()},'guard-total');
- total.append(el('span','','总数'),el('b','',records.filter(x=>category==='energy'?x.type==='节能':x.type!=='节能').length));group.append(total);total.setAttribute('aria-label','查看全部'+title);group.onclick=e=>{if(!e.target.closest('button'))total.click();};
- states.filter(([key])=>key.startsWith('energy')===(category==='energy')).forEach(([key,label,icon])=>{const card=btn('',()=>{query='';choose(key)},'guard-stat'+(state===key?' active':''));const copy=el('span');copy.append(el('span','',label),el('b','',records.filter(x=>(key==='energy-closed'?['energy-done','energy-none'].includes(x.stateClass):x.stateClass===key)).length));const symbol=asset(icon);card.append(symbol,copy);cards.append(card)});
- group.append(cards);summary.append(group);
-});view.append(summary);
-const panel=el('div','guard-table-panel');
-const filters=el('div','guard-filters');const search=el('input');search.placeholder=list==='energy'?'搜索节能机会、优化对象或说明':'搜索名称、发生对象或根因';search.setAttribute('aria-label','搜索智能体事件');search.value=query;search.onchange=()=>{query=search.value.trim();page=1;render()};filters.append(search,select('筛选事件状态',[['all','全部状态'],...states.filter(x=>list==='energy'?x[0].startsWith('energy'):!x[0].startsWith('energy')).map(x=>[x[0],x[1]])],state,v=>{state=v;if(v!=='all'){list=v.startsWith('energy')?'energy':'fault';type=list==='energy'?'节能':'all'}page=1;render()}),select('筛选事件类型',[['all','全部类型'],['故障','故障'],['隐患','隐患'],['节能','节能']],type,v=>{type=v;if(v==='节能'){list='energy';state='all'}else if(v!=='all'){list='fault';if(state.startsWith('energy'))state='all'}page=1;render()}));filters.hidden=list!=='energy';if(list==='energy')filters.lastElementChild.hidden=true;panel.append(filters);if(list==='energy')filters.hidden=true;
-const resultFilter=el('div','guard-result-filter');resultFilter.hidden=true;resultFilter.append(select('筛选节能结果',[['all','全部结果'],['已开启节能','已开启节能'],['暂无节能空间','暂无节能空间'],['—','暂无结果']],energyResult,v=>{energyResult=v;page=1;render()}));if(list==='energy')panel.append(resultFilter);
-const rows=records.filter(x=>(list!=='energy'||hideEnergyResult||energyResult==='all'||x.result===energyResult)&&(list==='energy'?x.type==='节能':x.type!=='节能')&&(state==='all'||(state==='energy-closed'?['energy-done','energy-none'].includes(x.stateClass):x.stateClass===state))&&(type==='all'||x.type===type)&&[x.name,x.object,x.root].some(t=>t.includes(query)));const pages=Math.max(1,Math.ceil(rows.length/size));page=Math.min(page,pages);const wrap=el('div','guard-table-scroll'),table=el('table'),thead=el('thead'),tr=el('tr');(list==='energy'?['节能事件名称','节能状态','节能结果','优化对象','节能优化说明','发现时间','状态更新时间','操作']:['名称','事件状态','事件类型','发生对象','故障根因','发生时间','清除时间','操作']).forEach(t=>{if(hideEnergyResult&&t==='节能结果')return;const th=el('th','',t);if(list==='energy'&&t==='节能状态'){const trigger=btn('',()=>{filters.hidden=!filters.hidden},'guard-filter-trigger');trigger.setAttribute('aria-label','筛选节能状态');trigger.append(asset('筛选'));th.append(trigger)}else if(list==='energy'&&t==='节能结果'){const trigger=btn('',()=>{resultFilter.hidden=!resultFilter.hidden},'guard-filter-trigger');trigger.setAttribute('aria-label','筛选节能结果');trigger.append(asset('筛选'));th.append(trigger)}else if(list!=='energy'&&!['操作','发生时间','清除时间'].includes(t)){const trigger=btn('',()=>{filters.hidden=!filters.hidden},'guard-filter-trigger');trigger.setAttribute('aria-label','筛选'+t);trigger.append(asset('筛选'));th.append(trigger)}else if(t.endsWith('时间'))th.append(el('span','guard-sort-symbol','⇅'));tr.append(th)});thead.append(tr);table.append(thead);const body=el('tbody');rows.slice((page-1)*size,page*size).forEach(item=>{const row=el('tr');(list==='energy'?[item.name,item.state,item.result,item.object,item.root,item.start,item.clear]:[item.name,item.state,item.type,item.object,item.root,item.start,item.clear]).forEach((text,i)=>{if(hideEnergyResult&&i===2)return;const cell=el('td','',text);cell.title=text;if(list==='energy'&&i===1){const mark=item.stateClass==='energy-wait'?el('i','story-step-icon working'):asset(item.stateClass==='energy-done'?'绿色叶子':'灰色叶子');if(item.stateClass!=='energy-wait')mark.classList.add('guard-energy-closed-leaf');cell.prepend(mark);}if(list==='energy'&&i===2&&item.result!=='—'){const dot=el('i','guard-result-dot'+(item.result==='已开启节能'?' enabled':''));dot.setAttribute('aria-hidden','true');cell.prepend(dot);}if(i===0){const business=item.action==='qwen-recovery'||/Qwen|推理实例|推理服务/.test(item.object)&&!/网卡|光链路|节点/.test(item.name);const mark=HCComponents.EventTypeIcon({domain:item.type==='节能'?'inference':/训练|作业/.test(item.object)?'training':business?'inference':'resource',name:item.name+' '+item.object,type:item.type==='节能'?'energy':item.type==='隐患'?'risk':'fault',closed:/closed|energy-done|energy-none/.test(item.stateClass),size:24});cell.prepend(mark);}if(i===1&&list!=='energy'){cell.className=item.stateClass;const key={'manual':'待人工处理-圆','processing':'自动处理中-圆','auto-closed':'已自动闭环-圆','human-closed':'已人工闭环-圆','energy-wait':'绿色叶子','energy-none':'灰色叶子','energy-done':'绿色叶子'}[item.stateClass];if(item.type==='节能'){const leaf=el('i','guard-clean-leaf');leaf.style.setProperty('--leaf', 'url('+"./assets/uploads/149-129790.png"+')');cell.prepend(leaf);}else cell.prepend(asset(key))}if(i===2&&list!=='energy'){cell.textContent='';cell.append(el('span','event-type '+(item.type==='故障'?'fault':'other'),text))}row.append(cell)});const action=el('td');const detail=btn('',()=>showRecord(item),'record-detail');if(item.result==='已开启节能'){detail.append(asset('节能监控'));}else detail.append(asset('查看详情'));detail.dataset.tip=item.result==='已开启节能'?'查看节能监控':'查看事件详情';if(item.type==='节能'&&(item.object!=='推理服务 / Qwen-14B'||item.stateClass==='energy-wait')){detail.setAttribute('aria-disabled','true');detail.tabIndex=-1;detail.style.cursor='default';}detail.setAttribute('aria-label',detail.dataset.tip+'：'+item.name);if(item.result==='已开启节能'){const strategyView=btn('',()=>{},'record-detail');strategyView.append(asset('查看详情'));strategyView.dataset.tip='查看策略';strategyView.setAttribute('aria-label','查看策略');strategyView.setAttribute('aria-disabled','true');strategyView.tabIndex=-1;strategyView.style.cursor='default';action.append(strategyView);}action.append(detail);if(item.stateClass==='energy-none'){const retry=btn('',()=>restartRecognition(item),'guard-restart');retry.dataset.tip='重新识别';retry.setAttribute('aria-label','重新识别');retry.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5M20 12a8 8 0 1 0-2.3 5.7"/></svg>';action.append(retry);}row.append(action);body.append(row)});if(!rows.length){const row=el('tr'),cell=el('td','guard-no-rows','暂无符合条件的事件');cell.colSpan=hideEnergyResult?7:8;row.append(cell);body.append(row)}table.append(body);wrap.append(table);panel.append(wrap);
-const footer=el('footer','guard-footer');footer.append(el('span','','总计：'+rows.length));footer.append(select('每页条数',[[10,'10 项/页'],[15,'15 项/页'],[30,'30 项/页']],size,v=>{size=Number(v);page=1;render()}));for(const [label,n] of [['‹',page-1],...Array.from({length:pages},(_,i)=>[String(i+1),i+1]),['›',page+1]]){const b=btn(label,()=>{page=n;render()},n===page?'active':'');b.disabled=n<1||n>pages;footer.append(b)}const jump=el('input','guard-jump');jump.type='number';jump.min=1;jump.max=pages;jump.value=page;jump.setAttribute('aria-label','跳转页码');footer.append(jump,btn('跳转',()=>{page=Math.max(1,Math.min(pages,Number(jump.value)||1));render()},'guard-jump-button'));panel.append(footer);view.append(panel)}
-window.addEventListener('hc-energy-reset',()=>{energyEvents.forEach((row,i)=>Object.assign(row,initialEnergyEvents[i]));records=records.filter(r=>r.type!=='节能').concat(energyEvents.map(r=>({...r})));if(!view.hidden)render();});
-window.addEventListener('hc-energy-change',e=>{for(const collection of [energyEvents,records])collection.filter(r=>r.type==='节能'&&r.object.endsWith(' / '+e.detail.name)).forEach(r=>{r.name=e.detail.name+(e.detail.done?' 节能策略执行中':' 节能机会识别中');r.result=e.detail.done?'已开启节能':'—';r.stateClass=e.detail.done?'energy-done':'energy-wait';r.state=e.detail.done?'自动节能中':'节能机会识别中';r.clear=e.detail.done?'今天 '+e.detail.time:'—';r.root=e.detail.done?'均衡节能策略已生效，持续监控业务影响':'正在分析业务请求变化，当前第 1/4 个识别周期';});if(!view.hidden)render();});
-window.updateStoryRecords=fn=>{records=fn([...baseFaultEvents,...historicalEvents,...energyEvents].map(x=>({...x})));if(!view.hidden)render()};
-function restartRecognition(item){for(const r of [...energyEvents,...records])if(r.object===item.object){r.name=r.object.split(' / ').pop()+' 节能机会识别中';r.stateClass='energy-wait';r.state='节能机会识别中';r.result='—';r.root='正在分析业务请求变化，当前第 1/4 个识别周期';r.clear='—';}state='all';render();}
-function showRecord(item){if(item.type==='节能'&&(item.object!=='推理服务 / Qwen-14B'||item.stateClass==='energy-wait'))return;if(item.type==='节能'&&item.action!=='energy-none'){window.openEnergyEvent?.(item);return;}if(item.action==='qwen'||item.action==='qwen-auto'){window.openNicEvent?.({mode:item.action==='qwen-auto'?'recovery':'driver'});return;}if(item.action==='link'||item.action==='link-auto'){window.openOpticalEvent?.({mode:item.action==='link-auto'?'isolation':'full'});return;}const overlay=el('div','guard-record-overlay');const card=el('section','guard-record');const closeButton=btn('×',()=>overlay.remove());closeButton.setAttribute('aria-label','关闭事件记录');card.append(closeButton,el('h2','',item.name));[['事件状态',item.state],['事件类型',item.type],['发生对象',item.object],['故障根因',item.root],['发生时间',item.start],['清除时间',item.clear]].forEach(([label,value])=>{const row=el('p');row.append(el('span','',label),el('strong','',value));card.append(row)});overlay.append(card);view.append(overlay)}
-})();}
-  Object.assign(__export, { initGuardEventsTable });
-})();
-
 /* ===== src/views/home-screen/enhancements.js ===== */
 (function () {
   const { HC_ASSETS, HOME_LINKS_SVG } = __export;
@@ -11920,14 +11862,13 @@ const energyGradeTag = window.energyGradeTag;
 
 /* ===== src/boot.js ===== */
 (function () {
-  const { initEvidenceOrig, initMotionRuntime, initHCComponents, initClock, initHomeScreen, initGuardEventsTable, initEnhancements, initOpticalEvent, initNicEvent, initStory, initEnergyDetail } = __export;
+  const { initEvidenceOrig, initMotionRuntime, initHCComponents, initClock, initHomeScreen, initEnhancements, initOpticalEvent, initNicEvent, initStory, initEnergyDetail } = __export;
 function runBoot() {
   initEvidenceOrig();
   initMotionRuntime();
   initHCComponents();
   initClock();
   initHomeScreen();
-  initGuardEventsTable();
   initEnhancements();
   initOpticalEvent();
   initNicEvent();
@@ -12218,6 +12159,339 @@ function AgentPanelContour() {
   Object.assign(__export, { AgentPanel });
 })();
 
+/* ===== src/mock/guard-events.js ===== */
+(function () {
+  const { HOME_WORKLOADS } = __export;
+const BASE_FAULT_EVENTS = [
+      {name:'光链路脏污，待清污',state:'待人工处理',stateClass:'manual',type:'故障',icon:'fa-exclamation-triangle',iconClass:'fault',object:'计算柜11-L1交换板02',root:'L1-L2 光模块端面脏污',start:'今天 12:00:40',clear:'—',action:'link'},
+      {name:'Qwen-1.5B 服务劣化',state:'待人工处理',stateClass:'manual',type:'故障',icon:'fa-exclamation-triangle',iconClass:'fault',object:'推理服务 / D-08 实例',root:'hinic3 驱动版本过低',start:'今天 12:05:00',clear:'—',action:'qwen'},
+      {name:'训练集群 RoCE 丢包波动',state:'已闭环',stateClass:'auto-closed',type:'隐患',icon:'fa-shield',iconClass:'hazard',object:'训练作业 / Group18',root:'PFC 水线配置不均衡',start:'今天 11:18:42',clear:'今天 11:19:36',action:''},
+      {name:'NPU 节点温度持续偏高',state:'已闭环',stateClass:'auto-closed',type:'隐患',icon:'fa-thermometer-half',iconClass:'hazard',object:'计算节点 112.34.11.12',root:'风道回流导致散热效率下降',start:'今天 11:20:08',clear:'今天 11:21:02',action:''},
+      {name:'OSFP 光功率劣化',state:'已闭环',stateClass:'auto-closed',type:'隐患',icon:'fa-wrench',iconClass:'hazard',object:'灵衢互联柜02-L2交换机01',root:'光模块瞬时功率抖动',start:'今天 09:35:12',clear:'今天 09:36:04',action:''},
+      {name:'推理实例异常退出',state:'已闭环',stateClass:'auto-closed',type:'隐患',icon:'fa-wrench',iconClass:'hazard',object:'Qwen2.5 / D实例03',root:'容器内存瞬时越限',start:'昨天 23:18:09',clear:'昨天 23:18:42',action:''},
+      {name:'交换机配置漂移',state:'已闭环',stateClass:'human-closed',type:'隐患',icon:'fa-user',iconClass:'hazard',object:'计算柜07-L1交换板01',root:'配置模板版本不一致',start:'昨天 20:06:31',clear:'昨天 20:07:18',action:''}
+    ];
+
+function buildHistoricalEvents() {
+  return Array.from({length:22},(_,i)=>{
+      const closed=i<20,stateClass=closed?'auto-closed':'human-closed';
+      return {name:['交换网络瞬时拥塞','光模块温漂告警','NPU 端口误码波动','训练队列链路抖动','推理实例连接闪断'][i%5]+` #${String(i+1).padStart(2,'0')}`,state:closed?'已闭环':'已闭环',stateClass,type:i%3===0?'故障':'隐患',object:`${i%2?'计算节点':'灵衢互联柜'} ${String(i+3).padStart(2,'0')}`,root:['流量突发触发拥塞保护','光功率短时偏离基线','历史配置残留导致漂移'][i%3],start:`${i<8?'今天':'昨天'} ${String(8+i%12).padStart(2,'0')}:${String((i*7)%60).padStart(2,'0')}:18`,clear:`${i<8?'今天':'昨天'} ${String(8+i%12).padStart(2,'0')}:${String((i*7+2)%60).padStart(2,'0')}:06`,action:''}
+    });
+}
+
+const ENERGY_SERVICE_NAMES = ["Qwen-14B", "Qwen-1.5B 在线服务", "视觉理解服务-3B", "代码生成 Copilot-1.5B", "Embedding 检索服务-0.5B", "数字人实时推理-1.5B", "视觉理解服务 · 07-3B", "代码生成 Copilot · 08-1.5B", "Embedding 检索服务 · 09-0.5B", "数字人实时推理 · 10-1.5B", "DeepSeek-R1-32B", "视觉理解服务 · 12-3B", "代码生成 Copilot · 13-1.5B", "Embedding 检索服务 · 14-0.5B", "数字人实时推理 · 15-1.5B", "Llama-3-70B"];
+
+function buildEnergyEvents() {
+  const energyServiceNames = ENERGY_SERVICE_NAMES;
+  return energyServiceNames.map(name=>{const enabled=HOME_WORKLOADS.inference.some(x=>x.data.name===name&&x.data.energySaving),none=name==='Embedding 检索服务-0.5B';return {name:name+(enabled?' 节能策略执行中':none?' 节能策略优化':' 节能机会识别中'),result:enabled?'已开启节能':none?'暂无节能空间':'—',state:enabled?'自动节能中':none?'无节能空间':'节能机会识别中',stateClass:enabled?'energy-done':none?'energy-none':'energy-wait',type:'节能',object:'推理服务 / '+name,root:enabled?'均衡节能策略已生效，持续监控业务影响':none?'连续 4 个识别周期未发现明显的业务请求变化规律，本轮识别已结束':'正在分析业务请求变化，当前第 1/4 个识别周期',start:'今天 09:00:00',clear:enabled?('今天 10:17:14'):none?'今天 10:00:00':'—',action:name==='Qwen-14B'?'energy':'energy-none'};});
+}
+
+const STATES = [['manual','待人工处理','待人工处理'],['processing','自动处理中','自动处理中-方块'],['auto-closed','已闭环','已自动闭环-方块'],['human-closed','已闭环','已人工闭环-方块'],['energy-wait','节能机会识别中','识别节能-彩色方底'],['energy-done','自动节能中','自动节能-绿色方底'],['energy-none','无节能空间','已生效节能机会点']];
+
+function buildInitialRecords() {
+  const historical = buildHistoricalEvents();
+  const energy = buildEnergyEvents();
+  return [...BASE_FAULT_EVENTS, ...historical, ...energy];
+}
+  Object.assign(__export, { buildHistoricalEvents, buildEnergyEvents, buildInitialRecords, BASE_FAULT_EVENTS, ENERGY_SERVICE_NAMES, STATES });
+})();
+
+/* ===== src/views/guard-events-table/index.jsx ===== */
+(function () {
+  const { useEffect, useMemo, useRef, useState } = React;
+  const { HC_ASSETS, BASE_FAULT_EVENTS, buildHistoricalEvents, buildEnergyEvents, STATES, buildInitialRecords } = __export;
+const createPortal = (node, host) => ReactDOM.createPortal(node, host);
+const STATES_BY_ENERGY = STATES.filter(([k]) => k.startsWith("energy"));
+const STATES_BY_FAULT = STATES.filter(([k]) => !k.startsWith("energy"));
+const ENERGY_HEADERS = ["节能事件名称", "节能状态", "节能结果", "优化对象", "节能优化说明", "发现时间", "状态更新时间", "操作"];
+const FAULT_HEADERS = ["名称", "事件状态", "事件类型", "发生对象", "故障根因", "发生时间", "清除时间", "操作"];
+const STATE_ICON_KEYS = { manual: "待人工处理-圆", processing: "自动处理中-圆", "auto-closed": "已自动闭环-圆", "human-closed": "已人工闭环-圆", "energy-wait": "绿色叶子", "energy-none": "灰色叶子", "energy-done": "绿色叶子" };
+
+function GuardEventsTable() {
+  const [host, setHost] = useState(null);
+  const [visible, setVisible] = useState(false);
+  const [list, setList] = useState("fault");
+  const [stateFilter, setStateFilter] = useState("all");
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(15);
+  const [query, setQuery] = useState("");
+  const [energyResult, setEnergyResult] = useState("all");
+  const [records, setRecords] = useState(() => buildInitialRecords());
+  const [selectedRecord, setSelectedRecord] = useState(null);
+  const energyEventsRef = useRef(buildEnergyEvents());
+  const initialEnergyRef = useRef(energyEventsRef.current.map((x) => ({ ...x })));
+
+  useEffect(() => setHost(document.getElementById("screen")), []);
+
+  const hideEnergyResult = list === "energy";
+  const filteredRows = useMemo(() => {
+    return records.filter((x) => {
+      if (list !== "energy" && x.type === "节能") return false;
+      if (list === "energy" && x.type !== "节能") return false;
+      if (hideEnergyResult || energyResult === "all" || x.result === energyResult) { } else return false;
+      if (stateFilter !== "all") {
+        if (stateFilter === "energy-closed" ? !["energy-done", "energy-none"].includes(x.stateClass) : x.stateClass !== stateFilter) return false;
+      }
+      if (typeFilter !== "all" && x.type !== typeFilter) return false;
+      if (query && ![x.name, x.object, x.root].some((t) => t.includes(query))) return false;
+      return true;
+    });
+  }, [records, list, hideEnergyResult, energyResult, stateFilter, typeFilter, query]);
+  const pages = Math.max(1, Math.ceil(filteredRows.length / size));
+  const currentPage = Math.min(page, pages);
+
+  function resetFilters() { setList("fault"); setStateFilter("all"); setTypeFilter("all"); setQuery(""); setPage(1); setEnergyResult("all"); }
+
+  function close() {
+    setVisible(false);
+    setSelectedRecord(null);
+    if (parent !== window) parent.postMessage({ type: "hc-home-category", category: document.getElementById("screen").dataset.category || "resource" }, location.origin === "null" ? "*" : location.origin);
+  }
+  function choose(s) {
+    setEnergyResult("all");
+    setStateFilter(s);
+    setList(s.startsWith("energy") ? "energy" : "fault");
+    setTypeFilter(s.startsWith("energy") ? "节能" : "all");
+    setPage(1);
+  }
+  function showRecord(item) {
+    if (item.type === "节能" && (item.object !== "推理服务 / Qwen-14B" || item.stateClass === "energy-wait")) return;
+    if (item.type === "节能" && item.action !== "energy-none") { window.openEnergyEvent?.(item); return; }
+    if (item.action === "qwen" || item.action === "qwen-auto") { window.openNicEvent?.({ mode: item.action === "qwen-auto" ? "recovery" : "driver" }); return; }
+    if (item.action === "link" || item.action === "link-auto") { window.openOpticalEvent?.({ mode: item.action === "link-auto" ? "isolation" : "full" }); return; }
+    setSelectedRecord(item);
+  }
+  function restartRecognition(item) {
+    setRecords((prev) => prev.map((r) => {
+      if (r.object === item.object) {
+        return { ...r, name: r.object.split(" / ").pop() + " 节能机会识别中", stateClass: "energy-wait", state: "节能机会识别中", result: "—", root: "正在分析业务请求变化，当前第 1/4 个识别周期", clear: "—" };
+      }
+      return r;
+    }));
+    setStateFilter("all");
+  }
+
+  useEffect(() => {
+    window.openGuardEvents = () => {
+      window.closeEnergyDetail?.();
+      resetFilters();
+      setVisible(true);
+      if (parent !== window) parent.postMessage({ type: "hc-home-category", category: "events" }, location.origin === "null" ? "*" : location.origin);
+    };
+    window.getProcessingEnergyEvents = () => energyEventsRef.current.filter((r) => r.stateClass === "energy-wait").map((r) => ({ ...r }));
+    window.updateStoryRecords = (fn) => {
+      const fresh = [...BASE_FAULT_EVENTS, ...buildHistoricalEvents(), ...energyEventsRef.current].map((x) => ({ ...x }));
+      setRecords(fn(fresh));
+    };
+  }, []);
+
+  useEffect(() => {
+    const onReset = () => {
+      const restored = initialEnergyRef.current.map((x) => ({ ...x }));
+      energyEventsRef.current = restored;
+      setRecords((prev) => [...prev.filter((r) => r.type !== "节能"), ...restored.map((r) => ({ ...r }))]);
+    };
+    const onChange = (e) => {
+      const detail = e.detail;
+      energyEventsRef.current = energyEventsRef.current.map((r) => {
+        if (r.type === "节能" && r.object.endsWith(" / " + detail.name)) {
+          return { ...r, name: detail.name + (detail.done ? " 节能策略执行中" : " 节能机会识别中"), result: detail.done ? "已开启节能" : "—", stateClass: detail.done ? "energy-done" : "energy-wait", state: detail.done ? "自动节能中" : "节能机会识别中", clear: detail.done ? "今天 " + detail.time : "—", root: detail.done ? "均衡节能策略已生效，持续监控业务影响" : "正在分析业务请求变化，当前第 1/4 个识别周期" };
+        }
+        return r;
+      });
+      setRecords((prev) => prev.map((r) => {
+        if (r.type === "节能" && r.object.endsWith(" / " + detail.name)) {
+          return { ...r, name: detail.name + (detail.done ? " 节能策略执行中" : " 节能机会识别中"), result: detail.done ? "已开启节能" : "—", stateClass: detail.done ? "energy-done" : "energy-wait", state: detail.done ? "自动节能中" : "节能机会识别中", clear: detail.done ? "今天 " + detail.time : "—", root: detail.done ? "均衡节能策略已生效，持续监控业务影响" : "正在分析业务请求变化，当前第 1/4 个识别周期" };
+        }
+        return r;
+      }));
+    };
+    window.addEventListener("hc-energy-reset", onReset);
+    window.addEventListener("hc-energy-change", onChange);
+    return () => { window.removeEventListener("hc-energy-reset", onReset); window.removeEventListener("hc-energy-change", onChange); };
+  }, []);
+
+  if (!host || !visible) return null;
+  const headers = list === "energy" ? ENERGY_HEADERS : FAULT_HEADERS;
+  const displayHeaders = headers.filter((t) => !(hideEnergyResult && t === "节能结果"));
+  const pageRows = filteredRows.slice((currentPage - 1) * size, currentPage * size);
+  const stateOptions = list === "energy" ? STATES_BY_ENERGY : STATES_BY_FAULT;
+
+  return createPortal(
+    <section id="guard-all" className={visible ? "expanded" : ""} data-recognizing={String(hideEnergyResult)} data-energy={String(list === "energy")}>
+      <nav className="guard-page-nav">
+        <button type="button" onClick={close}>首页</button>
+        <span className="active">智能体事件</span>
+        <button type="button" onClick={close} aria-label="关闭智能体事件" className="guard-tab-close">×</button>
+      </nav>
+      <div className="guard-page-summary">
+        {[["fault", "故障&隐患事件"], ["energy", "节能事件"]].map(([category, title]) => (
+          <section key={category} className={"guard-summary-group " + category + (list === category && stateFilter === "all" ? " selected" : "")}
+            onClick={(e) => { if (!e.target.closest("button")) { setList(category); setStateFilter("all"); setTypeFilter(category === "energy" ? "节能" : "all"); setQuery(""); setPage(1); } }}>
+            <h2>{title}</h2>
+            <div className="guard-summary-cards">
+              <button type="button" className="guard-total" aria-label={"查看全部" + title}
+                onClick={() => { setList(category); setStateFilter("all"); setTypeFilter(category === "energy" ? "节能" : "all"); setQuery(""); setPage(1); }}>
+                <span>总数</span>
+                <b>{records.filter((x) => category === "energy" ? x.type === "节能" : x.type !== "节能").length}</b>
+              </button>
+              {STATES.filter(([k]) => k.startsWith("energy") === (category === "energy")).map(([key, label, icon]) => (
+                <button key={key} type="button" className={"guard-stat" + (stateFilter === key ? " active" : "")}
+                  onClick={() => { setQuery(""); choose(key); }}>
+                  <img className="guard-asset" src={HC_ASSETS.icons[icon]} alt="" />
+                  <span><span>{label}</span><b>{records.filter((x) => (key === "energy-closed" ? ["energy-done", "energy-none"].includes(x.stateClass) : x.stateClass === key)).length}</b></span>
+                </button>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+      <div className="guard-table-panel">
+        <div className="guard-filters" hidden={list !== "energy"}>
+          <input placeholder={list === "energy" ? "搜索节能机会、优化对象或说明" : "搜索名称、发生对象或根因"} aria-label="搜索智能体事件" value={query}
+            onChange={(e) => { setQuery(e.target.value); setPage(1); }} />
+          <select aria-label="筛选事件状态" value={stateFilter}
+            onChange={(e) => { const v = e.target.value; setStateFilter(v); if (v !== "all") { setList(v.startsWith("energy") ? "energy" : "fault"); setTypeFilter(v.startsWith("energy") ? "节能" : "all"); } setPage(1); }}>
+            <option value="all">全部状态</option>
+            {stateOptions.map(([v, t]) => <option key={v} value={v}>{t}</option>)}
+          </select>
+          <select aria-label="筛选事件类型" value={typeFilter} hidden={list === "energy"}
+            onChange={(e) => { const v = e.target.value; setTypeFilter(v); if (v === "节能") { setList("energy"); setStateFilter("all"); } else if (v !== "all") { setList("fault"); if (stateFilter.startsWith("energy")) setStateFilter("all"); } setPage(1); }}>
+            <option value="all">全部类型</option>
+            <option value="故障">故障</option>
+            <option value="隐患">隐患</option>
+            <option value="节能">节能</option>
+          </select>
+        </div>
+        {list === "energy" && (
+          <div className="guard-result-filter">
+            <select aria-label="筛选节能结果" value={energyResult}
+              onChange={(e) => { setEnergyResult(e.target.value); setPage(1); }}>
+              <option value="all">全部结果</option>
+              <option value="已开启节能">已开启节能</option>
+              <option value="暂无节能空间">暂无节能空间</option>
+              <option value="—">暂无结果</option>
+            </select>
+          </div>
+        )}
+        <div className="guard-table-scroll">
+          <table>
+            <thead>
+              <tr>
+                {displayHeaders.map((t) => (
+                  <th key={t}>
+                    {list === "energy" && t === "节能状态" ? null
+                      : list === "energy" && t === "节能结果" ? null
+                      : list !== "energy" && !["操作", "发生时间", "清除时间"].includes(t) ? null
+                      : t.endsWith("时间") ? <span className="guard-sort-symbol">⇅</span>
+                      : t}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {pageRows.length === 0 ? (
+                <tr><td className="guard-no-rows" colSpan={hideEnergyResult ? 7 : 8}>暂无符合条件的事件</td></tr>
+              ) : pageRows.map((item) => {
+                const cells = list === "energy" ? [item.name, item.state, item.result, item.object, item.root, item.start, item.clear] : [item.name, item.state, item.type, item.object, item.root, item.start, item.clear];
+                const visibleCells = cells.filter((_, i) => !(hideEnergyResult && i === 2));
+                const isDisabled = item.type === "节能" && (item.object !== "推理服务 / Qwen-14B" || item.stateClass === "energy-wait");
+                return (
+                  <tr key={item.object + item.start} onClick={() => showRecord(item)}>
+                    {visibleCells.map((text, vi) => {
+                      const originalIndex = hideEnergyResult && vi >= 2 ? vi + 1 : vi;
+                      return (
+                        <td key={vi} title={text} className={originalIndex === 1 && list !== "energy" ? item.stateClass : undefined}>
+                          {originalIndex === 0 && <LegacyEventTypeIcon item={item} />}
+                          {originalIndex === 1 && list === "energy" && item.stateClass === "energy-wait" && <i className="story-step-icon working" />}
+                          {originalIndex === 1 && list === "energy" && item.stateClass !== "energy-wait" && <img className="guard-asset guard-energy-closed-leaf" src={HC_ASSETS.icons[item.stateClass === "energy-done" ? "绿色叶子" : "灰色叶子"]} alt="" />}
+                          {originalIndex === 1 && list !== "energy" && item.type !== "节能" && <img className="guard-asset" src={HC_ASSETS.icons[STATE_ICON_KEYS[item.stateClass]]} alt="" />}
+                          {originalIndex === 1 && list !== "energy" && item.type === "节能" && <i className="guard-clean-leaf" style={{ "--leaf": "url(./assets/uploads/149-129790.png)" }} />}
+                          {originalIndex === 2 && list === "energy" && item.result !== "—" && <i className={"guard-result-dot" + (item.result === "已开启节能" ? " enabled" : "")} aria-hidden="true" />}
+                          {originalIndex === 2 && list !== "energy" && <span className={"event-type " + (item.type === "故障" ? "fault" : "other")}>{text}</span>}
+                          {originalIndex === 2 && list !== "energy" ? null : text}
+                        </td>
+                      );
+                    })}
+                    <td>
+                      {item.result === "已开启节能" && (
+                        <button type="button" className="record-detail" aria-disabled="true" tabIndex={-1} style={{ cursor: "default" }} aria-label={"查看策略：" + item.name} data-tip="查看策略">
+                          <img className="guard-asset" src={HC_ASSETS.icons["查看详情"]} alt="" />
+                        </button>
+                      )}
+                      <button type="button" className="record-detail"
+                        aria-disabled={isDisabled ? "true" : undefined} tabIndex={isDisabled ? -1 : undefined} style={isDisabled ? { cursor: "default" } : undefined}
+                        aria-label={(item.result === "已开启节能" ? "查看节能监控" : "查看事件详情") + "：" + item.name}
+                        data-tip={item.result === "已开启节能" ? "查看节能监控" : "查看事件详情"}
+                        onClick={(e) => { if (!isDisabled) showRecord(item); }}>
+                        <img className="guard-asset" src={HC_ASSETS.icons[item.result === "已开启节能" ? "节能监控" : "查看详情"]} alt="" />
+                      </button>
+                      {item.stateClass === "energy-none" && (
+                        <button type="button" className="guard-restart" data-tip="重新识别" aria-label="重新识别" onClick={() => restartRecognition(item)}>
+                          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 7v5h-5M20 12a8 8 0 1 0-2.3 5.7" /></svg>
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <footer className="guard-footer">
+          <span>{"总计：" + filteredRows.length}</span>
+          <select aria-label="每页条数" value={size} onChange={(e) => { setSize(Number(e.target.value)); setPage(1); }}>
+            <option value={10}>10 项/页</option><option value={15}>15 项/页</option><option value={30}>30 项/页</option>
+          </select>
+          <button type="button" disabled={currentPage < 2} onClick={() => setPage(currentPage - 1)}>‹</button>
+          {Array.from({ length: pages }, (_, i) => (
+            <button key={i} type="button" className={i + 1 === currentPage ? "active" : ""} disabled={i + 1 === currentPage} onClick={() => setPage(i + 1)}>{i + 1}</button>
+          ))}
+          <button type="button" disabled={currentPage >= pages} onClick={() => setPage(currentPage + 1)}>›</button>
+          <input className="guard-jump" type="number" min={1} max={pages} value={currentPage} aria-label="跳转页码" onChange={(e) => { const n = Number(e.target.value); if (n >= 1 && n <= pages) setPage(n); }} />
+          <button type="button" className="guard-jump-button" onClick={() => { const n = Math.max(1, Math.min(pages, Number(document.querySelector(".guard-jump")?.value) || 1)); setPage(n); }}>跳转</button>
+        </footer>
+      </div>
+      {selectedRecord && <DetailOverlay item={selectedRecord} onClose={() => setSelectedRecord(null)} />}
+    </section>,
+    host
+  );
+}
+
+function LegacyEventTypeIcon({ item }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (!ref.current || !window.HCComponents) return;
+    const business = item.action === "qwen-recovery" || /Qwen|推理实例|推理服务/.test(item.object) && !/网卡|光链路|节点/.test(item.name);
+    const node = window.HCComponents.EventTypeIcon({
+      domain: item.type === "节能" ? "inference" : /训练|作业/.test(item.object) ? "training" : business ? "inference" : "resource",
+      name: item.name + " " + item.object,
+      type: item.type === "节能" ? "energy" : item.type === "隐患" ? "risk" : "fault",
+      closed: /closed|energy-done|energy-none/.test(item.stateClass),
+      size: 24,
+    });
+    if (node) { ref.current.replaceChildren(); ref.current.append(node); }
+  });
+  return <span ref={ref} style={{ display: "contents" }} />;
+}
+
+function DetailOverlay({ item, onClose }) {
+  return (
+    <div className="guard-record-overlay" onClick={onClose}>
+      <section className="guard-record" onClick={(e) => e.stopPropagation()}>
+        <button type="button" aria-label="关闭事件记录" onClick={onClose}>×</button>
+        <h2>{item.name}</h2>
+        {[["事件状态", item.state], ["事件类型", item.type], ["发生对象", item.object], ["故障根因", item.root], ["发生时间", item.start], ["清除时间", item.clear]].map(([label, value]) => (
+          <p key={label}><span>{label}</span><strong>{value}</strong></p>
+        ))}
+      </section>
+    </div>
+  );
+}
+  Object.assign(__export, { GuardEventsTable });
+})();
+
 /* ===== src/views/room-overview/index.jsx ===== */
 (function () {
   const { useEffect, useRef, useState } = React;
@@ -12377,6 +12651,7 @@ const SKELETON_INNER = "\n  <div class=\"cabinet-floor-extension\" aria-hidden=\
   const { useEffect, useState } = React;
   const { runBoot, SCREEN_ATTRS, SKELETON_INNER } = __export;
   const AgentPanel = __export.AgentPanel;
+  const GuardEventsTable = __export.GuardEventsTable;
   const RoomOverview = __export.RoomOverview;
 function App() {
   const [booted, setBooted] = useState(false);
@@ -12395,6 +12670,7 @@ function App() {
       {booted && (
         <>
           <AgentPanel />
+          <GuardEventsTable />
           <RoomOverview />
         </>
       )}
