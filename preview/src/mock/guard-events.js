@@ -1,5 +1,7 @@
 import { HOME_WORKLOADS } from "./workloads.js";
 
+// 7 条当前故障/隐患事件（光链路脏污 + Qwen 劣化 + 5 条已闭环）
+// action 字段决定行点击后的跳转：'link'→光学事件, 'qwen'→网卡事件, ''→详情弹窗
 export const BASE_FAULT_EVENTS = [
       {name:'光链路脏污，待清污',state:'待人工处理',stateClass:'manual',type:'故障',icon:'fa-exclamation-triangle',iconClass:'fault',object:'计算柜11-L1交换板02',root:'L1-L2 光模块端面脏污',start:'今天 12:00:40',clear:'—',action:'link'},
       {name:'Qwen-1.5B 服务劣化',state:'待人工处理',stateClass:'manual',type:'故障',icon:'fa-exclamation-triangle',iconClass:'fault',object:'推理服务 / D-08 实例',root:'hinic3 驱动版本过低',start:'今天 12:05:00',clear:'—',action:'qwen'},
@@ -10,6 +12,7 @@ export const BASE_FAULT_EVENTS = [
       {name:'交换机配置漂移',state:'已闭环',stateClass:'human-closed',type:'隐患',icon:'fa-user',iconClass:'hazard',object:'计算柜07-L1交换板01',root:'配置模板版本不一致',start:'昨天 20:06:31',clear:'昨天 20:07:18',action:''}
     ];
 
+// 22 条历史事件（程序生成，5 种名称 × 循环编号，前 20 条自动闭环、后 2 条人工闭环）
 export function buildHistoricalEvents() {
   return Array.from({length:22},(_,i)=>{
       const closed=i<20,stateClass=closed?'auto-closed':'human-closed';
@@ -17,15 +20,22 @@ export function buildHistoricalEvents() {
     });
 }
 
+// 16 个推理服务名称，节能事件的数据源
 export const ENERGY_SERVICE_NAMES = ["Qwen-14B", "Qwen-1.5B 在线服务", "视觉理解服务-3B", "代码生成 Copilot-1.5B", "Embedding 检索服务-0.5B", "数字人实时推理-1.5B", "视觉理解服务 · 07-3B", "代码生成 Copilot · 08-1.5B", "Embedding 检索服务 · 09-0.5B", "数字人实时推理 · 10-1.5B", "DeepSeek-R1-32B", "视觉理解服务 · 12-3B", "代码生成 Copilot · 13-1.5B", "Embedding 检索服务 · 14-0.5B", "数字人实时推理 · 15-1.5B", "Llama-3-70B"];
 
+// 根据 HOME_WORKLOADS.inference 的 energySaving 标记生成 16 条节能事件
+// 三种状态：energy-done（已开启）、energy-none（无空间）、energy-wait（识别中）
+// Qwen-14B 的 action='energy' → 行点击可打开节能详情；其余 action='energy-none' 或空
 export function buildEnergyEvents() {
   const energyServiceNames = ENERGY_SERVICE_NAMES;
   return energyServiceNames.map(name=>{const enabled=HOME_WORKLOADS.inference.some(x=>x.data.name===name&&x.data.energySaving),none=name==='Embedding 检索服务-0.5B';return {name:name+(enabled?' 节能策略执行中':none?' 节能策略优化':' 节能机会识别中'),result:enabled?'已开启节能':none?'暂无节能空间':'—',state:enabled?'自动节能中':none?'无节能空间':'节能机会识别中',stateClass:enabled?'energy-done':none?'energy-none':'energy-wait',type:'节能',object:'推理服务 / '+name,root:enabled?'均衡节能策略已生效，持续监控业务影响':none?'连续 4 个识别周期未发现明显的业务请求变化规律，本轮识别已结束':'正在分析业务请求变化，当前第 1/4 个识别周期',start:'今天 09:00:00',clear:enabled?('今天 10:17:14'):none?'今天 10:00:00':'—',action:name==='Qwen-14B'?'energy':'energy-none'};});
 }
 
+// 状态配置：[stateClass 键, 显示标签, 图标名（HC_ASSETS.icons 的 key）]
+// 用于统计卡片渲染 + 筛选下拉选项
 export const STATES = [['manual','待人工处理','待人工处理'],['processing','自动处理中','自动处理中-方块'],['auto-closed','已闭环','已自动闭环-方块'],['human-closed','已闭环','已人工闭环-方块'],['energy-wait','节能机会识别中','识别节能-彩色方底'],['energy-done','自动节能中','自动节能-绿色方底'],['energy-none','无节能空间','已生效节能机会点']];
 
+// 合并三类事件为完整记录集（组件 useState 的初始值）
 export function buildInitialRecords() {
   const historical = buildHistoricalEvents();
   const energy = buildEnergyEvents();

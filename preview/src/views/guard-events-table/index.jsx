@@ -1,3 +1,6 @@
+// 智能体事件全屏表格页 —— 从左侧"守护事件 → 查看全部"打开
+// 声明式渲染：表格行/筛选/分页/统计卡片/详情弹窗全部由 React state 驱动
+// CSS 在 src/styles/legacy.css（.guard-* 选择器，从演示 HTML 机械提取）
 import { useEffect, useMemo, useRef, useState } from "react";
 import { HC_ASSETS } from "../../mock/hc-assets.js";
 import { BASE_FAULT_EVENTS, buildHistoricalEvents, buildEnergyEvents, STATES, buildInitialRecords } from "../../mock/guard-events.js";
@@ -12,17 +15,17 @@ const STATE_ICON_KEYS = { manual: "待人工处理-圆", processing: "自动处�
 export default function GuardEventsTable() {
   const [host, setHost] = useState(null);
   const [visible, setVisible] = useState(false);
-  const [list, setList] = useState("fault");
-  const [stateFilter, setStateFilter] = useState("all");
-  const [typeFilter, setTypeFilter] = useState("all");
+  const [list, setList] = useState("fault");           // 'fault' | 'energy' —— 当前分类
+  const [stateFilter, setStateFilter] = useState("all"); // 状态筛选
+  const [typeFilter, setTypeFilter] = useState("all");   // 类型筛选（故障/隐患/节能）
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(15);
+  const [size, setSize] = useState(15);                  // 每页条数
   const [query, setQuery] = useState("");
   const [energyResult, setEnergyResult] = useState("all");
-  const [records, setRecords] = useState(() => buildInitialRecords());
-  const [selectedRecord, setSelectedRecord] = useState(null);
-  const energyEventsRef = useRef(buildEnergyEvents());
-  const initialEnergyRef = useRef(energyEventsRef.current.map((x) => ({ ...x })));
+  const [records, setRecords] = useState(() => buildInitialRecords()); // 完整数据集（含能耗动态更新）
+  const [selectedRecord, setSelectedRecord] = useState(null);           // 详情弹窗选中项
+  const energyEventsRef = useRef(buildEnergyEvents());                 // 节能事件子集（hc-energy-change/reset 操作对象）
+  const initialEnergyRef = useRef(energyEventsRef.current.map((x) => ({ ...x }))); // 节能事件初始快照（reset 用）
 
   useEffect(() => setHost(document.getElementById("screen")), []);
 
@@ -57,6 +60,7 @@ export default function GuardEventsTable() {
     setTypeFilter(s.startsWith("energy") ? "节能" : "all");
     setPage(1);
   }
+  // 行点击：根据 action 字段跳转到对应事件模块，或打开详情弹窗
   function showRecord(item) {
     if (item.type === "节能" && (item.object !== "推理服务 / Qwen-14B" || item.stateClass === "energy-wait")) return;
     if (item.type === "节能" && item.action !== "energy-none") { window.openEnergyEvent?.(item); return; }
@@ -74,8 +78,8 @@ export default function GuardEventsTable() {
     setStateFilter("all");
   }
 
+  // 窗口 API 桥接：保持与 legacy boot 代码相同的接口（openGuardEvents/getProcessingEnergyEvents/updateStoryRecords）
   useEffect(() => {
-    window.openGuardEvents = () => {
       window.closeEnergyDetail?.();
       resetFilters();
       setVisible(true);
@@ -88,6 +92,7 @@ export default function GuardEventsTable() {
     };
   }, []);
 
+  // 节能事件监听：hc-energy-change 更新匹配记录的状态；hc-energy-reset 恢复初始快照
   useEffect(() => {
     const onReset = () => {
       const restored = initialEnergyRef.current.map((x) => ({ ...x }));
@@ -115,11 +120,13 @@ export default function GuardEventsTable() {
   }, []);
 
   if (!host || !visible) return null;
+  // 派生渲染数据
   const headers = list === "energy" ? ENERGY_HEADERS : FAULT_HEADERS;
   const displayHeaders = headers.filter((t) => !(hideEnergyResult && t === "节能结果"));
   const pageRows = filteredRows.slice((currentPage - 1) * size, currentPage * size);
   const stateOptions = list === "energy" ? STATES_BY_ENERGY : STATES_BY_FAULT;
 
+  // 全屏事件页：导航栏 + 统计卡片 + 筛选器 + 表格 + 分页 + 详情弹窗
   return createPortal(
     <section id="guard-all" className={visible ? "expanded" : ""} data-recognizing={String(hideEnergyResult)} data-energy={String(list === "energy")}>
       <nav className="guard-page-nav">
@@ -261,6 +268,8 @@ export default function GuardEventsTable() {
   );
 }
 
+// 事件类型图标桥接组件 —— hc-components 尚未 React 化，通过 ref 调用 legacy 工厂函数
+// 当 hc-components 完成组件化后，此桥接可移除，改为直接渲染 <EventTypeIcon />
 function LegacyEventTypeIcon({ item }) {
   const ref = useRef(null);
   useEffect(() => {
@@ -278,6 +287,7 @@ function LegacyEventTypeIcon({ item }) {
   return <span ref={ref} style={{ display: "contents" }} />;
 }
 
+// 事件详情弹窗 —— 点击非跳转类事件行时展示完整字段
 function DetailOverlay({ item, onClose }) {
   return (
     <div className="guard-record-overlay" onClick={onClose}>
