@@ -100,7 +100,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const motion = d.querySelector(".agent-motion");
   const layers = motion ? motion.querySelectorAll("[data-motion]") : [];
   check("mascot motion layers present", layers.length >= 7, layers.length + " layers");
-  const mascotSrcOk = [...layers].every((el) => String(el.getAttribute("src") || "").includes("/assets/mascot/") || String(el.getAttribute("src") || "").startsWith("data:"));
+  const mascotSrcOk = [...layers].every((el) => String(el.getAttribute("src") || "").includes("/assets/uploads/mascot/") || String(el.getAttribute("src") || "").startsWith("data:"));
   check("mascot layer srcs use extracted assets", layers.length > 0 && mascotSrcOk);
 
   const workloads = d.getElementById("home-workloads");

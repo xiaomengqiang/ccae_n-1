@@ -281,7 +281,7 @@
 .agent-motion [data-motion="bg-burst-in"],.agent-motion [data-motion="bg-particles"],.agent-motion [data-motion="bg-ring"]{z-index:1;mix-blend-mode:screen}
 .agent-motion [data-motion^="ip-"]{z-index:2}
 .agent-motion.motion-static{background:#0e1730 url('./assets/uploads/agent-background.webp') center top/484px auto no-repeat}
-.agent-motion.motion-static:after{content:'';position:absolute;inset:0;background:url('./assets/mascot/ip-static.webp') top center/484px auto no-repeat}
+.agent-motion.motion-static:after{content:'';position:absolute;inset:0;background:url('./assets/uploads/mascot/ip-static.webp') top center/484px auto no-repeat}
 @media(prefers-reduced-motion:reduce){.agent-motion img{display:none}}
 
 .energy-metrics .row-quality>span{font-size:12px;white-space:nowrap}

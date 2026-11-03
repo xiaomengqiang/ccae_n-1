@@ -14,4 +14,4 @@ unreferenced manifest paths: 0
 intentionally inline (data URI kept): icons/agent-panel-opaque.svg
 skeleton top-level tags: ["main@1"]
 empty css declarations stripped: 28
-sizes: css=482005 js=449054 skeleton=86134
+sizes: css=482013 js=449054 skeleton=86190

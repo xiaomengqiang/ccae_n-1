@@ -110,12 +110,12 @@ function nameFromContext(ctx) {
 }
 function folderFor(name, mime, ctx, ext) {
   if (ext === ".woff2" || ext === ".ttf") return "font";
-  if (name.includes("mascot") || (/(mascot|ip-|bg-|burst)/.test(name) && ext === ".webp")) return "mascot";
+  if (name.includes("mascot") || (/(mascot|ip-|bg-|burst)/.test(name) && ext === ".webp")) return "uploads/mascot";
   if (ext === ".svg") return "icons";
   return "uploads";
 }
 
-for (const dir of ["icons", "mascot", "font", "scenes", "uploads"]) mkdirSync(join(OUT, dir), { recursive: true });
+for (const dir of ["icons", "font", "scenes", "uploads", "uploads/mascot"]) mkdirSync(join(OUT, dir), { recursive: true });
 const usedNames = new Set();
 const manifest = [];
 let i = 0;
