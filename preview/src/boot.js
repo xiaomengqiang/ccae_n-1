@@ -7,12 +7,10 @@ import "./utils/clock.js";
 import { initHomeScreen } from "./views/home-screen/legacy.js";
 import { mountOpticalEvent } from "./views/optical-event/event.js";
 import { mountStoryRender } from "./views/story/render.js";
-import { initEnergyDetail } from "./views/energy-detail/legacy.js";
 
 export function runBoot() {
   initHCComponents();
   initHomeScreen();
   mountOpticalEvent();
   mountStoryRender();
-  initEnergyDetail();
 }

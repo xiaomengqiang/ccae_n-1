@@ -2132,585 +2132,585 @@
 /* Restored optical links use the healthy green sweep. */
 .hc-event-module[data-phase="reviewed"] .hc-flow-fault{--hc-flow-color:rgb(99,213,168)}
 
-/* 节能详情独立作用域：沿用原首页 1920 × 1080 坐标。 */
-#hc-energy-root{position:absolute;left:48px;top:48px;width:1872px;height:1032px;z-index:30;background:#050505;color:#eee;display:grid;grid-template-columns:484px minmax(0,1fr);font-size:14px}
-#hc-energy-root[hidden]{display:none}
-#hc-energy-root *{box-sizing:border-box}
-#hc-energy-root button{transition:background .18s,color .18s}
-#hc-energy-root button:hover{color:#75baff}
-#hc-energy-root button:disabled{opacity:.45;cursor:default}
-#hc-energy-root .hc-energy-left{background:#282828;display:flex;flex-direction:column;min-height:0;border-right:1px solid #363636}
-#hc-energy-root .hc-energy-heading{display:flex;align-items:center;gap:12px;padding:20px 18px 24px;min-height:88px}
-#hc-energy-root .hc-energy-heading>button{font-size:28px;width:24px}
-#hc-energy-root .hc-energy-heading img{width:36px;height:36px;object-fit:contain}
-#hc-energy-root .hc-energy-heading h1{font-size:18px;line-height:26px}
-#hc-energy-root .hc-energy-heading p{color:#b8b8b8;font-size:12px;line-height:24px}
-#hc-energy-root .hc-energy-left-scroll{padding:0 20px 24px;overflow-y:auto;flex:1;min-height:0;scrollbar-width:thin;scrollbar-color:#666 transparent}
-#hc-energy-root .hc-energy-step{position:relative;padding:0 0 16px 24px;border-left:1px solid #309b79;margin-left:8px}
-#hc-energy-root .hc-energy-step:last-of-type{border-left-color:transparent}
-#hc-energy-root .hc-energy-step>summary{list-style:none;display:flex;align-items:center;gap:8px;min-height:28px;cursor:pointer;font-size:14px;font-weight:600;margin-bottom:8px}
-#hc-energy-root .hc-energy-step>summary::-webkit-details-marker{display:none}
-#hc-energy-root .hc-energy-step>summary::after{content:'⌄';margin-left:auto;color:#aaa;font-size:20px}
-#hc-energy-root .hc-energy-step[open]>summary::after{transform:rotate(180deg)}
-#hc-energy-root .hc-energy-step>summary::before{content:'✓';position:absolute;left:-8px;top:4px;border:1px solid #26b589;background:#283c35;color:#32c493;border-radius:50%;width:16px;height:16px;font-size:11px;text-align:center;line-height:14px}
-#hc-energy-root .hc-energy-step[data-state=waiting]>summary::before{content:'';background:#282828;border-color:#686868}
-#hc-energy-root .hc-energy-step[data-state=working]>summary::before{content:'';border:2px solid #72aaff;border-top-color:#b092ff;box-shadow:0 0 5px #5895ff;animation:hc-energy-spin 1.8s linear infinite}
-#hc-energy-root .hc-energy-step[data-state=waiting]{color:#999;border-color:#555}
-#hc-energy-root .hc-energy-step p{font-size:13px;color:#bdbdbd;line-height:22px;margin:8px 0}
-#hc-energy-root .hc-energy-strategy{padding:14px 18px;margin:12px 0;border:2px solid #555;border-radius:12px;background:#3b3b3b}
-#hc-energy-root .hc-energy-strategy.recommended{border-color:#525252}
-#hc-energy-root .hc-energy-strategy h3{font-size:20px;margin:0 0 12px;font-weight:500}
-#hc-energy-root .hc-energy-strategy.recommended h3{color:#37c39d}
-#hc-energy-root .hc-energy-strategy dl{display:flex;gap:70px;margin:0}
-#hc-energy-root dt{font-size:13px;color:#bdbdbd}
-#hc-energy-root dd{margin:5px 0 0;font-size:18px}
-#hc-energy-root .hc-energy-state{font-size:12px;font-weight:400;color:#52baf4;margin-left:auto}
-#hc-energy-root .hc-energy-logs{border:1px solid #505050;background:#303030;border-radius:8px;padding:8px 14px;max-height:266px;overflow:auto;scrollbar-width:thin;scrollbar-color:#666 transparent}
-#hc-energy-root .hc-energy-logs.expanded{max-height:none;overflow:visible}
-#hc-energy-root .hc-energy-log{display:block;width:100%;text-align:left;position:relative;border-left:1px dotted #626262;padding:12px 0 12px 16px;margin-left:4px}
-#hc-energy-root .hc-energy-log::before{content:'';position:absolute;left:-4px;top:18px;width:7px;height:7px;border-radius:50%;background:#5ca8ec}
-#hc-energy-root .hc-energy-log time{display:block;font-size:11px;color:#989898;margin-bottom:6px}
-#hc-energy-root .hc-energy-log strong{font-size:13px;line-height:20px;font-weight:500}
-#hc-energy-root .hc-energy-log p{margin:4px 0 0;font-size:12px}
-#hc-energy-root .hc-energy-log.selected{color:#6ab5ff;background:#334353}
-#hc-energy-root .hc-energy-log-actions{display:flex;justify-content:space-between;padding:10px 0;color:#69abe6;font-size:12px}
-#hc-energy-root .hc-energy-chat{margin:14px 0 0 32px;display:flex;flex-direction:column;gap:14px}
-#hc-energy-root .hc-energy-question{align-self:flex-end;background:#414141;border-radius:10px 10px 2px 10px;padding:12px;line-height:22px;max-width:95%}
-#hc-energy-root .hc-energy-answer{font-size:14px;line-height:24px;color:#ddd}
-#hc-energy-root .hc-energy-progress{list-style:none;padding:0;margin:10px 0;color:#999;line-height:30px}
-#hc-energy-root .hc-energy-progress .done{color:#35c594}
-#hc-energy-root .hc-energy-progress .working{color:#7eafff}
-#hc-energy-root .hc-energy-report-card{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid #626262;background:#353535;border-radius:10px}
-#hc-energy-root .hc-energy-report-card strong{font-size:13px;display:block;line-height:22px}
-#hc-energy-root .hc-energy-report-card small{font-size:11px;color:#b5b5b5}
-#hc-energy-root .hc-energy-report-card button{margin-left:auto;color:#65b6ff;flex:none;font-size:13px}
-#hc-energy-root .hc-energy-composer{margin:12px 16px 20px;padding:10px 12px;border:1px solid transparent;border-radius:18px;background:linear-gradient(#393939,#393939) padding-box,linear-gradient(115deg,#8e6bff,#83addf,#ebaa64) border-box}
-#hc-energy-root .hc-energy-prompt{border:1px solid #7b7b7b;border-radius:7px;display:flex;align-items:center;gap:8px;line-height:20px;padding:9px 8px;font-size:12px;margin-bottom:10px}
-#hc-energy-root .hc-energy-prompt button{color:#68b9ff;white-space:nowrap;margin-left:auto}
-#hc-energy-root .hc-energy-input-row{display:flex;align-items:center;gap:8px}
-#hc-energy-root .hc-energy-input-row input{width:100%;min-width:0;background:transparent;border:0;color:#eee;padding:8px 0;outline:none;font-size:13px}
-#hc-energy-root .hc-energy-input-row button{background:#777190;border-radius:50%;width:30px;height:30px;flex:none;color:#ddd}
-#hc-energy-root .hc-energy-right{padding:20px 24px 24px;overflow:auto;min-width:0;scrollbar-width:thin;scrollbar-color:#696969 transparent}
-#hc-energy-root .hc-energy-tabs{display:flex;align-items:center;gap:8px;height:37px;border-bottom:1px solid #444;margin-bottom:22px}
-#hc-energy-root .hc-energy-tab{display:flex;align-items:center;gap:10px;height:28px;padding:0 12px;background:#191919;border-radius:8px;font-size:12px}
-#hc-energy-root .hc-energy-tab.active{background:#414141}
-#hc-energy-root .hc-energy-tab button{font-size:16px}
-#hc-energy-root .hc-energy-title{display:flex;align-items:center;gap:8px;font-size:20px;margin-bottom:20px;min-height:26px}
-#hc-energy-root .hc-energy-badge{font-size:13px;color:#33be91;background:#00291e;padding:6px 9px;border-radius:3px;font-weight:400}
-#hc-energy-root .hc-energy-badge img{display:inline-block;width:15px;height:13px;margin-right:6px;vertical-align:middle}
-#hc-energy-root .hc-energy-panel{border-radius:14px;background:#191919;padding:20px;margin-bottom:24px}
-#hc-energy-root .hc-energy-metrics{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));padding:20px 4px}
-#hc-energy-root .hc-energy-metric{padding:0 16px;border-right:1px solid #3a3a3a;min-width:0}
-#hc-energy-root .hc-energy-metric:last-child{border:0}
-#hc-energy-root .hc-energy-metric dt{white-space:nowrap;font-size:14px}
-#hc-energy-root .hc-energy-metric dd{font-size:26px;line-height:36px;white-space:nowrap}
-#hc-energy-root .hc-energy-metric small{font-size:13px;color:#bbb;margin-left:4px}
-#hc-energy-root .hc-energy-topology-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-#hc-energy-root .hc-energy-topology-head strong{margin-right:6px;font-weight:500}
-#hc-energy-root .hc-energy-pill{background:#262626;border-radius:20px;color:#ccc;padding:7px 15px;font-size:12px}
-#hc-energy-root .hc-energy-topology{background:#303030;border-radius:12px;padding:12px}
-#hc-energy-root .hc-energy-instance-grid{display:grid;grid-template-columns:1fr 2.5fr;gap:8px}
-#hc-energy-root .hc-energy-instance{background:#414141;border-radius:8px;padding:12px}
-#hc-energy-root .hc-energy-instance>p{font-size:12px;color:#d0d0d0;margin:0 0 6px}
-#hc-energy-root .hc-energy-nodes{display:flex;justify-content:space-around;gap:10px}
-#hc-energy-root .hc-energy-node{display:flex;flex-direction:column;align-items:center;font-size:12px;position:relative;border-radius:8px;padding:0 6px}
-#hc-energy-root .hc-energy-node:hover{background:#4b4b4b}
-#hc-energy-root .hc-energy-node svg{width:106px;height:122px;display:block}
-#hc-energy-root .hc-energy-node span{margin:4px 0;color:#ccc;font-size:11px}
-#hc-energy-root .hc-energy-mapping{height:138px;display:flex;align-items:flex-end;justify-content:center;position:relative;padding-top:8px}
-#hc-energy-root .hc-energy-mapping img{width:510px;height:125px;object-fit:contain}
-#hc-energy-root .hc-energy-mapping-label{position:absolute;top:5px;left:50%;transform:translateX(-50%);color:#a8cbee;font-size:11px}
-#hc-energy-root .hc-energy-utilization-key{position:absolute;right:0;bottom:8px;font-size:11px;color:#bbb;text-align:right}
-#hc-energy-root .hc-energy-utilization-key i{display:block;width:188px;height:6px;border-radius:3px;background:linear-gradient(90deg,#126d7c,#23bbc9,#eee965,#fe9e39);margin:8px 0 4px auto}
-#hc-energy-root .hc-energy-chart-title{font-size:16px;font-weight:500;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
-#hc-energy-root .hc-energy-legend{font-size:11px;color:#bbb;display:flex;gap:16px;font-weight:400}
-#hc-energy-root .hc-energy-chart{position:relative;min-width:0}
-#hc-energy-root .hc-energy-chart svg{display:block;width:100%;height:auto;overflow:visible}
-#hc-energy-root .hc-energy-tooltip{position:absolute;pointer-events:none;background:#3b3b3b;border:1px solid #505050;box-shadow:0 6px 16px #0007;border-radius:8px;padding:14px 16px;color:#eee;font-size:12px;line-height:25px;z-index:3;white-space:pre-line;min-width:180px}
-#hc-energy-root .hc-energy-history{display:flex;justify-content:space-between;background:#213849;color:#8ec6ff;padding:8px 12px;border-radius:6px;font-size:12px;margin-bottom:12px}
-#hc-energy-root .hc-energy-report-title{font-size:28px;font-weight:500;background:linear-gradient(90deg,#44adcb,#65d099);background-clip:text;color:transparent}
-#hc-energy-root .hc-energy-report-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-#hc-energy-root .hc-energy-download{border:1px solid #747474;border-radius:4px;padding:6px 14px;font-size:12px}
-#hc-energy-root .hc-energy-report-scope{display:flex;gap:8px;align-items:center;color:#bbb;font-size:13px;margin-bottom:24px}
-#hc-energy-root .hc-energy-report-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:22px 0}
-#hc-energy-root .hc-energy-report-metrics dd{font-size:32px;white-space:nowrap;margin-top:10px}
-#hc-energy-root .hc-energy-report-metrics small{font-size:13px;color:#bbb}
-#hc-energy-root .hc-energy-report-metrics p{font-size:12px;color:#aaa;margin-top:10px}
-#hc-energy-root .hc-energy-report-metrics em{font-style:normal;color:#35bf95}
-#hc-energy-root .hc-energy-policy-tracks{padding:12px 16px;background:#303030;border-radius:12px;margin-top:10px}
-#hc-energy-root .hc-energy-policy-track{font-size:12px;color:#bbb;margin:4px 0 14px}
-#hc-energy-root .hc-energy-policy-track>div{height:15px;background:#444;border-radius:15px;margin-top:10px;position:relative;overflow:hidden}
-#hc-energy-root .hc-energy-policy-track span{position:absolute;top:0;height:15px;border-radius:4px;background:#9180f1}
-#hc-energy-root .hc-energy-policy-track.running span{background:#0aae7d}
-#hc-energy-root .hc-energy-report-bottom{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-#hc-energy-root .hc-energy-report-bottom .hc-energy-panel{min-width:0}
-#hc-energy-root .hc-energy-report-note{font-size:11px;color:#999;line-height:20px;margin-top:10px}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .hc-energy-card[role=button]{cursor:pointer}.hc-energy-card[role=button]:hover{outline:1px solid #429dd2;outline-offset:-1px}
-.hc-energy-home-marker{position:absolute;left:calc(63.157895% - 4.605263px);top:5px;transform:translate(-50%,-50%);box-sizing:border-box;width:53px;height:22px;border:1.5px solid #31b889!important;background:#214b3e!important;border-radius:12px;padding:0!important;display:flex;align-items:center;justify-content:center;gap:8px;z-index:4;font-size:14px}.hc-energy-home-marker img{width:14px;height:14px}.hc-energy-home-marker[data-done=true]{border-color:#888!important;background:#3c3c3c!important}.hc-energy-home-marker:hover{filter:brightness(1.3)}
-#home-events .hc-energy-home-row{cursor:pointer}#home-events .hc-energy-home-row:hover{background:#3338}
+
+
 #guard-all[data-energy=true] .guard-table-scroll th:nth-child(1){width:22%}#guard-all[data-energy=true] .guard-table-scroll th:nth-child(2){width:13%}#guard-all[data-energy=true] .guard-table-scroll th:nth-child(3){width:17%}#guard-all[data-energy=true] .guard-table-scroll th:nth-child(4){width:23%}#guard-all[data-energy=true] .guard-table-scroll th:nth-child(5),#guard-all[data-energy=true] .guard-table-scroll th:nth-child(6){width:10%}#guard-all[data-energy=true] .guard-table-scroll th:last-child{width:5%}#guard-all[data-energy=true] .guard-table-scroll{flex:1;min-height:0;height:auto}#guard-all[data-energy=true] .guard-filters input{width:320px}#guard-all[data-energy=true] .guard-total.active{outline:2px solid #1685df;border-radius:8px;background:transparent!important}
 #guard-all .hc-energy-summary-label{position:absolute;right:24px;top:55px;color:#a7a7a7;font-size:12px}
-@keyframes hc-energy-spin{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){#hc-energy-root .hc-energy-step[data-state=working]>summary::before{animation:none}}
 
-#hc-energy-root .hc-energy-watching{font-size:12px;font-weight:400;margin-left:8px;background:linear-gradient(100deg,#64a6ef 10%,#bca1f5 35%,#fff 50%,#64c9b4 65%,#64a6ef 90%);background-size:250% 100%;background-clip:text;color:transparent;animation:hc-energy-sweep 3s linear infinite}
-@keyframes hc-energy-sweep{to{background-position:250% 0}}
-@media(prefers-reduced-motion:reduce){#hc-energy-root .hc-energy-watching{animation:none;color:#87bdf3}}
+
+
+
+
+
 #guard-all .guard-stat:nth-child(6)>span>span,#guard-all .guard-stat:nth-child(7)>span>span{font-size:12px}
-#home-events .hc-energy-home-row .hc-event-head>img{width:24px;height:24px;object-fit:contain}
 
-/* 0910 高保真校准：坐标以节能1 / 节能3 的 1920×1080 画板为准。 */
-#hc-energy-root .hc-energy-right{padding:20px 32px 24px 24px;background:#000}
-#hc-energy-root .hc-energy-panel{background:#191919;border-radius:14px;padding:20px;margin:0 0 24px}
-#hc-energy-root .hc-energy-tabs{height:36px;margin-bottom:20px}
-#hc-energy-root .hc-energy-tab{height:27px;font-size:12px;border-radius:8px;padding:0 10px}
-#hc-energy-root .hc-energy-right[data-mode=strategy]>.hc-energy-tabs{display:none}
-#hc-energy-root .hc-energy-title{height:28px;min-height:28px;margin:0 0 18px;font-size:20px;font-weight:500}
-#hc-energy-root .hc-energy-right[data-mode=strategy]>.hc-energy-title{margin-bottom:20px}
-#hc-energy-root .hc-energy-badge{padding:4px 8px;font-size:14px;line-height:20px;color:#36b48c;background:#00271c}
-#hc-energy-root .hc-energy-metric-panel{height:84px;margin-bottom:16px;padding:16px 20px}
-#hc-energy-root .hc-energy-right[data-mode=strategy]>.hc-energy-metric-panel{height:130px;margin-bottom:24px;padding:16px 20px 20px}
-#hc-energy-root .hc-energy-metric-heading{font-size:14px;line-height:22px;font-weight:400;margin:0 0 10px}
-#hc-energy-root .hc-energy-metrics{padding:0;margin:0;gap:0;height:56px;align-items:center}
-#hc-energy-root .hc-energy-metric{padding:0 20px;min-width:0;border-right:1px solid #3b3b3b;height:48px}
-#hc-energy-root .hc-energy-metric:first-child{padding-left:0}
-#hc-energy-root .hc-energy-metric:last-child{padding-right:0}
-#hc-energy-root .hc-energy-metric dt{font-size:14px;line-height:22px;color:#c9c9c9}
-#hc-energy-root .hc-energy-metric dd{font-size:24px;line-height:32px;margin:5px 0 0;font-weight:500}
-#hc-energy-root .hc-energy-metric small{font-size:12px;margin-left:4px;font-weight:400}
-#hc-energy-root .hc-energy-topology-panel{height:778px;padding:16px 20px 12px;overflow:hidden}
-#hc-energy-root .hc-energy-topology-head{height:30px;margin-bottom:16px;gap:16px}
-#hc-energy-root .hc-energy-topology-head strong{font-size:14px;margin-right:0}
-#hc-energy-root .hc-energy-pill{font-size:12px;padding:5px 16px;line-height:20px;border-radius:18px}
-#hc-energy-root .hc-energy-topology{height:517px;padding:12px 12px 0;position:relative;background:#2e2e2e;border-radius:12px;overflow:hidden}
-#hc-energy-root .hc-energy-instance-grid{height:360px;grid-template-columns:360fr 900fr;grid-template-rows:176px 176px;gap:8px;position:relative;z-index:1}
-#hc-energy-root .hc-energy-instance{padding:8px 12px;background:#414141;border-radius:8px}
-#hc-energy-root .hc-energy-instance>p{font-size:12px;line-height:20px;margin:0 0 2px}
-#hc-energy-root .hc-energy-nodes{gap:8px;justify-content:space-evenly}
-#hc-energy-root .hc-energy-node{padding:0;min-width:0;flex:none}
-#hc-energy-root .hc-energy-node svg{width:106px;height:118px}
-#hc-energy-root .hc-energy-node span{font-size:12px;line-height:20px;margin:4px 0 0;color:#c9c9c9}
-#hc-energy-root .hc-energy-mapping{height:145px;padding:0;align-items:flex-end}
-#hc-energy-root .hc-energy-mapping img{width:462px;height:160px;object-fit:contain;opacity:.42}
-#hc-energy-root .hc-energy-mapping-label{font-size:10px;top:6px;z-index:2;color:#ddd;padding:0 5px;background:#303030}
-#hc-energy-root .hc-energy-mapping::before{content:'';position:absolute;left:59%;top:0;height:22px;width:1px;background:#b1b1b1;z-index:1}
-#hc-energy-root .hc-energy-utilization-key{bottom:12px;font-size:12px;display:grid;grid-template-columns:auto 198px;align-items:center;gap:3px 12px}
-#hc-energy-root .hc-energy-utilization-key i{width:198px;margin:0;height:6px;grid-column:2;background:linear-gradient(90deg,#14788b 0 24%,transparent 24% 26%,#25b7c5 26% 49%,transparent 49% 51%,#f4e15f 51% 74%,transparent 74% 76%,#ff9d32 76%)}
-#hc-energy-root .hc-energy-utilization-key>span{grid-column:2;letter-spacing:0;font-size:11px;text-align:justify}
-#hc-energy-root .hc-energy-trend{margin:16px -1px 0;padding:0;background:transparent;height:188px}
-#hc-energy-root .hc-energy-chart-title{font-size:16px;line-height:24px;min-height:24px;font-weight:500;margin:0 0 14px}
-#hc-energy-root .hc-energy-trend>.hc-energy-chart-title::before{display:none;content:none}
-#hc-energy-root .hc-energy-trend>.hc-energy-chart-title{justify-content:flex-start;gap:8px;margin-bottom:10px}
-#hc-energy-root .hc-energy-trend .hc-energy-legend{margin-left:auto;gap:16px}
-#hc-energy-root .hc-energy-legend{color:#c9c9c9;gap:20px;font-size:12px}
-#hc-energy-root .hc-energy-trend>.hc-energy-chart{background:#232323}
-#hc-energy-root .hc-energy-heading{padding:16px 16px 24px;gap:16px;min-height:84px;align-items:flex-start}
-#hc-energy-root .hc-energy-heading>button{height:36px;width:20px;font-size:28px;line-height:36px}
-#hc-energy-root .hc-energy-heading>img{width:36px;height:36px;margin-top:2px}
-#hc-energy-root .hc-energy-heading h1{font-size:16px;font-weight:500;line-height:24px}
-#hc-energy-root .hc-energy-heading p{font-size:12px;line-height:20px}
-#hc-energy-root .hc-energy-left-scroll{padding:0 20px 24px;scrollbar-gutter:auto}
-#hc-energy-root .hc-energy-step{padding:0 0 16px 16px;margin-left:8px}
-#hc-energy-root .hc-energy-step>summary{font-size:14px;line-height:22px;min-height:28px;margin-bottom:0;font-weight:500}
-#hc-energy-root .hc-energy-step>summary::after{content:'';border-right:1px solid #c9c9c9;border-bottom:1px solid #c9c9c9;width:7px;height:7px;transform:rotate(45deg);margin-right:3px}
-#hc-energy-root .hc-energy-step[open]>summary::after{transform:rotate(225deg)}
-#hc-energy-root .hc-energy-step p{font-size:12px;line-height:20px;margin:8px 0 0;color:#c9c9c9}
-#hc-energy-root .hc-energy-strategy{height:104px;padding:12px 18px;margin:12px 0 0;background:#3d3d3d;border:2px solid #525252;border-radius:12px;position:relative;overflow:hidden}
-#hc-energy-root .hc-energy-strategy.recommended{border-color:#525252;background:linear-gradient(110deg,#39514b,#3d3d3d 65%)}
-#hc-energy-root .hc-energy-strategy h3{font-size:18px;line-height:26px;font-weight:500;margin:0 0 8px}
-#hc-energy-root .hc-energy-strategy dl{display:grid;grid-template-columns:148px 1fr;gap:0;position:relative;z-index:1}
-#hc-energy-root .hc-energy-strategy dt{font-size:12px;line-height:20px}
-#hc-energy-root .hc-energy-strategy dd{font-size:16px;line-height:24px;margin:0}
-#hc-energy-root .hc-energy-delta{font-size:11px;color:#bdbdbd;margin-left:5px}
-#hc-energy-root .hc-energy-delta::first-letter{color:#58ccaa}
-#hc-energy-root .hc-energy-strategy-art{position:absolute;right:24px;bottom:14px;width:64px;height:64px;border-radius:50%;background:#444;color:#393939;display:grid;place-items:center}
-#hc-energy-root .recommended .hc-energy-strategy-art{background:#3f5b53;color:#43514e}
-#hc-energy-root .hc-energy-strategy-art>svg,#hc-energy-root .hc-energy-strategy-art>img{width:58px;height:58px;opacity:.55;filter:grayscale(1)}
-#hc-energy-root .hc-energy-logs{max-height:266px;padding:8px 14px;margin:6px 0 0 -16px;background:#303030;border:1px solid #4f4f4f;border-radius:8px}
-#hc-energy-root .hc-energy-logs.expanded{max-height:none}
-#hc-energy-root .hc-energy-log p{line-height:20px;font-size:12px;margin-top:4px}
-#hc-energy-root .hc-energy-log strong{font-size:12px}
-#hc-energy-root .hc-energy-composer{border-radius:18px;margin:12px 16px 20px;padding:10px 12px;min-height:112px}
-#hc-energy-root[data-phase=strategy] .hc-energy-composer{min-height:48px;border-radius:28px;padding:6px 12px;margin-bottom:16px}
-#hc-energy-root .hc-energy-prompt{line-height:20px;font-size:12px;border-color:#a99a91;padding:8px;margin-bottom:6px}
-#hc-energy-root .hc-energy-input-row input{font-size:12px;line-height:22px}
-#hc-energy-root .hc-energy-report-heading{height:36px;margin:0 0 12px}
-#hc-energy-root .hc-energy-report-title{font-size:28px;line-height:36px;font-weight:500;white-space:nowrap;letter-spacing:0}
-#hc-energy-root .hc-energy-report-title::before{content:'✦';display:inline-block;margin-right:8px;color:#39a2bf;font-size:27px}
-#hc-energy-root .hc-energy-report-scope{height:30px;margin:0 0 24px;gap:8px;font-size:14px}
-#hc-energy-root .hc-energy-report-scope .hc-energy-pill{background:#1c1c1c;padding:5px 12px}
-#hc-energy-root .hc-energy-report-metrics{height:98px;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin:0 0 18px}
-#hc-energy-root .hc-energy-report-metrics dt{font-size:14px;line-height:22px;display:flex;align-items:center;gap:8px;color:#c9c9c9}
-#hc-energy-root .hc-energy-metric-symbol{height:20px;width:20px;font-size:22px;display:inline-flex;align-items:center;justify-content:center;color:#bfbfbf}
-#hc-energy-root .hc-energy-metric-symbol>img,#hc-energy-root .hc-energy-metric-symbol>svg{height:18px;width:18px;object-fit:contain}
-#hc-energy-root .hc-energy-report-metrics dd{font-size:32px;font-weight:500;line-height:40px;margin:8px 0 0}
-#hc-energy-root .hc-energy-report-metrics small{font-size:14px;color:#afafaf;font-weight:400}
-#hc-energy-root .hc-energy-report-metrics p{font-size:12px;line-height:20px;margin:8px 0 0;color:#afafaf}
-#hc-energy-root .hc-energy-report-metrics em{color:#59c9a9;font-size:12px}
-#hc-energy-root .hc-energy-download{height:28px;padding:4px 12px;font-size:12px;color:#ddd;border-color:#737373;line-height:18px}
-#hc-energy-root .hc-energy-daily{height:445px;padding:16px 20px 20px;margin-bottom:24px}
-#hc-energy-root .hc-energy-daily>.hc-energy-chart-title{margin:0 0 12px}
-#hc-energy-root .hc-energy-policy-tracks{height:124px;padding:12px 16px;margin:4px 0 0;background:#2e2e2e;border-radius:12px}
-#hc-energy-root .hc-energy-policy-track{font-size:12px;line-height:20px;margin:0 0 10px}
-#hc-energy-root .hc-energy-policy-track>div{height:16px;margin-top:8px;margin-left:24px;background:#414141}
-#hc-energy-root .hc-energy-policy-track span{height:16px;display:flex;align-items:center;justify-content:center}
-#hc-energy-root .hc-energy-policy-track span img{width:16px;height:14px;opacity:.55}
-#hc-energy-root .hc-energy-report-bottom{gap:24px}
-#hc-energy-root .hc-energy-report-bottom .hc-energy-panel{height:288px;padding:18px 20px 20px;overflow:hidden}
-#hc-energy-root .hc-energy-tooltip{min-width:196px;padding:16px;border:0;border-radius:8px;background:#393939;box-shadow:0 8px 18px #0006;font-size:12px;line-height:20px;white-space:normal}
-#hc-energy-root .hc-energy-tooltip-date{color:#c9c9c9;margin-bottom:8px}
-#hc-energy-root .hc-energy-tooltip-row{display:flex;align-items:center;gap:20px;line-height:20px;margin-top:8px;white-space:nowrap}
-#hc-energy-root .hc-energy-tooltip-row>span{display:flex;align-items:center;gap:8px}
-#hc-energy-root .hc-energy-tooltip-row>span::before{content:'';height:7px;width:7px;border-radius:50%;background:#6798fa}
-#hc-energy-root .hc-energy-tooltip-row:nth-child(3)>span::before{background:#2cb7c5}
-#hc-energy-root .hc-energy-tooltip-row:nth-child(4)>span::before{background:transparent}
-#hc-energy-root .hc-energy-tooltip-row>strong{margin-left:auto;font-weight:400;color:#eee}
 
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-metrics{grid-template-columns:repeat(6,minmax(0,1fr))}
 
-/* 用户八条标注：节点指标卡、页签关闭及光链路流程视觉。 */
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-metrics{grid-template-columns:1.42fr 1fr 1fr .85fr .78fr .78fr 1fr}
-#hc-energy-root .hc-energy-metric{padding:0 16px}
-#hc-energy-root .hc-energy-unit-output dt{font-size:13px}
-#hc-energy-root .hc-energy-unit-output dd{font-size:22px}
-#hc-energy-root .hc-energy-unit-output small{font-size:10px;margin-left:4px}
-#hc-energy-root .hc-energy-metric [data-energy-live=duration]{font-size:23px;font-variant-numeric:tabular-nums}
-#hc-energy-root .hc-energy-node-grid{height:517px;overflow-y:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:242px;align-content:start;gap:12px;padding:10px;background:#242424;border-radius:12px;scrollbar-width:thin;scrollbar-color:#555 transparent}
-#hc-energy-root .hc-energy-node-card{min-width:0;padding:16px 14px;border:1px solid #424242;border-radius:10px;background:#303030}
-#hc-energy-root .hc-energy-node-card-head{display:flex;align-items:center;gap:10px;border-bottom:1px solid #494949;padding-bottom:12px;margin-bottom:12px;height:51px}
-#hc-energy-root .hc-energy-node-type{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;font-size:22px;font-weight:500;flex:none}
-#hc-energy-root .hc-energy-node-type.p{color:#72c9dc;background:#244a53}
-#hc-energy-root .hc-energy-node-type.d{color:#a9a0f1;background:#423d5a}
-#hc-energy-root .hc-energy-node-card-head h3{margin:0;font-size:16px;line-height:22px;font-weight:500;color:#eee}
-#hc-energy-root .hc-energy-node-card-head div>span{font-size:11px;line-height:18px;color:#aaa}
-#hc-energy-root .hc-energy-node-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px;margin:0}
-#hc-energy-root .hc-energy-node-metric{display:flex;align-items:flex-end;justify-content:space-between;gap:4px;min-width:0}
-#hc-energy-root .hc-energy-node-metric dt{font-size:11px;line-height:18px;color:#bababa}
-#hc-energy-root .hc-energy-node-metric dd{font-size:16px;line-height:22px;margin:2px 0 0;white-space:nowrap}
-#hc-energy-root .hc-energy-node-metric small{font-size:9px;margin-left:3px;color:#aaa}
-#hc-energy-root .hc-energy-node-spark{width:46px;flex:0 0 46px;padding-bottom:1px}
-#hc-energy-root .hc-energy-node-spark svg{display:block;width:100%;height:28px;overflow:visible}
-#hc-energy-root .hc-energy-heading{position:relative;height:82px;min-height:82px;padding:16px 20px;align-items:flex-start;gap:12px}
-#hc-energy-root .hc-energy-heading-icon{height:36px;width:36px;flex:none;margin-top:4px;border-radius:50%;background:#255843;display:grid;place-items:center}
-#hc-energy-root .hc-energy-heading-icon img{width:23px;height:23px;object-fit:contain}
-#hc-energy-root .hc-energy-step>summary::before{display:none}
-#hc-energy-root .hc-energy-step-icon{position:absolute;left:-8px;top:6px;display:block;width:16px;height:16px;object-fit:contain;flex:none}
-#hc-energy-root .hc-energy-step-pending{border:1px solid #777;border-radius:50%;background:#282828}
-#hc-energy-root .hc-energy-step>summary{gap:8px;position:static}
-#hc-energy-root .hc-energy-step-time{font-size:12px;color:#c9c9c9;font-weight:400}
-#hc-energy-root .hc-energy-state{display:inline-flex;align-items:center;justify-content:center;flex:none;height:20px;padding:0 8px;margin-left:auto;border-radius:4px;font-size:12px;line-height:1;font-weight:400;white-space:nowrap}
-#hc-energy-root .hc-energy-state.done{color:#36c18d;background:rgba(9,170,113,.15)}
-#hc-energy-root .hc-energy-state.working{color:#5ca2e9;background:rgba(92,162,233,.15)}
-#hc-energy-root .hc-energy-state.waiting{color:#aaa;background:#3b3b3b}
-#hc-energy-root .hc-energy-step>summary::after{margin-left:0;flex:none}
-#hc-energy-root .hc-energy-state.hc-energy-watching{animation:none;background:rgba(92,162,233,.15);color:#5ca2e9}
-#hc-energy-root .hc-energy-close-service{font-size:16px;line-height:20px;width:16px;height:20px;color:#bdbdbd}
-#hc-energy-root .hc-energy-close-service:hover{color:#fff;background:#555;border-radius:3px}
-#hc-energy-root .hc-energy-right[data-mode=strategy]>.hc-energy-tabs{display:flex}
-#hc-energy-root .hc-energy-right[data-mode=strategy] .hc-energy-topology-panel{height:auto;min-height:778px}
 
-/* 最新标注：页签、等分指标、无底板节点区和移动时间窗。 */
-#hc-energy-root .hc-energy-tabs{align-items:flex-start;gap:8px;border-bottom:1px solid #484848}
-#hc-energy-root .hc-energy-tab{height:28px;line-height:20px;padding:4px 12px;font-size:12px;border-radius:8px;background:#282828;gap:6px}
-#hc-energy-root .hc-energy-tab.active{background:#414141}
-#hc-energy-root .hc-energy-tab>button:not(.hc-energy-close-service){display:flex;align-items:center;gap:6px;font-size:12px;line-height:20px}
-#hc-energy-root .hc-energy-tab img{width:16px;height:16px;object-fit:contain;flex:none}
-#hc-energy-root .hc-energy-close-service{position:relative;font-size:0;width:12px;height:20px;margin-left:2px}
-#hc-energy-root .hc-energy-close-service::before,#hc-energy-root .hc-energy-close-service::after{content:'';position:absolute;left:2px;top:9px;width:9px;height:1px;background:#c9c9c9;transform:rotate(45deg)}
-#hc-energy-root .hc-energy-close-service::after{transform:rotate(-45deg)}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-metrics{grid-template-columns:repeat(7,minmax(0,1fr));height:52px;align-items:center}
-#hc-energy-root .hc-energy-metric-panel{height:84px;padding:16px 20px}
-#hc-energy-root .hc-energy-metric{height:52px;padding:0 12px}
-#hc-energy-root .hc-energy-metric dt{font-size:13px;line-height:20px}
-#hc-energy-root .hc-energy-metric dd{font-size:24px;line-height:28px;margin-top:4px}
-#hc-energy-root .hc-energy-unit-output small{font-size:12px}
-#hc-energy-root .hc-energy-node-grid{background:none;padding:0;border-radius:0;height:auto;max-height:517px;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));grid-auto-rows:242px;gap:12px;overflow-y:auto}
-#hc-energy-root .hc-energy-topology-panel{height:auto;min-height:0;overflow:visible}
-#hc-energy-root .hc-energy-right[data-mode=strategy] .hc-energy-topology-panel{min-height:0}
-#hc-energy-root .hc-energy-step{border-left:0;position:relative}
-#hc-energy-root .hc-energy-step::before{content:'';position:absolute;left:-.5px;top:26px;bottom:-2px;width:1px;background:#2aaa80}
-#hc-energy-root .hc-energy-step:last-of-type::before{display:none}
-#hc-energy-root .hc-energy-step[data-state=waiting]::before{background:#555}
-#hc-energy-root .hc-energy-step-icon{background-color:#282828;box-shadow:0 -4px 0 #282828,0 4px 0 #282828;z-index:1}
-#hc-energy-root .hc-energy-trend{height:auto;min-height:190px;margin-top:24px;padding-bottom:0}
-#hc-energy-root .hc-energy-trend>.hc-energy-chart{background:transparent}
-#hc-energy-root .hc-energy-trend .hc-energy-legend{gap:20px;align-items:center}
-#hc-energy-root .hc-energy-trend .hc-energy-legend>span{color:#c9c9c9!important;display:flex;align-items:center;gap:7px;font-size:11px}
-#hc-energy-root .hc-energy-trend .hc-energy-legend>span::before{content:'';width:24px;height:1px;background:#bbb;flex:none}
-#hc-energy-root .hc-energy-trend .hc-energy-legend>span:nth-child(1)::before{width:12px;height:12px;border-radius:3px;background:#6899fb}
-#hc-energy-root .hc-energy-trend .hc-energy-legend>span:nth-child(2)::before{width:12px;height:12px;background:repeating-linear-gradient(25deg,transparent 0 3px,#5c9edc 3px 5px)}
-#hc-energy-root .hc-energy-trend .hc-energy-legend>span:nth-child(4)::before{background:repeating-linear-gradient(90deg,#999 0 2px,transparent 2px 4px)}
-#hc-energy-root .hc-energy-trend .hc-energy-legend>span:nth-child(5)::before{background:#21aa7b}
 
-/* 六节点与报告对话：2026-09-10 最终批注 */
-#hc-energy-root .hc-energy-node-grid[data-node-count="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
-#hc-energy-root .hc-energy-chat{margin:24px 0 0;gap:16px}
-#hc-energy-root .hc-energy-question{padding:14px 18px;border-radius:16px 16px 2px 16px;max-width:92%;background:#414141}
-#hc-energy-root .hc-energy-answer>p{margin:0 0 18px;line-height:24px}
-#hc-energy-root .hc-energy-progress{display:grid;gap:16px;margin:0 0 22px;padding:0;list-style:none}
-#hc-energy-root .hc-energy-progress li{display:flex;align-items:center;gap:10px;line-height:22px}
-#hc-energy-root .hc-energy-progress li.done{color:#eee}
-#hc-energy-root .hc-energy-progress-dot{display:inline-flex;align-items:center;justify-content:center;flex:0 0 18px;height:18px;border-radius:50%;font-size:12px}
-#hc-energy-root .done .hc-energy-progress-dot{background:#32dfb4;color:#124d3e}
-#hc-energy-root .hc-energy-report-card{display:grid;grid-template-columns:36px minmax(0,1fr) auto;align-items:center;gap:12px;padding:16px;border:1px solid #686868;border-radius:12px;background:transparent}
-#hc-energy-root .hc-energy-file-icon{display:grid;place-items:center;width:36px;height:40px;background:#6740e7;border-radius:5px;color:#eee}
-#hc-energy-root .hc-energy-file-icon svg{width:27px;height:27px}
-#hc-energy-root .hc-energy-file-label{min-width:0}
-#hc-energy-root .hc-energy-file-label strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
-#hc-energy-root .hc-energy-file-label small{display:block;margin-top:3px;font-size:12px;color:#bbb}
-#hc-energy-root .hc-energy-file-actions{grid-column:3;grid-row:1;align-self:center;display:flex;gap:8px;justify-content:flex-end}
-#hc-energy-root .hc-energy-file-actions button{margin:0;border:1px solid #929b98;border-radius:5px;padding:3px 10px;line-height:22px;color:#e7eeeb;background:transparent;font-size:13px}
-#hc-energy-root .hc-energy-file-actions button:hover{background:#ffffff12;border-color:#44d6b3}
 
-/* 实时节点指标与自然增长日志 */
-#hc-energy-root .hc-energy-left>.hc-energy-prompt{flex-shrink:0;margin:12px 16px 0;padding:12px;background:#303030}
-#hc-energy-root .hc-energy-logs{max-height:none;overflow:visible}
-#hc-energy-root .hc-energy-log-actions:empty{display:none}
-#hc-energy-root .hc-energy-node-card{background:#242424;border-color:#373737}
-#hc-energy-root .hc-energy-node-metrics{display:flex;flex-direction:column;gap:8px}
-#hc-energy-root .hc-energy-node-group{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding-top:8px;border-top:1px solid #383838}
-#hc-energy-root .hc-energy-node-group:first-child{border-top:0;padding-top:0}
 
-/* 与首页输入框对齐 */
-#hc-energy-root .hc-energy-composer,#hc-energy-root[data-phase=strategy] .hc-energy-composer{flex:none;width:452px;height:48px;min-height:48px;margin:12px 16px 17px;padding:5px 9px 5px 15px;border-radius:30px;background:linear-gradient(#383838,#383838) padding-box,linear-gradient(100deg,#986bff,#73b0e9 55%,#f5a462) border-box;box-shadow:-3px 0 14px #835afa33,5px 0 15px #eab17b33}
-#hc-energy-root .hc-energy-input-row{height:100%;gap:8px}
-#hc-energy-root .hc-energy-input-row input{flex:1;padding:0;font-size:14px;line-height:normal}
-#hc-energy-root .hc-energy-input-row input::placeholder{color:#878787}
-#hc-energy-root .hc-energy-input-row button{width:32px;height:32px;background:transparent;padding:0}
-#hc-energy-root .hc-energy-input-row button img{display:block;width:32px;height:32px}
-#hc-energy-root .hc-energy-left>.hc-energy-prompt{border-color:#484848;background:#292929}
-#hc-energy-root .hc-energy-log{border-left:0}
-#hc-energy-root .hc-energy-log::after{content:'';position:absolute;left:0;top:0;bottom:0;border-left:1px dotted #626262}
-#hc-energy-root .hc-energy-log:first-child::after{top:22px}
-#hc-energy-root .hc-energy-log:last-child::after{bottom:calc(100% - 22px)}
-#hc-energy-root .hc-energy-log:only-child::after{display:none}
-#hc-energy-root .hc-energy-log::before{z-index:1;left:-3px}
 
-/* 策略预测指标 */
-#hc-energy-root .hc-energy-config h3{font-size:14px;line-height:22px}
-#hc-energy-root .hc-energy-forecast{height:auto;min-height:208px;padding:14px 18px}
-#hc-energy-root .hc-energy-forecast dl{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;margin:0}
-#hc-energy-root .hc-energy-forecast .hc-energy-strategy-art{width:38px;height:38px;bottom:14px;right:18px}
-#hc-energy-root .hc-energy-forecast .hc-energy-strategy-art>svg,#hc-energy-root .hc-energy-forecast .hc-energy-strategy-art>img{width:34px;height:34px}
 
-#hc-energy-root .hc-energy-report-step-icon{width:18px;height:18px;flex:0 0 18px;object-fit:contain}
 
-/* 页签、报告逐字输出和灰色卡片统一 */
-#hc-energy-root .hc-energy-trend{margin-top:40px}
-#hc-energy-root .hc-energy-logs,#hc-energy-root .hc-energy-report-card{background:#3d3d3d;border:2px solid #525252;border-radius:12px}
-#hc-energy-root .hc-energy-typewriter{display:inline-block;clip-path:inset(0 100% 0 0);animation:hc-energy-typing 1.2s steps(var(--typing-steps,20),end) forwards}
-#hc-energy-root .hc-energy-typewriter-intro{animation:hc-energy-typing 1s steps(32,end) both}
-@keyframes hc-energy-typing{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
-@media(prefers-reduced-motion:reduce){#hc-energy-root .hc-energy-typewriter,#hc-energy-root .hc-energy-typewriter-intro{animation:none;clip-path:none}}
 
-/* 对照节能3：完整日期、图形图例和自适应图高 */
-#hc-energy-root .hc-energy-trend{margin-top:56px}
-#hc-energy-root .hc-energy-daily{height:auto;min-height:445px}
-#hc-energy-root .hc-energy-report-bottom .hc-energy-panel{height:auto;min-height:310px;overflow:visible;padding:20px}
-#hc-energy-root .hc-energy-report-bottom .hc-energy-chart svg{display:block;width:100%;height:auto}
-#hc-energy-root .hc-energy-report-bottom .hc-energy-chart-title{font-size:18px;margin-bottom:20px}
-#hc-energy-root .hc-energy-report-bottom .hc-energy-legend,#hc-energy-root .hc-energy-daily .hc-energy-legend{font-size:14px;align-items:center;gap:24px}
-#hc-energy-root .hc-energy-report-bottom .hc-energy-legend>span,#hc-energy-root .hc-energy-daily .hc-energy-legend>span{display:flex;align-items:center;gap:8px;white-space:nowrap}
-#hc-energy-root .hc-energy-report-bottom .hc-energy-legend>span::before,#hc-energy-root .hc-energy-daily .hc-energy-legend>span::before{content:'';display:block;width:24px;height:2px;background:var(--legend-color);flex:none}
-#hc-energy-root .hc-energy-report-bottom .hc-energy-panel:first-child .hc-energy-legend>span:first-child::before,#hc-energy-root .hc-energy-daily .hc-energy-legend>span::before{width:12px;height:12px;border-radius:3px}
-#hc-energy-root .hc-energy-daily .hc-energy-legend>span:nth-child(2)::before{background:repeating-linear-gradient(160deg,transparent 0 2px,#70cdb6 2px 4px)}
 
-/* 节能3标注：辅助文字12/20、主值下方8px、标签与涨跌间隔8px */
-#hc-energy-root .hc-energy-report-metrics p{display:flex;align-items:center;gap:8px;margin:8px 0 0;font-size:12px;font-weight:400;line-height:20px;color:#aeaeae}
-#hc-energy-root .hc-energy-report-metrics em{display:inline-flex;align-items:center;gap:0;font-size:12px;font-weight:400;line-height:20px;color:#c9c9c9;font-style:normal}
-#hc-energy-root .hc-energy-report-metrics .hc-energy-change-arrow{display:inline-block;width:12px;color:#35bf95;font-weight:600}
-#hc-energy-root .hc-energy-report-metrics small{margin-left:2px;font-size:14px;line-height:22px;color:#aeaeae}
 
-#hc-energy-root .hc-energy-trend{margin-top:40px}
 
-/* 策略卡仅保留四项预测，图标右上对齐 */
-#hc-energy-root .hc-energy-forecast{min-height:166px}
-#hc-energy-root .hc-energy-forecast h3{padding-right:46px;min-height:30px;margin-bottom:12px}
-#hc-energy-root .hc-energy-forecast .hc-energy-strategy-art{top:10px;right:18px;bottom:auto}
 
-/* 报告页签固定与原始切图 */
-#hc-energy-root .hc-energy-tabs{position:sticky;top:-20px;z-index:20;background:#000;box-shadow:0 -20px 0 #000}
-#hc-energy-root .hc-energy-metric-symbol img{width:20px;height:20px;object-fit:contain;filter:none}
-#hc-energy-root .hc-energy-policy-track img{filter:none}
 
-/* 执行中彩色圆环与底边距 */
-#hc-energy-root .hc-energy-loading{display:inline-block;width:18px;height:18px;flex:0 0 18px;border:0;border-radius:50%;background:conic-gradient(#65bfff,#9379ef,#efa675,#65bfff);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1.5px));animation:hc-energy-spin 1.2s linear infinite}
-#hc-energy-root .hc-energy-loading::before,#hc-energy-root .hc-energy-loading::after{display:none}
-#hc-energy-root .hc-energy-right[data-mode=monitor],#hc-energy-root .hc-energy-right[data-mode=strategy]{padding-bottom:32px}
-#hc-energy-root .hc-energy-topology-panel{margin-bottom:0}
-@media(prefers-reduced-motion:reduce){#hc-energy-root .hc-energy-loading{animation:none}}
 
-#hc-energy-root [data-report-chart]{overflow:visible}
-#hc-energy-root [data-report-chart] .hc-energy-tooltip{z-index:10;min-width:232px;padding:20px 22px;border-radius:10px;background:#393939;font-size:14px;line-height:22px}
-#hc-energy-root [data-report-chart] .hc-energy-tooltip-date{margin-bottom:16px}
-#hc-energy-root [data-report-chart] .hc-energy-tooltip-row{line-height:22px;margin-top:12px;gap:24px}
-#hc-energy-root [data-report-chart=requests] .hc-energy-tooltip-row:nth-child(3)>span::before{background:#81b83c}
-#hc-energy-root .hc-energy-report-metrics img.hc-energy-change-arrow{width:12px;height:16px;object-fit:contain}
 
-#hc-energy-root .hc-energy-clean-leaf{display:inline-block;width:16px;height:16px;flex:0 0 16px;background:#35bf95;-webkit-mask:var(--leaf-image) center/contain no-repeat;mask:var(--leaf-image) center/contain no-repeat}
 
-#hc-energy-root .hc-energy-file-actions button{display:inline-flex;align-items:center;justify-content:center;gap:4px}
-#hc-energy-root .hc-energy-file-actions button img{width:16px;height:16px;object-fit:contain;flex:none}
 
-/* 节点调频事件与日志共用状态 */
-#hc-energy-root .hc-energy-node-grid{grid-auto-rows:280px;max-height:none}
-#hc-energy-root .hc-energy-node-frequency{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;line-height:20px;margin:0 0 8px;color:#bdbdbd}
-#hc-energy-root .hc-energy-frequency-status{display:flex;align-items:center;gap:5px;color:#65cdb0;white-space:nowrap}
-#hc-energy-root .hc-energy-frequency-status .hc-energy-loading{width:12px;height:12px;flex-basis:12px}
-#hc-energy-root .hc-energy-node-card[data-frequency-state=working]{border-color:#8e7adb;box-shadow:inset 0 0 0 1px #8e7adb44}
-#hc-energy-root .hc-energy-node-linked{outline:2px solid #5fa9ed;outline-offset:-2px}
 
-/* 标题状态标签：胶囊形与图文居中 */
-#hc-energy-root .hc-energy-title>.hc-energy-badge{display:inline-flex;align-items:center;justify-content:center;gap:4px;border-radius:999px;height:26px;padding:0 10px;line-height:20px;vertical-align:middle}
-#hc-energy-root .hc-energy-title>.hc-energy-badge .hc-energy-clean-leaf,#hc-energy-root .hc-energy-title>.hc-energy-badge img{display:block;align-self:center;margin:0;vertical-align:middle}
 
-/* 节点阶段状态右上角对齐 */
-#hc-energy-root .hc-energy-node-card-head>.hc-energy-frequency-status{margin-left:auto;align-self:flex-start;font-size:11px;line-height:20px;padding:1px 7px;border-radius:999px;background:#234237}
-#hc-energy-root .hc-energy-node-frequency{justify-content:flex-start}
 
-/* 策略切图与运行反馈 */
-#hc-energy-root .hc-energy-strategy-art{background:transparent;color:inherit}
-#hc-energy-root .hc-energy-strategy-art img{width:38px;height:38px;object-fit:contain;opacity:1;filter:none}
-#hc-energy-root .hc-energy-forecast .hc-energy-delta{display:inline-flex;align-items:center;gap:2px;margin-left:4px;vertical-align:middle}
-#hc-energy-root .hc-energy-forecast .hc-energy-change-arrow{width:10px;height:13px;object-fit:contain}
-#hc-energy-root .hc-energy-progress .working{color:#eee}
-#hc-energy-root .hc-energy-file-actions button:hover{border-color:#007dff}
-#hc-energy-root .hc-energy-policy-track span img{width:20px;height:16px;object-fit:contain;opacity:1;filter:brightness(0) invert(1)}
-#hc-energy-root .hc-energy-node-card.hc-energy-node-linked{border-color:#529dff;background:#25303b;box-shadow:inset 0 0 0 1px #529dff,0 0 12px #529dff33}
 
-/* 保留页签顶部留白，监控页在原设计画布内完整展示 */
-#hc-energy-root .hc-energy-right{padding-top:0}
-#hc-energy-root .hc-energy-tabs{top:0;margin-top:0;padding-top:20px;height:56px;box-shadow:none}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-metric-panel{margin-bottom:16px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-grid{grid-auto-rows:250px;overflow:visible}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card{padding:12px 14px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card-head{height:46px;padding-bottom:6px;margin-bottom:6px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-frequency{margin-bottom:4px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-metrics{gap:6px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-group{padding-top:6px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-group:first-child{padding-top:0}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-trend{margin-top:20px;min-height:180px}
 
-/* 复用首页自动事件四色流光，移除插画容器底圈 */
-#hc-energy-root .hc-energy-forecast .hc-energy-strategy-art{width:52px;height:52px;top:12px;background:transparent;border-radius:0}
-#hc-energy-root .hc-energy-forecast .hc-energy-strategy-art>img{width:52px;height:52px;opacity:1;filter:none}
-#hc-energy-root .hc-energy-node-card-head>.hc-energy-frequency-status{position:relative;color:#eee;background:radial-gradient(ellipse at 20% 40%,rgba(103,150,244,.2),transparent 75%),rgba(215,214,214,.22);--hc-ring-width:1px;white-space:nowrap}
 
-#hc-energy-root [data-hover-marker][hidden]{display:none}
 
-#hc-energy-root .hc-energy-tooltip-row.policy-idle>span::before{background:#9180f1}
-#hc-energy-root .hc-energy-tooltip-row.policy-running>span::before{background:#0aae7d}
-#hc-energy-root .hc-energy-policy-track span.policy-highlight{outline:2px solid #d6ecff;outline-offset:2px;filter:brightness(1.2);box-shadow:0 0 10px #75baff66}
 
-/* 节点高亮用15%白色叠加，指标保持紧凑排列 */
-#hc-energy-root .hc-energy-node-card.hc-energy-node-linked,#hc-energy-root .hc-energy-node-card[data-frequency-state=working]{outline:none;border-color:transparent;background:linear-gradient(rgba(255,255,255,.08),rgba(255,255,255,.08)),#242424;box-shadow:none}
-#hc-energy-root .hc-energy-node-card-head,#hc-energy-root .hc-energy-node-group{border:0}
-#hc-energy-root .hc-energy-node-metric{justify-content:flex-start;gap:28px}
-#hc-energy-root .hc-energy-node-metric>div:first-child{flex:0 0 auto}
 
-/* 节点卡片统一侧边与底部留白，展开指标行距 */
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-grid{grid-auto-rows:252px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card{padding:12px 14px 14px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card-head{margin-bottom:16px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-metrics{gap:12px}
-#hc-energy-root .hc-energy-node-metric .hc-energy-node-spark{flex:0 1 60px;min-width:0;width:60px;margin-left:auto}
 
-/* 增加节点内边距，缩短数字到微趋势的距离 */
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card{padding:18px 20px 20px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-grid{grid-auto-rows:264px}
-#hc-energy-root .hc-energy-node-metric{gap:24px}
 
-/* 节点信息层级：节省能耗主指标，两组同时间轴对比 */
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-grid{grid-auto-rows:300px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card-head{margin-bottom:12px}
-#hc-energy-root .hc-energy-node-hierarchy{gap:12px!important}
-#hc-energy-root .hc-energy-node-copy dt{font-size:11px;line-height:16px;color:#bdbdbd}
-#hc-energy-root .hc-energy-node-copy dd{margin:2px 0 0;font-size:16px;line-height:20px;white-space:nowrap}
-#hc-energy-root .hc-energy-node-copy small{font-size:10px;margin-left:3px;color:#aaa}
-#hc-energy-root .hc-energy-node-saving{display:flex;align-items:center;justify-content:space-between;gap:24px}
-#hc-energy-root .hc-energy-node-saving dd{font-size:26px;line-height:30px;color:#57d4ae}
-#hc-energy-root .hc-energy-node-saving .hc-energy-node-spark{flex:0 0 96px;width:96px}
-#hc-energy-root .hc-energy-node-saving svg{height:36px}
-#hc-energy-root .hc-energy-node-pair-labels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;text-align:left}
-#hc-energy-root .hc-energy-node-pair-labels .hc-energy-node-copy:last-child{text-align:left}
-#hc-energy-root .hc-energy-node-pair-labels dt:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--metric-color);margin-right:5px;vertical-align:1px}
-#hc-energy-root .hc-energy-node-pair-chart{height:30px;margin-top:3px}
-#hc-energy-root .hc-energy-node-pair-chart svg{display:block;width:100%;height:100%;overflow:visible}
 
-/* 三组趋势统一位于指标右侧，保持等宽对齐 */
-#hc-energy-root .hc-energy-node-saving,#hc-energy-root .hc-energy-node-comparison{display:grid;grid-template-columns:minmax(0,1fr) 96px;align-items:center;column-gap:16px}
-#hc-energy-root .hc-energy-node-saving .hc-energy-node-spark,#hc-energy-root .hc-energy-node-pair-chart{width:96px;height:36px;margin:0;padding:0}
-#hc-energy-root .hc-energy-node-pair-labels{min-width:0}
-#hc-energy-root .hc-energy-node-saving svg,#hc-energy-root .hc-energy-node-pair-chart svg{width:100%;height:36px}
 
-/* 节省能耗仅保留主数值，双指标组与加宽趋势图分层排列 */
-#hc-energy-root .hc-energy-node-saving{display:block}
-#hc-energy-root .hc-energy-node-saving dd{color:#fff}
-#hc-energy-root .hc-energy-node-type{border-radius:0;clip-path:polygon(25% 6.7%,75% 6.7%,100% 50%,75% 93.3%,25% 93.3%,0 50%)}
-#hc-energy-root .hc-energy-node-comparison{grid-template-columns:minmax(0,1fr) 176px}
-#hc-energy-root .hc-energy-node-pair-chart{width:176px}
-#hc-energy-root .hc-energy-node-comparison+.hc-energy-node-comparison{margin-top:12px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-grid{grid-auto-rows:auto;align-items:start}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card{padding:18px 20px 20px;height:auto;min-height:0}
 
-/* 单独旋转六边形底托，保持节点字母正向 */
-#hc-energy-root .hc-energy-node-type{position:relative;isolation:isolate;clip-path:none}
-#hc-energy-root .hc-energy-node-type.p,#hc-energy-root .hc-energy-node-type.d{background:transparent}
-#hc-energy-root .hc-energy-node-type::before{content:"";position:absolute;inset:0;z-index:-1;clip-path:polygon(25% 6.7%,75% 6.7%,100% 50%,75% 93.3%,25% 93.3%,0 50%);transform:rotate(30deg)}
-#hc-energy-root .hc-energy-node-type.p::before{background:#244a53}
-#hc-energy-root .hc-energy-node-type.d::before{background:#423d5a}
 
-/* 左侧返回取代详情页签 */
-#hc-energy-root .hc-energy-back{display:grid;place-items:center;flex:none;width:24px;height:32px;padding:0;border:0;background:transparent;cursor:pointer}
-#hc-energy-root .hc-energy-back img{width:20px;height:20px}
-#hc-energy-root .hc-energy-back:hover{background:#ffffff14;border-radius:4px}
-#hc-energy-root .hc-energy-right{padding-top:20px}
 
-/* 监控页增加上方呼吸空间，统一底部留白 */
-#hc-energy-root .hc-energy-right[data-mode=monitor]{padding-top:28px;padding-bottom:32px}
-#hc-energy-root .hc-energy-right[data-mode=monitor]>.hc-energy-title{margin-bottom:24px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-metric-panel{margin-bottom:24px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-topology-panel{padding-top:20px}
 
-/* 复用光链路详情的返回图标位置与标题间距 */
-#hc-energy-root .hc-energy-heading .hc-energy-back{position:absolute;left:16px;top:27px;width:20px;height:20px}
-#hc-energy-root .hc-energy-heading>.hc-energy-heading-icon{position:absolute;left:52px;top:20px;width:36px;height:36px;margin:0}
-#hc-energy-root .hc-energy-heading>div{position:absolute;left:100px;top:15px;padding:0}
 
-/* 减弱高亮，并将区域间距分配给汇总指标行 */
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-metric-panel{height:92px;padding-top:20px;padding-bottom:20px;margin-bottom:16px}
 
-.hc-energy-home-marker .hc-energy-clean-leaf{display:block;width:14px;height:14px;background:#31b889;mask:var(--leaf-image) center/contain no-repeat;-webkit-mask:var(--leaf-image) center/contain no-repeat}.hc-energy-home-marker[data-done=true] .hc-energy-clean-leaf{background:#999}
 
-/* Node metric selection shown as a read-only multiselect for the demo. */
-#hc-energy-root .hc-energy-node-settings{position:relative;margin-left:auto;z-index:8;font-size:12px;color:#ddd}
-#hc-energy-root .hc-energy-node-settings summary{display:flex;align-items:center;gap:6px;list-style:none;cursor:pointer;box-sizing:border-box;height:30px;padding:5px 8px;background:#242424;border:1px solid #484848;color:#ddd;border-radius:4px;font-size:12px;line-height:18px}
-#hc-energy-root .hc-energy-node-settings summary::-webkit-details-marker{display:none}
-#hc-energy-root .hc-energy-node-settings summary::after{content:none}
-#hc-energy-root .hc-energy-settings-icon{font-size:16px}
-#hc-energy-root .hc-energy-settings-menu{position:absolute;right:0;top:calc(100% + 7px);width:224px;padding:6px;background:#303030;border:1px solid #535353;border-radius:6px;box-shadow:0 6px 20px #0008}
-#hc-energy-root .hc-energy-settings-option{display:flex;align-items:center;gap:10px;padding:9px 8px;white-space:nowrap;cursor:default;color:#eee;opacity:1}
-#hc-energy-root .hc-energy-settings-check{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border:1px solid #999;border-radius:2px;font-size:12px;line-height:1;flex:none}
-#hc-energy-root .hc-energy-settings-option[aria-checked=true] .hc-energy-settings-check{background:#338dff;border-color:#338dff;color:white}
 
-#home-events .hc-energy-home-list{max-height:280px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#666 transparent}#home-events .hc-energy-home-row{cursor:default}
 
-.hc-energy-home-marker .hc-energy-clean-leaf{width:18px;height:18px;flex:0 0 18px}
-.hc-energy-home-marker[data-done=false]{border:0!important;background:rgba(57,57,57,.2)!important;--hc-ring-width:1.5px}
-.hc-energy-home-marker[data-done=true]{border:1.5px solid #777!important;background:#393939!important;color:#bbb}
-.hc-energy-home-marker:hover{filter:none}
-.hc-energy-home-marker:is(:hover,:focus-within,.show-progress){z-index:30}
-.hc-energy-home-marker:is(:hover,:focus-within,.show-progress) .story-popover{display:block;text-align:left}
 
-#hc-energy-root .hc-energy-document-tabs{display:flex;align-items:flex-start;gap:8px;position:sticky;top:-24px;z-index:15;background:transparent;height:36px;padding:0;margin-bottom:16px;border-bottom:1px solid #484848}
-#hc-energy-root .hc-energy-document-tabs [role=tab]{display:inline-flex;align-items:center;gap:6px;height:28px;line-height:20px;padding:5px 12px!important;border-radius:8px;background:#282828!important;color:#ddd;font-size:12px;box-shadow:none;white-space:nowrap}
-#hc-energy-root .hc-energy-document-tabs [role=tab]>img{width:16px;height:16px;object-fit:contain}
-#hc-energy-root .hc-energy-document-tabs [aria-selected=true]{color:#eee;box-shadow:none}
-#hc-energy-root .hc-energy-report-tab-group{position:relative;display:flex}
-#hc-energy-root .hc-energy-report-tab-group [role=tab]{padding-right:28px!important}
-#hc-energy-root .hc-energy-close-report-tab{position:absolute;right:4px;top:0;width:20px;height:28px;padding:0!important;background:transparent!important;font-size:0!important}
-#hc-energy-root .hc-energy-close-report-tab::before,#hc-energy-root .hc-energy-close-report-tab::after{content:'';position:absolute;width:9px;height:1px;background:#c9c9c9;left:5.5px;top:13.5px;transform:rotate(45deg)}
-#hc-energy-root .hc-energy-close-report-tab::after{transform:rotate(-45deg)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #guard-all[data-energy=true] .guard-table-scroll th:nth-child(1){width:19%}
@@ -2726,319 +2726,317 @@
 
 #guard-all .guard-energy-processing-icon{width:24px;height:24px;margin:7px;flex:none}
 
-#hc-energy-root .hc-energy-substeps{margin:12px 0 0 16px;padding-left:12px}#hc-energy-root .hc-energy-substeps>.hc-energy-step>summary{font-size:13px}#hc-energy-root .hc-energy-strategy-group>summary{white-space:nowrap}
 
-/* 二级流程沿同一时间线展开，使用空心圆标记。 */
-#hc-energy-root .hc-energy-substeps{margin:12px 0 0 -20px;padding-left:0}
-#hc-energy-root .hc-energy-substeps>.hc-energy-step{padding-left:20px;padding-bottom:18px;margin-bottom:0}
-#hc-energy-root .hc-energy-substeps>.hc-energy-step>summary{font-size:14px;cursor:default;pointer-events:none}
-#hc-energy-root .hc-energy-substeps>.hc-energy-step>summary>.hc-energy-step-icon,
-#hc-energy-root .hc-energy-substeps>.hc-energy-step>summary>.hc-energy-state,
-#hc-energy-root .hc-energy-substeps>.hc-energy-step>summary::after{display:none}
-#hc-energy-root .hc-energy-substeps>.hc-energy-step>summary::before{content:'';display:block;position:absolute;left:-4px;top:9px;width:8px;height:8px;border:2px solid #32c493;border-radius:50%;background:#282828;box-shadow:none;animation:none;z-index:2}
-#hc-energy-root .hc-energy-substeps>.hc-energy-step::before{display:block;top:25px;bottom:0;background:#32c493}
-#hc-energy-root .hc-energy-substeps>.hc-energy-step:last-child::before{display:none}
-#hc-energy-root .hc-energy-substeps>.hc-energy-step>p{margin-top:10px}
 
-/* 一级和二级只共用父级的一根时间线。 */
-#hc-energy-root .hc-energy-substeps{margin-left:-16px;padding-left:0}
-#hc-energy-root .hc-energy-substeps>.hc-energy-step{margin-left:0;padding-left:20px}
-#hc-energy-root .hc-energy-substeps>.hc-energy-step::before{display:none}
-#hc-energy-root .hc-energy-substeps>.hc-energy-step>summary::before{left:-5px;box-shadow:0 -5px 0 #282828,0 5px 0 #282828}
 
-/* 所有流程标记以竖线为中心，避免边框盒尺寸造成偏移。 */
-#hc-energy-root .hc-energy-left-scroll>.hc-energy-step>summary>.hc-energy-step-icon{left:0;translate:-50% 0;transform-origin:center}
-#hc-energy-root .hc-energy-substeps>.hc-energy-step>summary::before{left:0;transform:translateX(-50%);box-sizing:border-box}
 
-#hc-energy-root .hc-energy-left-enter{animation:evt-line-enter var(--duration-medium) var(--ease-decelerate) both;animation-delay:var(--evt-enter-delay,0ms)}
 
-/* 标题始终作为定位容器，避免入场动画建立新容器后图标跳位。 */
-#hc-energy-root .hc-energy-step>summary{position:relative}
-#hc-energy-root .hc-energy-left-scroll>.hc-energy-step>summary>.hc-energy-step-icon{left:-16px;top:6px;translate:-50% 0;transform-origin:center}
-#hc-energy-root .hc-energy-substeps>.hc-energy-step>summary::before{left:-20px;top:9px;transform:translateX(-50%)}
 
-#hc-energy-root .hc-energy-file-icon{background:none;padding:0}#hc-energy-root .hc-energy-file-icon img{width:100%;height:100%;object-fit:contain}#hc-energy-root .hc-energy-file-actions button{display:inline-flex;align-items:center;justify-content:center;gap:4px;width:68px}#hc-energy-root .hc-energy-file-actions img,#hc-energy-root .hc-energy-download img,#hc-energy-root .hc-energy-settings-icon{width:16px;height:16px;object-fit:contain}#hc-energy-root .hc-energy-settings-check:has(img){border:0;background:none}#hc-energy-root .hc-energy-settings-check img{width:16px;height:16px}#hc-energy-root .hc-energy-download{display:inline-flex;align-items:center;gap:4px}
 
-#hc-energy-root .hc-energy-heading-icon{background:none}#hc-energy-root .hc-energy-heading-icon img{width:36px;height:36px}#hc-energy-root .hc-energy-stats-icon{width:18px;height:18px;object-fit:contain;margin-right:6px}#hc-energy-root .hc-energy-trend h3::before{display:none}
 
-#hc-energy-root .hc-energy-node-settings>summary>.hc-energy-settings-icon{width:12px;height:12px;flex:0 0 12px}
 
-#screen .timeline .hc-energy-home-marker>span:nth-child(2){font-size:14px;font-weight:400;line-height:normal}
 
-#hc-energy-root .hc-energy-report-metrics{grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}
 
-#hc-energy-root .hc-energy-node-saving{display:flex;gap:12px;align-items:center}#hc-energy-root .hc-energy-load-split{display:flex;gap:14px;flex:1;justify-content:flex-end}#hc-energy-root .hc-energy-load-split dt{font-size:11px;white-space:nowrap}#hc-energy-root .hc-energy-load-split dd{font-size:18px;line-height:26px;font-weight:400}#hc-energy-root .hc-energy-load-split .light dd{color:#26b9b0}#hc-energy-root .hc-energy-load-split .medium dd{color:#3ac58d}#hc-energy-root .hc-energy-node-load-chart{width:100%;margin-top:12px}#hc-energy-root .hc-energy-node-load-chart svg{width:100%;height:auto;display:block}#hc-energy-root .hc-energy-load-legend{display:flex;justify-content:space-between;font-size:10px;font-weight:400}#hc-energy-root .hc-energy-load-legend span:first-child{color:#5c9edc}#hc-energy-root .hc-energy-load-legend span:last-child{color:#45c49f}
 
-#hc-energy-root .hc-energy-right[data-mode=monitor]{display:flex;flex-direction:column;height:100%;min-height:0;overflow:hidden;padding-bottom:16px;gap:0}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-title{flex-shrink:0;margin-bottom:14px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-metric-panel{height:auto;flex:0 0 auto;padding:14px 20px;margin-bottom:14px}
-#hc-energy-root .hc-energy-metrics{grid-template-columns:repeat(5,minmax(0,1fr))}
-#hc-energy-root .hc-energy-service-loads{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:14px;border-top:1px solid #383838;padding-top:12px;font-size:12px;color:#ccc}
-#hc-energy-root .hc-load-heading,#hc-energy-root .hc-load-values{display:flex;justify-content:space-between;gap:8px}#hc-energy-root .hc-load-values{font-size:11px}#hc-energy-root .hc-load-values b{font-weight:400;color:#eee}#hc-energy-root .hc-load-values small{font-size:9px}
-#hc-energy-root .hc-load-duration{height:5px;background:#414141;border-radius:3px;margin:7px 0}#hc-energy-root .hc-load-duration i{display:block;height:100%;border-radius:3px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-topology-panel{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;padding:14px 20px 10px}
-#hc-energy-root .hc-energy-topology-head{flex-shrink:0;margin-bottom:12px}#hc-energy-root .hc-energy-range{box-sizing:border-box;height:30px;margin-left:auto;background:#242424;border:1px solid #484848;color:#ddd;border-radius:4px;padding:5px 8px;font-size:12px}#hc-energy-root .hc-energy-node-settings{margin-left:10px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-grid{flex:1;min-height:0;height:0;overflow-y:auto;grid-auto-rows:minmax(215px,1fr);align-items:stretch;gap:10px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card{height:100%;padding:12px 14px;overflow:hidden;box-sizing:border-box}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card-head{margin-bottom:8px}
-#hc-energy-root .hc-energy-node-hierarchy{gap:4px!important}#hc-energy-root .hc-energy-node-load-chart{margin-top:4px}#hc-energy-root .hc-energy-node-load-chart svg{height:108px}
-#hc-energy-root .hc-energy-split-wrap{flex:1;min-width:0}#hc-energy-root .hc-energy-split-bar{display:flex;height:7px;border-radius:3px;overflow:hidden;margin-top:6px;background:#444}#hc-energy-root .hc-energy-split-bar i:first-child{background:#26b9b0}#hc-energy-root .hc-energy-split-bar i:last-child{background:#3ac58d}
-#hc-energy-root .hc-energy-load-split dd,#hc-energy-root .hc-energy-load-split .light dd,#hc-energy-root .hc-energy-load-split .medium dd{color:#eee;font-size:15px}#hc-energy-root .hc-energy-load-split dt{font-size:10px}#hc-energy-root .hc-energy-load-legend span{color:#bbb!important}#hc-energy-root .hc-energy-node-saving{gap:12px}#hc-energy-root .hc-energy-node-saving>.hc-energy-node-copy dd{font-size:24px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-trend{flex:0 0 162px;height:162px;margin-top:12px;min-height:0}#hc-energy-root .hc-energy-trend .hc-energy-chart svg{height:126px;width:100%}
 
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-metrics{grid-template-columns:repeat(5,minmax(0,1fr))}
 
-#hc-energy-root .hc-energy-log::before{background:#3ac58d}
 
-/* Six-node monitoring cards: shared load colours, flexible chart height. */
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-grid[data-node-count="6"]{grid-template-rows:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(0,1fr);overflow:hidden}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card{display:flex;flex-direction:column;min-height:0}
-#hc-energy-root .hc-energy-node-hierarchy{display:flex;flex-direction:column;flex:1;min-height:0;margin:0}
-#hc-energy-root .hc-energy-node-load-chart{display:flex;flex-direction:column;flex:1;min-height:0}
-#hc-energy-root .hc-energy-node-load-chart svg{height:0;min-height:0;flex:1;width:100%}
-#hc-energy-root .hc-energy-node-saving{flex-shrink:0}
-#hc-energy-root .hc-energy-load-split{gap:9px}
-#hc-energy-root .hc-energy-load-split>div{display:flex;align-items:center;gap:4px}
-#hc-energy-root .hc-energy-load-split dt::before{content:"";display:inline-block;width:7px;height:7px;background:#37c18d;margin-right:4px}
-#hc-energy-root .hc-energy-load-split .medium dt::before{background:#fcd72e}
-#hc-energy-root .hc-energy-load-split .heavy dt::before{background:#f4840c}
-#hc-energy-root .hc-energy-load-split dd{font-size:12px;white-space:nowrap}
-#hc-energy-root .hc-energy-load-split dd small{display:none}
-#hc-energy-root .hc-energy-split-bar i:first-child{background:#37c18d}
-#hc-energy-root .hc-energy-split-bar i:last-child{background:#fcd72e}
 
-/* Load values use a compact label/value hierarchy. */
-#hc-energy-root .hc-energy-load-split{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-#hc-energy-root .hc-energy-load-split>div{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
-#hc-energy-root .hc-energy-load-split dd,#hc-energy-root .hc-energy-load-split .light dd,#hc-energy-root .hc-energy-load-split .medium dd{font-size:14px;line-height:22px;margin:0;font-weight:400}
-#hc-energy-root .hc-energy-load-split dd small{display:inline;font-size:9px;color:#aaa;margin-left:2px}
-#hc-energy-root .hc-energy-node-saving{align-items:flex-start}
 
-#hc-energy-root .hc-energy-split-wrap{flex:0 1 auto;margin-left:auto}
-#hc-energy-root .hc-energy-load-split{grid-template-columns:repeat(2,max-content);gap:14px;justify-content:end}
-#hc-energy-root .hc-energy-node-saving{align-items:flex-end}
-#hc-energy-root .hc-energy-load-split dd,#hc-energy-root .hc-energy-load-split .light dd,#hc-energy-root .hc-energy-load-split .medium dd{line-height:30px}
-#hc-energy-root .hc-load-heading{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:baseline;font-size:14px}
-#hc-energy-root .hc-load-heading span:last-child{text-align:right}
-#hc-energy-root .hc-load-values{font-size:13px;color:#aaa}
-#hc-energy-root .hc-load-values b{color:inherit;font-weight:400}
-#hc-energy-root .hc-load-values small{font-size:12px}
-#hc-energy-root .hc-load-duration{margin:10px 0}
 
-#hc-energy-root .hc-energy-node-card:has(.hc-energy-load-split .light:is(:hover,:focus)) .hc-load-shade.light{opacity:.18}
-#hc-energy-root .hc-energy-node-card:has(.hc-energy-load-split .light:is(:hover,:focus)) .hc-load-request:not(.light),#hc-energy-root .hc-energy-node-card:has(.hc-energy-load-split .light:is(:hover,:focus)) .hc-load-band:not(.light){opacity:.35}
-#hc-energy-root .hc-energy-node-card:has(.hc-energy-load-split .medium:is(:hover,:focus)) .hc-load-shade.medium{opacity:.18}
-#hc-energy-root .hc-energy-node-card:has(.hc-energy-load-split .medium:is(:hover,:focus)) .hc-load-request:not(.medium),#hc-energy-root .hc-energy-node-card:has(.hc-energy-load-split .medium:is(:hover,:focus)) .hc-load-band:not(.medium){opacity:.35}
-#hc-energy-root .hc-energy-node-card:has(.hc-energy-load-split .heavy:is(:hover,:focus)) .hc-load-shade.heavy{opacity:.18}
-#hc-energy-root .hc-energy-node-card:has(.hc-energy-load-split .heavy:is(:hover,:focus)) .hc-load-request:not(.heavy),#hc-energy-root .hc-energy-node-card:has(.hc-energy-load-split .heavy:is(:hover,:focus)) .hc-load-band:not(.heavy){opacity:.35}
-#hc-energy-root .hc-energy-load-split>div{cursor:default}#hc-energy-root .hc-load-shade,#hc-energy-root .hc-load-request,#hc-energy-root .hc-load-band{transition:opacity .18s ease}
 
-/* Hover feedback on the load summary, without changing its layout. */
-#hc-energy-root .hc-energy-load-split>div{position:relative;isolation:isolate;border-radius:4px;transition:background-color .18s ease;--load-hover:#f4840c}
-#hc-energy-root .hc-energy-load-split>.light{--load-hover:#37c18d}
-#hc-energy-root .hc-energy-load-split>.medium{--load-hover:#fcd72e}
-#hc-energy-root .hc-energy-load-split>div::after{content:"";position:absolute;inset:-3px -5px;border-radius:5px;background:var(--load-hover);opacity:0;z-index:-1;pointer-events:none;transition:opacity .18s ease}
-#hc-energy-root .hc-energy-load-split>div:is(:hover,:focus-visible)::after{opacity:.18}
-#hc-energy-root .hc-energy-load-split>div:is(:hover,:focus-visible) dt,#hc-energy-root .hc-energy-load-split>div:is(:hover,:focus-visible) dd{color:#fff}
-#hc-energy-root .hc-energy-load-split>div:focus-visible{outline:1px solid var(--load-hover);outline-offset:4px}
 
-/* Merge load contribution into the saved-energy metric. */
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-metrics{grid-template-columns:1.15fr .9fr 2.6fr .8fr 1fr;align-items:start;height:auto}
-#hc-energy-root .hc-energy-saved-summary .hc-energy-service-loads{display:block;margin:8px 0 0;padding:0;border:0;font-size:11px}
-#hc-energy-root .hc-contribution-bar{display:flex;height:5px;overflow:hidden;border-radius:999px;width:100%;margin-bottom:7px}
-#hc-energy-root .hc-contribution-bar>span{display:block;height:100%;transition:filter .15s}
-#hc-energy-root .hc-contribution-bar>span:hover{filter:brightness(1.2)}
-#hc-energy-root .hc-contribution-values{display:flex;align-items:center;justify-content:space-between;gap:8px;white-space:nowrap;color:#bbb;font-size:11px}
-#hc-energy-root .hc-contribution-values>span{display:inline-flex;align-items:center;gap:4px;border-radius:3px}
-#hc-energy-root .hc-contribution-values>span:hover{background:#ffffff12;color:#fff}
-#hc-energy-root .hc-contribution-values i{display:inline-block;width:6px;height:6px;border-radius:1px}
-#hc-energy-root .hc-contribution-values b{font-weight:400;color:#eee}
-#hc-energy-root .hc-contribution-values small{font-size:9px;color:#aaa}
 
-/* Let the merged metric contribute its full content height to the panel. */
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-saved-summary{height:auto;min-height:52px}
-#hc-energy-root .hc-contribution-values{line-height:18px}
 
-/* Compact aligned load comparison in the service header. */
-#hc-energy-root .hc-energy-comparison-panel .hc-energy-service-loads{display:block;margin:0;padding:0;border:0}
-#hc-energy-root .hc-energy-comparison-summary{display:flex;align-items:baseline;gap:28px;margin-bottom:8px;color:#aaa;font-size:12px}
-#hc-energy-root .hc-energy-comparison-summary strong{font-size:14px;font-weight:500;color:#eee;margin-right:auto}
-#hc-energy-root .hc-energy-comparison-summary b{color:#eee;font-size:16px;font-weight:500;margin-left:6px}
-#hc-energy-root .hc-energy-comparison{width:100%;table-layout:fixed;border-collapse:collapse;font-size:13px;color:#ddd}
-#hc-energy-root .hc-energy-comparison th,#hc-energy-root .hc-energy-comparison td{text-align:left;padding:4px 16px;font-weight:400}
-#hc-energy-root .hc-energy-comparison th:first-child{width:90px;padding-left:0;color:#aaa}
-#hc-energy-root .hc-energy-comparison th:nth-child(2),#hc-energy-root .hc-energy-comparison td:nth-child(2){background:#ffffff05}
-#hc-energy-root .hc-energy-comparison thead i{display:inline-block;width:6px;height:6px;margin-right:6px;border-radius:2px}
-#hc-energy-root .hc-energy-comparison b{font-size:17px;font-weight:500;color:#eee}
-#hc-energy-root .hc-energy-comparison small{font-size:11px;color:#aaa}
-#hc-energy-root .hc-energy-comparison-track{height:3px;background:#36383c;border-radius:99px;overflow:hidden;margin-top:5px}
-#hc-energy-root .hc-energy-comparison-track i{display:block;height:100%;border-radius:99px}
 
-/* Emphasize overall results; keep load breakdowns as aligned supporting metrics. */
-#hc-energy-root .hc-energy-overview-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.6fr);gap:24px}
-#hc-energy-root .hc-energy-overview-layout h3{font-size:14px;line-height:20px;font-weight:500;margin:0 0 10px;color:#eee}
-#hc-energy-root .hc-energy-overview-total{padding-right:24px;border-right:1px solid #383838}
-#hc-energy-root .hc-energy-overview-total dl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0}
-#hc-energy-root .hc-energy-overview-total dt{font-size:11px;color:#aaa;white-space:nowrap;margin-bottom:6px}
-#hc-energy-root .hc-energy-overview-total dd{font-size:22px;line-height:28px;font-weight:500;color:#f1f1f1;margin:0;white-space:nowrap}
-#hc-energy-root .hc-energy-overview-total small{font-size:10px;font-weight:400;color:#aaa;margin-left:3px}
-#hc-energy-root .hc-energy-overview-loads{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
-#hc-energy-root .hc-energy-overview-loads h3 i{display:inline-block;width:6px;height:6px;border-radius:2px;margin-right:6px}
-#hc-energy-root .hc-energy-overview-loads section>div:not(.hc-energy-comparison-track){display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:5px;white-space:nowrap}
-#hc-energy-root .hc-energy-overview-loads span{font-size:11px;color:#999}
-#hc-energy-root .hc-energy-overview-loads b{font-size:14px;font-weight:400;color:#ddd}
-#hc-energy-root .hc-energy-overview-loads small{font-size:10px;color:#aaa}
-#hc-energy-root .hc-energy-overview-loads .hc-energy-load-saving-value b{font-size:16px}
 
-/* Align the headline metrics with a quieter, consistent load breakdown. */
-#hc-energy-root .hc-energy-overview-total{display:flex;align-items:center}
-#hc-energy-root .hc-energy-overview-total dl{width:100%}
-#hc-energy-root .hc-energy-overview-loads{gap:28px}
-#hc-energy-root .hc-energy-overview-loads h3{margin-bottom:8px;font-size:13px}
-#hc-energy-root .hc-energy-overview-loads section>div:not(.hc-energy-comparison-track){display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:6px;align-items:baseline}
-#hc-energy-root .hc-energy-overview-loads .hc-energy-load-duration-value b{font-size:13px;color:#bbb;font-variant-numeric:tabular-nums}
-#hc-energy-root .hc-energy-overview-loads .hc-energy-load-saving-value b{font-size:18px;color:#eee;font-variant-numeric:tabular-nums}
-#hc-energy-root .hc-energy-overview-loads .hc-energy-comparison-track{margin-top:8px;height:3px}
 
-/* Shared row labels and equal scales make both load measures comparable. */
-#hc-energy-root .hc-energy-overview-layout{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px;align-items:center}
-#hc-energy-root .hc-energy-overview-total dl{grid-template-columns:1.45fr 1fr 1fr;row-gap:12px}
-#hc-energy-root .hc-energy-overview-total dd{font-size:22px}
-#hc-energy-root .hc-energy-overview-total dt .hc-ept-grade{font-size:9px;margin-left:5px;padding:0 4px}
-#hc-energy-root .hc-energy-load-comparison{width:100%;table-layout:fixed;border-collapse:collapse;color:#ddd}
-#hc-energy-root .hc-energy-load-comparison th{font-size:12px;font-weight:400;text-align:left}
-#hc-energy-root .hc-energy-load-comparison thead th{padding:0 10px 6px}
-#hc-energy-root .hc-energy-load-comparison th:first-child{width:64px;padding-left:0;color:#999;font-size:11px}
-#hc-energy-root .hc-energy-load-comparison thead i{display:inline-block;width:6px;height:6px;border-radius:2px;margin-right:6px}
-#hc-energy-root .hc-energy-load-comparison td{padding:6px 10px;white-space:nowrap}
-#hc-energy-root .hc-energy-load-comparison b{font-size:16px;font-weight:400;font-variant-numeric:tabular-nums}
-#hc-energy-root .hc-energy-load-comparison small{font-size:10px;color:#aaa;margin-left:4px}
-#hc-energy-root .hc-energy-load-comparison .hc-energy-comparison-track{height:4px;margin-top:6px}
 
-/* One headline row plus two compact proportional breakdowns. */
-#hc-energy-root .hc-energy-overview-layout{grid-template-columns:minmax(0,1fr);gap:12px}
-#hc-energy-root .hc-energy-overview-total{padding:0 0 12px;border-right:0;border-bottom:1px solid #383838}
-#hc-energy-root .hc-energy-overview-total dl{grid-template-columns:1.4fr repeat(4,minmax(0,1fr));gap:20px}
-#hc-energy-root .hc-energy-stacked-legend{display:flex;gap:20px;margin:0 0 7px 76px;font-size:11px;color:#ccc}
-#hc-energy-root .hc-energy-stacked-legend i{display:inline-block;width:6px;height:6px;border-radius:2px;margin-right:5px}
-#hc-energy-root .hc-energy-stacked-row{display:grid;grid-template-columns:64px minmax(0,1fr) 76px;align-items:center;gap:12px;margin-top:6px}
-#hc-energy-root .hc-energy-stacked-label,#hc-energy-root .hc-energy-stacked-zero{font-size:11px;color:#aaa;white-space:nowrap}
-#hc-energy-root .hc-energy-stacked-bar{display:flex;gap:2px;border-radius:4px;overflow:hidden;height:22px}
-#hc-energy-root .hc-energy-stacked-bar>span{display:flex;justify-content:center;align-items:center;font-size:12px;font-variant-numeric:tabular-nums;color:#111;min-width:0;white-space:nowrap}
-#hc-energy-root .hc-energy-stacked-bar>span:last-child[style*="#f4840c"]{color:#fff}
-#hc-energy-root .hc-energy-stacked-bar small{font-size:10px;margin-left:4px}
 
-/* Reference layout: five headline metrics and three compact load summaries. */
-#hc-energy-root .hc-energy-reference-metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:0;padding:0 0 14px;border-bottom:1px solid #383838}
-#hc-energy-root .hc-energy-reference-metrics>div{padding:0 18px;border-right:1px solid #383838;min-width:0}
-#hc-energy-root .hc-energy-reference-metrics>div:first-child{padding-left:0}
-#hc-energy-root .hc-energy-reference-metrics>div:last-child{border-right:0;padding-right:0}
-#hc-energy-root .hc-energy-reference-metrics dt{font-size:12px;color:#ccc;margin-bottom:5px;white-space:nowrap}
-#hc-energy-root .hc-energy-reference-metrics dd{font-size:24px;line-height:30px;color:#eee;font-weight:500;margin:0;white-space:nowrap}
-#hc-energy-root .hc-energy-reference-metrics small{font-size:11px;color:#bbb;font-weight:400;margin-left:4px}
-#hc-energy-root .hc-energy-reference-metrics .hc-ept-grade{font-size:10px;margin-left:6px}
-#hc-energy-root .hc-energy-reference-loads{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:12px}
-#hc-energy-root .hc-energy-reference-load-copy{display:flex;align-items:baseline;gap:16px;color:#ccc;font-size:12px;white-space:nowrap}
-#hc-energy-root .hc-energy-reference-load-copy>span:last-child{margin-left:auto}
-#hc-energy-root .hc-energy-reference-loads .hc-energy-comparison-track{height:4px;margin-top:8px}
 
-/* Sketch arrangement: headline KPIs on the left, values and distributions on the right. */
-#hc-energy-root .hc-energy-reference-summary{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px;align-items:center}
-#hc-energy-root .hc-energy-reference-metrics{padding:0 18px 0 0;border-bottom:0;border-right:1px solid #383838;grid-template-columns:1.4fr repeat(4,minmax(0,1fr))}
-#hc-energy-root .hc-energy-reference-metrics>div{padding:0 10px}
-#hc-energy-root .hc-energy-reference-metrics dt{font-size:11px}
-#hc-energy-root .hc-energy-reference-metrics dd{font-size:22px}
-#hc-energy-root .hc-energy-reference-metrics small{font-size:9px;margin-left:3px}
-#hc-energy-root .hc-energy-sketch-loads{width:100%;table-layout:fixed;border-collapse:collapse;font-size:11px;color:#ddd;font-variant-numeric:tabular-nums}
-#hc-energy-root .hc-energy-sketch-loads th{font-weight:400;text-align:left;padding:3px 5px;color:#aaa}
-#hc-energy-root .hc-energy-sketch-loads th:first-child{width:38px;padding-left:0}
-#hc-energy-root .hc-energy-sketch-loads th:last-child{width:29%}
-#hc-energy-root .hc-energy-sketch-loads td{padding:5px;font-size:12px;white-space:nowrap}
-#hc-energy-root .hc-energy-sketch-loads small{font-size:9px;margin-left:3px;color:#888}
-#hc-energy-root .hc-energy-sketch-loads thead i{display:inline-block;width:5px;height:5px;margin-right:4px;border-radius:1px}
-#hc-energy-root .hc-energy-sketch-bar{display:flex;width:100%;height:6px;border-radius:99px;overflow:hidden;background:#383838}
-#hc-energy-root .hc-energy-sketch-bar i{display:block;height:100%}
-#hc-energy-root .hc-energy-log strong{font-size:13px}
-#hc-energy-root .hc-energy-log-result{display:inline-block;vertical-align:middle;margin-left:6px;padding:1px 5px;border-radius:4px;background:#2b5546;color:#5bd3a5;font-size:11px;line-height:16px;font-weight:400;white-space:nowrap}
 
-/* Tighten the load table while keeping all header copy legible. */
-#hc-energy-root .hc-energy-reference-summary{grid-template-columns:minmax(0,1fr) 410px;gap:16px}
-#hc-energy-root .hc-energy-reference-metrics{padding-right:16px}
-#hc-energy-root .hc-energy-reference-metrics>div{padding-left:14px;padding-right:14px}
-#hc-energy-root .hc-energy-reference-metrics dt,#hc-energy-root .hc-energy-reference-metrics small,#hc-energy-root .hc-energy-reference-metrics .hc-ept-grade{font-size:12px}
-#hc-energy-root .hc-energy-reference-metrics dt{line-height:20px;margin-bottom:6px}
-#hc-energy-root .hc-energy-reference-metrics dd{line-height:30px}
-#hc-energy-root .hc-energy-sketch-loads{font-size:12px}
-#hc-energy-root .hc-energy-sketch-loads th,#hc-energy-root .hc-energy-sketch-loads td{font-size:12px;padding:4px 6px;line-height:18px;white-space:nowrap}
-#hc-energy-root .hc-energy-sketch-loads th:first-child{width:70px}
-#hc-energy-root .hc-energy-sketch-loads th:last-child{width:84px}
-#hc-energy-root .hc-energy-sketch-loads small{font-size:12px;margin-left:4px}
-#hc-energy-root .hc-energy-sketch-bar{height:6px}
 
-/* Keep units beside values and remove the separate row-label column. */
-#hc-energy-root .hc-energy-sketch-loads th:first-child{width:auto;padding-left:6px}
-#hc-energy-root .hc-energy-sketch-loads td small{font-size:12px;color:#aaa;margin-left:4px}
 
-/* Equal KPI columns and tighter values leave more room for distribution bars. */
-#hc-energy-root .hc-energy-reference-metrics{grid-template-columns:repeat(5,minmax(0,1fr))}
-#hc-energy-root .hc-energy-reference-metrics>div{padding-left:10px;padding-right:10px}
-#hc-energy-root .hc-energy-reference-metrics>div:first-child{padding-left:0}
-#hc-energy-root .hc-energy-sketch-loads th,#hc-energy-root .hc-energy-sketch-loads td{padding-left:3px;padding-right:3px}
-#hc-energy-root .hc-energy-sketch-loads th:first-child{padding-left:3px}
-#hc-energy-root .hc-energy-sketch-loads th:last-child{width:132px}
-#hc-energy-root .hc-energy-sketch-loads td:last-child{padding-left:10px;padding-right:0}
 
-/* Bring duration and saved-energy values closer together. */
-#hc-energy-root .hc-energy-sketch-loads tbody tr:first-child td{padding-bottom:1px}
-#hc-energy-root .hc-energy-sketch-loads tbody tr:last-child td{padding-top:1px}
 
-#hc-energy-root .hc-energy-topology-head strong{font-size:16px;line-height:24px}
 
-#hc-energy-root .hc-energy-sketch-loads th:first-child{width:30px;font-size:12px;color:#aaa}
-#hc-energy-root .hc-energy-sketch-loads th:last-child{width:90px}
-#hc-energy-root .hc-energy-load-split{grid-template-columns:repeat(2,max-content);gap:10px}
 
-/* Align row labels with values and give the breakdown breathing room. */
-#hc-energy-root .hc-energy-reference-summary{grid-template-columns:minmax(0,1fr) 440px;gap:20px}
-#hc-energy-root .hc-energy-sketch-loads th,#hc-energy-root .hc-energy-sketch-loads td{vertical-align:middle;padding-left:7px;padding-right:7px;line-height:18px}
-#hc-energy-root .hc-energy-sketch-loads th:first-child{width:40px;padding-left:7px}
-#hc-energy-root .hc-energy-sketch-loads th:last-child{width:90px}
-#hc-energy-root .hc-energy-sketch-loads tbody tr:first-child th,#hc-energy-root .hc-energy-sketch-loads tbody tr:first-child td{padding-top:4px;padding-bottom:1px}
-#hc-energy-root .hc-energy-sketch-loads tbody tr:last-child th,#hc-energy-root .hc-energy-sketch-loads tbody tr:last-child td{padding-top:1px;padding-bottom:4px}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card-head{margin-bottom:14px}
-#hc-energy-root .hc-energy-node-hierarchy{gap:10px!important}
-#hc-energy-root .hc-energy-node-load-chart{margin-top:8px}
 
-/* Use the lower chart whitespace while setting the requested title inset. */
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card{padding-top:20px;padding-bottom:4px}
 
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card{padding-top:16px;padding-bottom:16px}
 
-/* Separate row names from values; bring the distribution closer to the numbers. */
-#hc-energy-root .hc-energy-sketch-loads th:first-child{width:62px;padding-right:18px}
-#hc-energy-root .hc-energy-sketch-loads th:last-child{width:106px}
-#hc-energy-root .hc-energy-sketch-loads td:last-child{padding-left:2px}
-#hc-energy-root .hc-energy-sketch-loads td:nth-last-child(2){padding-right:2px}
 
-/* Fit the monthly report to the available panel height. */
-#hc-energy-root .hc-energy-right:has(>.hc-energy-report-heading){display:flex;flex-direction:column;gap:16px}
-#hc-energy-root .hc-energy-right:has(>.hc-energy-report-heading)>*{flex-shrink:0;margin-top:0;margin-bottom:0}
-#hc-energy-root .hc-energy-right:has(>.hc-energy-report-heading)>.hc-energy-daily{flex:1 1 0;min-height:240px;display:flex;flex-direction:column;padding:16px 20px}
-#hc-energy-root .hc-energy-right:has(>.hc-energy-report-heading)>.hc-energy-report-bottom{flex:1 1 0;min-height:240px;gap:24px}
-#hc-energy-root .hc-energy-report-bottom .hc-energy-panel{height:100%;min-height:0;display:flex;flex-direction:column;padding:16px 20px}
-#hc-energy-root .hc-energy-daily>.hc-energy-chart,#hc-energy-root .hc-energy-report-bottom .hc-energy-chart{flex:1;min-height:0}
-#hc-energy-root .hc-energy-daily>.hc-energy-chart svg,#hc-energy-root .hc-energy-report-bottom .hc-energy-chart svg{width:100%;height:100%}
 
-/* Node layout 3: identity/status left, cumulative energy right; keep card dimensions. */
-#hc-energy-root .hc-energy-node-card-head .hc-energy-node-identity{flex:1;min-width:0}
-#hc-energy-root .hc-energy-node-title-line{display:flex;align-items:center;gap:6px;white-space:nowrap}
-#hc-energy-root .hc-energy-node-title-line h3{font-size:14px;flex:none}
-#hc-energy-root .hc-energy-node-title-line .hc-energy-frequency-status{position:relative;font-size:9px;line-height:16px;padding:0 5px;border-radius:999px;color:#eee;background:rgba(215,214,214,.16);--hc-ring-width:1px;white-space:nowrap;flex:none}
-#hc-energy-root .hc-energy-node-cumulative{flex:none;text-align:right;margin-left:4px;display:flex;flex-direction:column;gap:2px}
-#hc-energy-root .hc-energy-node-cumulative>span{font-size:10px;line-height:14px;color:#aaa}
-#hc-energy-root .hc-energy-node-cumulative strong{font-size:18px;line-height:22px;font-weight:500;color:#ddd}
-#hc-energy-root .hc-energy-node-cumulative small{font-size:10px;font-weight:400;color:#aaa}
-#hc-energy-root .hc-energy-right[data-mode=monitor] .hc-energy-node-card-head{border-bottom:1px solid #494949;padding-bottom:8px;margin-bottom:10px;flex-shrink:0}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .hc-nic-module .nic-summary-relation[data-state=manual] .nic-related-business-title .evt-badge-manual{color:#ff858d;background:#c74a5538}
 
@@ -4283,3 +4281,8 @@
 #home-workloads .workload-controls .workload-browser-window:before,#home-workloads .workload-controls .workload-browser-window:after{top:18px;width:2px;height:10px;background:#c1e5ff}
 #home-workloads .rail-card-focus{box-shadow:inset 0 0 0 1px #91c9f2}
 @media(prefers-reduced-motion:reduce){#home-workloads .workload-rail-item{transition:none}}
+
+
+
+
+
