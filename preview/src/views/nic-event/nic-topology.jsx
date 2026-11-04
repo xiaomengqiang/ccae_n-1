@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { OPTICAL_ASSETS } from "../../../mock/hc-assets.js";
+import { OPTICAL_ASSETS } from "../../mock/hc-assets.js";
 
 // nic 拓扑区 —— 六边形实例网格（HexNode 小颗粒）+ 右侧机柜模拟（CabinetSimulator）+ 升级提示
 // hover 联动（六边形 → 机柜刀片高亮）是纯内部耦合，用 useState 驱动；

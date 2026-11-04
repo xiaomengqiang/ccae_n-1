@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { OPTICAL_ASSETS } from "../../../mock/hc-assets.js";
+import { OPTICAL_ASSETS } from "../../mock/hc-assets.js";
 
 // 服务旅程 —— React SVG 声明式图表（柱状请求数 + 指标线 + 劣化带 + 事件标记 + 回看游标）
 // 指标切换（legend 下拉）与悬浮卡为组件内部状态；阶段/回看时刻由 event.js 以 props 推送。

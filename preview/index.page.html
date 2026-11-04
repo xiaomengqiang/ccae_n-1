@@ -16619,7 +16619,7 @@ function resetDemo() {
   Object.assign(__export, { HomeScreen });
 })();
 
-/* ===== src/views/nic-event/components/nic-topology.jsx ===== */
+/* ===== src/views/nic-event/nic-topology.jsx ===== */
 (function () {
   const { useState } = React;
   const { OPTICAL_ASSETS } = __export;
@@ -16789,7 +16789,7 @@ function NicTopology({ hexFault = true, nodeState = "故障节点", healthy = fa
   Object.assign(__export, { NicTopology });
 })();
 
-/* ===== src/views/nic-event/components/process-flow.jsx ===== */
+/* ===== src/views/nic-event/process-flow.jsx ===== */
 (function () {
   const { Fragment, useLayoutEffect, useRef, useState } = React;
   const { OPTICAL_ASSETS } = __export;
@@ -16899,7 +16899,7 @@ function ProcessFlow({ flow, stage, rawStage, selected, visible, viewport, onSel
   Object.assign(__export, { ProcessFlow });
 })();
 
-/* ===== src/views/nic-event/components/service-journey.jsx ===== */
+/* ===== src/views/nic-event/service-journey.jsx ===== */
 (function () {
   const { useRef, useState } = React;
   const { OPTICAL_ASSETS } = __export;
@@ -17111,7 +17111,7 @@ function ServiceJourney({ stage, journeySecond, visible, onSelectTime }) {
   const ProcessFlow = __export.ProcessFlow;
   const ServiceJourney = __export.ServiceJourney;
 // nic-event 事件编排（状态机/面板流程保留命令式；拓扑区/流程图/服务旅程为 React 岛组件）
-// 硬编码刀片映射与机柜模拟在 components/nic-topology.jsx；旅程公式在 components/service-journey.jsx
+// 硬编码刀片映射与机柜模拟在 nic-topology.jsx；旅程公式在 service-journey.jsx
 
 
 

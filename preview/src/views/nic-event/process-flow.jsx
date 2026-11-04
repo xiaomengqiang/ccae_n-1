@@ -1,5 +1,5 @@
 import { Fragment, useLayoutEffect, useRef, useState } from "react";
-import { OPTICAL_ASSETS } from "../../../mock/hc-assets.js";
+import { OPTICAL_ASSETS } from "../../mock/hc-assets.js";
 
 // 处理环节流程图 —— 节点/刻度 JSX 渲染；连线与定位依赖 offsetHeight 实测，
 // 在 useLayoutEffect 中计算（与原 drawFlowLines 同一套数学），测量结果进 state 渲染 SVG 连线。

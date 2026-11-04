@@ -1,9 +1,9 @@
 // nic-event 事件编排（状态机/面板流程保留命令式；拓扑区/流程图/服务旅程为 React 岛组件）
-// 硬编码刀片映射与机柜模拟在 components/nic-topology.jsx；旅程公式在 components/service-journey.jsx
+// 硬编码刀片映射与机柜模拟在 nic-topology.jsx；旅程公式在 service-journey.jsx
 import { bridgeEventTypeIcon, bridgeComposer, mountIsland } from "../../shared/react-bridge.js";
-import NicTopology from "./components/nic-topology.jsx";
-import ProcessFlow from "./components/process-flow.jsx";
-import ServiceJourney from "./components/service-journey.jsx";
+import NicTopology from "./nic-topology.jsx";
+import ProcessFlow from "./process-flow.jsx";
+import ServiceJourney from "./service-journey.jsx";
 
 let cleanup = null;
 
