@@ -16622,7 +16622,7 @@ function resetDemo() {
 /* ===== src/views/nic-event/components/nic-topology.jsx ===== */
 (function () {
   const { useState } = React;
-  const { HC_ASSETS } = __export;
+  const { OPTICAL_ASSETS } = __export;
 // nic 拓扑区 —— 六边形实例网格（HexNode 小颗粒）+ 右侧机柜模拟（CabinetSimulator）+ 升级提示
 // hover 联动（六边形 → 机柜刀片高亮）是纯内部耦合，用 useState 驱动；
 // 阶段态（fault/healthy/提示文案）由 event.js 状态机以 props 推送。
@@ -16727,9 +16727,9 @@ function UpgradeTip({ tip }) {
     heading = (
       <>
         <span className="nic-tip-manual-icon" aria-label="待人工处理">
-          <img className="hc-icon" src={HC_ASSETS.icons["红色的故障"]} alt="" width={17} height={17} />
+          <img className="evt-icon" src={OPTICAL_ASSETS.icons["红色的故障"]} alt="" width={17} height={17} />
           <span className="fault-status-flags">
-            <img className="hc-icon" src={HC_ASSETS.icons["红色小手"]} alt="" width={12} height={12} />
+            <img className="evt-icon" src={OPTICAL_ASSETS.icons["红色小手"]} alt="" width={12} height={12} />
           </span>
         </span>
         <span>{title}</span>
@@ -16738,7 +16738,7 @@ function UpgradeTip({ tip }) {
   } else {
     heading = (
       <>
-        <img className="hc-icon" src={HC_ASSETS.icons[iconName]} alt="" width={17} height={17} />
+        <img className="evt-icon" src={OPTICAL_ASSETS.icons[iconName]} alt="" width={17} height={17} />
         <span>{title}</span>
       </>
     );
@@ -16792,7 +16792,7 @@ function NicTopology({ hexFault = true, nodeState = "故障节点", healthy = fa
 /* ===== src/views/nic-event/components/process-flow.jsx ===== */
 (function () {
   const { Fragment, useLayoutEffect, useRef, useState } = React;
-  const { HC_ASSETS } = __export;
+  const { OPTICAL_ASSETS } = __export;
 // 处理环节流程图 —— 节点/刻度 JSX 渲染；连线与定位依赖 offsetHeight 实测，
 // 在 useLayoutEffect 中计算（与原 drawFlowLines 同一套数学），测量结果进 state 渲染 SVG 连线。
 // stage 用 viewStage（节点可见性 f[4]），rawStage 用于 nic-waiting/待处理态（原实现即用原始 stage）。
@@ -16876,7 +16876,7 @@ function ProcessFlow({ flow, stage, rawStage, selected, visible, viewport, onSel
               data-column={i < 4 ? i : i - 2}
               onClick={() => onSelectStep?.(i)}
             >
-              <img className="hc-icon" src={HC_ASSETS.icons[iconName]} alt="" width={32} height={32} />
+              <img className="evt-icon" src={OPTICAL_ASSETS.icons[iconName]} alt="" width={32} height={32} />
               <span>
                 <span className="evt-process-title">{f[0]}</span>
                 <span className="evt-process-description">{description}</span>
@@ -16902,7 +16902,7 @@ function ProcessFlow({ flow, stage, rawStage, selected, visible, viewport, onSel
 /* ===== src/views/nic-event/components/service-journey.jsx ===== */
 (function () {
   const { useRef, useState } = React;
-  const { HC_ASSETS } = __export;
+  const { OPTICAL_ASSETS } = __export;
 // 服务旅程 —— React SVG 声明式图表（柱状请求数 + 指标线 + 劣化带 + 事件标记 + 回看游标）
 // 指标切换（legend 下拉）与悬浮卡为组件内部状态；阶段/回看时刻由 event.js 以 props 推送。
 // 数学公式与原 renderJourney 逐行对齐（position/高度/分段线/事件几何）。
@@ -16954,7 +16954,7 @@ function HoverCard({ t, metricKey, stage }) {
         <section className="journey-event-card">
           <strong className="journey-event-name">
             {event[3] === "fault" ? (
-              <img className="hc-icon" src={HC_ASSETS.icons["红色的故障"]} alt="" width={14} height={14} aria-label="故障" />
+              <img className="evt-icon" src={OPTICAL_ASSETS.icons["红色的故障"]} alt="" width={14} height={14} aria-label="故障" />
             ) : (
               <span className="journey-operation-icon" role="img" aria-label="处置操作">⇄</span>
             )}

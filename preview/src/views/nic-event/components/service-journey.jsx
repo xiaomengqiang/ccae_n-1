@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { HC_ASSETS } from "../../../mock/hc-assets.js";
+import { OPTICAL_ASSETS } from "../../../mock/hc-assets.js";
 
 // 服务旅程 —— React SVG 声明式图表（柱状请求数 + 指标线 + 劣化带 + 事件标记 + 回看游标）
 // 指标切换（legend 下拉）与悬浮卡为组件内部状态；阶段/回看时刻由 event.js 以 props 推送。
@@ -52,7 +52,7 @@ function HoverCard({ t, metricKey, stage }) {
         <section className="journey-event-card">
           <strong className="journey-event-name">
             {event[3] === "fault" ? (
-              <img className="hc-icon" src={HC_ASSETS.icons["红色的故障"]} alt="" width={14} height={14} aria-label="故障" />
+              <img className="evt-icon" src={OPTICAL_ASSETS.icons["红色的故障"]} alt="" width={14} height={14} aria-label="故障" />
             ) : (
               <span className="journey-operation-icon" role="img" aria-label="处置操作">⇄</span>
             )}

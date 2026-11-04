@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HC_ASSETS } from "../../../mock/hc-assets.js";
+import { OPTICAL_ASSETS } from "../../../mock/hc-assets.js";
 
 // nic 拓扑区 —— 六边形实例网格（HexNode 小颗粒）+ 右侧机柜模拟（CabinetSimulator）+ 升级提示
 // hover 联动（六边形 → 机柜刀片高亮）是纯内部耦合，用 useState 驱动；
@@ -105,9 +105,9 @@ function UpgradeTip({ tip }) {
     heading = (
       <>
         <span className="nic-tip-manual-icon" aria-label="待人工处理">
-          <img className="hc-icon" src={HC_ASSETS.icons["红色的故障"]} alt="" width={17} height={17} />
+          <img className="evt-icon" src={OPTICAL_ASSETS.icons["红色的故障"]} alt="" width={17} height={17} />
           <span className="fault-status-flags">
-            <img className="hc-icon" src={HC_ASSETS.icons["红色小手"]} alt="" width={12} height={12} />
+            <img className="evt-icon" src={OPTICAL_ASSETS.icons["红色小手"]} alt="" width={12} height={12} />
           </span>
         </span>
         <span>{title}</span>
@@ -116,7 +116,7 @@ function UpgradeTip({ tip }) {
   } else {
     heading = (
       <>
-        <img className="hc-icon" src={HC_ASSETS.icons[iconName]} alt="" width={17} height={17} />
+        <img className="evt-icon" src={OPTICAL_ASSETS.icons[iconName]} alt="" width={17} height={17} />
         <span>{title}</span>
       </>
     );

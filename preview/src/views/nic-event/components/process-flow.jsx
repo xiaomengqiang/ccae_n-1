@@ -1,5 +1,5 @@
 import { Fragment, useLayoutEffect, useRef, useState } from "react";
-import { HC_ASSETS } from "../../../mock/hc-assets.js";
+import { OPTICAL_ASSETS } from "../../../mock/hc-assets.js";
 
 // 处理环节流程图 —— 节点/刻度 JSX 渲染；连线与定位依赖 offsetHeight 实测，
 // 在 useLayoutEffect 中计算（与原 drawFlowLines 同一套数学），测量结果进 state 渲染 SVG 连线。
@@ -84,7 +84,7 @@ export default function ProcessFlow({ flow, stage, rawStage, selected, visible, 
               data-column={i < 4 ? i : i - 2}
               onClick={() => onSelectStep?.(i)}
             >
-              <img className="hc-icon" src={HC_ASSETS.icons[iconName]} alt="" width={32} height={32} />
+              <img className="evt-icon" src={OPTICAL_ASSETS.icons[iconName]} alt="" width={32} height={32} />
               <span>
                 <span className="evt-process-title">{f[0]}</span>
                 <span className="evt-process-description">{description}</span>
