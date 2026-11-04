@@ -265,5 +265,6 @@ window.HCEvidence = { attach };
   document.addEventListener("click", hide);
   document.addEventListener("scroll", hide, true);
   window.addEventListener("resize", hide);
-  new MutationObserver(() => { if (anchor && !anchor.isConnected) hide(); }).observe(document.documentElement, { childList: true, subtree: true });
+  // window.MutationObserver：沙箱/headless 环境仅挂 window，裸引用会 ReferenceError（浏览器等价）
+  new window.MutationObserver(() => { if (anchor && !anchor.isConnected) hide(); }).observe(document.documentElement, { childList: true, subtree: true });
 })();

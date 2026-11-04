@@ -7,7 +7,6 @@ import { initHomeScreen } from "./views/home-screen/legacy.js";
 import { initEnhancements } from "./views/home-screen/enhancements.js";
 import { mountOpticalEvent } from "./views/optical-event/event.js";
 import { mountStoryRender } from "./views/story/render.js";
-import { initEnergyDetail } from "./views/energy-detail/legacy.js";
 
 export function runBoot() {
   initHCComponents();
@@ -15,5 +14,4 @@ export function runBoot() {
   initEnhancements();
   mountOpticalEvent();
   mountStoryRender();
-  initEnergyDetail();
 }
