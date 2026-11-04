@@ -4,7 +4,7 @@ import { initHCComponents } from "./shared/hc-components.js";
 import { initClock } from "./utils/clock.js";
 import { initHomeScreen } from "./views/home-screen/legacy.js";
 import { initEnhancements } from "./views/home-screen/enhancements.js";
-import { initOpticalEvent } from "./views/optical-event/legacy.js";
+import { mountOpticalEvent } from "./views/optical-event/event.js";
 import { initStory } from "./views/story/legacy.js";
 import { initEnergyDetail } from "./views/energy-detail/legacy.js";
 
@@ -15,7 +15,7 @@ export function runBoot() {
   initClock();
   initHomeScreen();
   initEnhancements();
-  initOpticalEvent();
+  mountOpticalEvent();
   initStory();
   initEnergyDetail();
 }

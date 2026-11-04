@@ -9613,10 +9613,17 @@ window.addEventListener('load',()=>{
   Object.assign(__export, { initEnhancements });
 })();
 
-/* ===== src/views/optical-event/legacy.js ===== */
+/* ===== src/views/optical-event/event.js ===== */
 (function () {
   const { OPTICAL_ASSETS } = __export;
-function initOpticalEvent() {
+// optical-event 命令式事件逻辑（从 legacy.js 提取，绘制/拓扑/连线保持原样）
+// 包含 6 个顶级模块：HCEventUI / HCEntrance / quickQuery / HCOpticalEventUI / HCEventModule / optical host
+// 硬编码坐标和连线数据后续讨论是否抽公共拓扑框架
+
+
+let cleanup = null;
+
+function mountOpticalEvent() {
 /* 事件详情候选组件：只管理展示，不推断或推进业务状态。 */
 window.HCEventUI = (() => {
   const el = (tag, className = '', text) => {
@@ -10891,8 +10898,17 @@ window.resetOpticalEvent=()=>{close();savedState=null;};
 window.openOpticalEvent=({mode='full'}={})=>{if(instance)return;window.closeEnergyDetail?.();window.closeNicEvent?.();detailMode=mode;root.hidden=false;instance=HCEventModule.mount({root,eventId:'optical-link-contamination',initialState:mode==='isolation'?null:savedState,detailMode:mode,entranceMode:'complete',storyStage:window.HCStory?.get().optical??6,onClose:close,onComplete:()=>{savedState=instance.exportState();window.dispatchEvent(new CustomEvent('hc-optical-complete',{detail:{eventId:'optical-link-contamination'}}));}});reference('optical')};root.hidden=true;
 window.addEventListener('hc-story-change',e=>instance?.setStoryStage(e.detail.optical));
 document.querySelector('#home-sidebar button[aria-label="首页"]').addEventListener('click',close);
-})();}
-  Object.assign(__export, { initOpticalEvent });
+})();
+  cleanup = () => {
+    window.closeOpticalEvent?.();
+    window.resetOpticalEvent?.();
+  };
+}
+
+function unmountOpticalEvent() {
+  if (cleanup) { cleanup(); cleanup = null; }
+}
+  Object.assign(__export, { mountOpticalEvent, unmountOpticalEvent });
 })();
 
 /* ===== src/views/story/legacy.js ===== */
@@ -11813,7 +11829,7 @@ const energyGradeTag = window.energyGradeTag;
 
 /* ===== src/boot.js ===== */
 (function () {
-  const { initEvidenceOrig, initMotionRuntime, initHCComponents, initClock, initHomeScreen, initEnhancements, initOpticalEvent, initStory, initEnergyDetail } = __export;
+  const { initEvidenceOrig, initMotionRuntime, initHCComponents, initClock, initHomeScreen, initEnhancements, mountOpticalEvent, initStory, initEnergyDetail } = __export;
 function runBoot() {
   initEvidenceOrig();
   initMotionRuntime();
@@ -11821,7 +11837,7 @@ function runBoot() {
   initClock();
   initHomeScreen();
   initEnhancements();
-  initOpticalEvent();
+  mountOpticalEvent();
   initStory();
   initEnergyDetail();
 }
@@ -13618,6 +13634,25 @@ function NicEvent() {
   Object.assign(__export, { NicEvent });
 })();
 
+/* ===== src/views/optical-event/index.jsx ===== */
+(function () {
+  const { useEffect } = React;
+  const { mountOpticalEvent, unmountOpticalEvent } = __export;
+// optical-event React 壳子
+// 命令式拓扑绘制逻辑保持在 event.js 中（6 个顶级模块：HCEventUI/HCEntrance/HCOpticalEventUI/HCEventModule/host）
+// 此组件只做生命周期挂载 + window API 桥接
+
+
+function OpticalEvent() {
+  useEffect(() => {
+    mountOpticalEvent();
+    return () => unmountOpticalEvent();
+  }, []);
+  return null;
+}
+  Object.assign(__export, { OpticalEvent });
+})();
+
 /* ===== src/views/room-overview/index.jsx ===== */
 (function () {
   const { useEffect, useRef, useState } = React;
@@ -13780,6 +13815,7 @@ const SKELETON_INNER = "\n  <div class=\"cabinet-floor-extension\" aria-hidden=\
   const GuardEventsTable = __export.GuardEventsTable;
   const HomeScreen = __export.HomeScreen;
   const NicEvent = __export.NicEvent;
+  const OpticalEvent = __export.OpticalEvent;
   const RoomOverview = __export.RoomOverview;
 function App() {
   const [booted, setBooted] = useState(false);
@@ -13800,6 +13836,7 @@ function App() {
           <AgentPanel />
           <GuardEventsTable />
           <NicEvent />
+          <OpticalEvent />
           <RoomOverview />
         </>
       )}
