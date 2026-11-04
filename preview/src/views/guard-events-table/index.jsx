@@ -3,6 +3,7 @@
 // CSS 在 src/styles/legacy.css（.guard-* 选择器，从演示 HTML 机械提取）
 import { useEffect, useMemo, useRef, useState } from "react";
 import { HC_ASSETS } from "../../mock/hc-assets.js";
+import EventTypeIcon from "../../components/event-type-icon/index.jsx";
 import { BASE_FAULT_EVENTS, buildHistoricalEvents, buildEnergyEvents, STATES, buildInitialRecords } from "../../mock/guard-events.js";
 
 const createPortal = (node, host) => ReactDOM.createPortal(node, host);
@@ -229,7 +230,7 @@ export default function GuardEventsTable() {
                       const originalIndex = hideEnergyResult && vi >= 2 ? vi + 1 : vi;
                       return (
                         <td key={vi} title={text} className={originalIndex === 1 && list !== "energy" ? item.stateClass : undefined}>
-                          {originalIndex === 0 && <LegacyEventTypeIcon item={item} />}
+                          {originalIndex === 0 && <EventIconForItem item={item} />}
                           {originalIndex === 1 && list === "energy" && item.stateClass === "energy-wait" && <i className="story-step-icon working" />}
                           {originalIndex === 1 && list === "energy" && item.stateClass !== "energy-wait" && <img className="guard-asset guard-energy-closed-leaf" src={HC_ASSETS.icons[item.stateClass === "energy-done" ? "绿色叶子" : "灰色叶子"]} alt="" />}
                           {originalIndex === 1 && list !== "energy" && item.type !== "节能" && <img className="guard-asset" src={HC_ASSETS.icons[STATE_ICON_KEYS[item.stateClass]]} alt="" />}
@@ -285,23 +286,18 @@ export default function GuardEventsTable() {
   );
 }
 
-// 事件类型图标桥接组件 —— hc-components 尚未 React 化，通过 ref 调用 legacy 工厂函数
-// 当 hc-components 完成组件化后，此桥接可移除，改为直接渲染 <EventTypeIcon />
-function LegacyEventTypeIcon({ item }) {
-  const ref = useRef(null);
-  useEffect(() => {
-    if (!ref.current || !window.HCComponents) return;
-    const business = item.action === "qwen-recovery" || /Qwen|推理实例|推理服务/.test(item.object) && !/网卡|光链路|节点/.test(item.name);
-    const node = window.HCComponents.EventTypeIcon({
-      domain: item.type === "节能" ? "inference" : /训练|作业/.test(item.object) ? "training" : business ? "inference" : "resource",
-      name: item.name + " " + item.object,
-      type: item.type === "节能" ? "energy" : item.type === "隐患" ? "risk" : "fault",
-      closed: /closed|energy-done|energy-none/.test(item.stateClass),
-      size: 24,
-    });
-    if (node) { ref.current.replaceChildren(); ref.current.append(node); }
-  });
-  return <span ref={ref} style={{ display: "contents" }} />;
+// 事件类型图标 —— 按 item 计算图标参数后直接渲染 React 组件
+function EventIconForItem({ item }) {
+  const business = item.action === "qwen-recovery" || /Qwen|推理实例|推理服务/.test(item.object) && !/网卡|光链路|节点/.test(item.name);
+  return (
+    <EventTypeIcon
+      domain={item.type === "节能" ? "inference" : /训练|作业/.test(item.object) ? "training" : business ? "inference" : "resource"}
+      name={item.name + " " + item.object}
+      type={item.type === "节能" ? "energy" : item.type === "隐患" ? "risk" : "fault"}
+      closed={/closed|energy-done|energy-none/.test(item.stateClass)}
+      size={24}
+    />
+  );
 }
 
 // 事件详情弹窗 —— 点击非跳转类事件行时展示完整字段

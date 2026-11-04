@@ -41,7 +41,7 @@ function augmentHome() {
     row.className = "hc-event-row hc-energy-home-row hc-event-processing";
     const head = document.createElement("div");
     head.className = "hc-event-head";
-    const ring = window.HCComponents?.EventTypeIcon({ domain: "inference", type: "energy", name: item.name, size: 26 });
+    const ring = bridgeEventTypeIcon({ domain: "inference", type: "energy", name: item.name, size: 26 });
     const name = document.createElement("span");
     name.textContent = item.name;
     const time = document.createElement("time");
@@ -51,7 +51,7 @@ function augmentHome() {
     p.textContent = item.root;
     row.append(head, p);
     if (item.action === "energy") row.setAttribute("aria-disabled", "true");
-    window.HCComponents?.FlowBorder(row);
+    bridgeFlowBorderInto(row);
     energyList.append(row);
   });
 }

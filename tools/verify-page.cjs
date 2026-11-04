@@ -104,16 +104,14 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   check("mascot layer srcs use extracted assets", layers.length > 0 && mascotSrcOk);
 
   const workloads = d.getElementById("home-workloads");
-  let wlChildren = workloads ? workloads.children.length : -1;
-  if (wlChildren === 0) {
-    const ribbon = d.querySelector("#home-metrics .hc-ribbon");
-    if (ribbon && typeof ribbon.activate === "function") {
-      try { ribbon.activate("training", 0, true); } catch (e) { jsErrors.push("ribbon.activate: " + e.message); }
-    }
+  // 外壳（排序/浏览控件）由 React 常驻渲染，激活后应取消隐藏且卡片列表有内容
+  const ribbon = d.querySelector("#home-metrics .hc-ribbon");
+  if (ribbon && typeof ribbon.activate === "function" && (workloads?.hidden !== false || workloads.children.length === 0)) {
+    try { ribbon.activate("training", 0, true); } catch (e) { jsErrors.push("ribbon.activate: " + e.message); }
     await sleep(400);
-    wlChildren = workloads ? workloads.children.length : -1;
   }
-  check("workload browser renders on demand", wlChildren > 0 && workloads && !workloads.hidden, wlChildren + " children, hidden=" + (workloads ? workloads.hidden : "n/a"));
+  const listCards = d.querySelectorAll("#home-workloads .workload-list > *").length;
+  check("workload browser renders on demand", !!workloads && !workloads.hidden && workloads.children.length > 0 && listCards > 0, `${workloads ? workloads.children.length : -1} children, ${listCards} cards, hidden=${workloads ? workloads.hidden : "n/a"}`);
 
   const fns = ["openOpticalEvent", "openNicEvent", "openEnergyService", "openGuardEvents", "restartMascotEntrance", "renderStoryGuard"];
   const fnsOk = fns.filter((f) => typeof w[f] === "function");

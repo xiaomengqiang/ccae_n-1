@@ -1,5 +1,6 @@
 // nic-event 命令式事件逻辑（从 legacy.js 提取，绘制/拓扑/连线保持原样）
 // 硬编码坐标和连线数据后续讨论是否抽公共拓扑框架
+import { bridgeEventTypeIcon, bridgeComposer } from "../../shared/react-bridge.js";
 
 let cleanup = null;
 
@@ -62,7 +63,7 @@ window.openNicEvent=()=>{
  const heading=U.el('div','evt-heading-copy');heading.append(U.el('h1'),U.el('time','','2026-09-09 12:05:12'));head.append(back,heading);left.append(head);
  const intro=U.el('div','evt-diagnosis-intro'),introCopy=U.el('p'),all=U.button('收起全部','evt-expand-all',()=>{const visible=sections.map((s,i)=>viewStage()>=s.at?i:-1).filter(i=>i>=0),next=!visible.every(i=>expanded[i]);visible.forEach(i=>expanded[i]=next);renderHistory();});intro.append(introCopy);
  const history=U.el('div','evt-diagnostic-scroll');left.append(history);
- const composerWrap=U.el('div','evt-composer-wrap'),composer=HCComponents.Composer({value:draft,onSend:()=>{}});composer.querySelector('input').addEventListener('input',e=>draft=e.target.value);composerWrap.append(composer);left.append(composerWrap);
+ const composerWrap=U.el('div','evt-composer-wrap'),composer=bridgeComposer({value:draft,onSend:()=>{}});composer.querySelector('input').addEventListener('input',e=>draft=e.target.value);composerWrap.append(composer);left.append(composerWrap);
  const right=U.el('main','evt-right'),toolbar=U.el('div','evt-detail-toolbar');toolbar.append(U.el('span','','诊断详情'));right.append(toolbar);
  const service=U.el('section','nic-service'),label=U.el('div','nic-service-title'),metrics=U.el('div','nic-metrics');service.append(label,metrics);
  const topology=U.el('div','nic-instance-topology');renderOriginalTopology(topology);service.append(topology);right.append(service);
@@ -111,7 +112,7 @@ window.openNicEvent=()=>{
  function focus(i){journeySecond=null;selected=i;updateService();renderJourney();expanded[flow[i][2]]=true;renderHistory();renderFlow();history.querySelector('[data-section="'+flow[i][2]+'"]')?.scrollIntoView({block:'nearest',behavior:'smooth'});}
  function updateService(){
   const repaired=viewStage()===9||journeySecond!==null&&journeySecond<12;panel.dataset.stage=stage;panel.dataset.replay=String(journeySecond!==null);service.classList.toggle('nic-service-recovered',repaired);
-  head.querySelector('.hc-event-type-icon')?.remove();const symbol=HCComponents.EventTypeIcon({closed:repaired,size:36});symbol.classList.add('evt-icon');if(viewStage()===6){const flags=U.el('span','fault-status-flags');flags.append(U.icon('红色小手',13),U.el('b','business-impact-symbol','✱'));symbol.append(flags);}head.append(symbol);
+  head.querySelector('.hc-event-type-icon')?.remove();const symbol=bridgeEventTypeIcon({closed:repaired,size:36});symbol.classList.add('evt-icon');if(viewStage()===6){const flags=U.el('span','fault-status-flags');flags.append(U.icon('红色小手',13),U.el('b','business-impact-symbol','✱'));symbol.append(flags);}head.append(symbol);
   heading.querySelector('h1').textContent=stage===9?'Qwen-1.5B服务已恢复，网卡故障已闭环':'Qwen-1.5B服务劣化：网卡驱动版本低';
   introCopy.textContent=repaired?'网卡驱动升级与服务健康核查完成，事件已闭环':viewStage()===6?'无可替换节点，服务仍劣化，请人工升级网卡驱动':viewStage()>=7?'已确认人工升级，正在执行修复与健康核查':'正在诊断业务故障并评估恢复方案';
   label.replaceChildren(U.el('span','','Qwen-1.5B服务'),U.Badge(repaired?'正常':'劣化',repaired?'done':'degraded'));metrics.replaceChildren();

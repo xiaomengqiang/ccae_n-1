@@ -2,6 +2,7 @@
 // 包含 6 个顶级模块：HCEventUI / HCEntrance / quickQuery / HCOpticalEventUI / HCEventModule / optical host
 // 硬编码坐标和连线数据后续讨论是否抽公共拓扑框架
 import { OPTICAL_ASSETS } from "../../mock/hc-assets.js";
+import { bridgeEventTypeIcon, bridgeComposer } from "../../shared/react-bridge.js";
 
 let cleanup = null;
 
@@ -938,14 +939,14 @@ return figure;
     const back=U.button('','evt-back',()=>onClose({eventId}));back.setAttribute('aria-label','返回');back.append(U.icon('返回-原稿尺寸',20));
     const headingCopy=U.el('div','evt-heading-copy');
     headingCopy.append(U.el('h1','','光链路脏污，待人工清污'),U.el('time','',isolationOnly?'2026-09-09  12:00:00':'2026-09-09  12:00:40'));
-    if(isolationOnly)headingCopy.querySelector('h1').append(U.Badge('已闭环','done'));const headingEventIcon=HCComponents.EventTypeIcon({closed:isolationOnly,size:36});headingEventIcon.classList.add('evt-icon');heading.append(back,headingEventIcon,headingCopy);left.append(heading);
+    if(isolationOnly)headingCopy.querySelector('h1').append(U.Badge('已闭环','done'));const headingEventIcon=bridgeEventTypeIcon({closed:isolationOnly,size:36});headingEventIcon.classList.add('evt-icon');heading.append(back,headingEventIcon,headingCopy);left.append(heading);
     const intro=U.el('div','evt-diagnosis-intro');
     intro.append(U.el('p','','已经为您分析并生成故障的诊断，请查看后立即处理'));
     const expand=U.button('','evt-expand-all',()=>{const next=!state.expanded.every(Boolean);state.expanded=[next,next,next,next];renderHistory(false);});
     expand.append(U.icon('展开全部',12),U.el('span','','展开全部'));intro.append(expand);left.append(intro);
     const scroll=U.el('div','evt-diagnostic-scroll');left.append(scroll);
     const composerWrap=U.el('div','evt-composer-wrap');
-    const composer=HCComponents.Composer({value:state.draft,onSend:()=>{}});
+    const composer=bridgeComposer({value:state.draft,onSend:()=>{}});
     const input=composer.querySelector('input');
     input.addEventListener('input',()=>{state.draft=input.value;});
     input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();e.stopPropagation();}});
@@ -994,7 +995,7 @@ return figure;
           appearedViews.add(key);
           if(!HCMotion.REDUCED)item.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:700,delay:key>=6?1100+(key-6)*1200:Math.min(i,7)*50,easing:'cubic-bezier(.2,0,0,1)',fill:'backwards'});
         }
-      });topology.update(state.view);if(isolationOnly&&state.view===4){topology.querySelector('.evt-tip-name').textContent='优雅隔离已完成';}if(!isolationOnly&&state.cleanedAt===null&&[4,5].includes(state.view)){const name=topology.querySelector('.evt-tip-name');if(name){const title=topology.querySelector('.evt-tip-title');const icon=HCComponents.EventTypeIcon({size:20});const flags=U.el('span','fault-status-flags');flags.append(U.icon('红色小手',10));icon.append(flags);title.replaceChildren(icon,U.el('span','evt-tip-name','光模块脏污，待人工清污'),U.Badge('根因','manual'));topology.querySelector('.evt-topo-state-label p').textContent='计算柜11·L1交换板02光模块端面脏污，需人工清污。系统持续监控通道4光功率与错误计数';}}if(isolationOnly&&state.view===5){topology.querySelector('.evt-tip-name').textContent='事件已关闭';topology.querySelector('.evt-topo-state-label p').textContent='生成待人工处理事件';}if(state.cleanedAt!==null&&!isolationOnly){topology.querySelector('.evt-fault').style.background='#247247';topology.querySelector('.evt-fault-link').style.stroke=[4,5].includes(state.view)?'#888':'#49876c';}if(liveStage<6){const label=topology.querySelector('.evt-topo-state-label');label.hidden=false;}applyFocus();
+      });topology.update(state.view);if(isolationOnly&&state.view===4){topology.querySelector('.evt-tip-name').textContent='优雅隔离已完成';}if(!isolationOnly&&state.cleanedAt===null&&[4,5].includes(state.view)){const name=topology.querySelector('.evt-tip-name');if(name){const title=topology.querySelector('.evt-tip-title');const icon=bridgeEventTypeIcon({size:20});const flags=U.el('span','fault-status-flags');flags.append(U.icon('红色小手',10));icon.append(flags);title.replaceChildren(icon,U.el('span','evt-tip-name','光模块脏污，待人工清污'),U.Badge('根因','manual'));topology.querySelector('.evt-topo-state-label p').textContent='计算柜11·L1交换板02光模块端面脏污，需人工清污。系统持续监控通道4光功率与错误计数';}}if(isolationOnly&&state.view===5){topology.querySelector('.evt-tip-name').textContent='事件已关闭';topology.querySelector('.evt-topo-state-label p').textContent='生成待人工处理事件';}if(state.cleanedAt!==null&&!isolationOnly){topology.querySelector('.evt-fault').style.background='#247247';topology.querySelector('.evt-fault-link').style.stroke=[4,5].includes(state.view)?'#888':'#49876c';}if(liveStage<6){const label=topology.querySelector('.evt-topo-state-label');label.hidden=false;}applyFocus();
     }
     function applyFocus(){
       const selectedStep=[0,1,1,2,3,3,3,3][focusIndex];
@@ -1160,7 +1161,7 @@ return figure;
     function renderHistory(toBottom=false) {
       entrance.stop();
       const allOpen=state.expanded.every(Boolean);expand.querySelector('span').textContent=allOpen?'收起全部':'展开全部';expand.setAttribute('aria-expanded',String(allOpen));
-      headingCopy.querySelector('h1').textContent=liveStage<4?'光链路故障分析中':liveStage<6?'光链路脏污，自动处理中':'光链路脏污，待人工清污';if(isolationOnly)headingCopy.querySelector('h1').replaceChildren(document.createTextNode('光链路闪断，已完成优雅隔离'),U.Badge('已闭环','closed'));if(!isolationOnly&&liveStage>=6){headingCopy.querySelector('h1').textContent=state.cleanedAt===null?'光链路脏污，待人工清污':'光链路已清污，隔离已解除';headingCopy.querySelector('h1').append(U.Badge(state.cleanedAt===null?'待人工处理':'已闭环',state.cleanedAt===null?'manual':'closed'));}const headingIcon=heading.querySelector(':scope > .evt-icon');if(headingIcon){const nextIcon=HCComponents.EventTypeIcon({closed:isolationOnly||state.cleanedAt!==null,size:36});nextIcon.classList.add('evt-icon');headingIcon.replaceWith(nextIcon);}const oldScroll=scroll.scrollTop;scroll.replaceChildren();
+      headingCopy.querySelector('h1').textContent=liveStage<4?'光链路故障分析中':liveStage<6?'光链路脏污，自动处理中':'光链路脏污，待人工清污';if(isolationOnly)headingCopy.querySelector('h1').replaceChildren(document.createTextNode('光链路闪断，已完成优雅隔离'),U.Badge('已闭环','closed'));if(!isolationOnly&&liveStage>=6){headingCopy.querySelector('h1').textContent=state.cleanedAt===null?'光链路脏污，待人工清污':'光链路已清污，隔离已解除';headingCopy.querySelector('h1').append(U.Badge(state.cleanedAt===null?'待人工处理':'已闭环',state.cleanedAt===null?'manual':'closed'));}const headingIcon=heading.querySelector(':scope > .evt-icon');if(headingIcon){const nextIcon=bridgeEventTypeIcon({closed:isolationOnly||state.cleanedAt!==null,size:36});nextIcon.classList.add('evt-icon');headingIcon.replaceWith(nextIcon);}const oldScroll=scroll.scrollTop;scroll.replaceChildren();
       const process=renderOverview();
       const awareness=U.el('div');awareness.append(bodyText('链路闪断告警  12:00:00-12:00:05'),bodyText('故障描述：计算柜11-L1交换板02上发生闪断3次'));
       const analysis=U.el('div');

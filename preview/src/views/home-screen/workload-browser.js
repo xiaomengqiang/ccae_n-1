@@ -1,50 +1,53 @@
 import { HOME_WORKLOADS } from "../../mock/workloads.js";
-import { HC_ASSETS } from "../../mock/hc-assets.js";
+import { bridgeWorkloadCard, bridgeWorkloadIcon } from "../../shared/react-bridge.js";
+import EnergyServiceCard from "../../components/energy-service-card/index.jsx";
+import WorkloadBrowserShell from "./workload-browser-shell.jsx";
 
-// 工作负载浏览器 —— 从 initHomeScreen 提取的独立模块
-// 命令式 DOM 操作（rail 滚动浏览器 + WorkloadCard 列表 + 排序/反转/翻页）
-// 交互密集（pointermove/scroll/ResizeObserver 卡片缓存），暂不做声明式重写
-// 后续 React 化时替换为 views/home-screen/workload-browser/index.jsx
+// 工作负载浏览器 —— 外壳（排序/浏览控件框架）由 React 渲染（workload-browser-shell.jsx），
+// 控制器在此持久化：卡片列表/滚动轨道内容命令式填充（虚拟滚动 + 卡片缓存 +
+// pointermove 交互密集，不适合声明式重写）。切换类目时重置状态复用同一 DOM。
 
-let workloadView = null;
-let currentCategory = null;
-let currentFilter = 0;
+let shellApi = null;
+let controller = null;
 
 export function initWorkloadBrowser() {
-  workloadView = document.createElement("section");
-  workloadView.id = "home-workloads";
-  workloadView.hidden = true;
-  document.getElementById("screen").append(workloadView);
+  const host = document.createElement("div");
+  document.getElementById("screen").append(host);
+  ReactDOM.createRoot(host).render(
+    React.createElement(WorkloadBrowserShell, {
+      onReady(nodes) {
+        shellApi = nodes;
+        controller = createController(nodes);
+      },
+    })
+  );
 }
 
 export function showWorkloads(category, filter = 0) {
   if (parent !== window) parent.postMessage({ type: "hc-home-category", category }, location.origin === "null" ? "*" : location.origin);
-  currentCategory = category;
-  currentFilter = filter;
   const isWorkload = category === "training" || category === "inference";
   document.getElementById("screen").dataset.category = category;
-  workloadView.hidden = !isWorkload;
+  if (!shellApi) return;
+  if (isWorkload) shellApi.setCategory(category);
+  shellApi.view.hidden = !isWorkload;
   if (!isWorkload) { document.getElementById("screen").dataset.resourceMetric = filter; return; }
-  renderWorkloadView(category, filter);
+  controller(category, filter);
 }
 
-function renderWorkloadView(category, filter) {
-  const C = window.HCComponents;
-  workloadView.replaceChildren();
-  workloadView.dataset.filter = filter;
-  workloadView.classList.add("windowed-workloads");
-  const heading = document.createElement("h2"); heading.textContent = category === "training" ? "训练作业" : "推理服务";
-  const select = document.createElement("select"); select.setAttribute("aria-label", "对象排序");
-  for (const [value, text] of [["status", "按状态排序"], ["quality", category === "training" ? "按可用度排序" : "按成功率排序"], ["npu", "按卡数排序"]]) {
-    const option = document.createElement("option"); option.value = value; option.textContent = text; select.append(option);
-  }
-  const sortWrap = document.createElement("div"); sortWrap.className = "workload-sort"; sortWrap.append(select);
-  const browser = document.createElement("div"); browser.className = "workload-browser";
-  const track = document.createElement("div"); track.className = "workload-browser-track";
-  const segments = document.createElement("div"); segments.className = "workload-browser-segments";
-  const windowBox = document.createElement("div"); windowBox.className = "workload-browser-window";
-  const range = document.createElement("input"); range.type = "range"; range.min = 0; range.step = 1; range.className = "workload-browser-keyboard"; range.setAttribute("aria-label", "浏览当前屏对象，方向键移动范围");
-  track.append(segments, windowBox, range);
+function createController(N) {
+  const { view, select, track, segments, windowBox, range, left, position, right, reverse, prev, next, list, browser } = N;
+  const rank = { interrupted: 0, stuck: 1, degraded: 2, normal: 3 };
+  const labels = { interrupted: "中断", stuck: "卡死", degraded: "劣化", normal: "正常" };
+  const colors = { interrupted: "#d87a88", stuck: "#ca9466", degraded: "#c6b079", normal: "#638c79" };
+  let category = null, filter = 0;
+  let capacity = 4, stride = 257;
+  let start = 0, items = [], order = [], reversed = false;
+  let railSignature = null, listSignature = null;
+  const cardCache = new Map();
+
+  const key = (item) => item.data.name + "|" + item.data.start;
+  const maxStart = () => Math.ceil(Math.max(0, items.length - capacity) / 2) * 2;
+
   let railPointer = null, railActive = null, railCandidate = null, railTimer = 0, railLockedUntil = 0, railHitZones = [];
   function expandRail(target) {
     clearTimeout(railTimer); railCandidate = null; railActive = target; railLockedUntil = performance.now() + 260;
@@ -62,21 +65,7 @@ function renderWorkloadView(category, filter) {
   });
   segments.addEventListener("pointerleave", () => { clearTimeout(railTimer); railPointer = null; expandRail(null); railLockedUntil = 0; });
   segments.addEventListener("pointerenter", () => { clearTimeout(railTimer); railHitZones = Array.from(segments.children, (node) => ({ node, left: node.getBoundingClientRect().left, right: node.getBoundingClientRect().right })); });
-  const captions = document.createElement("div"); captions.className = "workload-browser-captions";
-  const left = document.createElement("span"), position = document.createElement("span"), right = document.createElement("span"); position.hidden = true; captions.append(left, position, right); browser.append(track, captions);
-  const list = document.createElement("div"); list.className = "workload-list";
-  const prev = document.createElement("button"), next = document.createElement("button"); prev.textContent = "‹"; next.textContent = "›"; prev.setAttribute("aria-label", "上一页"); next.setAttribute("aria-label", "下一页"); prev.className = next.className = "workload-browser-page";
-  const pages = document.createElement("span"); pages.className = "workload-browser-pages"; pages.append(prev, next); browser.append(pages);
-  const reverse = document.createElement("button"); reverse.className = "workload-browser-reverse"; reverse.textContent = "⇄"; reverse.type = "button"; reverse.setAttribute("aria-label", "反转排序方向"); reverse.setAttribute("aria-pressed", "false"); reverse.title = "反转排序方向"; left.after(reverse);
-  const controls = document.createElement("div"); controls.className = "workload-controls"; controls.setAttribute("aria-label", heading.textContent + "排序与浏览"); controls.append(sortWrap, browser); workloadView.append(controls, list);
-  const capacity = category === "training" ? 6 : 4;
-  const rank = { interrupted: 0, stuck: 1, degraded: 2, normal: 3 };
-  const labels = { interrupted: "中断", stuck: "卡死", degraded: "劣化", normal: "正常" };
-  const colors = { interrupted: "#d87a88", stuck: "#ca9466", degraded: "#c6b079", normal: "#638c79" };
-  let start = 0, items = [], order = [], reversed = false, railSignature = "";
-  function key(item) { return item.data.name + "|" + item.data.start; }
-  const stride = category === "training" ? 189 : 257;
-  const maxStart = () => Math.ceil(Math.max(0, items.length - capacity) / 2) * 2;
+
   function updateRangeFrame() {
     const first = segments.children[start], last = segments.children[Math.min(items.length, start + capacity) - 1];
     if (!first || !last) return;
@@ -84,6 +73,7 @@ function renderWorkloadView(category, filter) {
     windowBox.setAttribute("aria-label", `本页第 ${start + 1} 至 ${Math.min(items.length, start + capacity)} 个对象`);
   }
   const railResize = new ResizeObserver(() => { if (!track.isConnected) { railResize.disconnect(); return; } updateRangeFrame(); }); railResize.observe(track);
+
   function paint() {
     const count = items.length; start = Math.max(0, Math.min(start, maxStart())); const end = Math.min(count, start + capacity);
     range.max = maxStart(); range.step = 2; range.value = start; range.disabled = count <= capacity;
@@ -96,14 +86,14 @@ function renderWorkloadView(category, filter) {
     start = Math.max(0, Math.min(Math.round(index / 2) * 2, maxStart())); paint();
     list.scrollTo({ top: start / 2 * stride, behavior: smooth && !matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto" });
   }
-  const cardCache = new Map(); let listSignature = "";
+
   function drawList() {
     const scroll = list.scrollTop, keys = items.map(key), signature = keys.join("~"), structureChanged = signature !== listSignature;
     const cards = items.map((item, i) => {
       const { quality, ok, fail, total, ...stable } = item.data, cacheKey = key(item), content = JSON.stringify([item.status, stable]);
       let entry = cardCache.get(cacheKey);
       if (!entry || entry.content !== content) {
-        const card = category === "inference" && filter === 5 ? energyServiceCard(item) : C.WorkloadCard({ kind: category, status: item.status, data: item.data });
+        const card = category === "inference" && filter === 5 ? energyServiceCard(item) : bridgeWorkloadCard({ kind: category, status: item.status, data: item.data });
         entry = { card, content }; const old = cardCache.get(cacheKey)?.card; if (old?.isConnected) old.replaceWith(card); cardCache.set(cacheKey, entry);
       }
       const card = entry.card; card.style.left = ((i % 2) * 678) + "px"; card.style.top = (20 + Math.floor(i / 2) * stride) + "px"; card.dataset.browserKey = cacheKey;
@@ -121,8 +111,9 @@ function renderWorkloadView(category, filter) {
   }
   list.addEventListener("scroll", () => { start = Math.min(maxStart(), Math.floor((list.scrollTop + 1) / stride) * 2); paint(); }, { passive: true });
   prev.onclick = () => navigate(start - capacity, true); next.onclick = () => navigate(start + capacity, true);
+
   function renderCards(resort = false) {
-    if (workloadView.hidden || document.getElementById("screen").dataset.category !== category) return;
+    if (view.hidden || document.getElementById("screen").dataset.category !== category) return;
     const source = window.storyWorkloads ? window.storyWorkloads(category) : HOME_WORKLOADS[category];
     const fresh = source.filter((x) => category === "inference" && filter === 5 ? x.data.energySaving : !filter || x.status === ["", "interrupted", "stuck", "degraded", "normal"][filter]);
     const sorted = fresh.slice().sort((a, b) => select.value === "status" ? rank[a.status] - rank[b.status] : select.value === "quality" ? parseFloat(a.data.quality) - parseFloat(b.data.quality) : Number(b.data.npu) - Number(a.data.npu));
@@ -136,7 +127,7 @@ function renderWorkloadView(category, filter) {
         const n = document.createElement("button"); n.type = "button"; n.className = "workload-rail-item"; n.dataset.status = item.status; n.style.setProperty("--status-color", colors[item.status] || "#777"); n.setAttribute("aria-label", item.data.name + "，" + labels[item.status] + "，定位卡片");
         const short = document.createElement("span"); short.className = "rail-short"; short.textContent = Array.from(item.data.name)[0];
         const copy = document.createElement("span"); copy.className = "rail-copy"; const name = document.createElement("strong"); name.textContent = item.data.name; const status = document.createElement("small"); status.textContent = labels[item.status]; copy.append(name, status);
-        n.append(C.WorkloadIcon(item.data.name), short, copy); n.onclick = () => { navigate(i); list.querySelectorAll(".rail-card-focus").forEach((c) => c.classList.remove("rail-card-focus")); list.children[i]?.classList.add("rail-card-focus"); };
+        n.append(bridgeWorkloadIcon(item.data.name), short, copy); n.onclick = () => { navigate(i); list.querySelectorAll(".rail-card-focus").forEach((c) => c.classList.remove("rail-card-focus")); list.children[i]?.classList.add("rail-card-focus"); };
         n.onkeydown = (event) => { if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); segments.children[Math.max(0, Math.min(items.length - 1, i + (event.key === "ArrowRight" ? 1 : -1)))]?.focus(); } }; return n;
       }));
       railResize.disconnect(); railResize.observe(track); for (const child of segments.children) railResize.observe(child);
@@ -147,13 +138,26 @@ function renderWorkloadView(category, filter) {
   }
   reverse.onclick = () => { reversed = !reversed; reverse.setAttribute("aria-pressed", String(reversed)); renderCards(true); };
   select.onchange = () => renderCards(true); range.oninput = () => navigate(Number(range.value));
-  window.refreshWorkloadCards = () => renderCards(false); renderCards(true);
+  window.refreshWorkloadCards = () => renderCards(false);
+
+  function activate(nextCategory, nextFilter) {
+    category = nextCategory; filter = nextFilter;
+    capacity = category === "training" ? 6 : 4;
+    stride = category === "training" ? 189 : 257;
+    start = 0; items = []; order = []; reversed = false;
+    railSignature = null; listSignature = null; cardCache.clear();
+    view.dataset.filter = filter;
+    select.value = "status";
+    reverse.setAttribute("aria-pressed", "false");
+    segments.replaceChildren();
+    list.replaceChildren();
+    renderCards(true);
+  }
+  return activate;
 }
 
 // 节能服务卡片 —— React 组件渲染（结构/样式 JSX 化），桥接层原生绑定交互
 // （卡片节点移入命令式缓存列表后 React 合成事件失效，必须原生 onclick/onkeydown）
-import EnergyServiceCard from "../../components/energy-service-card/index.jsx";
-
 function energyServiceCard({ status, data }) {
   const host = document.createElement("div");
   ReactDOM.flushSync(() => {

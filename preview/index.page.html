@@ -9390,64 +9390,377 @@ const OPTICAL_ASSETS={icons:{"NPU板":HC_ASSETS.icons["NPU板"],"展开全部":H
   Object.assign(__export, { HC_ASSETS, HOME_LINKS_SVG, OPTICAL_ASSETS });
 })();
 
-/* ===== src/shared/hc-components.js ===== */
+/* ===== src/components/workload-icon/index.jsx ===== */
 (function () {
   const { HC_ASSETS } = __export;
-function initHCComponents() {
-/* Shared, framework-free components. All state changes are explicit props/events. */
-(()=>{
-const h=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n};
-const icon=(name,size=16)=>{const n=h('img','hc-icon');n.src=HC_ASSETS.icons[name];n.alt='';n.width=n.height=size;return n};
-const button=(text,click)=>{const n=h('button','',text);n.type='button';if(click)n.addEventListener('click',click);return n};
-const place=(parent,node,x,y)=>{node.style.position='absolute';node.style.left=x+'px';node.style.top=y+'px';parent.append(node);return node};
-const label=(parent,text,x,y,size=12,color='#b3b3b3')=>{const n=h('span','hc-label',text);n.style.fontSize=size+'px';n.style.color=color;return place(parent,n,x,y)};
-const statusNames={degraded:'劣化',stuck:'卡死',interrupted:'中断',normal:'正常运行'};
-function Status({status='normal'}={}){return h('span','hc-status '+status,statusNames[status])}
-function Mode({value='smart',onChange}={}){const n=h('div','hc-mode');const img=icon(value,99);img.style.height=value==='smart'?'36px':'24px';img.style.width=value==='smart'?'111px':'99px';img.style.left=value==='smart'?'-6px':'0';img.style.top=value==='smart'?'-6px':'0';n.append(img);const select=h('select');select.setAttribute('aria-label','运行模式');for(const [v,t] of [['smart','智能模式'],['normal','普通模式']]){const option=h('option','',t);option.value=v;select.append(option)}select.value=value;select.addEventListener('change',()=>{const smart=select.value==='smart';img.src=HC_ASSETS.icons[select.value];img.style.width=smart?'111px':'99px';img.style.height=smart?'36px':'24px';img.style.left=img.style.top=smart?'-6px':'0';onChange?.(select.value)});n.append(select);return n}
-function Header(){const n=h('header','hc-header');n.append(icon('header',1920));const reset=button('');reset.setAttribute('aria-label','iMaster CCAE');place(n,reset,32,8);reset.style.width='215px';reset.style.height='32px';place(n,Mode(),230,12);return n}
-function Sidebar(){const n=h('nav','hc-sidebar');n.setAttribute('aria-label','侧边导航');n.append(icon('侧边栏智慧体',56));for(const [i,name] of ['首页','策略中心','新建对话','历史任务'].entries()){const b=button('',()=>{n.querySelectorAll('button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')});b.setAttribute('aria-label',name);b.append(icon(name,48));if(!i)b.classList.add('selected');n.append(b)}return n}
-const metrics={resource:[['故障数','2','故障数'],['隐患数','0','隐患数'],['NPU利用率','76.4','NPU利用率','%'],['HBM利用率','74.2','HBM利用率','%'],['能耗','771','能耗','kW']],training:[['运行总数','13','运行总数'],['中断','1','中断'],['卡死','0','卡死'],['劣化','0','劣化'],['正常运行','12','正常运行']],inference:[['运行总数','16','运行总数'],['中断','0','中断'],['卡死','0','卡死'],['劣化','1','劣化'],['正常运行','15','正常运行'],['节能中','3','节能中']]};
-function MetricTile({name,value,iconName,unit='',selected=false,onSelect}={}){const n=button('',onSelect);n.className='hc-metric'+(selected?' selected':'');n.setAttribute('aria-pressed',String(selected));const glyph=icon(iconName==='节能中'?'叶子-圆底托':iconName,24);if(glyph.src.startsWith('data:image/svg+xml;base64,')){const raw=atob(glyph.src.split(',')[1]);const clean=raw.replace(/(<svg\b[^>]*?)\sclip-path="[^"]*"/,'$1');glyph.src='data:image/svg+xml;base64,'+btoa(clean);}n.append(glyph);const text=h('span','hc-metric-content');text.append(h('span','',name));const v=h('b','',value);if(unit)v.append(h('small','',unit));text.append(v);n.append(text);return n}
-function MetricRibbon({category='resource',selected=0,onChange,faultCounts={resource:2,training:1,inference:1}}={}){
- const n=h('section','hc-ribbon'),keys=['resource','training','inference'],titles=['基础设施','训练作业','推理服务'];
- const groups=keys.map((key,i)=>{const g=h('section','hc-metric-group');g.dataset.category=key;const title=button(titles[i],()=>activate(key,0,true));title.className='hc-metric-title';g.append(title);
- const row=h('div','hc-metric-row');const tiles=metrics[key].map(([name,value,ic,unit],index)=>{const metricId=index;const tile=MetricTile({name,value,iconName:ic,unit,onSelect:()=>activate(key,metricId,true)});tile.dataset.metricId=metricId;tile.style.setProperty('--metric-delay',(50+Math.min(index,7)*30)+'ms');return tile;});row.append(...tiles);const compact=button('',()=>activate(key,0,true));compact.className='hc-metric-compact';compact.append(h('span','',key==='resource'?'故障数':'运行总数'),h('b','',key==='resource'?'2':key==='training'?'13':'16'));g.append(row,compact);n.append(g);return {key,g,row,compact,tiles,s:{x:key===category?904:163,v:0}};});
- function activate(cat,index=0,notify=false,initial=false){const changed=cat!==category;category=cat;selected=index;n.dataset.category=cat;groups.forEach(t=>{const expanded=t.key===cat;t.g.className='hc-metric-group '+(expanded?'expanded':'collapsed');t.row.inert=!expanded;t.compact.inert=expanded;t.tiles.forEach((tile,i)=>{tile.classList.toggle('selected',expanded&&Number(tile.dataset.metricId)===selected);tile.setAttribute('aria-pressed',String(expanded&&Number(tile.dataset.metricId)===selected));});if(initial)t.g.style.flexGrow=t.s.x;else if(changed)HCMotion.springTo(t.s,expanded?904:163,HCMotion.SPRING_SOFT,x=>t.g.style.flexGrow=x);});if(notify)onChange?.(cat,index);}
- n.activate=activate;activate(category,selected,false,true);return n;
+const KEY = { qwen: "千问", deepseek: "DeepSeek" };
+
+function WorkloadIcon({ name = "" }) {
+  const key = /qwen|千问/i.test(name) ? "千问" : /deepseek/i.test(name) ? "DeepSeek" : "AI";
+  return (
+    <img
+      className="hc-icon"
+      src={HC_ASSETS.icons[key]}
+      alt=""
+      width={24}
+      style={key === "AI" ? { filter: "brightness(0) invert(.84)" } : undefined}
+    />
+  );
 }
-function GuardEvents({view='manual',onChange,onViewAll}={}){const n=h('section','hc-guard');const head=h('div','hc-guard-head');head.append(h('h2','','智能体事件'));const all=button('查看全部',()=>onViewAll?.());all.disabled=!onViewAll;head.append(all);n.append(head);const tabs=h('div','hc-tabs');tabs.setAttribute('role','tablist');for(const [key,text,count] of [['manual','待人工处理',view==='manual'?2:0],['energy','节能机会点',view==='empty'?0:1]]){const b=button(text+' ',()=>onChange?.(key));b.append(h('b','hc-tab-count',count));b.setAttribute('role','tab');b.setAttribute('aria-selected',String(key===(view==='manual'?'manual':'energy')));tabs.append(b)}n.append(tabs);if(view==='empty'){const empty=h('div','hc-empty');empty.append(icon('暂无待处理事项',150));n.append(empty);return n}const rows=view==='manual'?[['光链路脏污，待清污','计算柜11- L1交换板02链路已隔离，等待人工清污'],['Qwen-1.5B服务劣化：网卡驱动待升级','节点112.34.23.1的hinic3驱动需由V11.8升级至V13.1']]:[['Qwen-14B服务存在节能空间，可优化策略','识别到低负载时段，预计开启均衡模式可日节能12.3%']];for(const [title,desc] of rows){const row=h('article','hc-event-row');const top=h('div','hc-event-head');top.append(icon(view==='manual'?'故障+小手':'节能+小手',24),h('span','',title),h('time','','14:59:30'));row.append(top,h('p','',desc));n.append(row)}return n}
-function Composer({value='',onSend}={}){const form=h('form','hc-composer');const input=h('input');input.placeholder='输入问题或输入“/”触发提示词';input.value=value;input.setAttribute('aria-label','输入问题');const send=button('');send.type='submit';send.setAttribute('aria-label','发送');const image=icon('发送-禁用态',32);send.append(image);const sync=()=>{send.disabled=!input.value.trim();image.src=HC_ASSETS.icons[send.disabled?'发送-禁用态':'发送-正常态']};input.addEventListener('input',sync);form.addEventListener('submit',e=>{e.preventDefault();if(!input.value.trim())return;onSend?.(input.value);input.value='';sync()});form.append(input,send);sync();return form}
-function Gauge({value=0}={}){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 38 38');svg.setAttribute('width','38');svg.setAttribute('height','38');svg.classList.add('hc-gauge');svg.setAttribute('role','meter');const percent=Math.max(0,Math.min(100,Number.isFinite(value)?value:0));svg.setAttribute('aria-valuenow',percent);svg.setAttribute('aria-valuemin','0');svg.setAttribute('aria-valuemax','100');const cover=document.createElementNS(svg.namespaceURI,'rect');cover.setAttribute('width','46');cover.setAttribute('height','38');cover.setAttribute('fill','#191919');svg.append(cover);for(const [color,progress] of [['#9a9a9a',false],['#36c18d',true]]){const path=document.createElementNS(svg.namespaceURI,'path');path.setAttribute('d','M7.19 30.81 A16.7 16.7 0 1 1 30.81 30.81');path.setAttribute('fill','none');path.setAttribute('stroke',color);path.setAttribute('stroke-width','4.18');path.setAttribute('stroke-linecap','round');path.setAttribute('pathLength','100');if(progress){path.setAttribute('stroke-dasharray',percent+' 100');if(percent===0)path.setAttribute('opacity','0');}else path.setAttribute('opacity','.25');svg.append(path)}const star=document.createElementNS(svg.namespaceURI,'path');star.setAttribute('d','M19 12 L21.3 16.7 L26 19 L21.3 21.3 L19 26 L16.7 21.3 L12 19 L16.7 16.7 Z');star.setAttribute('fill','#fff');svg.append(star);svg.style.overflow='visible';return svg}
-function EventTypeIcon({business=false,domain=business?'inference':'resource',name='Qwen',risk=false,type=risk?'risk':'fault',closed=false,size=24}={}){
- if(type==='fault'){
-  const wrap=h('i','hc-event-type-icon hc-unified-fault');wrap.style.setProperty('--event-icon-size',size+'px');wrap.dataset.type='fault';wrap.dataset.closed=String(closed);wrap.setAttribute('role','img');wrap.setAttribute('aria-label','故障'+(closed?'，已闭环':''));
-  const mark=icon(closed?'灰色的故障':'红色的故障',size);wrap.append(mark);return wrap;
- }
- if(type==='energy')domain='inference';
- const wrap=h('i','hc-event-type-icon');wrap.style.setProperty('--event-icon-size',size+'px');wrap.dataset.domain=domain;wrap.dataset.type=type;wrap.dataset.closed=String(closed);wrap.setAttribute('role','img');wrap.setAttribute('aria-label',({training:'训练作业',inference:'推理服务',resource:'资源'}[domain])+({fault:'故障',risk:'隐患',energy:'节能机会'}[type])+(closed?'，已闭环':''));
- if(domain==='inference'){const model=WorkloadIcon(name);model.classList.add('hc-event-model');wrap.append(model);}else{
- const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');svg.classList.add('hc-event-object');
- svg.innerHTML=domain==='training'?'<path d="M8 3h9a2 2 0 0 1 2 2v13M5 6h9a2 2 0 0 1 2 2v12H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z"/><path d="M7 10h5M7 14h5M7 17h3"/>':'<rect x="3" y="4" width="17" height="7" rx="2.4"/><rect x="3" y="14" width="17" height="7" rx="2.4"/><path d="M7 7.5h.1M7 17.5h.1M12 7.5h4M12 17.5h4"/>';
- wrap.append(svg);}
- const key=type==='energy'?'绿色叶子':type==='risk'?'橙色隐患':'红色的故障';const mark=icon(key,12);mark.classList.add('hc-event-type-mark');wrap.append(mark);return wrap;
+  Object.assign(__export, { WorkloadIcon });
+})();
+
+/* ===== src/components/event-type-icon/index.jsx ===== */
+(function () {
+  const { HC_ASSETS } = __export;
+  const WorkloadIcon = __export.WorkloadIcon;
+const DOMAIN_LABELS = { training: "训练作业", inference: "推理服务", resource: "资源" };
+const TYPE_LABELS = { fault: "故障", risk: "隐患", energy: "节能机会" };
+
+function EventTypeIcon({ domain = "resource", name = "Qwen", type = "fault", closed = false, size = 24 }) {
+  if (type === "fault") {
+    return (
+      <i className="hc-event-type-icon hc-unified-fault" style={{ "--event-icon-size": size + "px" }}
+        data-type="fault" data-closed={String(closed)} role="img"
+        aria-label={"故障" + (closed ? "，已闭环" : "")}>
+        <img className="hc-icon" src={HC_ASSETS.icons[closed ? "灰色的故障" : "红色的故障"]} alt="" width={size} />
+      </i>
+    );
+  }
+  const actualDomain = type === "energy" ? "inference" : domain;
+  return (
+    <i className="hc-event-type-icon" style={{ "--event-icon-size": size + "px" }}
+      data-domain={actualDomain} data-type={type} data-closed={String(closed)} role="img"
+      aria-label={(DOMAIN_LABELS[actualDomain] || actualDomain) + (TYPE_LABELS[type] || type) + (closed ? "，已闭环" : "")}>
+      {actualDomain === "inference" ? (
+        <span className="hc-event-model"><WorkloadIcon name={name} /></span>
+      ) : (
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="hc-event-object">
+          {actualDomain === "training" ? (
+            <>
+              <path d="M8 3h9a2 2 0 0 1 2 2v13M5 6h9a2 2 0 0 1 2 2v12H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" />
+              <path d="M7 10h5M7 14h5M7 17h3" />
+            </>
+          ) : (
+            <>
+              <rect x="3" y="4" width="17" height="7" rx="2.4" />
+              <rect x="3" y="14" width="17" height="7" rx="2.4" />
+              <path d="M7 7.5h.1M7 17.5h.1M12 7.5h4M12 17.5h4" />
+            </>
+          )}
+        </svg>
+      )}
+      <img className="hc-icon hc-event-type-mark" src={HC_ASSETS.icons[type === "energy" ? "绿色叶子" : type === "risk" ? "橙色隐患" : "红色的故障"]} alt="" width={12} />
+    </i>
+  );
 }
-function WorkloadIcon(name=''){const key=/qwen|千问/i.test(name)?'千问':/deepseek/i.test(name)?'DeepSeek':'AI';const image=icon(key,24);if(key==='AI')image.style.filter='brightness(0) invert(.84)';return image}
-function WorkloadCard({kind='training',status=kind==='training'?'interrupted':'degraded',data={}}={}){const inference=kind==='inference';const n=h('article','hc-workload '+kind);n.setAttribute('aria-label',inference?'推理服务卡片':'训练作业卡片');n.style.backgroundImage=`url("${HC_ASSETS.icons[inference?'inferenceBase':'trainingBase']}")`;place(n,WorkloadIcon(data.name??(inference?'Qwen-1.5B 在线服务':'MoE专家并行实验')),20,20);const titleRow=place(n,h('div','hc-workload-title'),52,20);titleRow.append(h('span','hc-workload-name',data.name??(inference?'Qwen-1.5B 在线服务':'MoE专家并行实验')),Status({status}));if(inference&&data.processingText){const tip=FaultTip({state:data.processingManual?'qwen':'auto'});tip.classList.add('hc-workload-progress');tip.querySelector('.hc-tip-arrow')?.remove();tip.querySelector('span').textContent=data.processingText;tip.title=data.processingText;tip.setAttribute('aria-label',data.processingText);titleRow.append(tip);}if(data.energySaving){const badge=h('span','hc-status normal hc-energy-saving','节能中');const leaf=icon('绿色叶子',12);leaf.classList.add('energy-label-leaf');leaf.alt='';badge.prepend(leaf);titleRow.append(badge);}const date=label(n,data.start??(inference?'08-22 09:02:00':'08-22 03:02'),inference?549:566,22,12,'#999');date.style.whiteSpace='nowrap';const quality=(inference&&Number(data.total)>0?100*Number(data.ok)/Number(data.total):parseFloat(data.quality??'99.50')).toFixed(2)+'%';const q=label(n,quality.replace('%',''),inference?52:53,88,32,'#fafafa');q.classList.add('hc-quality');q.append(h('span','hc-percent','%'));if(inference){n.style.backgroundImage='none';n.style.backgroundColor='#191919';label(n,'请求成功率',52,60,12,'#999');[['总请求数/成功/失败',195],['NPU卡数',490]].forEach(([text,x])=>label(n,text,x,84,12,'#999'));[['TTFT',52],['TPOT',195],['生成Token数',338],['待人工处理/守护总数',490]].forEach(([text,x])=>label(n,text,x,163,12,'#999'));const divider=place(n,h('div'),52,144);Object.assign(divider.style,{width:'582px',height:'1px',background:'#383838'});}else{n.style.backgroundImage='none';n.style.backgroundColor='#191919';label(n,'作业可用度',53,60,12,'#999');[['NPU卡数',245],['待人工处理/守护总数',355],['最近一次中断时间',505]].forEach(([text,x])=>label(n,text,x,84,12,'#999'));}const fields=inference?[[(data.total??'123860')+' / '+(data.ok??'123237')+' / '+(data.fail??'1623'),195,105],[String(data.npu??'32').replace(/\s*卡$/,''),490,105],[data.ttft??'182 ms',52,184],[data.tpot??'23.6 ms',195,184],[data.tokens??'8.42 M',338,184],[(data.pendingManual??(data.processingManual?1:0))+' / '+(data.guardTotal??(16+Array.from(data.name||'').reduce((sum,c)=>sum+c.charCodeAt(0),0)%31)),490,184]]:[[data.npu??'64',245,105],[(data.pendingManual??0)+' / '+(data.guardTotal??(12+Array.from(data.name||'').reduce((sum,c)=>sum+c.charCodeAt(0),0)%29)),355,105],[data.lastInterrupted??'无中断记录',505,105]];for(const [v,x,y] of fields){const field=label(n,v,x,y,x===505?16:18,((inference&&((x===560)||(x===583&&Number(v)!==0)))||(!inference&&((x===355&&Number(data.pendingManual||0)!==0))))?'#e7434a':'#ececec');if(inference&&y===105&&x===195){field.classList.add('hc-request-counts');field.textContent=(data.total??'123860')+' / '+(data.ok??'123237')+' / ';const failed=h('span','',data.fail??'1623');failed.style.color='#e7434a';field.append(failed);}if(inference&&y===184&&[52,195,338].includes(x)){const match=String(v).match(/^(.*?)\s*(ms|M)$/);if(match){field.textContent=match[1]+' ';field.append(h('span','hc-unit',match[2]));}}}return n}
-const eventStates={auto:['自动处理中-故障','自动处理中','自动处理中','1'],manual:['待人工处理-故障','待人工处理','故障+小手','1'],closed:['已闭环故障','已闭环','灰色的故障','1'],energy:['待决策节能机会点','待决策节能机会点','节能+小手','1'],effective:['已生效机会点','已生效机会点','灰色闪电','1']};
-function FlowBorder(n){const halo=h('i','hc-flow-halo');halo.append(h('i'));n.append(halo,h('i','hc-flow-base'),h('i','hc-flow-ring'));return n}
-function TimelineMarker({state='manual'}={}){const n=button('');n.className='hc-marker '+state;n.setAttribute('aria-label',eventStates[state][1]);if(state==='auto'){n.dataset.count='1';n.append(icon('红色的故障',14));FlowBorder(n);}else{const key={manual:'markerManual',closed:'markerClosed',energy:'markerEnergy',effective:'markerEffective'}[state];const img=icon(key,86);img.style.width='auto';img.style.height='auto';n.append(img);}const tip=h('span','hc-marker-tooltip',eventStates[state][1]);n.append(tip);return n}
-function FaultTip({state='optical'}={}){const auto=state==='auto';const n=h('div','hc-fault-tip '+(auto?'auto':'manual'));if(!auto)n.append(icon('红色的故障',14));n.append(h('span','',auto?'正在分析链路指标与设备日志':state==='qwen'?'网卡驱动待升级':'光链路待清污'));if(!auto)n.append(h('i','hc-tip-arrow'));else{FlowBorder(n);}return n}
-window.HCComponents={EventTypeIcon,Header,Mode,Sidebar,MetricTile,MetricRibbon,GuardEvents,Composer,WorkloadCard,WorkloadIcon,Gauge,Status,TimelineMarker,FaultTip,FlowBorder};
-})();}
-  Object.assign(__export, { initHCComponents });
+  Object.assign(__export, { EventTypeIcon });
+})();
+
+/* ===== src/components/status/index.jsx ===== */
+(function () {
+const STATUS_NAMES = { degraded: "劣化", stuck: "卡死", interrupted: "中断", normal: "正常运行" };
+
+function Status({ status = "normal" }) {
+  return <span className={"hc-status " + status}>{STATUS_NAMES[status]}</span>;
+}
+  Object.assign(__export, { Status });
+})();
+
+/* ===== src/components/flow-border/index.jsx ===== */
+(function () {
+function FlowBorder({ children }) {
+  return (
+    <>
+      {children}
+      <i className="hc-flow-halo"><i /></i>
+      <i className="hc-flow-base" />
+      <i className="hc-flow-ring" />
+    </>
+  );
+}
+  Object.assign(__export, { FlowBorder });
+})();
+
+/* ===== src/components/fault-tip/index.jsx ===== */
+(function () {
+  const { HC_ASSETS } = __export;
+  const FlowBorder = __export.FlowBorder;
+// 可选扩展 props（向后兼容）：
+// - text 覆盖默认文案，并设置 title/aria-label（工作负载卡片处理中提示的用法）
+// - hideArrow 去掉手动态箭头；className 追加样式类（如 hc-workload-progress）
+function FaultTip({ state = "optical", text, hideArrow = false, className = "" }) {
+  const auto = state === "auto";
+  const message = text ?? (auto ? "正在分析链路指标与设备日志" : state === "qwen" ? "网卡驱动待升级" : "光链路待清污");
+  return (
+    <div
+      className={"hc-fault-tip " + (auto ? "auto" : "manual") + (className ? " " + className : "")}
+      title={text ?? undefined}
+      aria-label={text ?? undefined}
+    >
+      {!auto && <img className="hc-icon" src={HC_ASSETS.icons["红色的故障"]} alt="" width={14} />}
+      <span>{message}</span>
+      {auto ? (
+        <>
+          <i className="hc-flow-halo"><i /></i>
+          <i className="hc-flow-base" />
+          <i className="hc-flow-ring" />
+        </>
+      ) : (
+        !hideArrow && <i className="hc-tip-arrow" />
+      )}
+    </div>
+  );
+}
+  Object.assign(__export, { FaultTip });
+})();
+
+/* ===== src/components/workload-card/index.jsx ===== */
+(function () {
+  const { HC_ASSETS } = __export;
+  const Status = __export.Status;
+  const FaultTip = __export.FaultTip;
+// 工作负载卡片（原 hc-components 工厂 WorkloadCard 的 React 版）
+// 训练/推理两种布局，字段为绝对定位标签；结构与类名和工厂版逐一对齐 ——
+// workload-browser 的 drawList 会命令式更新 .hc-quality/.hc-request-counts
+// 的文本节点（firstChild.nodeValue），故这两个标签的文本必须为首子节点。
+
+function Label({ x, y, size = 12, color = "#b3b3b3", className, nowrap, children }) {
+  return (
+    <span
+      className={"hc-label" + (className ? " " + className : "")}
+      style={{ position: "absolute", left: x + "px", top: y + "px", fontSize: size + "px", color, whiteSpace: nowrap ? "nowrap" : undefined }}
+    >
+      {children}
+    </span>
+  );
+}
+
+function ModelIcon({ name }) {
+  const key = /qwen|千问/i.test(name) ? "千问" : /deepseek/i.test(name) ? "DeepSeek" : "AI";
+  return (
+    <img
+      className="hc-icon"
+      src={HC_ASSETS.icons[key]}
+      alt=""
+      width={24}
+      height={24}
+      style={{ position: "absolute", left: "20px", top: "20px", filter: key === "AI" ? "brightness(0) invert(.84)" : undefined }}
+    />
+  );
+}
+
+// 数值单位拆分（TTFT/TPOT/Token 数：'182 ms' → '182 ' + <span class=hc-unit>ms</span>）
+function UnitValue({ value }) {
+  const match = String(value).match(/^(.*?)\s*(ms|M)$/);
+  if (!match) return String(value);
+  return (
+    <>
+      {match[1]} <span className="hc-unit">{match[2]}</span>
+    </>
+  );
+}
+
+function WorkloadCard({ kind = "training", status, data = {} }) {
+  const inference = kind === "inference";
+  const st = status ?? (kind === "training" ? "interrupted" : "degraded");
+  const name = data.name ?? (inference ? "Qwen-1.5B 在线服务" : "MoE专家并行实验");
+  const guardTotal = data.guardTotal ?? (16 + Array.from(data.name || "").reduce((sum, c) => sum + c.charCodeAt(0), 0) % (inference ? 31 : 29));
+  const quality = (inference && Number(data.total) > 0
+    ? 100 * Number(data.ok) / Number(data.total)
+    : parseFloat(data.quality ?? "99.50")).toFixed(2);
+
+  const headerLabels = inference
+    ? [["请求成功率", 52, 60], ["总请求数/成功/失败", 195, 84], ["NPU卡数", 490, 84], ["TTFT", 52, 163], ["TPOT", 195, 163], ["生成Token数", 338, 163], ["待人工处理/守护总数", 490, 163]]
+    : [["作业可用度", 53, 60], ["NPU卡数", 245, 84], ["待人工处理/守护总数", 355, 84], ["最近一次中断时间", 505, 84]];
+
+  // 字段红字规则（与工厂版逐字对齐）：训练态 355 列且待人工>0 时整列红字
+  const fieldRed = (x) => (!inference && x === 355 && Number(data.pendingManual || 0) !== 0) ||
+    (inference && ((x === 560) || (x === 583)));
+
+  const fields = inference
+    ? [
+        { x: 195, y: 105, red: fieldRed(195), className: "hc-request-counts", children: <>{(data.total ?? "123860") + " / " + (data.ok ?? "123237") + " / "}<span style={{ color: "#e7434a" }}>{data.fail ?? "1623"}</span></> },
+        { x: 490, y: 105, red: fieldRed(490), children: String(data.npu ?? "32").replace(/\s*卡$/, "") },
+        { x: 52, y: 184, red: fieldRed(52), children: <UnitValue value={data.ttft ?? "182 ms"} /> },
+        { x: 195, y: 184, red: fieldRed(195), children: <UnitValue value={data.tpot ?? "23.6 ms"} /> },
+        { x: 338, y: 184, red: fieldRed(338), children: <UnitValue value={data.tokens ?? "8.42 M"} /> },
+        { x: 490, y: 184, red: fieldRed(490), children: (data.pendingManual ?? (data.processingManual ? 1 : 0)) + " / " + guardTotal },
+      ]
+    : [
+        { x: 245, y: 105, red: fieldRed(245), children: String(data.npu ?? "64") },
+        { x: 355, y: 105, red: fieldRed(355), children: (data.pendingManual ?? 0) + " / " + guardTotal },
+        { x: 505, y: 105, red: fieldRed(505), children: data.lastInterrupted ?? "无中断记录" },
+      ];
+
+  return (
+    <article
+      className={"hc-workload " + kind}
+      aria-label={inference ? "推理服务卡片" : "训练作业卡片"}
+      style={{ backgroundImage: "none", backgroundColor: "#191919" }}
+    >
+      <ModelIcon name={name} />
+      <div className="hc-workload-title" style={{ position: "absolute", left: "52px", top: "20px" }}>
+        <span className="hc-workload-name">{name}</span>
+        <Status status={st} />
+        {inference && data.processingText && (
+          <FaultTip
+            state={data.processingManual ? "qwen" : "auto"}
+            text={data.processingText}
+            hideArrow={data.processingManual ? true : false}
+            className="hc-workload-progress"
+          />
+        )}
+        {data.energySaving && (
+          <span className="hc-status normal hc-energy-saving">
+            <img className="energy-label-leaf" src={HC_ASSETS.icons["绿色叶子"]} alt="" width={12} height={12} />
+            节能中
+          </span>
+        )}
+      </div>
+      <Label x={inference ? 549 : 566} y={22} size={12} color="#999" nowrap>
+        {data.start ?? (inference ? "08-22 09:02:00" : "08-22 03:02")}
+      </Label>
+      <Label x={inference ? 52 : 53} y={88} size={32} color="#fafafa" className="hc-quality">
+        {quality}<span className="hc-percent">%</span>
+      </Label>
+      {headerLabels.map(([text, x, y]) => (
+        <Label key={text} x={x} y={y} size={12} color="#999">{text}</Label>
+      ))}
+      {inference && (
+        <div style={{ position: "absolute", left: "52px", top: "144px", width: "582px", height: "1px", background: "#383838" }} />
+      )}
+      {fields.map((f) => (
+        <Label key={f.x + "-" + f.y} x={f.x} y={f.y} size={f.x === 505 ? 16 : 18} color={f.red ? "#e7434a" : "#ececec"} className={f.className}>
+          {f.children}
+        </Label>
+      ))}
+    </article>
+  );
+}
+  Object.assign(__export, { WorkloadCard });
+})();
+
+/* ===== src/components/composer/index.jsx ===== */
+(function () {
+  const { useState } = React;
+  const { HC_ASSETS } = __export;
+// 问答输入框 —— 底部对话输入区（输入 + 发送按钮）
+function Composer({ value = "", onSend }) {
+  const [text, setText] = useState(value);
+  const canSend = text.trim().length > 0;
+
+  return (
+    <form
+      className="hc-composer"
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (!text.trim()) return;
+        onSend?.(text);
+        setText("");
+      }}
+    >
+      <input
+        placeholder={'输入问题或输入"/"触发提示词'}
+        aria-label="输入问题"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <button type="submit" aria-label="发送" disabled={!canSend}>
+        <img
+          className="hc-icon"
+          src={HC_ASSETS.icons[canSend ? "发送-正常态" : "发送-禁用态"]}
+          alt=""
+          width={32}
+        />
+      </button>
+    </form>
+  );
+}
+  Object.assign(__export, { Composer });
+})();
+
+/* ===== src/shared/react-bridge.js ===== */
+(function () {
+  const { HC_ASSETS } = __export;
+  const EventTypeIcon = __export.EventTypeIcon;
+  const WorkloadIcon = __export.WorkloadIcon;
+  const WorkloadCard = __export.WorkloadCard;
+  const Composer = __export.Composer;
+  const FlowBorder = __export.FlowBorder;
+// React 桥接层 —— 命令式消费者（optical-event / nic-event / workload-browser）与 React 组件之间的适配
+// 模式：flushSync 渲染到脱离文档的容器 → 取出 DOM 节点交给命令式代码。
+// 注意：节点移出 createRoot 容器后 React 合成事件失效，交互类组件必须原生绑定。
+
+
+
+
+
+
+
+// 无交互组件（纯展示）：直接取节点即可
+function bridgeNode(Component, props) {
+  const host = document.createElement("div");
+  ReactDOM.flushSync(() => {
+    ReactDOM.createRoot(host).render(React.createElement(Component, props));
+  });
+  return host.firstElementChild;
+}
+
+function bridgeEventTypeIcon(props) {
+  return bridgeNode(EventTypeIcon, props);
+}
+
+function bridgeWorkloadIcon(name = "") {
+  return bridgeNode(WorkloadIcon, { name });
+}
+
+function bridgeWorkloadCard(props) {
+  return bridgeNode(WorkloadCard, props);
+}
+
+// FlowBorder（工厂版语义）：把流光边框元素注入既有节点（追加到末尾）
+function bridgeFlowBorderInto(node) {
+  const host = document.createElement("div");
+  ReactDOM.flushSync(() => {
+    ReactDOM.createRoot(host).render(React.createElement(FlowBorder));
+  });
+  while (host.firstChild) node.append(host.firstChild);
+  return node;
+}
+
+// 交互组件（输入框/发送按钮）：React 合成事件在节点移出容器后失效，
+// 原生复刻工厂版 Composer 的 sync + submit 行为
+function bridgeComposer({ value = "", onSend } = {}) {
+  const form = bridgeNode(Composer, { value, onSend: () => {} });
+  const input = form.querySelector("input");
+  const send = form.querySelector("button");
+  const image = send.querySelector("img");
+  const sync = () => {
+    send.disabled = !input.value.trim();
+    image.src = HC_ASSETS.icons[send.disabled ? "发送-禁用态" : "发送-正常态"];
+  };
+  input.addEventListener("input", sync);
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!input.value.trim()) return;
+    onSend?.(input.value);
+    input.value = "";
+    sync();
+  });
+  sync();
+  return form;
+}
+  Object.assign(__export, { bridgeNode, bridgeEventTypeIcon, bridgeWorkloadIcon, bridgeWorkloadCard, bridgeFlowBorderInto, bridgeComposer });
 })();
 
 /* ===== src/views/optical-event/event.js ===== */
 (function () {
-  const { OPTICAL_ASSETS } = __export;
+  const { OPTICAL_ASSETS, bridgeEventTypeIcon, bridgeComposer } = __export;
 // optical-event 命令式事件逻辑（从 legacy.js 提取，绘制/拓扑/连线保持原样）
 // 包含 6 个顶级模块：HCEventUI / HCEntrance / quickQuery / HCOpticalEventUI / HCEventModule / optical host
 // 硬编码坐标和连线数据后续讨论是否抽公共拓扑框架
+
 
 
 let cleanup = null;
@@ -10385,14 +10698,14 @@ return figure;
     const back=U.button('','evt-back',()=>onClose({eventId}));back.setAttribute('aria-label','返回');back.append(U.icon('返回-原稿尺寸',20));
     const headingCopy=U.el('div','evt-heading-copy');
     headingCopy.append(U.el('h1','','光链路脏污，待人工清污'),U.el('time','',isolationOnly?'2026-09-09  12:00:00':'2026-09-09  12:00:40'));
-    if(isolationOnly)headingCopy.querySelector('h1').append(U.Badge('已闭环','done'));const headingEventIcon=HCComponents.EventTypeIcon({closed:isolationOnly,size:36});headingEventIcon.classList.add('evt-icon');heading.append(back,headingEventIcon,headingCopy);left.append(heading);
+    if(isolationOnly)headingCopy.querySelector('h1').append(U.Badge('已闭环','done'));const headingEventIcon=bridgeEventTypeIcon({closed:isolationOnly,size:36});headingEventIcon.classList.add('evt-icon');heading.append(back,headingEventIcon,headingCopy);left.append(heading);
     const intro=U.el('div','evt-diagnosis-intro');
     intro.append(U.el('p','','已经为您分析并生成故障的诊断，请查看后立即处理'));
     const expand=U.button('','evt-expand-all',()=>{const next=!state.expanded.every(Boolean);state.expanded=[next,next,next,next];renderHistory(false);});
     expand.append(U.icon('展开全部',12),U.el('span','','展开全部'));intro.append(expand);left.append(intro);
     const scroll=U.el('div','evt-diagnostic-scroll');left.append(scroll);
     const composerWrap=U.el('div','evt-composer-wrap');
-    const composer=HCComponents.Composer({value:state.draft,onSend:()=>{}});
+    const composer=bridgeComposer({value:state.draft,onSend:()=>{}});
     const input=composer.querySelector('input');
     input.addEventListener('input',()=>{state.draft=input.value;});
     input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();e.stopPropagation();}});
@@ -10441,7 +10754,7 @@ return figure;
           appearedViews.add(key);
           if(!HCMotion.REDUCED)item.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:700,delay:key>=6?1100+(key-6)*1200:Math.min(i,7)*50,easing:'cubic-bezier(.2,0,0,1)',fill:'backwards'});
         }
-      });topology.update(state.view);if(isolationOnly&&state.view===4){topology.querySelector('.evt-tip-name').textContent='优雅隔离已完成';}if(!isolationOnly&&state.cleanedAt===null&&[4,5].includes(state.view)){const name=topology.querySelector('.evt-tip-name');if(name){const title=topology.querySelector('.evt-tip-title');const icon=HCComponents.EventTypeIcon({size:20});const flags=U.el('span','fault-status-flags');flags.append(U.icon('红色小手',10));icon.append(flags);title.replaceChildren(icon,U.el('span','evt-tip-name','光模块脏污，待人工清污'),U.Badge('根因','manual'));topology.querySelector('.evt-topo-state-label p').textContent='计算柜11·L1交换板02光模块端面脏污，需人工清污。系统持续监控通道4光功率与错误计数';}}if(isolationOnly&&state.view===5){topology.querySelector('.evt-tip-name').textContent='事件已关闭';topology.querySelector('.evt-topo-state-label p').textContent='生成待人工处理事件';}if(state.cleanedAt!==null&&!isolationOnly){topology.querySelector('.evt-fault').style.background='#247247';topology.querySelector('.evt-fault-link').style.stroke=[4,5].includes(state.view)?'#888':'#49876c';}if(liveStage<6){const label=topology.querySelector('.evt-topo-state-label');label.hidden=false;}applyFocus();
+      });topology.update(state.view);if(isolationOnly&&state.view===4){topology.querySelector('.evt-tip-name').textContent='优雅隔离已完成';}if(!isolationOnly&&state.cleanedAt===null&&[4,5].includes(state.view)){const name=topology.querySelector('.evt-tip-name');if(name){const title=topology.querySelector('.evt-tip-title');const icon=bridgeEventTypeIcon({size:20});const flags=U.el('span','fault-status-flags');flags.append(U.icon('红色小手',10));icon.append(flags);title.replaceChildren(icon,U.el('span','evt-tip-name','光模块脏污，待人工清污'),U.Badge('根因','manual'));topology.querySelector('.evt-topo-state-label p').textContent='计算柜11·L1交换板02光模块端面脏污，需人工清污。系统持续监控通道4光功率与错误计数';}}if(isolationOnly&&state.view===5){topology.querySelector('.evt-tip-name').textContent='事件已关闭';topology.querySelector('.evt-topo-state-label p').textContent='生成待人工处理事件';}if(state.cleanedAt!==null&&!isolationOnly){topology.querySelector('.evt-fault').style.background='#247247';topology.querySelector('.evt-fault-link').style.stroke=[4,5].includes(state.view)?'#888':'#49876c';}if(liveStage<6){const label=topology.querySelector('.evt-topo-state-label');label.hidden=false;}applyFocus();
     }
     function applyFocus(){
       const selectedStep=[0,1,1,2,3,3,3,3][focusIndex];
@@ -10607,7 +10920,7 @@ return figure;
     function renderHistory(toBottom=false) {
       entrance.stop();
       const allOpen=state.expanded.every(Boolean);expand.querySelector('span').textContent=allOpen?'收起全部':'展开全部';expand.setAttribute('aria-expanded',String(allOpen));
-      headingCopy.querySelector('h1').textContent=liveStage<4?'光链路故障分析中':liveStage<6?'光链路脏污，自动处理中':'光链路脏污，待人工清污';if(isolationOnly)headingCopy.querySelector('h1').replaceChildren(document.createTextNode('光链路闪断，已完成优雅隔离'),U.Badge('已闭环','closed'));if(!isolationOnly&&liveStage>=6){headingCopy.querySelector('h1').textContent=state.cleanedAt===null?'光链路脏污，待人工清污':'光链路已清污，隔离已解除';headingCopy.querySelector('h1').append(U.Badge(state.cleanedAt===null?'待人工处理':'已闭环',state.cleanedAt===null?'manual':'closed'));}const headingIcon=heading.querySelector(':scope > .evt-icon');if(headingIcon){const nextIcon=HCComponents.EventTypeIcon({closed:isolationOnly||state.cleanedAt!==null,size:36});nextIcon.classList.add('evt-icon');headingIcon.replaceWith(nextIcon);}const oldScroll=scroll.scrollTop;scroll.replaceChildren();
+      headingCopy.querySelector('h1').textContent=liveStage<4?'光链路故障分析中':liveStage<6?'光链路脏污，自动处理中':'光链路脏污，待人工清污';if(isolationOnly)headingCopy.querySelector('h1').replaceChildren(document.createTextNode('光链路闪断，已完成优雅隔离'),U.Badge('已闭环','closed'));if(!isolationOnly&&liveStage>=6){headingCopy.querySelector('h1').textContent=state.cleanedAt===null?'光链路脏污，待人工清污':'光链路已清污，隔离已解除';headingCopy.querySelector('h1').append(U.Badge(state.cleanedAt===null?'待人工处理':'已闭环',state.cleanedAt===null?'manual':'closed'));}const headingIcon=heading.querySelector(':scope > .evt-icon');if(headingIcon){const nextIcon=bridgeEventTypeIcon({closed:isolationOnly||state.cleanedAt!==null,size:36});nextIcon.classList.add('evt-icon');headingIcon.replaceWith(nextIcon);}const oldScroll=scroll.scrollTop;scroll.replaceChildren();
       const process=renderOverview();
       const awareness=U.el('div');awareness.append(bodyText('链路闪断告警  12:00:00-12:00:05'),bodyText('故障描述：计算柜11-L1交换板02上发生闪断3次'));
       const analysis=U.el('div');
@@ -11161,9 +11474,8 @@ function initClock() {}
 
 /* ===== src/boot.js ===== */
 (function () {
-  const { initHCComponents, mountOpticalEvent, mountStoryRender } = __export;
+  const { mountOpticalEvent, mountStoryRender } = __export;
 function runBoot() {
-  initHCComponents();
   mountOpticalEvent();
   mountStoryRender();
 }
@@ -13545,7 +13857,7 @@ function augmentHome() {
     row.className = "hc-event-row hc-energy-home-row hc-event-processing";
     const head = document.createElement("div");
     head.className = "hc-event-head";
-    const ring = window.HCComponents?.EventTypeIcon({ domain: "inference", type: "energy", name: item.name, size: 26 });
+    const ring = bridgeEventTypeIcon({ domain: "inference", type: "energy", name: item.name, size: 26 });
     const name = document.createElement("span");
     name.textContent = item.name;
     const time = document.createElement("time");
@@ -13555,7 +13867,7 @@ function augmentHome() {
     p.textContent = item.root;
     row.append(head, p);
     if (item.action === "energy") row.setAttribute("aria-disabled", "true");
-    window.HCComponents?.FlowBorder(row);
+    bridgeFlowBorderInto(row);
     energyList.append(row);
   });
 }
@@ -13727,9 +14039,11 @@ function buildInitialRecords() {
 (function () {
   const { useEffect, useMemo, useRef, useState } = React;
   const { HC_ASSETS, BASE_FAULT_EVENTS, buildHistoricalEvents, buildEnergyEvents, STATES, buildInitialRecords } = __export;
+  const EventTypeIcon = __export.EventTypeIcon;
 // 智能体事件全屏表格页 —— 从左侧"守护事件 → 查看全部"打开
 // 声明式渲染：表格行/筛选/分页/统计卡片/详情弹窗全部由 React state 驱动
 // CSS 在 src/styles/legacy.css（.guard-* 选择器，从演示 HTML 机械提取）
+
 
 
 
@@ -13958,7 +14272,7 @@ function GuardEventsTable() {
                       const originalIndex = hideEnergyResult && vi >= 2 ? vi + 1 : vi;
                       return (
                         <td key={vi} title={text} className={originalIndex === 1 && list !== "energy" ? item.stateClass : undefined}>
-                          {originalIndex === 0 && <LegacyEventTypeIcon item={item} />}
+                          {originalIndex === 0 && <EventIconForItem item={item} />}
                           {originalIndex === 1 && list === "energy" && item.stateClass === "energy-wait" && <i className="story-step-icon working" />}
                           {originalIndex === 1 && list === "energy" && item.stateClass !== "energy-wait" && <img className="guard-asset guard-energy-closed-leaf" src={HC_ASSETS.icons[item.stateClass === "energy-done" ? "绿色叶子" : "灰色叶子"]} alt="" />}
                           {originalIndex === 1 && list !== "energy" && item.type !== "节能" && <img className="guard-asset" src={HC_ASSETS.icons[STATE_ICON_KEYS[item.stateClass]]} alt="" />}
@@ -14014,23 +14328,18 @@ function GuardEventsTable() {
   );
 }
 
-// 事件类型图标桥接组件 —— hc-components 尚未 React 化，通过 ref 调用 legacy 工厂函数
-// 当 hc-components 完成组件化后，此桥接可移除，改为直接渲染 <EventTypeIcon />
-function LegacyEventTypeIcon({ item }) {
-  const ref = useRef(null);
-  useEffect(() => {
-    if (!ref.current || !window.HCComponents) return;
-    const business = item.action === "qwen-recovery" || /Qwen|推理实例|推理服务/.test(item.object) && !/网卡|光链路|节点/.test(item.name);
-    const node = window.HCComponents.EventTypeIcon({
-      domain: item.type === "节能" ? "inference" : /训练|作业/.test(item.object) ? "training" : business ? "inference" : "resource",
-      name: item.name + " " + item.object,
-      type: item.type === "节能" ? "energy" : item.type === "隐患" ? "risk" : "fault",
-      closed: /closed|energy-done|energy-none/.test(item.stateClass),
-      size: 24,
-    });
-    if (node) { ref.current.replaceChildren(); ref.current.append(node); }
-  });
-  return <span ref={ref} style={{ display: "contents" }} />;
+// 事件类型图标 —— 按 item 计算图标参数后直接渲染 React 组件
+function EventIconForItem({ item }) {
+  const business = item.action === "qwen-recovery" || /Qwen|推理实例|推理服务/.test(item.object) && !/网卡|光链路|节点/.test(item.name);
+  return (
+    <EventTypeIcon
+      domain={item.type === "节能" ? "inference" : /训练|作业/.test(item.object) ? "training" : business ? "inference" : "resource"}
+      name={item.name + " " + item.object}
+      type={item.type === "节能" ? "energy" : item.type === "隐患" ? "risk" : "fault"}
+      closed={/closed|energy-done|energy-none/.test(item.stateClass)}
+      size={24}
+    />
+  );
 }
 
 // 事件详情弹窗 —— 点击非跳转类事件行时展示完整字段
@@ -14309,113 +14618,6 @@ function useLinkedEvent() {
   }, []);
 }
   Object.assign(__export, { useLinkedEvent });
-})();
-
-/* ===== src/components/workload-icon/index.jsx ===== */
-(function () {
-  const { HC_ASSETS } = __export;
-const KEY = { qwen: "千问", deepseek: "DeepSeek" };
-
-function WorkloadIcon({ name = "" }) {
-  const key = /qwen|千问/i.test(name) ? "千问" : /deepseek/i.test(name) ? "DeepSeek" : "AI";
-  return (
-    <img
-      className="hc-icon"
-      src={HC_ASSETS.icons[key]}
-      alt=""
-      width={24}
-      style={key === "AI" ? { filter: "brightness(0) invert(.84)" } : undefined}
-    />
-  );
-}
-  Object.assign(__export, { WorkloadIcon });
-})();
-
-/* ===== src/components/event-type-icon/index.jsx ===== */
-(function () {
-  const { HC_ASSETS } = __export;
-  const WorkloadIcon = __export.WorkloadIcon;
-const DOMAIN_LABELS = { training: "训练作业", inference: "推理服务", resource: "资源" };
-const TYPE_LABELS = { fault: "故障", risk: "隐患", energy: "节能机会" };
-
-function EventTypeIcon({ domain = "resource", name = "Qwen", type = "fault", closed = false, size = 24 }) {
-  if (type === "fault") {
-    return (
-      <i className="hc-event-type-icon hc-unified-fault" style={{ "--event-icon-size": size + "px" }}
-        data-type="fault" data-closed={String(closed)} role="img"
-        aria-label={"故障" + (closed ? "，已闭环" : "")}>
-        <img className="hc-icon" src={HC_ASSETS.icons[closed ? "灰色的故障" : "红色的故障"]} alt="" width={size} />
-      </i>
-    );
-  }
-  const actualDomain = type === "energy" ? "inference" : domain;
-  return (
-    <i className="hc-event-type-icon" style={{ "--event-icon-size": size + "px" }}
-      data-domain={actualDomain} data-type={type} data-closed={String(closed)} role="img"
-      aria-label={(DOMAIN_LABELS[actualDomain] || actualDomain) + (TYPE_LABELS[type] || type) + (closed ? "，已闭环" : "")}>
-      {actualDomain === "inference" ? (
-        <span className="hc-event-model"><WorkloadIcon name={name} /></span>
-      ) : (
-        <svg viewBox="0 0 24 24" aria-hidden="true" className="hc-event-object">
-          {actualDomain === "training" ? (
-            <>
-              <path d="M8 3h9a2 2 0 0 1 2 2v13M5 6h9a2 2 0 0 1 2 2v12H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" />
-              <path d="M7 10h5M7 14h5M7 17h3" />
-            </>
-          ) : (
-            <>
-              <rect x="3" y="4" width="17" height="7" rx="2.4" />
-              <rect x="3" y="14" width="17" height="7" rx="2.4" />
-              <path d="M7 7.5h.1M7 17.5h.1M12 7.5h4M12 17.5h4" />
-            </>
-          )}
-        </svg>
-      )}
-      <img className="hc-icon hc-event-type-mark" src={HC_ASSETS.icons[type === "energy" ? "绿色叶子" : type === "risk" ? "橙色隐患" : "红色的故障"]} alt="" width={12} />
-    </i>
-  );
-}
-  Object.assign(__export, { EventTypeIcon });
-})();
-
-/* ===== src/components/flow-border/index.jsx ===== */
-(function () {
-function FlowBorder({ children }) {
-  return (
-    <>
-      {children}
-      <i className="hc-flow-halo"><i /></i>
-      <i className="hc-flow-base" />
-      <i className="hc-flow-ring" />
-    </>
-  );
-}
-  Object.assign(__export, { FlowBorder });
-})();
-
-/* ===== src/components/fault-tip/index.jsx ===== */
-(function () {
-  const { HC_ASSETS } = __export;
-  const FlowBorder = __export.FlowBorder;
-function FaultTip({ state = "optical" }) {
-  const auto = state === "auto";
-  return (
-    <div className={"hc-fault-tip " + (auto ? "auto" : "manual")}>
-      {!auto && <img className="hc-icon" src={HC_ASSETS.icons["红色的故障"]} alt="" width={14} />}
-      <span>{auto ? "正在分析链路指标与设备日志" : state === "qwen" ? "网卡驱动待升级" : "光链路待清污"}</span>
-      {auto ? (
-        <>
-          <i className="hc-flow-halo"><i /></i>
-          <i className="hc-flow-base" />
-          <i className="hc-flow-ring" />
-        </>
-      ) : (
-        <i className="hc-tip-arrow" />
-      )}
-    </div>
-  );
-}
-  Object.assign(__export, { FaultTip });
 })();
 
 /* ===== src/views/story/story-guard-panel.jsx ===== */
@@ -15703,45 +15905,6 @@ function MetricRibbon({ category = "resource", selected = 0, onChange }) {
   Object.assign(__export, { MetricRibbon });
 })();
 
-/* ===== src/components/composer/index.jsx ===== */
-(function () {
-  const { useState } = React;
-  const { HC_ASSETS } = __export;
-// 问答输入框 —— 底部对话输入区（输入 + 发送按钮）
-function Composer({ value = "", onSend }) {
-  const [text, setText] = useState(value);
-  const canSend = text.trim().length > 0;
-
-  return (
-    <form
-      className="hc-composer"
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (!text.trim()) return;
-        onSend?.(text);
-        setText("");
-      }}
-    >
-      <input
-        placeholder={'输入问题或输入"/"触发提示词'}
-        aria-label="输入问题"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <button type="submit" aria-label="发送" disabled={!canSend}>
-        <img
-          className="hc-icon"
-          src={HC_ASSETS.icons[canSend ? "发送-正常态" : "发送-禁用态"]}
-          alt=""
-          width={32}
-        />
-      </button>
-    </form>
-  );
-}
-  Object.assign(__export, { Composer });
-})();
-
 /* ===== src/components/mode/index.jsx ===== */
 (function () {
   const { useState } = React;
@@ -15822,16 +15985,6 @@ function Sidebar() {
   Object.assign(__export, { Sidebar });
 })();
 
-/* ===== src/components/status/index.jsx ===== */
-(function () {
-const STATUS_NAMES = { degraded: "劣化", stuck: "卡死", interrupted: "中断", normal: "正常运行" };
-
-function Status({ status = "normal" }) {
-  return <span className={"hc-status " + status}>{STATUS_NAMES[status]}</span>;
-}
-  Object.assign(__export, { Status });
-})();
-
 /* ===== src/components/energy-service-card/index.jsx ===== */
 (function () {
   const { HC_ASSETS } = __export;
@@ -15897,54 +16050,120 @@ function EnergyServiceCard({ status, data }) {
   Object.assign(__export, { EnergyServiceCard });
 })();
 
+/* ===== src/views/home-screen/workload-browser-shell.jsx ===== */
+(function () {
+  const { useEffect, useRef, useState } = React;
+// 工作负载浏览器外壳 —— 排序/浏览控件框架的 JSX 渲染
+// 卡片列表（workload-list）与滚动轨道（segments）内容仍由 workload-browser.js
+// 命令式填充（虚拟滚动 + 卡片缓存 + pointermove 交互密集，不适合声明式）。
+// onReady 在挂载后把所有 ref 节点 + setCategory API 交给命令式控制器。
+function WorkloadBrowserShell({ onReady }) {
+  const [category, setCategory] = useState("training");
+  const view = useRef(null), controls = useRef(null), select = useRef(null), browser = useRef(null);
+  const track = useRef(null), segments = useRef(null), windowBox = useRef(null), range = useRef(null);
+  const left = useRef(null), position = useRef(null), right = useRef(null), reverse = useRef(null);
+  const prev = useRef(null), next = useRef(null), list = useRef(null);
+
+  useEffect(() => {
+    onReady?.({
+      setCategory,
+      view: view.current, controls: controls.current, select: select.current, browser: browser.current,
+      track: track.current, segments: segments.current, windowBox: windowBox.current, range: range.current,
+      left: left.current, position: position.current, right: right.current, reverse: reverse.current,
+      prev: prev.current, next: next.current, list: list.current,
+    });
+  }, []);
+
+  const heading = category === "training" ? "训练作业" : "推理服务";
+
+  return (
+    <section id="home-workloads" ref={view} className="windowed-workloads" hidden data-filter="0">
+      <div className="workload-controls" ref={controls} aria-label={heading + "排序与浏览"}>
+        <div className="workload-sort">
+          <select aria-label="对象排序" ref={select}>
+            <option value="status">按状态排序</option>
+            <option value="quality">{category === "training" ? "按可用度排序" : "按成功率排序"}</option>
+            <option value="npu">按卡数排序</option>
+          </select>
+        </div>
+        <div className="workload-browser" ref={browser}>
+          <div className="workload-browser-track" ref={track}>
+            <div className="workload-browser-segments" ref={segments} />
+            <div className="workload-browser-window" ref={windowBox} />
+            <input
+              type="range" min={0} step={1} className="workload-browser-keyboard"
+              aria-label="浏览当前屏对象，方向键移动范围" ref={range}
+            />
+          </div>
+          <div className="workload-browser-captions">
+            <span ref={left} />
+            <button type="button" className="workload-browser-reverse" aria-label="反转排序方向" aria-pressed="false" title="反转排序方向" ref={reverse}>⇄</button>
+            <span ref={position} hidden />
+            <span ref={right} />
+          </div>
+          <div className="workload-browser-pages">
+            <button type="button" className="workload-browser-page" aria-label="上一页" ref={prev}>‹</button>
+            <button type="button" className="workload-browser-page" aria-label="下一页" ref={next}>›</button>
+          </div>
+        </div>
+      </div>
+      <div className="workload-list" ref={list} />
+    </section>
+  );
+}
+  Object.assign(__export, { WorkloadBrowserShell });
+})();
+
 /* ===== src/views/home-screen/workload-browser.js ===== */
 (function () {
-  const { HOME_WORKLOADS, HC_ASSETS } = __export;
+  const { HOME_WORKLOADS, bridgeWorkloadCard, bridgeWorkloadIcon } = __export;
   const EnergyServiceCard = __export.EnergyServiceCard;
-// 工作负载浏览器 —— 从 initHomeScreen 提取的独立模块
-// 命令式 DOM 操作（rail 滚动浏览器 + WorkloadCard 列表 + 排序/反转/翻页）
-// 交互密集（pointermove/scroll/ResizeObserver 卡片缓存），暂不做声明式重写
-// 后续 React 化时替换为 views/home-screen/workload-browser/index.jsx
+  const WorkloadBrowserShell = __export.WorkloadBrowserShell;
+// 工作负载浏览器 —— 外壳（排序/浏览控件框架）由 React 渲染（workload-browser-shell.jsx），
+// 控制器在此持久化：卡片列表/滚动轨道内容命令式填充（虚拟滚动 + 卡片缓存 +
+// pointermove 交互密集，不适合声明式重写）。切换类目时重置状态复用同一 DOM。
 
-let workloadView = null;
-let currentCategory = null;
-let currentFilter = 0;
+let shellApi = null;
+let controller = null;
 
 function initWorkloadBrowser() {
-  workloadView = document.createElement("section");
-  workloadView.id = "home-workloads";
-  workloadView.hidden = true;
-  document.getElementById("screen").append(workloadView);
+  const host = document.createElement("div");
+  document.getElementById("screen").append(host);
+  ReactDOM.createRoot(host).render(
+    React.createElement(WorkloadBrowserShell, {
+      onReady(nodes) {
+        shellApi = nodes;
+        controller = createController(nodes);
+      },
+    })
+  );
 }
 
 function showWorkloads(category, filter = 0) {
   if (parent !== window) parent.postMessage({ type: "hc-home-category", category }, location.origin === "null" ? "*" : location.origin);
-  currentCategory = category;
-  currentFilter = filter;
   const isWorkload = category === "training" || category === "inference";
   document.getElementById("screen").dataset.category = category;
-  workloadView.hidden = !isWorkload;
+  if (!shellApi) return;
+  if (isWorkload) shellApi.setCategory(category);
+  shellApi.view.hidden = !isWorkload;
   if (!isWorkload) { document.getElementById("screen").dataset.resourceMetric = filter; return; }
-  renderWorkloadView(category, filter);
+  controller(category, filter);
 }
 
-function renderWorkloadView(category, filter) {
-  const C = window.HCComponents;
-  workloadView.replaceChildren();
-  workloadView.dataset.filter = filter;
-  workloadView.classList.add("windowed-workloads");
-  const heading = document.createElement("h2"); heading.textContent = category === "training" ? "训练作业" : "推理服务";
-  const select = document.createElement("select"); select.setAttribute("aria-label", "对象排序");
-  for (const [value, text] of [["status", "按状态排序"], ["quality", category === "training" ? "按可用度排序" : "按成功率排序"], ["npu", "按卡数排序"]]) {
-    const option = document.createElement("option"); option.value = value; option.textContent = text; select.append(option);
-  }
-  const sortWrap = document.createElement("div"); sortWrap.className = "workload-sort"; sortWrap.append(select);
-  const browser = document.createElement("div"); browser.className = "workload-browser";
-  const track = document.createElement("div"); track.className = "workload-browser-track";
-  const segments = document.createElement("div"); segments.className = "workload-browser-segments";
-  const windowBox = document.createElement("div"); windowBox.className = "workload-browser-window";
-  const range = document.createElement("input"); range.type = "range"; range.min = 0; range.step = 1; range.className = "workload-browser-keyboard"; range.setAttribute("aria-label", "浏览当前屏对象，方向键移动范围");
-  track.append(segments, windowBox, range);
+function createController(N) {
+  const { view, select, track, segments, windowBox, range, left, position, right, reverse, prev, next, list, browser } = N;
+  const rank = { interrupted: 0, stuck: 1, degraded: 2, normal: 3 };
+  const labels = { interrupted: "中断", stuck: "卡死", degraded: "劣化", normal: "正常" };
+  const colors = { interrupted: "#d87a88", stuck: "#ca9466", degraded: "#c6b079", normal: "#638c79" };
+  let category = null, filter = 0;
+  let capacity = 4, stride = 257;
+  let start = 0, items = [], order = [], reversed = false;
+  let railSignature = null, listSignature = null;
+  const cardCache = new Map();
+
+  const key = (item) => item.data.name + "|" + item.data.start;
+  const maxStart = () => Math.ceil(Math.max(0, items.length - capacity) / 2) * 2;
+
   let railPointer = null, railActive = null, railCandidate = null, railTimer = 0, railLockedUntil = 0, railHitZones = [];
   function expandRail(target) {
     clearTimeout(railTimer); railCandidate = null; railActive = target; railLockedUntil = performance.now() + 260;
@@ -15962,21 +16181,7 @@ function renderWorkloadView(category, filter) {
   });
   segments.addEventListener("pointerleave", () => { clearTimeout(railTimer); railPointer = null; expandRail(null); railLockedUntil = 0; });
   segments.addEventListener("pointerenter", () => { clearTimeout(railTimer); railHitZones = Array.from(segments.children, (node) => ({ node, left: node.getBoundingClientRect().left, right: node.getBoundingClientRect().right })); });
-  const captions = document.createElement("div"); captions.className = "workload-browser-captions";
-  const left = document.createElement("span"), position = document.createElement("span"), right = document.createElement("span"); position.hidden = true; captions.append(left, position, right); browser.append(track, captions);
-  const list = document.createElement("div"); list.className = "workload-list";
-  const prev = document.createElement("button"), next = document.createElement("button"); prev.textContent = "‹"; next.textContent = "›"; prev.setAttribute("aria-label", "上一页"); next.setAttribute("aria-label", "下一页"); prev.className = next.className = "workload-browser-page";
-  const pages = document.createElement("span"); pages.className = "workload-browser-pages"; pages.append(prev, next); browser.append(pages);
-  const reverse = document.createElement("button"); reverse.className = "workload-browser-reverse"; reverse.textContent = "⇄"; reverse.type = "button"; reverse.setAttribute("aria-label", "反转排序方向"); reverse.setAttribute("aria-pressed", "false"); reverse.title = "反转排序方向"; left.after(reverse);
-  const controls = document.createElement("div"); controls.className = "workload-controls"; controls.setAttribute("aria-label", heading.textContent + "排序与浏览"); controls.append(sortWrap, browser); workloadView.append(controls, list);
-  const capacity = category === "training" ? 6 : 4;
-  const rank = { interrupted: 0, stuck: 1, degraded: 2, normal: 3 };
-  const labels = { interrupted: "中断", stuck: "卡死", degraded: "劣化", normal: "正常" };
-  const colors = { interrupted: "#d87a88", stuck: "#ca9466", degraded: "#c6b079", normal: "#638c79" };
-  let start = 0, items = [], order = [], reversed = false, railSignature = "";
-  function key(item) { return item.data.name + "|" + item.data.start; }
-  const stride = category === "training" ? 189 : 257;
-  const maxStart = () => Math.ceil(Math.max(0, items.length - capacity) / 2) * 2;
+
   function updateRangeFrame() {
     const first = segments.children[start], last = segments.children[Math.min(items.length, start + capacity) - 1];
     if (!first || !last) return;
@@ -15984,6 +16189,7 @@ function renderWorkloadView(category, filter) {
     windowBox.setAttribute("aria-label", `本页第 ${start + 1} 至 ${Math.min(items.length, start + capacity)} 个对象`);
   }
   const railResize = new ResizeObserver(() => { if (!track.isConnected) { railResize.disconnect(); return; } updateRangeFrame(); }); railResize.observe(track);
+
   function paint() {
     const count = items.length; start = Math.max(0, Math.min(start, maxStart())); const end = Math.min(count, start + capacity);
     range.max = maxStart(); range.step = 2; range.value = start; range.disabled = count <= capacity;
@@ -15996,14 +16202,14 @@ function renderWorkloadView(category, filter) {
     start = Math.max(0, Math.min(Math.round(index / 2) * 2, maxStart())); paint();
     list.scrollTo({ top: start / 2 * stride, behavior: smooth && !matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto" });
   }
-  const cardCache = new Map(); let listSignature = "";
+
   function drawList() {
     const scroll = list.scrollTop, keys = items.map(key), signature = keys.join("~"), structureChanged = signature !== listSignature;
     const cards = items.map((item, i) => {
       const { quality, ok, fail, total, ...stable } = item.data, cacheKey = key(item), content = JSON.stringify([item.status, stable]);
       let entry = cardCache.get(cacheKey);
       if (!entry || entry.content !== content) {
-        const card = category === "inference" && filter === 5 ? energyServiceCard(item) : C.WorkloadCard({ kind: category, status: item.status, data: item.data });
+        const card = category === "inference" && filter === 5 ? energyServiceCard(item) : bridgeWorkloadCard({ kind: category, status: item.status, data: item.data });
         entry = { card, content }; const old = cardCache.get(cacheKey)?.card; if (old?.isConnected) old.replaceWith(card); cardCache.set(cacheKey, entry);
       }
       const card = entry.card; card.style.left = ((i % 2) * 678) + "px"; card.style.top = (20 + Math.floor(i / 2) * stride) + "px"; card.dataset.browserKey = cacheKey;
@@ -16021,8 +16227,9 @@ function renderWorkloadView(category, filter) {
   }
   list.addEventListener("scroll", () => { start = Math.min(maxStart(), Math.floor((list.scrollTop + 1) / stride) * 2); paint(); }, { passive: true });
   prev.onclick = () => navigate(start - capacity, true); next.onclick = () => navigate(start + capacity, true);
+
   function renderCards(resort = false) {
-    if (workloadView.hidden || document.getElementById("screen").dataset.category !== category) return;
+    if (view.hidden || document.getElementById("screen").dataset.category !== category) return;
     const source = window.storyWorkloads ? window.storyWorkloads(category) : HOME_WORKLOADS[category];
     const fresh = source.filter((x) => category === "inference" && filter === 5 ? x.data.energySaving : !filter || x.status === ["", "interrupted", "stuck", "degraded", "normal"][filter]);
     const sorted = fresh.slice().sort((a, b) => select.value === "status" ? rank[a.status] - rank[b.status] : select.value === "quality" ? parseFloat(a.data.quality) - parseFloat(b.data.quality) : Number(b.data.npu) - Number(a.data.npu));
@@ -16036,7 +16243,7 @@ function renderWorkloadView(category, filter) {
         const n = document.createElement("button"); n.type = "button"; n.className = "workload-rail-item"; n.dataset.status = item.status; n.style.setProperty("--status-color", colors[item.status] || "#777"); n.setAttribute("aria-label", item.data.name + "，" + labels[item.status] + "，定位卡片");
         const short = document.createElement("span"); short.className = "rail-short"; short.textContent = Array.from(item.data.name)[0];
         const copy = document.createElement("span"); copy.className = "rail-copy"; const name = document.createElement("strong"); name.textContent = item.data.name; const status = document.createElement("small"); status.textContent = labels[item.status]; copy.append(name, status);
-        n.append(C.WorkloadIcon(item.data.name), short, copy); n.onclick = () => { navigate(i); list.querySelectorAll(".rail-card-focus").forEach((c) => c.classList.remove("rail-card-focus")); list.children[i]?.classList.add("rail-card-focus"); };
+        n.append(bridgeWorkloadIcon(item.data.name), short, copy); n.onclick = () => { navigate(i); list.querySelectorAll(".rail-card-focus").forEach((c) => c.classList.remove("rail-card-focus")); list.children[i]?.classList.add("rail-card-focus"); };
         n.onkeydown = (event) => { if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); segments.children[Math.max(0, Math.min(items.length - 1, i + (event.key === "ArrowRight" ? 1 : -1)))]?.focus(); } }; return n;
       }));
       railResize.disconnect(); railResize.observe(track); for (const child of segments.children) railResize.observe(child);
@@ -16047,13 +16254,26 @@ function renderWorkloadView(category, filter) {
   }
   reverse.onclick = () => { reversed = !reversed; reverse.setAttribute("aria-pressed", String(reversed)); renderCards(true); };
   select.onchange = () => renderCards(true); range.oninput = () => navigate(Number(range.value));
-  window.refreshWorkloadCards = () => renderCards(false); renderCards(true);
+  window.refreshWorkloadCards = () => renderCards(false);
+
+  function activate(nextCategory, nextFilter) {
+    category = nextCategory; filter = nextFilter;
+    capacity = category === "training" ? 6 : 4;
+    stride = category === "training" ? 189 : 257;
+    start = 0; items = []; order = []; reversed = false;
+    railSignature = null; listSignature = null; cardCache.clear();
+    view.dataset.filter = filter;
+    select.value = "status";
+    reverse.setAttribute("aria-pressed", "false");
+    segments.replaceChildren();
+    list.replaceChildren();
+    renderCards(true);
+  }
+  return activate;
 }
 
 // 节能服务卡片 —— React 组件渲染（结构/样式 JSX 化），桥接层原生绑定交互
 // （卡片节点移入命令式缓存列表后 React 合成事件失效，必须原生 onclick/onkeydown）
-
-
 function energyServiceCard({ status, data }) {
   const host = document.createElement("div");
   ReactDOM.flushSync(() => {
@@ -16381,8 +16601,10 @@ function resetDemo() {
 
 /* ===== src/views/nic-event/event.js ===== */
 (function () {
+  const { bridgeEventTypeIcon, bridgeComposer } = __export;
 // nic-event 命令式事件逻辑（从 legacy.js 提取，绘制/拓扑/连线保持原样）
 // 硬编码坐标和连线数据后续讨论是否抽公共拓扑框架
+
 
 let cleanup = null;
 
@@ -16445,7 +16667,7 @@ window.openNicEvent=()=>{
  const heading=U.el('div','evt-heading-copy');heading.append(U.el('h1'),U.el('time','','2026-09-09 12:05:12'));head.append(back,heading);left.append(head);
  const intro=U.el('div','evt-diagnosis-intro'),introCopy=U.el('p'),all=U.button('收起全部','evt-expand-all',()=>{const visible=sections.map((s,i)=>viewStage()>=s.at?i:-1).filter(i=>i>=0),next=!visible.every(i=>expanded[i]);visible.forEach(i=>expanded[i]=next);renderHistory();});intro.append(introCopy);
  const history=U.el('div','evt-diagnostic-scroll');left.append(history);
- const composerWrap=U.el('div','evt-composer-wrap'),composer=HCComponents.Composer({value:draft,onSend:()=>{}});composer.querySelector('input').addEventListener('input',e=>draft=e.target.value);composerWrap.append(composer);left.append(composerWrap);
+ const composerWrap=U.el('div','evt-composer-wrap'),composer=bridgeComposer({value:draft,onSend:()=>{}});composer.querySelector('input').addEventListener('input',e=>draft=e.target.value);composerWrap.append(composer);left.append(composerWrap);
  const right=U.el('main','evt-right'),toolbar=U.el('div','evt-detail-toolbar');toolbar.append(U.el('span','','诊断详情'));right.append(toolbar);
  const service=U.el('section','nic-service'),label=U.el('div','nic-service-title'),metrics=U.el('div','nic-metrics');service.append(label,metrics);
  const topology=U.el('div','nic-instance-topology');renderOriginalTopology(topology);service.append(topology);right.append(service);
@@ -16494,7 +16716,7 @@ window.openNicEvent=()=>{
  function focus(i){journeySecond=null;selected=i;updateService();renderJourney();expanded[flow[i][2]]=true;renderHistory();renderFlow();history.querySelector('[data-section="'+flow[i][2]+'"]')?.scrollIntoView({block:'nearest',behavior:'smooth'});}
  function updateService(){
   const repaired=viewStage()===9||journeySecond!==null&&journeySecond<12;panel.dataset.stage=stage;panel.dataset.replay=String(journeySecond!==null);service.classList.toggle('nic-service-recovered',repaired);
-  head.querySelector('.hc-event-type-icon')?.remove();const symbol=HCComponents.EventTypeIcon({closed:repaired,size:36});symbol.classList.add('evt-icon');if(viewStage()===6){const flags=U.el('span','fault-status-flags');flags.append(U.icon('红色小手',13),U.el('b','business-impact-symbol','✱'));symbol.append(flags);}head.append(symbol);
+  head.querySelector('.hc-event-type-icon')?.remove();const symbol=bridgeEventTypeIcon({closed:repaired,size:36});symbol.classList.add('evt-icon');if(viewStage()===6){const flags=U.el('span','fault-status-flags');flags.append(U.icon('红色小手',13),U.el('b','business-impact-symbol','✱'));symbol.append(flags);}head.append(symbol);
   heading.querySelector('h1').textContent=stage===9?'Qwen-1.5B服务已恢复，网卡故障已闭环':'Qwen-1.5B服务劣化：网卡驱动版本低';
   introCopy.textContent=repaired?'网卡驱动升级与服务健康核查完成，事件已闭环':viewStage()===6?'无可替换节点，服务仍劣化，请人工升级网卡驱动':viewStage()>=7?'已确认人工升级，正在执行修复与健康核查':'正在诊断业务故障并评估恢复方案';
   label.replaceChildren(U.el('span','','Qwen-1.5B服务'),U.Badge(repaired?'正常':'劣化',repaired?'done':'degraded'));metrics.replaceChildren();
