@@ -91,10 +91,7 @@ const get = (id) => segments.find((s) => s.id === id).text.trim();
 const modules = [
   { file: "src/mock/workloads.js", body: "export " + get("HOME_WORKLOADS") + "\n" },
   { file: "src/mock/hc-assets.js", body: "export " + get("HC_ASSETS") + "\nexport " + get("HOME_LINKS_SVG") + "\nexport " + get("OPTICAL_ASSETS") + "\n" },
-  { file: "src/shared/motion-runtime.js", fn: "initMotionRuntime", segs: ["motion-runtime"] },
   { file: "src/shared/hc-components.js", fn: "initHCComponents", segs: ["components"] },
-  { file: "src/utils/clock.js", fn: "initClock", segs: ["demo-clock"] },
-  { file: "src/views/evidence/legacy.js", segs: ["evidence-ai", "evidence-orig"] },
   { file: "src/views/home-screen/legacy.js", fn: "initHomeScreen", segs: ["main"] },
   { file: "src/views/home-screen/enhancements.js", fn: "initEnhancements", segs: ["enhancements"] },
   { file: "src/views/guard-events-table/legacy.js", fn: "initGuardEventsTable", segs: ["events"] },
