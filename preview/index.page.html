@@ -9081,123 +9081,14 @@ const C=HCComponents;
 function mount(id,node){document.getElementById(id).replaceChildren(node)}
 mount('home-header',C.Header());
 const sidebar=C.Sidebar();const expand=document.createElement('img');expand.className='sidebar-expand';expand.src=HC_ASSETS.icons['侧边栏展开'];expand.alt='展开侧栏';sidebar.append(expand);mount('home-sidebar',sidebar);
- mount('home-metrics',C.MetricRibbon({onChange:(category,index)=>showWorkloads(category,index)}));
+ // home-metrics 由 React MetricRibbon 渲染，不再在此挂载
  // home-events 由 React StoryGuardPanelContainer 渲染，不再在此挂载
  mount('home-composer',C.Composer());
-document.getElementById('ticks').replaceChildren(...Array.from({length:20},(_,i)=>{const span=document.createElement('span');span.textContent=HCClock.format(i*60-360).slice(0,8);return span}));
-document.querySelector('.time-now b').textContent=HCClock.format(0);
+ // ticks 由 React TicksSlot 组件渲染
+ // time-now 由 React TimeNowSlot 组件渲染
 function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080),screen=document.getElementById('screen');screen.style.setProperty('--home-scale',s);screen.style.transform=`scale(${s})`;screen.style.left=(innerWidth-1920*s)/2+'px';screen.style.top=(innerHeight-1080*s)/2+'px'}addEventListener('resize',fit);fit();
 
-const workloadView=document.createElement('section');workloadView.id='home-workloads';workloadView.hidden=true;document.getElementById('screen').append(workloadView);
-function showWorkloads(category,filter=0){
- if(parent!==window)parent.postMessage({type:'hc-home-category',category},location.origin==='null'?'*':location.origin);
- const isWorkload=category==='training'||category==='inference';document.getElementById('screen').dataset.category=category;workloadView.hidden=!isWorkload;
- if(!isWorkload){document.getElementById('screen').dataset.resourceMetric=filter;return;}
- workloadView.replaceChildren();workloadView.dataset.filter=filter;workloadView.classList.add('windowed-workloads');
- const heading=document.createElement('h2');heading.textContent=category==='training'?'训练作业':'推理服务';
- const select=document.createElement('select');select.setAttribute('aria-label','对象排序');
- for(const [value,text] of [['status','按状态排序'],['quality',category==='training'?'按可用度排序':'按成功率排序'],['npu','按卡数排序']]){const option=document.createElement('option');option.value=value;option.textContent=text;select.append(option);}
- const sortWrap=document.createElement('div');sortWrap.className='workload-sort';sortWrap.append(select);
- const browser=document.createElement('div');browser.className='workload-browser';
- const track=document.createElement('div');track.className='workload-browser-track';
- const segments=document.createElement('div');segments.className='workload-browser-segments';
- const windowBox=document.createElement('div');windowBox.className='workload-browser-window';
- const range=document.createElement('input');range.type='range';range.min=0;range.step=1;range.className='workload-browser-keyboard';range.setAttribute('aria-label','浏览当前屏对象，方向键移动范围');
- track.append(segments,windowBox,range);
- // Retain the active object while its width animates; layout movement is not a new hover intent.
- let railPointer=null,railActive=null,railCandidate=null,railTimer=0,railLockedUntil=0,railHitZones=[];
- function expandRail(target){
-  clearTimeout(railTimer);railCandidate=null;railActive=target;railLockedUntil=performance.now()+260;
-  for(const child of segments.children)child.classList.toggle('is-expanded',child===target);
- }
- segments.addEventListener('pointermove',event=>{
-  const point={x:event.clientX,y:event.clientY};
-  if(railPointer&&Math.hypot(point.x-railPointer.x,point.y-railPointer.y)<2)return;
-  railPointer=point;clearTimeout(railTimer);
-  if(performance.now()<railLockedUntil)return;
-  if(railActive?.isConnected){const rect=railActive.getBoundingClientRect();if(point.x>=rect.left-4&&point.x<=rect.right+4){railCandidate=null;return;}}
-  const target=railHitZones.find(zone=>point.x>=zone.left&&point.x<=zone.right)?.node||event.target.closest('.workload-rail-item');if(!target)return;
-  if(!railActive){expandRail(target);return;}
-  railCandidate=target;railTimer=setTimeout(()=>{if(railCandidate===target&&target.isConnected)expandRail(target);},100);
- });
- segments.addEventListener('pointerleave',()=>{clearTimeout(railTimer);railPointer=null;expandRail(null);railLockedUntil=0;});
- segments.addEventListener('pointerenter',()=>{clearTimeout(railTimer);railHitZones=Array.from(segments.children, node=>({node,...{left:node.getBoundingClientRect().left,right:node.getBoundingClientRect().right}}));});
- const captions=document.createElement('div');captions.className='workload-browser-captions';
- const left=document.createElement('span'),position=document.createElement('span'),right=document.createElement('span');position.hidden=true;captions.append(left,position,right);browser.append(track,captions);
- const list=document.createElement('div');list.className='workload-list';
- const prev=document.createElement('button'),next=document.createElement('button');prev.textContent='‹';next.textContent='›';prev.setAttribute('aria-label','上一页');next.setAttribute('aria-label','下一页');prev.className=next.className='workload-browser-page';const pages=document.createElement('span');pages.className='workload-browser-pages';pages.append(prev,next);browser.append(pages);
- const reverse=document.createElement('button');reverse.className='workload-browser-reverse';reverse.textContent='⇄';reverse.type='button';reverse.setAttribute('aria-label','反转排序方向');reverse.setAttribute('aria-pressed','false');reverse.title='反转排序方向';left.after(reverse);
- const controls=document.createElement('div');controls.className='workload-controls';controls.setAttribute('aria-label',heading.textContent+'排序与浏览');controls.append(sortWrap,browser);workloadView.append(controls,list);
- const capacity=category==='training'?6:4,rank={interrupted:0,stuck:1,degraded:2,normal:3},labels={interrupted:'中断',stuck:'卡死',degraded:'劣化',normal:'正常'},colors={interrupted:'#d87a88',stuck:'#ca9466',degraded:'#c6b079',normal:'#638c79'};
- let start=0,items=[],order=[],reversed=false,railSignature='';
- function key(item){return item.data.name+'|'+item.data.start;}
- const stride=category==='training'?189:257;
- const maxStart=()=>Math.ceil(Math.max(0,items.length-capacity)/2)*2;
- function updateRangeFrame(){
-  const first=segments.children[start],last=segments.children[Math.min(items.length,start+capacity)-1];
-  if(!first||!last)return;
-  windowBox.style.left=(first.offsetLeft-4)+'px';windowBox.style.width=(last.offsetLeft+last.offsetWidth-first.offsetLeft+8)+'px';
-  windowBox.setAttribute('aria-label',`本页第 ${start+1} 至 ${Math.min(items.length,start+capacity)} 个对象`);
- }
- const railResize=new ResizeObserver(()=>{if(!track.isConnected){railResize.disconnect();return;}updateRangeFrame();});railResize.observe(track);
- function paint(){
-  const count=items.length;start=Math.max(0,Math.min(start,maxStart()));const end=Math.min(count,start+capacity);
-  range.max=maxStart();range.step=2;range.value=start;range.disabled=count<=capacity;
-  range.setAttribute('aria-valuetext',count?`第 ${start+1} 至 ${end} 个，共 ${count} 个`:'没有符合条件的对象');
-  windowBox.hidden=!count;updateRangeFrame();
-  position.textContent=count?`${start+1}–${end} / ${count} 个`:'0 个';prev.disabled=start===0;next.disabled=start>=maxStart();
-  Array.from(segments.children).forEach((n,i)=>n.classList.toggle('in-window',i>=start&&i<end));
- }
- function navigate(index,smooth=false){start=Math.max(0,Math.min(Math.round(index/2)*2,maxStart()));paint();list.scrollTo({top:start/2*stride,behavior:smooth&&!matchMedia('(prefers-reduced-motion: reduce)').matches?'smooth':'auto'});}
- const cardCache=new Map();let listSignature='';
- function drawList(){
-  const scroll=list.scrollTop,keys=items.map(key),signature=keys.join('~'),structureChanged=signature!==listSignature;
-  const cards=items.map((item,i)=>{
-   const {quality,ok,fail,total,...stable}=item.data,cacheKey=key(item),content=JSON.stringify([item.status,stable]);
-   let entry=cardCache.get(cacheKey);
-   if(!entry||entry.content!==content){const card=category==='inference'&&filter===5?energyServiceCard(item):C.WorkloadCard({kind:category,status:item.status,data:item.data});entry={card,content};const old=cardCache.get(cacheKey)?.card;if(old?.isConnected)old.replaceWith(card);cardCache.set(cacheKey,entry);}
-   const card=entry.card;card.style.left=((i%2)*678)+'px';card.style.top=(20+Math.floor(i/2)*stride)+'px';card.dataset.browserKey=cacheKey;
-   const q=card.querySelector('.hc-quality');if(q){const value=(category==='inference'&&Number(total)>0?100*Number(ok)/Number(total):parseFloat(quality??'99.50')).toFixed(2);if(q.firstChild.nodeValue!==value)q.firstChild.nodeValue=value;}
-   const counts=card.querySelector('.hc-request-counts');if(counts){const text=(total??'123860')+' / '+(ok??'123237')+' / ';if(counts.firstChild.nodeValue!==text)counts.firstChild.nodeValue=text;const failed=counts.lastElementChild;if(failed.textContent!==String(fail??'1623'))failed.textContent=String(fail??'1623');}
-   return card;
-  });
-  if(structureChanged||!list.childNodes.length){listSignature=signature;list.replaceChildren(...cards);
-   if(!items.length){const empty=document.createElement('p');empty.className='workload-browser-empty';empty.textContent='暂无符合条件的对象';list.append(empty);}
-   else{const tail=document.createElement('div');tail.setAttribute('aria-hidden','true');tail.style.cssText='position:absolute;width:1px;height:1px;top:'+(maxStart()/2*stride+591)+'px';list.append(tail);}
-   list.scrollTop=scroll;
-  }
-  const active=new Set(keys);for(const cacheKey of cardCache.keys())if(!active.has(cacheKey))cardCache.delete(cacheKey);
- }
-
- list.addEventListener('scroll',()=>{start=Math.min(maxStart(),Math.floor((list.scrollTop+1)/stride)*2);paint();},{passive:true});
- prev.onclick=()=>navigate(start-capacity,true);next.onclick=()=>navigate(start+capacity,true);
- function renderCards(resort=false){
-  if(workloadView.hidden||document.getElementById('screen').dataset.category!==category)return;
-  const source=window.storyWorkloads?window.storyWorkloads(category):HOME_WORKLOADS[category];
-  const fresh=source.filter(x=>category==='inference'&&filter===5?x.data.energySaving:!filter||x.status===['','interrupted','stuck','degraded','normal'][filter]);
-  const sorted=fresh.slice().sort((a,b)=>select.value==='status'?rank[a.status]-rank[b.status]:select.value==='quality'?parseFloat(a.data.quality)-parseFloat(b.data.quality):Number(b.data.npu)-Number(a.data.npu));
-  if(reversed)sorted.reverse();
-  if(resort||!order.length){order=sorted.map(key);start=0;}else{const existing=new Set(fresh.map(key));order=order.filter(k=>existing.has(k));const known=new Set(order);sorted.forEach(x=>{if(!known.has(key(x)))order.push(key(x));});}
-  const lookup=new Map(fresh.map(x=>[key(x),x]));items=order.map(k=>lookup.get(k)).filter(Boolean);
-  const values=items.map(x=>parseFloat(x.data[select.value==='npu'?'npu':'quality'])).filter(Number.isFinite),lo=Math.min(...values),hi=Math.max(...values);
-  const signature=items.map(item=>key(item)+'|'+item.status).join('~');
-  if(signature!==railSignature){railSignature=signature;segments.replaceChildren(...items.map((item,i)=>{
-   const n=document.createElement('button');n.type='button';n.className='workload-rail-item';n.dataset.status=item.status;n.style.setProperty('--status-color',colors[item.status]||'#777');n.setAttribute('aria-label',item.data.name+'，'+labels[item.status]+'，定位卡片');
-   const short=document.createElement('span');short.className='rail-short';short.textContent=Array.from(item.data.name)[0];
-   const copy=document.createElement('span');copy.className='rail-copy';const name=document.createElement('strong');name.textContent=item.data.name;const status=document.createElement('small');status.textContent=labels[item.status];copy.append(name,status);
-   n.append(C.WorkloadIcon(item.data.name),short,copy);n.onclick=()=>{navigate(i);list.querySelectorAll('.rail-card-focus').forEach(c=>c.classList.remove('rail-card-focus'));list.children[i]?.classList.add('rail-card-focus');};
-   n.onkeydown=event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();segments.children[Math.max(0,Math.min(items.length-1,i+(event.key==='ArrowRight'?1:-1)))]?.focus();}};return n;
-  }));railResize.disconnect();railResize.observe(track);for(const child of segments.children)railResize.observe(child);}
-
-  left.textContent=!items.length?'':select.value==='status'?(reversed?'正常 → 劣化 → 卡死 → 中断':'中断 → 卡死 → 劣化 → 正常'):(select.value==='npu'?(reversed?lo:hi)+' 卡':(reversed?hi:lo).toFixed(2)+'%');
-  right.textContent=!items.length||select.value==='status'?'':select.value==='npu'?(reversed?hi:lo)+' 卡':(reversed?lo:hi).toFixed(2)+'%';
-  browser.removeAttribute('title');drawList();if(resort)navigate(0);else{if(list.scrollTop>maxStart()/2*stride)list.scrollTop=maxStart()/2*stride;start=Math.floor((list.scrollTop+1)/stride)*2;paint();}
- }
- reverse.onclick=()=>{reversed=!reversed;reverse.setAttribute('aria-pressed',String(reversed));renderCards(true);};
- select.onchange=()=>renderCards(true);range.oninput=()=>navigate(Number(range.value));
- window.refreshWorkloadCards=()=>renderCards(false);renderCards(true);
-}
-
+ // workload browser now managed by workload-browser.js (initWorkloadBrowser in React HomeScreen)
 function energyServiceCard({status,data}){
  const card=document.createElement('article');card.className='hc-workload hc-energy-card';card.setAttribute('aria-label',data.name+' 节能服务卡片');card.setAttribute('role','button');card.tabIndex=0;card.onclick=()=>window.openEnergyService?.(data);card.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();window.openEnergyService?.(data);}};card.style.left='0';card.style.top='20px';
  const header=document.createElement('header');const name=document.createElement('strong');name.textContent=data.name;const normal=C.Status({status});const energy=document.createElement('span');energy.className='hc-status normal';energy.textContent='节能中';const leaf=document.createElement('img');leaf.src=HC_ASSETS.icons['绿色叶子'];leaf.alt='';leaf.className='energy-label-leaf';energy.prepend(leaf);const date=document.createElement('time');date.textContent=data.start;const logo=C.WorkloadIcon(data.name);header.append(logo,name,normal,energy,date);card.append(header);
@@ -10569,188 +10460,10 @@ function unmountOpticalEvent() {
 
 /* ===== src/views/story/render.js ===== */
 (function () {
-  const { HC_ASSETS, HOME_WORKLOADS } = __export;
-// story render 命令式渲染逻辑（从 legacy.js 提取）
-// 包含：renderStoryGuard / render / bindPopover / 指标更新 / 时间轴标记 / 故障提示
-// 保留原版命令式 DOM 操作（声明式重写后续讨论）
-
-
-
-function mountStoryRender() {
-const C = window.HCComponents;
-const mount = function (id, node) { document.getElementById(id).replaceChildren(node); };
-const U=window.HCEventUI,screen=document.getElementById('screen');
-const story=window.HCStory; // 从 shared/story-state.js 模块顶层设置的实例
-const chipCover=U.el('div','cabinet-chip-cover');chipCover.setAttribute('aria-hidden','true');chipCover.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1021 574" preserveAspectRatio="none"><g fill="#34393b"><rect x="26.0" y="282.0" width="9" height="9" rx="1"/><rect x="43.0" y="282.0" width="9" height="9" rx="1"/><rect x="26.0" y="295.0" width="9" height="9" rx="1"/><rect x="43.0" y="295.0" width="9" height="9" rx="1"/><rect x="26.0" y="307.0" width="9" height="9" rx="1"/><rect x="43.0" y="307.0" width="9" height="9" rx="1"/><rect x="26.0" y="319.0" width="9" height="9" rx="1"/><rect x="43.0" y="319.0" width="9" height="9" rx="1"/><rect x="26.0" y="419.0" width="9" height="9" rx="1"/><rect x="43.0" y="419.0" width="9" height="9" rx="1"/><rect x="26.0" y="432.0" width="9" height="9" rx="1"/><rect x="43.0" y="432.0" width="9" height="9" rx="1"/><rect x="26.0" y="444.0" width="9" height="9" rx="1"/><rect x="43.0" y="444.0" width="9" height="9" rx="1"/><rect x="26.0" y="456.0" width="9" height="9" rx="1"/><rect x="43.0" y="456.0" width="9" height="9" rx="1"/><rect x="18.0" y="343.5" width="42" height="7" rx="1"/><rect x="18.0" y="353.5" width="42" height="7" rx="1"/><rect x="18.0" y="362.5" width="42" height="7" rx="1"/><rect x="18.0" y="372.5" width="42" height="7" rx="1"/><rect x="18.0" y="381.5" width="42" height="7" rx="1"/><rect x="18.0" y="391.5" width="42" height="7" rx="1"/><rect x="18.0" y="400.5" width="42" height="7" rx="1"/><rect x="18.0" y="410.5" width="42" height="7" rx="1"/><rect x="75.5" y="282.0" width="9" height="9" rx="1"/><rect x="92.5" y="282.0" width="9" height="9" rx="1"/><rect x="75.5" y="295.0" width="9" height="9" rx="1"/><rect x="92.5" y="295.0" width="9" height="9" rx="1"/><rect x="75.5" y="307.0" width="9" height="9" rx="1"/><rect x="92.5" y="307.0" width="9" height="9" rx="1"/><rect x="75.5" y="319.0" width="9" height="9" rx="1"/><rect x="92.5" y="319.0" width="9" height="9" rx="1"/><rect x="75.5" y="419.0" width="9" height="9" rx="1"/><rect x="92.5" y="419.0" width="9" height="9" rx="1"/><rect x="75.5" y="432.0" width="9" height="9" rx="1"/><rect x="92.5" y="432.0" width="9" height="9" rx="1"/><rect x="75.5" y="444.0" width="9" height="9" rx="1"/><rect x="92.5" y="444.0" width="9" height="9" rx="1"/><rect x="75.5" y="456.0" width="9" height="9" rx="1"/><rect x="92.5" y="456.0" width="9" height="9" rx="1"/><rect x="67.5" y="343.5" width="42" height="7" rx="1"/><rect x="67.5" y="353.5" width="42" height="7" rx="1"/><rect x="67.5" y="362.5" width="42" height="7" rx="1"/><rect x="67.5" y="372.5" width="42" height="7" rx="1"/><rect x="67.5" y="381.5" width="42" height="7" rx="1"/><rect x="67.5" y="391.5" width="42" height="7" rx="1"/><rect x="67.5" y="400.5" width="42" height="7" rx="1"/><rect x="67.5" y="410.5" width="42" height="7" rx="1"/><rect x="125.0" y="282.0" width="9" height="9" rx="1"/><rect x="142.0" y="282.0" width="9" height="9" rx="1"/><rect x="125.0" y="295.0" width="9" height="9" rx="1"/><rect x="142.0" y="295.0" width="9" height="9" rx="1"/><rect x="125.0" y="307.0" width="9" height="9" rx="1"/><rect x="142.0" y="307.0" width="9" height="9" rx="1"/><rect x="125.0" y="319.0" width="9" height="9" rx="1"/><rect x="142.0" y="319.0" width="9" height="9" rx="1"/><rect x="125.0" y="419.0" width="9" height="9" rx="1"/><rect x="142.0" y="419.0" width="9" height="9" rx="1"/><rect x="125.0" y="432.0" width="9" height="9" rx="1"/><rect x="142.0" y="432.0" width="9" height="9" rx="1"/><rect x="125.0" y="444.0" width="9" height="9" rx="1"/><rect x="142.0" y="444.0" width="9" height="9" rx="1"/><rect x="125.0" y="456.0" width="9" height="9" rx="1"/><rect x="142.0" y="456.0" width="9" height="9" rx="1"/><rect x="117.0" y="343.5" width="42" height="7" rx="1"/><rect x="117.0" y="353.5" width="42" height="7" rx="1"/><rect x="117.0" y="362.5" width="42" height="7" rx="1"/><rect x="117.0" y="372.5" width="42" height="7" rx="1"/><rect x="117.0" y="381.5" width="42" height="7" rx="1"/><rect x="117.0" y="391.5" width="42" height="7" rx="1"/><rect x="117.0" y="400.5" width="42" height="7" rx="1"/><rect x="117.0" y="410.5" width="42" height="7" rx="1"/><rect x="174.5" y="282.0" width="9" height="9" rx="1"/><rect x="191.5" y="282.0" width="9" height="9" rx="1"/><rect x="174.5" y="295.0" width="9" height="9" rx="1"/><rect x="191.5" y="295.0" width="9" height="9" rx="1"/><rect x="174.5" y="307.0" width="9" height="9" rx="1"/><rect x="191.5" y="307.0" width="9" height="9" rx="1"/><rect x="174.5" y="319.0" width="9" height="9" rx="1"/><rect x="191.5" y="319.0" width="9" height="9" rx="1"/><rect x="174.5" y="419.0" width="9" height="9" rx="1"/><rect x="191.5" y="419.0" width="9" height="9" rx="1"/><rect x="174.5" y="432.0" width="9" height="9" rx="1"/><rect x="191.5" y="432.0" width="9" height="9" rx="1"/><rect x="174.5" y="444.0" width="9" height="9" rx="1"/><rect x="191.5" y="444.0" width="9" height="9" rx="1"/><rect x="174.5" y="456.0" width="9" height="9" rx="1"/><rect x="191.5" y="456.0" width="9" height="9" rx="1"/><rect x="166.5" y="343.5" width="42" height="7" rx="1"/><rect x="166.5" y="353.5" width="42" height="7" rx="1"/><rect x="166.5" y="362.5" width="42" height="7" rx="1"/><rect x="166.5" y="372.5" width="42" height="7" rx="1"/><rect x="166.5" y="381.5" width="42" height="7" rx="1"/><rect x="166.5" y="391.5" width="42" height="7" rx="1"/><rect x="166.5" y="400.5" width="42" height="7" rx="1"/><rect x="166.5" y="410.5" width="42" height="7" rx="1"/><rect x="224.0" y="282.0" width="9" height="9" rx="1"/><rect x="241.0" y="282.0" width="9" height="9" rx="1"/><rect x="224.0" y="295.0" width="9" height="9" rx="1"/><rect x="241.0" y="295.0" width="9" height="9" rx="1"/><rect x="224.0" y="307.0" width="9" height="9" rx="1"/><rect x="241.0" y="307.0" width="9" height="9" rx="1"/><rect x="224.0" y="319.0" width="9" height="9" rx="1"/><rect x="241.0" y="319.0" width="9" height="9" rx="1"/><rect x="224.0" y="419.0" width="9" height="9" rx="1"/><rect x="241.0" y="419.0" width="9" height="9" rx="1"/><rect x="224.0" y="432.0" width="9" height="9" rx="1"/><rect x="241.0" y="432.0" width="9" height="9" rx="1"/><rect x="224.0" y="444.0" width="9" height="9" rx="1"/><rect x="241.0" y="444.0" width="9" height="9" rx="1"/><rect x="224.0" y="456.0" width="9" height="9" rx="1"/><rect x="241.0" y="456.0" width="9" height="9" rx="1"/><rect x="216.0" y="343.5" width="42" height="7" rx="1"/><rect x="216.0" y="353.5" width="42" height="7" rx="1"/><rect x="216.0" y="362.5" width="42" height="7" rx="1"/><rect x="216.0" y="372.5" width="42" height="7" rx="1"/><rect x="216.0" y="381.5" width="42" height="7" rx="1"/><rect x="216.0" y="391.5" width="42" height="7" rx="1"/><rect x="216.0" y="400.5" width="42" height="7" rx="1"/><rect x="216.0" y="410.5" width="42" height="7" rx="1"/><rect x="273.5" y="282.0" width="9" height="9" rx="1"/><rect x="290.5" y="282.0" width="9" height="9" rx="1"/><rect x="273.5" y="295.0" width="9" height="9" rx="1"/><rect x="290.5" y="295.0" width="9" height="9" rx="1"/><rect x="273.5" y="307.0" width="9" height="9" rx="1"/><rect x="290.5" y="307.0" width="9" height="9" rx="1"/><rect x="273.5" y="319.0" width="9" height="9" rx="1"/><rect x="290.5" y="319.0" width="9" height="9" rx="1"/><rect x="273.5" y="419.0" width="9" height="9" rx="1"/><rect x="290.5" y="419.0" width="9" height="9" rx="1"/><rect x="273.5" y="432.0" width="9" height="9" rx="1"/><rect x="290.5" y="432.0" width="9" height="9" rx="1"/><rect x="273.5" y="444.0" width="9" height="9" rx="1"/><rect x="290.5" y="444.0" width="9" height="9" rx="1"/><rect x="273.5" y="456.0" width="9" height="9" rx="1"/><rect x="290.5" y="456.0" width="9" height="9" rx="1"/><rect x="265.5" y="343.5" width="42" height="7" rx="1"/><rect x="265.5" y="353.5" width="42" height="7" rx="1"/><rect x="265.5" y="362.5" width="42" height="7" rx="1"/><rect x="265.5" y="372.5" width="42" height="7" rx="1"/><rect x="265.5" y="381.5" width="42" height="7" rx="1"/><rect x="265.5" y="391.5" width="42" height="7" rx="1"/><rect x="265.5" y="400.5" width="42" height="7" rx="1"/><rect x="265.5" y="410.5" width="42" height="7" rx="1"/><rect x="323.0" y="282.0" width="9" height="9" rx="1"/><rect x="340.0" y="282.0" width="9" height="9" rx="1"/><rect x="323.0" y="295.0" width="9" height="9" rx="1"/><rect x="340.0" y="295.0" width="9" height="9" rx="1"/><rect x="323.0" y="307.0" width="9" height="9" rx="1"/><rect x="340.0" y="307.0" width="9" height="9" rx="1"/><rect x="323.0" y="319.0" width="9" height="9" rx="1"/><rect x="340.0" y="319.0" width="9" height="9" rx="1"/><rect x="323.0" y="419.0" width="9" height="9" rx="1"/><rect x="340.0" y="419.0" width="9" height="9" rx="1"/><rect x="323.0" y="432.0" width="9" height="9" rx="1"/><rect x="340.0" y="432.0" width="9" height="9" rx="1"/><rect x="323.0" y="444.0" width="9" height="9" rx="1"/><rect x="340.0" y="444.0" width="9" height="9" rx="1"/><rect x="323.0" y="456.0" width="9" height="9" rx="1"/><rect x="340.0" y="456.0" width="9" height="9" rx="1"/><rect x="315.0" y="343.5" width="42" height="7" rx="1"/><rect x="315.0" y="353.5" width="42" height="7" rx="1"/><rect x="315.0" y="362.5" width="42" height="7" rx="1"/><rect x="315.0" y="372.5" width="42" height="7" rx="1"/><rect x="315.0" y="381.5" width="42" height="7" rx="1"/><rect x="315.0" y="391.5" width="42" height="7" rx="1"/><rect x="315.0" y="400.5" width="42" height="7" rx="1"/><rect x="315.0" y="410.5" width="42" height="7" rx="1"/><rect x="372.5" y="282.0" width="9" height="9" rx="1"/><rect x="389.5" y="282.0" width="9" height="9" rx="1"/><rect x="372.5" y="295.0" width="9" height="9" rx="1"/><rect x="389.5" y="295.0" width="9" height="9" rx="1"/><rect x="372.5" y="307.0" width="9" height="9" rx="1"/><rect x="389.5" y="307.0" width="9" height="9" rx="1"/><rect x="372.5" y="319.0" width="9" height="9" rx="1"/><rect x="389.5" y="319.0" width="9" height="9" rx="1"/><rect x="372.5" y="419.0" width="9" height="9" rx="1"/><rect x="389.5" y="419.0" width="9" height="9" rx="1"/><rect x="372.5" y="432.0" width="9" height="9" rx="1"/><rect x="389.5" y="432.0" width="9" height="9" rx="1"/><rect x="372.5" y="444.0" width="9" height="9" rx="1"/><rect x="389.5" y="444.0" width="9" height="9" rx="1"/><rect x="372.5" y="456.0" width="9" height="9" rx="1"/><rect x="389.5" y="456.0" width="9" height="9" rx="1"/><rect x="364.5" y="343.5" width="42" height="7" rx="1"/><rect x="364.5" y="353.5" width="42" height="7" rx="1"/><rect x="364.5" y="362.5" width="42" height="7" rx="1"/><rect x="364.5" y="372.5" width="42" height="7" rx="1"/><rect x="364.5" y="381.5" width="42" height="7" rx="1"/><rect x="364.5" y="391.5" width="42" height="7" rx="1"/><rect x="364.5" y="400.5" width="42" height="7" rx="1"/><rect x="364.5" y="410.5" width="42" height="7" rx="1"/><rect x="620.0" y="282.0" width="9" height="9" rx="1"/><rect x="637.0" y="282.0" width="9" height="9" rx="1"/><rect x="620.0" y="295.0" width="9" height="9" rx="1"/><rect x="637.0" y="295.0" width="9" height="9" rx="1"/><rect x="620.0" y="307.0" width="9" height="9" rx="1"/><rect x="637.0" y="307.0" width="9" height="9" rx="1"/><rect x="620.0" y="319.0" width="9" height="9" rx="1"/><rect x="637.0" y="319.0" width="9" height="9" rx="1"/><rect x="620.0" y="419.0" width="9" height="9" rx="1"/><rect x="637.0" y="419.0" width="9" height="9" rx="1"/><rect x="620.0" y="432.0" width="9" height="9" rx="1"/><rect x="637.0" y="432.0" width="9" height="9" rx="1"/><rect x="620.0" y="444.0" width="9" height="9" rx="1"/><rect x="637.0" y="444.0" width="9" height="9" rx="1"/><rect x="620.0" y="456.0" width="9" height="9" rx="1"/><rect x="637.0" y="456.0" width="9" height="9" rx="1"/><rect x="612.0" y="343.5" width="42" height="7" rx="1"/><rect x="612.0" y="353.5" width="42" height="7" rx="1"/><rect x="612.0" y="362.5" width="42" height="7" rx="1"/><rect x="612.0" y="372.5" width="42" height="7" rx="1"/><rect x="612.0" y="381.5" width="42" height="7" rx="1"/><rect x="612.0" y="391.5" width="42" height="7" rx="1"/><rect x="612.0" y="400.5" width="42" height="7" rx="1"/><rect x="612.0" y="410.5" width="42" height="7" rx="1"/><rect x="669.5" y="282.0" width="9" height="9" rx="1"/><rect x="686.5" y="282.0" width="9" height="9" rx="1"/><rect x="669.5" y="295.0" width="9" height="9" rx="1"/><rect x="686.5" y="295.0" width="9" height="9" rx="1"/><rect x="669.5" y="307.0" width="9" height="9" rx="1"/><rect x="686.5" y="307.0" width="9" height="9" rx="1"/><rect x="669.5" y="319.0" width="9" height="9" rx="1"/><rect x="686.5" y="319.0" width="9" height="9" rx="1"/><rect x="669.5" y="419.0" width="9" height="9" rx="1"/><rect x="686.5" y="419.0" width="9" height="9" rx="1"/><rect x="669.5" y="432.0" width="9" height="9" rx="1"/><rect x="686.5" y="432.0" width="9" height="9" rx="1"/><rect x="669.5" y="444.0" width="9" height="9" rx="1"/><rect x="686.5" y="444.0" width="9" height="9" rx="1"/><rect x="669.5" y="456.0" width="9" height="9" rx="1"/><rect x="686.5" y="456.0" width="9" height="9" rx="1"/><rect x="661.5" y="343.5" width="42" height="7" rx="1"/><rect x="661.5" y="353.5" width="42" height="7" rx="1"/><rect x="661.5" y="362.5" width="42" height="7" rx="1"/><rect x="661.5" y="372.5" width="42" height="7" rx="1"/><rect x="661.5" y="381.5" width="42" height="7" rx="1"/><rect x="661.5" y="391.5" width="42" height="7" rx="1"/><rect x="661.5" y="400.5" width="42" height="7" rx="1"/><rect x="661.5" y="410.5" width="42" height="7" rx="1"/><rect x="719.0" y="282.0" width="9" height="9" rx="1"/><rect x="736.0" y="282.0" width="9" height="9" rx="1"/><rect x="719.0" y="295.0" width="9" height="9" rx="1"/><rect x="736.0" y="295.0" width="9" height="9" rx="1"/><rect x="719.0" y="307.0" width="9" height="9" rx="1"/><rect x="736.0" y="307.0" width="9" height="9" rx="1"/><rect x="719.0" y="319.0" width="9" height="9" rx="1"/><rect x="736.0" y="319.0" width="9" height="9" rx="1"/><rect x="719.0" y="419.0" width="9" height="9" rx="1"/><rect x="736.0" y="419.0" width="9" height="9" rx="1"/><rect x="719.0" y="432.0" width="9" height="9" rx="1"/><rect x="736.0" y="432.0" width="9" height="9" rx="1"/><rect x="719.0" y="444.0" width="9" height="9" rx="1"/><rect x="736.0" y="444.0" width="9" height="9" rx="1"/><rect x="719.0" y="456.0" width="9" height="9" rx="1"/><rect x="736.0" y="456.0" width="9" height="9" rx="1"/><rect x="711.0" y="343.5" width="42" height="7" rx="1"/><rect x="711.0" y="353.5" width="42" height="7" rx="1"/><rect x="711.0" y="362.5" width="42" height="7" rx="1"/><rect x="711.0" y="372.5" width="42" height="7" rx="1"/><rect x="711.0" y="381.5" width="42" height="7" rx="1"/><rect x="711.0" y="391.5" width="42" height="7" rx="1"/><rect x="711.0" y="400.5" width="42" height="7" rx="1"/><rect x="711.0" y="410.5" width="42" height="7" rx="1"/><rect x="768.5" y="282.0" width="9" height="9" rx="1"/><rect x="785.5" y="282.0" width="9" height="9" rx="1"/><rect x="768.5" y="295.0" width="9" height="9" rx="1"/><rect x="785.5" y="295.0" width="9" height="9" rx="1"/><rect x="768.5" y="307.0" width="9" height="9" rx="1"/><rect x="785.5" y="307.0" width="9" height="9" rx="1"/><rect x="768.5" y="319.0" width="9" height="9" rx="1"/><rect x="785.5" y="319.0" width="9" height="9" rx="1"/><rect x="768.5" y="419.0" width="9" height="9" rx="1"/><rect x="785.5" y="419.0" width="9" height="9" rx="1"/><rect x="768.5" y="432.0" width="9" height="9" rx="1"/><rect x="785.5" y="432.0" width="9" height="9" rx="1"/><rect x="768.5" y="444.0" width="9" height="9" rx="1"/><rect x="785.5" y="444.0" width="9" height="9" rx="1"/><rect x="768.5" y="456.0" width="9" height="9" rx="1"/><rect x="785.5" y="456.0" width="9" height="9" rx="1"/><rect x="760.5" y="343.5" width="42" height="7" rx="1"/><rect x="760.5" y="353.5" width="42" height="7" rx="1"/><rect x="760.5" y="362.5" width="42" height="7" rx="1"/><rect x="760.5" y="372.5" width="42" height="7" rx="1"/><rect x="760.5" y="381.5" width="42" height="7" rx="1"/><rect x="760.5" y="391.5" width="42" height="7" rx="1"/><rect x="760.5" y="400.5" width="42" height="7" rx="1"/><rect x="760.5" y="410.5" width="42" height="7" rx="1"/><rect x="818.0" y="282.0" width="9" height="9" rx="1"/><rect x="835.0" y="282.0" width="9" height="9" rx="1"/><rect x="818.0" y="295.0" width="9" height="9" rx="1"/><rect x="835.0" y="295.0" width="9" height="9" rx="1"/><rect x="818.0" y="307.0" width="9" height="9" rx="1"/><rect x="835.0" y="307.0" width="9" height="9" rx="1"/><rect x="818.0" y="319.0" width="9" height="9" rx="1"/><rect x="835.0" y="319.0" width="9" height="9" rx="1"/><rect x="818.0" y="419.0" width="9" height="9" rx="1"/><rect x="835.0" y="419.0" width="9" height="9" rx="1"/><rect x="818.0" y="432.0" width="9" height="9" rx="1"/><rect x="835.0" y="432.0" width="9" height="9" rx="1"/><rect x="818.0" y="444.0" width="9" height="9" rx="1"/><rect x="835.0" y="444.0" width="9" height="9" rx="1"/><rect x="818.0" y="456.0" width="9" height="9" rx="1"/><rect x="835.0" y="456.0" width="9" height="9" rx="1"/><rect x="810.0" y="343.5" width="42" height="7" rx="1"/><rect x="810.0" y="353.5" width="42" height="7" rx="1"/><rect x="810.0" y="362.5" width="42" height="7" rx="1"/><rect x="810.0" y="372.5" width="42" height="7" rx="1"/><rect x="810.0" y="381.5" width="42" height="7" rx="1"/><rect x="810.0" y="391.5" width="42" height="7" rx="1"/><rect x="810.0" y="400.5" width="42" height="7" rx="1"/><rect x="810.0" y="410.5" width="42" height="7" rx="1"/><rect x="867.5" y="282.0" width="9" height="9" rx="1"/><rect x="884.5" y="282.0" width="9" height="9" rx="1"/><rect x="867.5" y="295.0" width="9" height="9" rx="1"/><rect x="884.5" y="295.0" width="9" height="9" rx="1"/><rect x="867.5" y="307.0" width="9" height="9" rx="1"/><rect x="884.5" y="307.0" width="9" height="9" rx="1"/><rect x="867.5" y="319.0" width="9" height="9" rx="1"/><rect x="884.5" y="319.0" width="9" height="9" rx="1"/><rect x="867.5" y="419.0" width="9" height="9" rx="1"/><rect x="884.5" y="419.0" width="9" height="9" rx="1"/><rect x="867.5" y="432.0" width="9" height="9" rx="1"/><rect x="884.5" y="432.0" width="9" height="9" rx="1"/><rect x="867.5" y="444.0" width="9" height="9" rx="1"/><rect x="884.5" y="444.0" width="9" height="9" rx="1"/><rect x="867.5" y="456.0" width="9" height="9" rx="1"/><rect x="884.5" y="456.0" width="9" height="9" rx="1"/><rect x="859.5" y="343.5" width="42" height="7" rx="1"/><rect x="859.5" y="353.5" width="42" height="7" rx="1"/><rect x="859.5" y="362.5" width="42" height="7" rx="1"/><rect x="859.5" y="372.5" width="42" height="7" rx="1"/><rect x="859.5" y="381.5" width="42" height="7" rx="1"/><rect x="859.5" y="391.5" width="42" height="7" rx="1"/><rect x="859.5" y="400.5" width="42" height="7" rx="1"/><rect x="859.5" y="410.5" width="42" height="7" rx="1"/><rect x="917.0" y="282.0" width="9" height="9" rx="1"/><rect x="934.0" y="282.0" width="9" height="9" rx="1"/><rect x="917.0" y="295.0" width="9" height="9" rx="1"/><rect x="934.0" y="295.0" width="9" height="9" rx="1"/><rect x="917.0" y="307.0" width="9" height="9" rx="1"/><rect x="934.0" y="307.0" width="9" height="9" rx="1"/><rect x="917.0" y="319.0" width="9" height="9" rx="1"/><rect x="934.0" y="319.0" width="9" height="9" rx="1"/><rect x="917.0" y="419.0" width="9" height="9" rx="1"/><rect x="934.0" y="419.0" width="9" height="9" rx="1"/><rect x="917.0" y="432.0" width="9" height="9" rx="1"/><rect x="934.0" y="432.0" width="9" height="9" rx="1"/><rect x="917.0" y="444.0" width="9" height="9" rx="1"/><rect x="934.0" y="444.0" width="9" height="9" rx="1"/><rect x="917.0" y="456.0" width="9" height="9" rx="1"/><rect x="934.0" y="456.0" width="9" height="9" rx="1"/><rect x="909.0" y="343.5" width="42" height="7" rx="1"/><rect x="909.0" y="353.5" width="42" height="7" rx="1"/><rect x="909.0" y="362.5" width="42" height="7" rx="1"/><rect x="909.0" y="372.5" width="42" height="7" rx="1"/><rect x="909.0" y="381.5" width="42" height="7" rx="1"/><rect x="909.0" y="391.5" width="42" height="7" rx="1"/><rect x="909.0" y="400.5" width="42" height="7" rx="1"/><rect x="909.0" y="410.5" width="42" height="7" rx="1"/><rect x="966.5" y="282.0" width="9" height="9" rx="1"/><rect x="983.5" y="282.0" width="9" height="9" rx="1"/><rect x="966.5" y="295.0" width="9" height="9" rx="1"/><rect x="983.5" y="295.0" width="9" height="9" rx="1"/><rect x="966.5" y="307.0" width="9" height="9" rx="1"/><rect x="983.5" y="307.0" width="9" height="9" rx="1"/><rect x="966.5" y="319.0" width="9" height="9" rx="1"/><rect x="983.5" y="319.0" width="9" height="9" rx="1"/><rect x="966.5" y="419.0" width="9" height="9" rx="1"/><rect x="983.5" y="419.0" width="9" height="9" rx="1"/><rect x="966.5" y="432.0" width="9" height="9" rx="1"/><rect x="983.5" y="432.0" width="9" height="9" rx="1"/><rect x="966.5" y="444.0" width="9" height="9" rx="1"/><rect x="983.5" y="444.0" width="9" height="9" rx="1"/><rect x="966.5" y="456.0" width="9" height="9" rx="1"/><rect x="983.5" y="456.0" width="9" height="9" rx="1"/><rect x="958.5" y="343.5" width="42" height="7" rx="1"/><rect x="958.5" y="353.5" width="42" height="7" rx="1"/><rect x="958.5" y="362.5" width="42" height="7" rx="1"/><rect x="958.5" y="372.5" width="42" height="7" rx="1"/><rect x="958.5" y="381.5" width="42" height="7" rx="1"/><rect x="958.5" y="391.5" width="42" height="7" rx="1"/><rect x="958.5" y="400.5" width="42" height="7" rx="1"/><rect x="958.5" y="410.5" width="42" height="7" rx="1"/><rect x="412.93" y="309.80" width="43.61" height="20.00" rx="2" fill="#343838"/><rect x="412.93" y="333.43" width="43.61" height="19.39" rx="2" fill="#343838"/><rect x="412.93" y="399.49" width="43.61" height="20.00" rx="2" fill="#343838"/><rect x="412.93" y="423.12" width="43.61" height="18.79" rx="2" fill="#343838"/><rect x="463.02" y="309.80" width="43.01" height="20.00" rx="2" fill="#343838"/><rect x="463.02" y="333.43" width="43.01" height="19.39" rx="2" fill="#343838"/><rect x="463.02" y="399.49" width="43.01" height="20.00" rx="2" fill="#343838"/><rect x="463.02" y="423.12" width="43.01" height="18.79" rx="2" fill="#343838"/><rect x="512.51" y="309.80" width="43.01" height="20.00" rx="2" fill="#343838"/><rect x="512.51" y="333.43" width="43.01" height="19.39" rx="2" fill="#343838"/><rect x="512.51" y="399.49" width="43.01" height="20.00" rx="2" fill="#343838"/><rect x="512.51" y="423.12" width="43.01" height="18.79" rx="2" fill="#343838"/><rect x="562.02" y="309.80" width="43.61" height="20.00" rx="2" fill="#343838"/><rect x="562.02" y="333.43" width="43.61" height="19.39" rx="2" fill="#343838"/><rect x="562.02" y="399.49" width="43.61" height="20.00" rx="2" fill="#343838"/><rect x="562.02" y="423.12" width="43.61" height="18.79" rx="2" fill="#343838"/></g></svg>';screen.append(chipCover);
-
-const copy=window.HCStoryCopy={
- optical:['','发现链路闪断告警','30条告警聚合，生成链路闪断 issue','正在分析链路指标与设备日志','定位根因：光链路脏污','优雅隔离异常链路','光链路待清污','链路复核完成，已清污','关闭光链路清污待办','光链路隔离已取消'],
- qwen:['','发现 Qwen-1.5B 服务劣化告警','定位 D实例01 异常退出','无可替换节点，自动恢复受阻','分析 BMC、OS 与 vmcore 日志','定位根因：hinic3 网卡驱动版本过低','服务劣化，待人工升级网卡驱动','人工已确认，正在升级网卡驱动','驱动已升级，正在核查节点与服务健康','网卡升级与健康核查通过，服务恢复并闭环']};
-const names={optical:'光链路脏污，待清污',qwen:'Qwen-1.5B服务劣化：网卡驱动版本低，待升级'};
-window.HCEventTitle=(key,p)=>p===6?names[key]:key==='qwen'&&p>=7?'网卡升级与服务恢复':key==='qwen'&&p>=4?'网卡驱动故障诊断':copy[key]?.[1]||names[key];
-let guardView='manual',impactOnly=false;
-const affectsBusiness=key=>key==='qwen';
-const expandedRecords=new Map();
-const popoverVisits=new Map(),popoverHoldMs=2200;
-function bindPopover(anchor,key,stage,startedAt,announce=true){
- const previous=popoverVisits.get(key);
- if(previous)clearTimeout(previous.timer);
- const visit={stage,startedAt,timer:null};popoverVisits.set(key,visit);
- let hovered=false,focused=false;const processing=stage<6;
- const show=()=>{clearTimeout(visit.timer);anchor.classList.add('story-visible');};
- const hide=()=>{clearTimeout(visit.timer);if(!processing&&!hovered&&!focused)anchor.classList.remove('story-visible');};
- anchor.onpointerenter=()=>{hovered=true;show();};
- anchor.onpointerleave=()=>{hovered=false;visit.timer=setTimeout(hide,180);};
- if(anchor._storyFocusIn)anchor.removeEventListener('focusin',anchor._storyFocusIn);
- if(anchor._storyFocusOut)anchor.removeEventListener('focusout',anchor._storyFocusOut);
- anchor._storyFocusIn=()=>{focused=true;show();};
- anchor._storyFocusOut=e=>{focused=anchor.contains(e.relatedTarget);if(!focused)visit.timer=setTimeout(hide,180);};
- anchor.addEventListener('focusin',anchor._storyFocusIn);
- anchor.addEventListener('focusout',anchor._storyFocusOut);
- if(anchor._showProgress)anchor.removeEventListener('story-show',anchor._showProgress);anchor._showProgress=show;anchor.addEventListener('story-show',show);
- // New progress is announced once; hovering never races this timer.
- if(announce){show();if(!processing)visit.timer=setTimeout(hide,popoverHoldMs);}
-}
-
-const open=key=>{if(key==='optical')window.openOpticalEvent();else window.openNicEvent();};
-const stateOf=(key,p)=>p===9?'closed':p===6?'manual':'auto';
-const guardAutoRows=new Map(),cabinetTipCache=new Map();
-const progressText=(key,p)=>copy[key][p].replace('生成链路闪断 issue','生成链路闪断issue').replace('正在分析链路指标与设备日志','分析链路指标与设备日志');
-window.storyWorkloads=category=>HOME_WORKLOADS[category].map(item=>{const x={...item,data:{...item.data}},s=story.get();if(category==='inference'&&/^Qwen-1.5B/.test(x.data.name)){const active=s.qwen>0&&s.qwen<9;x.status=active?'degraded':'normal';x.data.faults=active?'1':'0';x.data.processingText=active?copy.qwen[s.qwen]:'';x.data.processingManual=s.qwen===6;x.data.pendingManual=s.qwen===6?1:0;if(s.qwen>0){const total=Number(x.data.total);x.data.ok=String(Math.round(total*(active?.775:.9994)));x.data.fail=String(total-Number(x.data.ok));x.data.quality=(100*Number(x.data.ok)/total).toFixed(2)+'%';x.data.ttft=active?'186 ms':'182 ms';x.data.tpot=active?'43 ms':'23.6 ms';}}return x});
-
-function impactFlags(impact=false){
- const flags=U.el('span','fault-status-flags');flags.setAttribute('aria-label',impact?'待人工处理，影响业务':'待人工处理');
- const hand=U.el('img');hand.src=HC_ASSETS.icons['红色小手'];hand.alt='待人工处理';flags.append(hand);
- if(impact){const mark=U.el('b','business-impact-symbol','✱');mark.setAttribute('aria-label','影响业务');mark.title='影响业务';flags.append(mark);}return flags;
-}
-function manualFaultSymbol(impact=true){const symbol=C.EventTypeIcon({size:24});symbol.classList.add('thermal-symbol');symbol.append(impactFlags(impact));return symbol;}
-function renderImpactFlags(){
- document.querySelectorAll('#home-tips .hc-fault-tip').forEach(tip=>{tip.querySelector('.fault-status-flags')?.remove();tip.querySelector('.hc-tip-arrow')?.remove();if(tip.classList.contains('manual'))tip.append(impactFlags(tip.classList.contains('qwen')));else{const flags=U.el('span','fault-status-flags');flags.setAttribute('aria-label','自动处理中');flags.append(U.el('span','tip-auto-state','◌'));if(tip.classList.contains('qwen')){const mark=U.el('b','business-impact-symbol','✱');mark.setAttribute('aria-label','影响业务');flags.append(mark);}tip.append(flags);}const labels=tip.querySelector('.fault-status-flags');labels.append(U.el('span','tip-state-label',tip.classList.contains('manual')?'待人工处理':'自动处理中'));if(tip.classList.contains('qwen'))labels.append(U.el('span','tip-impact-label','影响业务'));});
- document.querySelectorAll('#home-timeline-markers .story-marker.manual').forEach(marker=>{marker.querySelectorAll(':scope > .hc-event-manual-hand,:scope > .story-marker-hand,:scope > .fault-status-flags').forEach(n=>n.remove());const flags=impactFlags(marker.closest('[data-event-key]')?.dataset.eventKey==='qwen');flags.querySelector('img').classList.add('hc-event-manual-hand');marker.append(flags);});
-}
-
-function metric(category,index,value){const g=document.querySelector('.hc-metric-group[data-category="'+category+'"]');const b=g?.querySelectorAll('.hc-metric-content>b')[index];if(b)b.firstChild.textContent=String(value);if(category==='resource'&&index===0)g.querySelector('.hc-metric-compact b').textContent=value}
-function render(s){
- document.querySelector('.hc-domain-legend')?.remove();
-const timelineStart=-360;const now=document.querySelector('.time-now');now.style.left=(960/1140*100)+'%';now.querySelector('b').textContent=HCClock.format(600);screen.dataset.storyOptical=s.optical;screen.dataset.storyQwen=s.qwen;
- for(const [key,visit] of popoverVisits){if(!s[key]||visit.startedAt!==s.startedAt){clearTimeout(visit.timer);popoverVisits.delete(key);expandedRecords.delete(key);}}
- const deviceLocated=s.qwen>=5&&s.qwen<9;
- const active=2+Number(s.optical>0&&s.optical<9)+Number(deviceLocated);
- metric('resource',0,active);for(const category of ['training','inference']){const data=window.storyWorkloads(category);['interrupted','stuck','degraded','normal'].forEach((status,i)=>metric(category,i+1,data.filter(x=>x.status===status).length));metric(category,0,data.length)}
- const health=document.querySelector('.health-metrics .row-value p');health.firstChild.textContent=(2+['optical','qwen'].filter(key=>s[key]>=6&&s[key]<9).length)+' ';health.querySelector('small').textContent='/ '+(12+Number(s.optical>0)+Number(s.optical>=6)+Number(s.qwen>0))+'项';
- document.querySelector('.health-row:nth-child(2) .row-value p').firstChild.textContent='0 ';
- document.querySelector('.cabinet-fault-link').hidden=!(s.optical>0&&s.optical<9);
- document.querySelector('.cabinet-red').hidden=!deviceLocated;
- window.updateCompactStatusIcons?.();
- // renderStoryGuard now handled by React StoryGuardPanelContainer
- const tips=document.getElementById('home-tips');for(const [key,tip] of cabinetTipCache){if(!s[key]||s[key]>=9||(key==='qwen'&&!deviceLocated)||tip.dataset.startedAt!==String(s.startedAt)){clearTimeout(tip._copyTimer);tip.remove();cabinetTipCache.delete(key);}}const marks=document.getElementById('home-timeline-markers');const existingMarks=new Map([...marks.children].map(node=>[node.dataset.eventKey,node]));for(const node of marks.children){if((!s[node.dataset.eventKey]&&!node.dataset.eventKey.startsWith('cabinetD08-'))||node.dataset.startedAt!==String(s.startedAt))node.remove();}
- ['optical','qwen'].forEach((key,i)=>{const p=s[key];if(!p)return;const state=stateOf(key,p);
- if(state!=='closed'&&p<9&&(key!=='qwen'||deviceLocated)){let tip=cabinetTipCache.get(key);if(!tip){tip=C.FaultTip({state:state==='auto'?'auto':key});tip.classList.add(key);tip.dataset.startedAt=s.startedAt;cabinetTipCache.set(key,tip);tips.append(tip);}const nextMode=state==='auto'?'auto':'manual';if(!tip.classList.contains(nextMode)){const oldCopy=tip.querySelector('span').textContent;const next=C.FaultTip({state:state==='auto'?'auto':key});tip.className=next.className+' '+key;tip.replaceChildren(...next.childNodes);tip.querySelector('span').textContent=oldCopy;}HCFadeTip(tip,HCEventTitle(key,p));if(!tip.querySelector('.hc-tip-device'))tip.append(U.el('small','hc-tip-device',key==='optical'?'计算柜11 · L1交换板02':'计算柜13 · 112.34.23.1 · CPU02'));let detail=tip.querySelector('.hc-tip-detail');if(!detail){detail=U.el('div','hc-tip-detail');tip.append(detail);}detail.replaceChildren(U.el('strong','',HCEventTitle(key,p)),U.el('p','',key==='optical'?'故障对象：计算柜11 · L1交换板02':'故障对象：计算柜13 · 112.34.23.1 · CPU02'),U.el('p','',key==='optical'?(p>=5?'光模块端面脏污，异常链路已优雅隔离，健康通道承载业务':'检测到光链路闪断，正在分析链路指标与设备日志'):'hinic3 驱动版本 V11.8，需升级至 V13.1；无可替换节点，Qwen-1.5B 服务劣化'),U.el('p','',state==='manual'?'当前状态：待人工处理':'当前状态：自动处理中'),U.el('p','','点击查看处理详情'));tip.setAttribute('role','button');tip.tabIndex=0;tip.setAttribute('aria-label','查看'+(key==='optical'?'光链路脏污故障详情':'Qwen处理进度'));tip.onclick=()=>open(key);tip.onkeydown=e=>{if(e.key==='Enter')open(key)};}
- const existing=existingMarks.get(key);if(existing&&existing.dataset.stage===String(p)&&existing.dataset.startedAt===String(s.startedAt))return;
- const anchor=existing||U.el('div','marker-anchor');anchor.replaceChildren();anchor.className='marker-anchor'+(existing?' story-visible':'');anchor.dataset.eventKey=key;anchor.dataset.stage=p;anchor.dataset.startedAt=s.startedAt;const eventSecond=key==='optical'?20:312;anchor.style.left=((eventSecond-timelineStart)/1140*100)+'%';anchor.dataset.eventTime=HCClock.format(eventSecond);const marker=U.button('','story-marker '+state,()=>key==='optical'&&p>=6?window.openOpticalEvent({mode:'isolation'}):key==='qwen'?window.openNicEvent({mode:'recovery'}):open(key));marker.setAttribute('aria-label',key+'：'+copy[key][p]);const icon=U.el('img');icon.src=HC_ASSETS.icons[state==='closed'?'灰色的故障':'红色的故障'];icon.alt='';marker.dataset.count='1';marker.append(icon);if(state==='manual'){const hand=U.el('img','story-marker-hand');hand.src=HC_ASSETS.icons['红色小手'];hand.alt='待人工处理';marker.append(hand)}if(state==='auto')C.FlowBorder(marker);anchor.append(marker);
- // Closed business event and its follow-up share the approved linked marker shape.
- const split=key==='optical'&&p>=6;
- if(split){
-   anchor.classList.add('story-split');anchor.dataset.followState=state;
-   const borderId='split-border-'+key,fillId='split-fill-'+key;
-   const shape=document.createElementNS('http://www.w3.org/2000/svg','svg');shape.setAttribute('class','story-split-shape');shape.setAttribute('viewBox','0 0 94 24');shape.setAttribute('aria-hidden','true');shape.innerHTML='<defs><linearGradient id="'+borderId+'"><stop offset="48%" stop-color="#777"/><stop offset="76%" stop-color="'+(state==='closed'?'#777':'#ed4a55')+'"/></linearGradient><linearGradient id="'+fillId+'"><stop offset="50%" stop-color="#393939"/><stop offset="100%" stop-color="'+(state==='closed'?'#393939':'#613037')+'"/></linearGradient></defs><path d="M12 1H49C53 1 54 4 59 4S65 1 69 1H82A11 11 0 0 1 82 23H69C65 23 64 20 59 20S53 23 49 23H12A11 11 0 0 1 12 1Z" fill="url(#'+fillId+')" stroke="url(#'+borderId+')" stroke-width="1.5"/>';anchor.prepend(shape);
-   marker.className='story-marker closed';marker.dataset.part=key==='optical'?'isolation':'recovery';marker.setAttribute('aria-label',key==='optical'?'光链路优雅隔离：已闭环':'Qwen-1.5B业务劣化：节点迁移完成，已自动闭环');
-   marker.querySelector('.story-marker-hand')?.remove();marker.querySelectorAll('.hc-flow-halo,.hc-flow-base,.hc-flow-ring').forEach(n=>n.remove());icon.src=HC_ASSETS.icons['灰色的故障'];
-   const follow=U.button('','story-marker '+state,()=>key==='optical'?window.openOpticalEvent({mode:'full'}):window.openNicEvent({mode:'driver'}));follow.dataset.part=key==='optical'?'cleanup':'driver';follow.setAttribute('aria-label',(key==='optical'?'光链路清污':'网卡驱动升级')+'：'+(state==='closed'?'已闭环':state==='manual'?'待人工处理':'自动处理中'));
-   const symbol=U.el('img');symbol.alt='';symbol.src=HC_ASSETS.icons[key==='qwen'&&state==='auto'?'红色的故障':'红色小手'];symbol.className='story-cleanup-hand';follow.append(symbol);
-   if(state==='auto')C.FlowBorder(follow);
-   follow.setAttribute('aria-describedby','story-popover-'+key);anchor.append(follow);
- }
- marker.firstElementChild?.matches('img')&&marker.firstElementChild.replaceWith(C.EventTypeIcon({business:key==='qwen',closed:split||state==='closed',size:20}));
- const followMarker=anchor.querySelector('[data-part=driver],[data-part=cleanup]');if(followMarker){const symbol=followMarker.querySelector('.story-cleanup-hand');symbol?.replaceWith(C.EventTypeIcon({closed:state==='closed',size:20}));if(state==='manual'){const hand=U.el('img','hc-event-manual-hand');hand.src=HC_ASSETS.icons['红色小手'];hand.alt='待人工处理';followMarker.append(hand);}}
- const pop=U.el('div','story-popover');pop.id='story-popover-'+key;pop.setAttribute('role','tooltip');marker.setAttribute('aria-describedby',pop.id);
- let rows=copy[key].slice(1,Math.min(p,5)+1);if(p===6)rows=[...copy[key].slice(1,5),copy[key][6]];if(p>=7)rows=[...copy[key].slice(1,5),copy[key][p]];
- if(key==='qwen')rows=copy.qwen.slice(1,Math.min(p,9)+1);
- if(key==='optical'){rows=rows.map(t=>t==='30条告警聚合，生成链路闪断 issue'?'30条告警聚合，生成链路闪断issue':t==='正在分析链路指标与设备日志'?'分析链路指标与设备日志':t)}
- rows.forEach((text,i)=>{const last=i===rows.length-1,kind=last&&state!=='closed'?(state==='manual'?'manual':'working'):'done';const row=U.el('p','story-popover-row '+kind),status=U.el('i','story-step-icon '+kind);status.setAttribute('aria-label',kind==='done'?'已完成':kind==='manual'?'待人工处理':'处理中');if(kind==='manual'){const img=U.el('img');img.src=HC_ASSETS.icons['红色小手'];img.alt='';status.append(img)}row.append(status,U.el('span','',text));pop.append(row)});
- if(split){
-   pop.classList.add('story-popover-grouped');
-   const completed=U.el('section','story-popover-section'),followup=U.el('section','story-popover-section');
-   completed.dataset.part='completed';followup.dataset.part='followup';completed.dataset.state='closed';followup.dataset.state=state;
-   const addHeading=(section,title,status)=>{const head=U.el('div','story-popover-heading');head.append(U.el('strong','',title),U.el('small','',status));section.append(head);};
-   addHeading(completed,key==='qwen'?'Qwen-1.5B服务劣化，已恢复':'光链路闪断，已完成优雅隔离','已闭环');
-   addHeading(followup,key==='qwen'?(state==='closed'?'网卡驱动版本低，已升级':'网卡驱动版本待升级'):'光链路脏污，待清污',{manual:'待人工处理',auto:'自动处理中',closed:'已闭环'}[state]);
-   const progress=[...pop.querySelectorAll('.story-popover-row')];
-   progress.forEach((row,index)=>(index<4?completed:followup).append(row));
-   if(key==='optical'){
-     const row=U.el('p','story-popover-row done');const icon=U.el('i','story-step-icon done');icon.setAttribute('aria-label','已完成');row.append(icon,U.el('span','','异常链路已优雅隔离'));completed.append(row);
-   }
-   pop.append(completed,followup);
-   const emphasize=part=>{pop.dataset.activePart=part;completed.classList.toggle('is-active',part==='completed');followup.classList.toggle('is-active',part==='followup');};
-   for(const [button,part] of [[marker,'completed'],[followMarker,'followup']])if(button){button.addEventListener('pointerenter',()=>emphasize(part));button.addEventListener('focus',()=>emphasize(part));}
-   emphasize('followup');
- }
- if(key==='qwen'&&!split){
-   pop.classList.add('story-popover-grouped');
-   const section=U.el('section','story-popover-section is-active');section.dataset.state=state;
-   const heading=U.el('div','story-popover-heading');heading.append(U.el('strong','',state==='closed'?'Qwen-1.5B服务已恢复，网卡驱动已升级':'Qwen-1.5B服务劣化：网卡驱动版本低'),U.el('small','',{manual:'待人工处理',auto:'自动处理中',closed:'已闭环'}[state]));
-   section.append(heading,...pop.querySelectorAll('.story-popover-row'));pop.append(section);
- }
- if(state==='auto'){
-   if(!pop.querySelector('.story-popover-heading')){const head=U.el('div','story-popover-heading');head.append(U.el('strong','',key==='optical'?'光链路闪断':'Qwen-1.5B服务劣化'),U.el('small','','自动处理中'));pop.prepend(head);}
-   const records=[...pop.querySelectorAll('.story-popover-row')];
-   if(records.length>3){const older=records.slice(0,-3);older.forEach(row=>row.hidden=!expandedRecords.get(key));const toggle=U.button('展开全部（'+records.length+'条）','story-record-toggle',e=>{e.stopPropagation();const expanded=toggle.getAttribute('aria-expanded')!=='true';expandedRecords.set(key,expanded);toggle.setAttribute('aria-expanded',String(expanded));older.forEach(row=>row.hidden=!expanded);toggle.textContent=expanded?'收起':'展开全部（'+records.length+'条）';});toggle.setAttribute('aria-expanded',String(!!expandedRecords.get(key)));if(expandedRecords.get(key))toggle.textContent='收起';pop.append(toggle);}
- }
- anchor.append(pop);marks.append(anchor);bindPopover(anchor,key,p,s.startedAt);
- });
- // Two independent pending faults on SuperpodD / compute cabinet 08.
- [-300,-180].forEach((second,i)=>{
-   if(marks.querySelector('[data-event-key="cabinetD08-'+i+'"]'))return;
-   const anchor=U.el('div','marker-anchor');anchor.dataset.eventKey='cabinetD08-'+i;anchor.dataset.startedAt=String(s.startedAt);
-   anchor.style.left=((second+360)/1140*100)+'%';
-   const marker=U.button('','story-marker manual',()=>anchor.classList.toggle('story-visible'));
-   marker.setAttribute('aria-label',HCClock.format(second)+' SuperpodD 计算柜08 '+['NPU驱动固件版本不一致','NPU网口linkdown'][i]);
-   const icon=U.el('img');icon.src=HC_ASSETS.icons['红色的故障'];icon.alt='故障';marker.append(icon);
-   const pop=U.el('div','story-popover story-popover-grouped');pop.setAttribute('role','tooltip');
-   const section=U.el('section','story-popover-section is-active');section.dataset.state='manual';
-   const heading=U.el('div','story-popover-heading');heading.append(U.el('strong','',['NPU驱动固件版本不一致','NPU网口linkdown'][i]),U.el('small','','待人工处理'));
-   const steps=[
-     ['检测到NPU驱动与固件版本不一致','核对版本兼容关系，确认升级要求','已生成驱动与固件配套升级方案','待人工确认升级，完成后核查版本与设备健康'],
-     ['检测到NPU网口linkdown告警','分析端口状态与链路日志，确认链路中断','已生成网口与线缆检查方案','待人工排查连接，完成后验证链路连通性']
-   ][i];
-   section.append(heading);
-   steps.forEach((text,index)=>{
-     const kind=index===steps.length-1?'manual':'done';
-     const row=U.el('p','story-popover-row '+kind),status=U.el('i','story-step-icon '+kind);
-     status.setAttribute('aria-label',kind==='manual'?'待人工处理':'已完成');
-     if(kind==='manual'){const hand=U.el('img');hand.src=HC_ASSETS.icons['红色小手'];hand.alt='';status.append(hand);}
-     row.append(status,U.el('span','',text));section.append(row);
-   });
-   pop.append(section);
-   anchor.append(marker,pop);marks.append(anchor);
-   anchor.onpointerenter=()=>anchor.classList.add('story-visible');anchor.onpointerleave=()=>anchor.classList.remove('story-visible');
-   marker.onfocus=()=>anchor.classList.add('story-visible');marker.onblur=()=>anchor.classList.remove('story-visible');
- });
- window.updateStoryRecords?.(rows=>{
-   const records=rows.filter(r=>r.action!=='qwen'&&(r.action!=='link'||s.optical>0)).map(r=>{
-     if(r.action==='link'){
-       const status=stateOf('optical',s.optical);r.stateClass=status==='closed'?'human-closed':status==='manual'?'manual':'processing';
-       r.state={processing:'自动处理中',manual:'待人工处理','human-closed':'已闭环'}[r.stateClass];
-       r.clear=status==='closed'?'今天 19:19:30':'—';r.start='今天 12:00:40';if(status!=='manual')r.name='光链路脏污';
-     }return r;
-   });
-   if(s.optical>0)records.push({name:'光链路脏污，已自动优雅隔离',state:s.optical>=6?'已闭环':'自动处理中',stateClass:s.optical>=6?'auto-closed':'processing',type:'故障',object:'计算柜11-L1交换板02',root:'优雅隔离异常链路；清污待办转交人工处理',start:'今天 12:00:00',clear:s.optical>=6?'今天 12:00:48':'—',action:'link-auto'});
-   if(s.qwen>0){const status=stateOf('qwen',s.qwen),stateClass=status==='closed'?'human-closed':status==='manual'?'manual':'processing';records.unshift({name:status==='closed'?'网卡驱动升级完成，Qwen-1.5B服务已恢复':'网卡驱动版本低导致Qwen-1.5B服务劣化',state:{processing:'自动处理中',manual:'待人工处理','human-closed':'已闭环'}[stateClass],stateClass,type:'故障',object:'112.34.23.1 · CPU02 / Qwen-1.5B',root:s.qwen>=5?'hinic3 驱动版本低；无可替换节点，需人工升级至V13.1':'正在诊断业务故障',start:'今天 12:05:12',clear:status==='closed'?'今天 12:06:35':'—',action:'qwen'});}
-   return records;
- });
- if(!document.getElementById('home-workloads').hidden)window.refreshWorkloadCards?.();
- renderImpactFlags();
- window.dispatchEvent(new CustomEvent('hc-story-change',{detail:s}));
-}
-document.querySelector('#home-header select').addEventListener('change',e=>document.documentElement.dataset.runMode=e.target.value);
-story.subscribe(render);window.addEventListener('hc-optical-complete',()=>story.complete('optical'));
-const brand=document.querySelector('#home-header button');brand.onclick=()=>{HCClock.reset();window.resetOpticalEvent?.();window.resetNicEvent?.();document.getElementById('guard-all').hidden=true;guardView='manual';document.querySelector('#home-metrics .hc-ribbon').activate('resource',0,true);story.start();window.restartMascotEntrance?.();};brand.title='重新演示';
-
-window.addEventListener('load',()=>story.start(),{once:true});
-
-}
-function unmountStoryRender() {
-}
+// story render —— 已完全 React 化（story-renderer.jsx 接管全部渲染逻辑）
+// 此文件保留为 boot.js 的导入入口
+function mountStoryRender() {}
+function unmountStoryRender() {}
   Object.assign(__export, { mountStoryRender, unmountStoryRender });
 })();
 
@@ -13070,6 +12783,707 @@ function StoryGuardPanelContainer() {
   Object.assign(__export, { StoryGuardPanelContainer });
 })();
 
+/* ===== src/views/story/story-popover.jsx ===== */
+(function () {
+  const { useState } = React;
+  const { HC_ASSETS } = __export;
+const createPortal = (node, host) => ReactDOM.createPortal(node, host);
+
+// StoryPopoverRow —— 单条步骤（已完成/处理中/待人工处理）
+function PopoverRow({ text, kind, isLast = false }) {
+  const showHand = kind === "manual";
+  return (
+    <p className={"story-popover-row " + kind}>
+      <i className={"story-step-icon " + kind} aria-label={kind === "done" ? "已完成" : kind === "manual" ? "待人工处理" : "处理中"}>
+        {showHand && <img src={HC_ASSETS.icons["红色小手"]} alt="" />}
+      </i>
+      <span>{text}</span>
+    </p>
+  );
+}
+
+// StoryPopoverHeading —— popover 分组标题
+function PopoverHeading({ title, status }) {
+  return (
+    <div className="story-popover-heading">
+      <strong>{title}</strong>
+      <small>{status}</small>
+    </div>
+  );
+}
+
+// StoryPopoverSection —— popover 中的分组（已完成/后续）
+function PopoverSection({ part, state, title, status, isActive = false, children }) {
+  return (
+    <section className={"story-popover-section" + (isActive ? " is-active" : "")} data-part={part} data-state={state}>
+      <PopoverHeading title={title} status={status} />
+      {children}
+    </section>
+  );
+}
+
+// StoryRecordToggle —— 展开全部/收起 按钮
+function RecordToggle({ count, expanded, onToggle }) {
+  return (
+    <button
+      type="button"
+      className="story-record-toggle"
+      aria-expanded={String(expanded)}
+      onClick={(e) => { e.stopPropagation(); onToggle(!expanded); }}
+    >
+      {expanded ? "收起" : `展开全部（${count}条）`}
+    </button>
+  );
+}
+
+// StoryPopover —— 完整的事件步骤 popover
+// 根据 key + phase + state 生成步骤列表 + 分组 + 展开收起
+function StoryPopover({ eventKey, phase, state, expandedRecords, onToggleExpand }) {
+  const copy = window.HCStoryCopy;
+  if (!copy) return null;
+
+  const split = eventKey === "optical" && phase >= 6;
+  const isQwen = eventKey === "qwen";
+
+  // 计算步骤列表
+  let rows;
+  if (isQwen) {
+    rows = copy.qwen.slice(1, Math.min(phase, 9) + 1);
+  } else {
+    rows = copy.optical.slice(1, Math.min(phase, 5) + 1);
+    if (phase === 6) rows = [...copy.optical.slice(1, 5), copy.optical[6]];
+    if (phase >= 7) rows = [...copy.optical.slice(1, 5), copy.optical[phase]];
+  }
+  if (eventKey === "optical") {
+    rows = rows.map((t) =>
+      t === "30条告警聚合，生成链路闪断 issue" ? "30条告警聚合，生成链路闪断issue"
+      : t === "正在分析链路指标与设备日志" ? "分析链路指标与设备日志"
+      : t
+    );
+  }
+
+  const stateLabel = { manual: "待人工处理", auto: "自动处理中", closed: "已闭环" }[state];
+
+  // 计算每行的 kind
+  const rowKinds = rows.map((_, i) => {
+    const last = i === rows.length - 1;
+    return last && state !== "closed" ? (state === "manual" ? "manual" : "working") : "done";
+  });
+
+  const expanded = expandedRecords?.get(eventKey) || false;
+
+  return (
+    <div
+      className={"story-popover" + (split || isQwen ? " story-popover-grouped" : "")}
+      id={"story-popover-" + eventKey}
+      role="tooltip"
+    >
+      {split ? (
+        <>
+          <PopoverSection part="completed" state="closed" title={isQwen ? "Qwen-1.5B服务劣化，已恢复" : "光链路闪断，已完成优雅隔离"} status="已闭环">
+            {rows.slice(0, 4).map((text, i) => (
+              <PopoverRow key={i} text={text} kind={i < 3 ? "done" : "done"} />
+            ))}
+            {!isQwen && <PopoverRow text="异常链路已优雅隔离" kind="done" />}
+          </PopoverSection>
+          <PopoverSection
+            part="followup"
+            state={state}
+            title={isQwen ? (state === "closed" ? "网卡驱动版本低，已升级" : "网卡驱动版本待升级") : "光链路脏污，待清污"}
+            status={stateLabel}
+            isActive
+          >
+            {rows.slice(4).map((text, i) => (
+              <PopoverRow key={i + 4} text={text} kind={rowKinds[i + 4]} />
+            ))}
+          </PopoverSection>
+        </>
+      ) : isQwen ? (
+        <PopoverSection
+          part="current"
+          state={state}
+          title={state === "closed" ? "Qwen-1.5B服务已恢复，网卡驱动已升级" : "Qwen-1.5B服务劣化：网卡驱动版本低"}
+          status={stateLabel}
+          isActive
+        >
+          {rows.map((text, i) => (
+            <PopoverRow key={i} text={text} kind={rowKinds[i]} />
+          ))}
+        </PopoverSection>
+      ) : (
+        <>
+          {state === "auto" && (
+            <PopoverHeading title="光链路闪断" status="自动处理中" />
+          )}
+          {rows.map((text, i) => (
+            <PopoverRow key={i} text={text} kind={rowKinds[i]} />
+          ))}
+          {state === "auto" && rows.length > 3 && (
+            <RecordToggle
+              count={rows.length}
+              expanded={expanded}
+              onToggle={(v) => onToggleExpand?.(eventKey, v)}
+            />
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+  Object.assign(__export, { StoryPopover, PopoverRow, PopoverHeading, PopoverSection, RecordToggle });
+})();
+
+/* ===== src/views/story/timeline-markers.jsx ===== */
+(function () {
+  const { useState, useEffect, useRef } = React;
+  const { HC_ASSETS } = __export;
+  const EventTypeIcon = __export.EventTypeIcon;
+  const FlowBorder = __export.FlowBorder;
+  const StoryPopover = __export.StoryPopover;
+const createPortal = (node, host) => ReactDOM.createPortal(node, host);
+
+const stateOf = (p) => (p === 9 ? "closed" : p === 6 ? "manual" : "auto");
+
+// TimelineMarkerButton —— 时间轴上的标记按钮（自动/待人工/已闭环）
+function TimelineMarkerButton({ eventKey, phase, state, split, onOpen }) {
+  const closed = state === "closed";
+  const isManual = state === "manual";
+  const isAuto = state === "auto";
+
+  const handleClick = () => {
+    if (eventKey === "optical" && phase >= 6) {
+      window.openOpticalEvent({ mode: "isolation" });
+    } else if (eventKey === "qwen") {
+      window.openNicEvent({ mode: "recovery" });
+    } else {
+      onOpen?.(eventKey);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      className={split ? "story-marker closed" : "story-marker " + state}
+      data-count="1"
+      data-part={split ? (eventKey === "optical" ? "isolation" : "recovery") : undefined}
+      aria-label={eventKey + "：" + (window.HCStoryCopy?.[eventKey]?.[phase] || "")}
+      onClick={handleClick}
+    >
+      <img src={HC_ASSETS.icons[closed || split ? "灰色的故障" : "红色的故障"]} alt="" />
+      {isManual && !split && (
+        <img className="story-marker-hand" src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+      )}
+      {isAuto && !split && (
+        <>
+          <i className="hc-flow-halo"><i /></i>
+          <i className="hc-flow-base" />
+          <i className="hc-flow-ring" />
+        </>
+      )}
+    </button>
+  );
+}
+
+// FollowUpMarker —— split 后的后续标记（清污/驱动升级）
+function FollowUpMarker({ eventKey, state, onOpen }) {
+  const handleClick = () => {
+    if (eventKey === "optical") window.openOpticalEvent({ mode: "full" });
+    else window.openNicEvent({ mode: "driver" });
+  };
+
+  return (
+    <button
+      type="button"
+      className={"story-marker " + state}
+      data-part={eventKey === "optical" ? "cleanup" : "driver"}
+      aria-label={
+        (eventKey === "optical" ? "光链路清污" : "网卡驱动升级") +
+        "：" +
+        (state === "closed" ? "已闭环" : state === "manual" ? "待人工处理" : "自动处理中")
+      }
+      onClick={handleClick}
+    >
+      <img
+        className="story-cleanup-hand"
+        src={HC_ASSETS.icons[eventKey === "qwen" && state === "auto" ? "红色的故障" : "红色小手"]}
+        alt=""
+      />
+      <EventTypeIcon closed={state === "closed"} size={20} />
+    </button>
+  );
+}
+
+// SplitShape —— split 后的分隔形状 SVG
+function SplitShape({ eventKey, state }) {
+  const borderId = "split-border-" + eventKey;
+  const fillId = "split-fill-" + eventKey;
+  const closed = state === "closed";
+  return (
+    <svg className="story-split-shape" viewBox="0 0 94 24" aria-hidden="true">
+      <defs>
+        <linearGradient id={borderId}>
+          <stop offset="48%" stopColor="#777" />
+          <stop offset="76%" stopColor={closed ? "#777" : "#ed4a55"} />
+        </linearGradient>
+        <linearGradient id={fillId}>
+          <stop offset="50%" stopColor="#393939" />
+          <stop offset="100%" stopColor={closed ? "#393939" : "#613037"} />
+        </linearGradient>
+      </defs>
+      <path
+        d="M12 1H49C53 1 54 4 59 4S65 1 69 1H82A11 11 0 0 1 82 23H69C65 23 64 20 59 20S53 23 49 23H12A11 11 0 0 1 12 1Z"
+        fill={`url(#${fillId})`}
+        stroke={`url(#${borderId})`}
+        strokeWidth="1.5"
+      />
+    </svg>
+  );
+}
+
+// TimelineAnchor —— 时间轴上的标记锚点（标记 + popover + split 分组）
+function TimelineAnchor({ eventKey, phase, startedAt, onOpen, expandedRecords, onToggleExpand }) {
+  const [visible, setVisible] = useState(false);
+  const autoShowRef = useRef(null);
+  const state = stateOf(phase);
+  const split = eventKey === "optical" && phase >= 6;
+  const eventSecond = eventKey === "optical" ? 20 : 312;
+  const timelineStart = -360;
+  const left = ((eventSecond - timelineStart) / 1140) * 100;
+
+  const copy = window.HCStoryCopy;
+  if (!copy) return null;
+
+  // 新标记首次出现时自动显示 popover（原版 bindPopover 的 announce 行为）
+  // 只在首次挂载时执行，phase 变化不重新触发
+  useEffect(() => {
+    setVisible(true);
+    const timer = setTimeout(() => setVisible(false), 2200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleOpen = (key) => {
+    if (key === "optical") window.openOpticalEvent();
+    else window.openNicEvent();
+  };
+
+  return (
+    <div
+      className={"marker-anchor" + (split ? " story-split" : "") + (visible ? " story-visible" : "")}
+      data-event-key={eventKey}
+      data-stage={phase}
+      data-started-at={startedAt}
+      data-event-time={window.HCClock?.format(eventSecond) || ""}
+      data-follow-state={split ? state : undefined}
+      style={{ left: left + "%" }}
+      onPointerEnter={() => setVisible(true)}
+      onPointerLeave={() => setVisible(false)}
+    >
+      {split && <SplitShape eventKey={eventKey} state={state} />}
+      <TimelineMarkerButton eventKey={eventKey} phase={phase} state={state} split={split} onOpen={handleOpen} />
+      {split && <FollowUpMarker eventKey={eventKey} state={state} onOpen={handleOpen} />}
+      <StoryPopover
+        eventKey={eventKey}
+        phase={phase}
+        state={state}
+        expandedRecords={expandedRecords}
+        onToggleExpand={onToggleExpand}
+      />
+    </div>
+  );
+}
+
+// CabinetD08Anchor —— SuperpodD 计算柜08 的固定待人工处理标记
+function CabinetD08Anchor({ index }) {
+  const [visible, setVisible] = useState(false);
+  const second = index === 0 ? -300 : -180;
+  const left = ((second + 360) / 1140) * 100;
+  const titles = ["NPU驱动固件版本不一致", "NPU网口linkdown"];
+  const steps = [
+    ["检测到NPU驱动与固件版本不一致", "核对版本兼容关系，确认升级要求", "已生成驱动与固件配套升级方案", "待人工确认升级，完成后核查版本与设备健康"],
+    ["检测到NPU网口linkdown告警", "分析端口状态与链路日志，确认链路中断", "已生成网口与线缆检查方案", "待人工排查连接，完成后验证链路连通性"],
+  ][index];
+
+  return (
+    <div
+      className={"marker-anchor" + (visible ? " story-visible" : "")}
+      data-event-key={"cabinetD08-" + index}
+      style={{ left: left + "%" }}
+      onPointerEnter={() => setVisible(true)}
+      onPointerLeave={() => setVisible(false)}
+    >
+      <button
+        type="button"
+        className="story-marker manual"
+        aria-label={(window.HCClock?.format(second) || "") + " SuperpodD 计算柜08 " + titles[index]}
+        onClick={() => setVisible(!visible)}
+      >
+        <img src={HC_ASSETS.icons["红色的故障"]} alt="故障" />
+      </button>
+      <div className="story-popover story-popover-grouped" role="tooltip">
+        <section className="story-popover-section is-active" data-state="manual">
+          <div className="story-popover-heading">
+            <strong>{titles[index]}</strong>
+            <small>待人工处理</small>
+          </div>
+          {steps.map((text, i) => {
+            const kind = i === steps.length - 1 ? "manual" : "done";
+            return (
+              <p key={i} className={"story-popover-row " + kind}>
+                <i className={"story-step-icon " + kind} aria-label={kind === "manual" ? "待人工处理" : "已完成"}>
+                  {kind === "manual" && <img src={HC_ASSETS.icons["红色小手"]} alt="" />}
+                </i>
+                <span>{text}</span>
+              </p>
+            );
+          })}
+        </section>
+      </div>
+    </div>
+  );
+}
+
+// TimelineMarkers —— 时间轴标记容器（React 声明式渲染）
+// 订阅 HCStory，根据 story 状态渲染光链路/Qwen/计算柜08 标记
+function TimelineMarkers() {
+  const [storyState, setStoryState] = useState(() => window.HCStory?.get() || { optical: 0, qwen: 0, startedAt: 0 });
+  const [host, setHost] = useState(null);
+  const [expandedRecords, setExpandedRecords] = useState(new Map());
+
+  useEffect(() => {
+    setHost(document.getElementById("home-timeline-markers"));
+    const unsubscribe = window.HCStory?.subscribe((s) => setStoryState(s));
+    return () => { unsubscribe?.(); };
+  }, []);
+
+  const handleToggleExpand = (key, expanded) => {
+    setExpandedRecords((prev) => { const next = new Map(prev); next.set(key, expanded); return next; });
+  };
+
+  const handleOpen = (key) => {
+    if (key === "optical") window.openOpticalEvent();
+    else window.openNicEvent();
+  };
+
+  if (!host) return null;
+
+  const s = storyState;
+  const eventKeys = ["optical", "qwen"].filter((key) => s[key] > 0);
+
+  return createPortal(
+    <>
+      {eventKeys.map((key) => (
+        <TimelineAnchor
+          key={key}
+          eventKey={key}
+          phase={s[key]}
+          startedAt={s.startedAt}
+          onOpen={handleOpen}
+          expandedRecords={expandedRecords}
+          onToggleExpand={handleToggleExpand}
+        />
+      ))}
+      {[0, 1].map((i) => (
+        <CabinetD08Anchor key={"d08-" + i} index={i} />
+      ))}
+    </>,
+    host
+  );
+}
+  Object.assign(__export, { TimelineMarkers });
+})();
+
+/* ===== src/views/story/story-renderer.jsx ===== */
+(function () {
+  const { useEffect, useState } = React;
+  const { HC_ASSETS, HOME_WORKLOADS } = __export;
+  const StoryGuardPanelContainer = __export.StoryGuardPanelContainer;
+  const TimelineMarkers = __export.TimelineMarkers;
+const createPortal2 = (node, host) => ReactDOM.createPortal(node, host);
+
+const STORY_COPY = {
+  optical: ["", "发现链路闪断告警", "30条告警聚合，生成链路闪断 issue", "正在分析链路指标与设备日志", "定位根因：光链路脏污", "优雅隔离异常链路", "光链路待清污", "链路复核完成，已清污", "关闭光链路清污待办", "光链路隔离已取消"],
+  qwen: ["", "发现 Qwen-1.5B 服务劣化告警", "定位 D实例01 异常退出", "无可替换节点，自动恢复受阻", "分析 BMC、OS 与 vmcore 日志", "定位根因：hinic3 网卡驱动版本过低", "服务劣化，待人工升级网卡驱动", "人工已确认，正在升级网卡驱动", "驱动已升级，正在核查节点与服务健康", "网卡升级与健康核查通过，服务恢复并闭环"],
+};
+const NAMES = { optical: "光链路脏污，待清污", qwen: "Qwen-1.5B服务劣化：网卡驱动版本低，待升级" };
+
+const HCEventTitle = (key, p) =>
+  p === 6 ? NAMES[key]
+  : key === "qwen" && p >= 7 ? "网卡升级与服务恢复"
+  : key === "qwen" && p >= 4 ? "网卡驱动故障诊断"
+  : STORY_COPY[key]?.[1] || NAMES[key];
+
+const stateOf = (p) => (p === 9 ? "closed" : p === 6 ? "manual" : "auto");
+
+// 设置全局变量（HCStoryCopy / HCEventTitle）
+window.HCStoryCopy = STORY_COPY;
+window.HCEventTitle = HCEventTitle;
+
+// TimeNowSlot —— 时间轴当前时间标记（直接更新已有 <b> 的文本，不 portal）
+function TimeNowSlot({ storyState }) {
+  useEffect(() => {
+    const b = document.querySelector(".time-now b");
+    if (b) b.textContent = window.HCClock?.format(600) || "12:00:00";
+  }, [storyState]);
+  return null;
+}
+
+// HealthMetricsSlot —— 健康指标数字
+function HealthMetricsSlot({ storyState }) {
+  const s = storyState || { optical: 0, qwen: 0 };
+  const deviceLocated = s.qwen >= 5 && s.qwen < 9;
+  const pendingCount = ["optical", "qwen"].filter((k) => s[k] >= 6 && s[k] < 9).length;
+  const totalItems = 12 + Number(s.optical > 0) + Number(s.optical >= 6) + Number(s.qwen > 0);
+  return (
+    <>
+      <CabinetVisible className="cabinet-fault-link" visible={s.optical > 0 && s.optical < 9} />
+      <CabinetVisible className="cabinet-red" visible={deviceLocated} />
+    </>
+  );
+}
+
+// CabinetVisible —— 控制机柜图上的故障连线/红色标记的显隐
+function CabinetVisible({ className, visible }) {
+  useEffect(() => {
+    const el = document.querySelector("." + className);
+    if (el) el.hidden = !visible;
+  }, [className, visible]);
+  return null;
+}
+
+// FaultTips —— 故障提示气泡（从 render.js 提取，改为 React 管理）
+function FaultTip({ eventKey, phase, state, deviceLocated }) {
+  const deviceLocatedOk = eventKey !== "qwen" || deviceLocated;
+  if (state === "closed" || phase >= 9 || !deviceLocatedOk) return null;
+  const title = HCEventTitle(eventKey, phase);
+  const isOptical = eventKey === "optical";
+  return (
+    <div className={"hc-fault-tip " + (state === "auto" ? "auto" : "manual") + " " + eventKey}>
+      {state !== "auto" && <img className="hc-icon" src={HC_ASSETS.icons["红色的故障"]} alt="" width={14} />}
+      <span>{title}</span>
+      {state === "auto" ? (
+        <>
+          <i className="hc-flow-halo"><i /></i>
+          <i className="hc-flow-base" />
+          <i className="hc-flow-ring" />
+        </>
+      ) : (
+        <i className="hc-tip-arrow" />
+      )}
+      <small className="hc-tip-device">
+        {isOptical ? "计算柜11 · L1交换板02" : "计算柜13 · 112.34.23.1 · CPU02"}
+      </small>
+      <div className="hc-tip-detail">
+        <strong>{title}</strong>
+        <p>故障对象：{isOptical ? "计算柜11 · L1交换板02" : "计算柜13 · 112.34.23.1 · CPU02"}</p>
+        <p>
+          {isOptical
+            ? phase >= 5 ? "光模块端面脏污，异常链路已优雅隔离，健康通道承载业务" : "检测到光链路闪断，正在分析链路指标与设备日志"
+            : "hinic3 驱动版本 V11.8，需升级至 V13.1；无可替换节点，Qwen-1.5B 服务劣化"}
+        </p>
+        <p>当前状态：{state === "manual" ? "待人工处理" : "自动处理中"}</p>
+        <p>点击查看处理详情</p>
+      </div>
+    </div>
+  );
+}
+
+function FaultTipsContainer({ storyState }) {
+  const [host, setHost] = useState(null);
+  useEffect(() => setHost(document.getElementById("home-tips")), []);
+  if (!host) return null;
+  const s = storyState || { optical: 0, qwen: 0, startedAt: 0 };
+  const deviceLocated = s.qwen >= 5 && s.qwen < 9;
+  const eventKeys = ["optical", "qwen"].filter((k) => s[k] > 0 && s[k] < 9);
+  return createPortal2(
+    <>
+      {eventKeys.map((key) => {
+        const p = s[key];
+        const state = stateOf(p);
+        if (key === "qwen" && !deviceLocated) return null;
+        return <FaultTip key={key + "-" + s.startedAt} eventKey={key} phase={p} state={state} deviceLocated={deviceLocated} />;
+      })}
+    </>,
+    host
+  );
+}
+
+// MetricSync —— 把 story 状态同步到指标条数字（通过 DOM 更新 MetricRibbon）
+function MetricSync({ storyState }) {
+  useEffect(() => {
+    const s = storyState || { optical: 0, qwen: 0 };
+    const deviceLocated = s.qwen >= 5 && s.qwen < 9;
+    const active = 2 + Number(s.optical > 0 && s.optical < 9) + Number(deviceLocated);
+    updateMetricText("resource", 0, String(active));
+    for (const category of ["training", "inference"]) {
+      const data = window.storyWorkloads ? window.storyWorkloads(category) : HOME_WORKLOADS[category];
+      const statuses = ["interrupted", "stuck", "degraded", "normal"];
+      statuses.forEach((status, i) => updateMetricText(category, i + 1, String(data.filter((x) => x.status === status).length)));
+      updateMetricText(category, 0, String(data.length));
+    }
+    // 健康指标
+    const health = document.querySelector(".health-metrics .row-value p");
+    if (health) {
+      const pending = ["optical", "qwen"].filter((k) => s[k] >= 6 && s[k] < 9).length;
+      health.firstChild.textContent = (2 + pending) + " ";
+      const small = health.querySelector("small");
+      if (small) small.textContent = "/ " + (12 + Number(s.optical > 0) + Number(s.optical >= 6) + Number(s.qwen > 0)) + "项";
+    }
+    const healthRow2 = document.querySelector(".health-row:nth-child(2) .row-value p");
+    if (healthRow2) healthRow2.firstChild.textContent = "0 ";
+    // screen dataset
+    const screen = document.getElementById("screen");
+    if (screen) {
+      screen.dataset.storyOptical = s.optical;
+      screen.dataset.storyQwen = s.qwen;
+    }
+  }, [storyState]);
+  return null;
+}
+
+function updateMetricText(category, index, value) {
+  const g = document.querySelector('.hc-metric-group[data-category="' + category + '"]');
+  if (!g) return;
+  const b = g.querySelectorAll(".hc-metric-content>b")[index];
+  if (b && b.firstChild) b.firstChild.textContent = value;
+  if (category === "resource" && index === 0) {
+    const compact = g.querySelector(".hc-metric-compact b");
+    if (compact) compact.textContent = value;
+  }
+}
+
+// StoryEventDispatcher —— 派发 story 事件给非 React 模块
+function StoryEventDispatcher({ storyState }) {
+  useEffect(() => {
+    window.updateCompactStatusIcons?.();
+    window.updateStoryRecords?.((rows) => {
+      const s = storyState || { optical: 0, qwen: 0 };
+      const records = rows.filter((r) => r.action !== "qwen" && (r.action !== "link" || s.optical > 0)).map((r) => {
+        if (r.action === "link") {
+          const status = stateOf(s.optical);
+          r.stateClass = status === "closed" ? "human-closed" : status === "manual" ? "manual" : "processing";
+          r.state = { processing: "自动处理中", manual: "待人工处理", "human-closed": "已闭环" }[r.stateClass];
+          r.clear = status === "closed" ? "今天 19:19:30" : "—";
+          r.start = "今天 12:00:40";
+          if (status !== "manual") r.name = "光链路脏污";
+        }
+        return r;
+      });
+      if (s.optical > 0) {
+        records.push({
+          name: "光链路脏污，已自动优雅隔离",
+          state: s.optical >= 6 ? "已闭环" : "自动处理中",
+          stateClass: s.optical >= 6 ? "auto-closed" : "processing",
+          type: "故障", object: "计算柜11-L1交换板02",
+          root: "优雅隔离异常链路；清污待办转交人工处理",
+          start: "今天 12:00:00", clear: s.optical >= 6 ? "今天 12:00:48" : "—", action: "link-auto",
+        });
+      }
+      if (s.qwen > 0) {
+        const status = stateOf(s.qwen);
+        const stateClass = status === "closed" ? "human-closed" : status === "manual" ? "manual" : "processing";
+        records.unshift({
+          name: status === "closed" ? "网卡驱动升级完成，Qwen-1.5B服务已恢复" : "网卡驱动版本低导致Qwen-1.5B服务劣化",
+          state: { processing: "自动处理中", manual: "待人工处理", "human-closed": "已闭环" }[stateClass],
+          stateClass, type: "故障", object: "112.34.23.1 · CPU02 / Qwen-1.5B",
+          root: s.qwen >= 5 ? "hinic3 驱动版本低；无可替换节点，需人工升级至V13.1" : "正在诊断业务故障",
+          start: "今天 12:05:12", clear: status === "closed" ? "今天 12:06:35" : "—", action: "qwen",
+        });
+      }
+      return records;
+    });
+    if (!document.getElementById("home-workloads")?.hidden) window.refreshWorkloadCards?.();
+    // 派发 hc-story-change 事件
+    window.dispatchEvent(new CustomEvent("hc-story-change", { detail: storyState }));
+  }, [storyState]);
+  return null;
+}
+
+// BrandReset —— 品牌重置按钮
+function BrandReset() {
+  useEffect(() => {
+    const brand = document.querySelector("#home-header button");
+    if (!brand) return;
+    const handleClick = () => {
+      window.HCClock?.reset();
+      window.resetOpticalEvent?.();
+      window.resetNicEvent?.();
+      const guardAll = document.getElementById("guard-all");
+      if (guardAll) guardAll.hidden = true;
+      const ribbon = document.querySelector("#home-metrics .hc-ribbon");
+      ribbon?.activate?.("resource", 0, true);
+      window.HCStory?.start();
+      window.restartMascotEntrance?.();
+    };
+    brand.addEventListener("click", handleClick);
+    brand.title = "重新演示";
+    return () => brand.removeEventListener("click", handleClick);
+  }, []);
+  return null;
+}
+
+// StoryLoadTrigger —— window load 时启动 story
+function StoryLoadTrigger() {
+  useEffect(() => {
+    const start = () => window.HCStory?.start();
+    if (document.readyState === "complete") setTimeout(start, 0);
+    else window.addEventListener("load", start, { once: true });
+    return () => window.removeEventListener("load", start);
+  }, []);
+  return null;
+}
+
+// RunModeSync —— 运行模式切换
+function RunModeSync() {
+  useEffect(() => {
+    const select = document.querySelector("#home-header select");
+    if (!select) return;
+    const handleChange = (e) => {
+      document.documentElement.dataset.runMode = e.target.value;
+    };
+    select.addEventListener("change", handleChange);
+    return () => select.removeEventListener("change", handleChange);
+  }, []);
+  return null;
+}
+
+// OpticalCompleteBridge —— 光链路完成桥接
+function OpticalCompleteBridge() {
+  useEffect(() => {
+    const handler = () => window.HCStory?.complete("optical");
+    window.addEventListener("hc-optical-complete", handler);
+    return () => window.removeEventListener("hc-optical-complete", handler);
+  }, []);
+  return null;
+}
+
+// StoryRenderer —— 顶层组件：订阅 HCStory，派发状态给所有子组件
+// 替代 render.js 中 render(s) 的全部功能
+function StoryRenderer() {
+  const [storyState, setStoryState] = useState(() => window.HCStory?.get() || { optical: 0, qwen: 0, startedAt: 0 });
+
+  useEffect(() => {
+    const unsubscribe = window.HCStory?.subscribe((s) => setStoryState(s));
+    return () => { unsubscribe?.(); };
+  }, []);
+
+  return (
+    <>
+      <StoryGuardPanelContainer />
+      <TimelineMarkers />
+      <TimeNowSlot storyState={storyState} />
+      <FaultTipsContainer storyState={storyState} />
+      <MetricSync storyState={storyState} />
+      <StoryEventDispatcher storyState={storyState} />
+      <BrandReset />
+      <StoryLoadTrigger />
+      <RunModeSync />
+      <OpticalCompleteBridge />
+    </>
+  );
+}
+  Object.assign(__export, { StoryRenderer, HCEventTitle });
+})();
+
 /* ===== src/components/metric-tile/index.jsx ===== */
 (function () {
   const { HC_ASSETS } = __export;
@@ -13610,9 +14024,9 @@ function initCompactStatus() {
 
 /* ===== src/views/home-screen/index.jsx ===== */
 (function () {
-  const { useEffect, useLayoutEffect, useState } = React;
+  const { useEffect, useState } = React;
   const { useFitScale, useHealthMetrics, useLinkedEvent, HC_ASSETS, initWorkloadBrowser, initWorkloadBrowserWindowAPI, initCompactStatus } = __export;
-  const StoryGuardPanelContainer = __export.StoryGuardPanelContainer;
+  const StoryRenderer = __export.StoryRenderer;
   const MetricRibbon = __export.MetricRibbon;
   const GuardEvents = __export.GuardEvents;
   const Composer = __export.Composer;
@@ -13620,9 +14034,8 @@ function initCompactStatus() {
   const Sidebar = __export.Sidebar;
 const createPortal = (node, host) => ReactDOM.createPortal(node, host);
 
-// home-screen 装配层 —— 全部 React 化
-// Header/Sidebar 用 useLayoutEffect 提前挂载（在 boot 的 initEnhancements 之前）
-// MetricRibbon / GuardEvents / Composer 用 useEffect 在 boot 后挂载
+// home-screen 装配层
+// StoryRenderer 统一管理 story 状态驱动的全页联动
 function HomeScreen() {
   useFitScale();
   useHealthMetrics();
@@ -13633,19 +14046,9 @@ function HomeScreen() {
       <SlotPortal slotId="home-metrics">
         <MetricRibbon onChange={(cat, idx) => window.showWorkloads?.(cat, idx)} />
       </SlotPortal>
-      <StoryGuardPanelContainer />
+      <StoryRenderer />
       <TicksSlot />
       <InitEffects />
-    </>
-  );
-}
-
-// Sidebar + 展开图标（原版 legacy-mount.js 中 sidebar.append(expand)）
-function SidebarWithExpand() {
-  return (
-    <>
-      <Sidebar />
-      <img className="sidebar-expand" src={HC_ASSETS.icons["侧边栏展开"]} alt="展开侧栏" />
     </>
   );
 }
@@ -13664,42 +14067,20 @@ function TicksSlot() {
   );
 }
 
-// 延迟初始化（workloadBrowser / compactStatus）
 function InitEffects() {
   useEffect(() => {
     initWorkloadBrowser();
     initWorkloadBrowserWindowAPI();
     initCompactStatus();
-    document.querySelector(".time-now b").textContent = HCClock.format(0);
   }, []);
   return null;
 }
 
-// SlotPortal —— useLayout=true 用 useLayoutEffect（在所有 useEffect 之前执行，确保 boot 时元素已存在）
-function SlotPortal({ slotId, children, useLayout = false }) {
+function SlotPortal({ slotId, children }) {
   const [host, setHost] = useState(null);
-  const setHostEffect = useLayout ? useLayoutEffect : useEffect;
-  setHostEffect(() => setHost(document.getElementById(slotId)), []);
+  useEffect(() => setHost(document.getElementById(slotId)), []);
   if (!host) return null;
   return createPortal(children, host);
-}
-
-function handleGuardViewChange(view) {
-  if (window.renderStoryGuard) {
-    window.renderStoryGuard(view);
-    return;
-  }
-}
-
-function resetDemo() {
-  HCClock.reset();
-  window.resetOpticalEvent?.();
-  window.resetNicEvent?.();
-  const guardAll = document.getElementById("guard-all");
-  if (guardAll) guardAll.hidden = true;
-  document.querySelector("#home-metrics .hc-ribbon")?.activate?.("resource", 0, true);
-  window.HCStory?.start?.();
-  window.restartMascotEntrance?.();
 }
   Object.assign(__export, { HomeScreen });
 })();
