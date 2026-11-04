@@ -11,8 +11,9 @@ let shellApi = null;
 let controller = null;
 
 export function initWorkloadBrowser() {
+  // 脱离文档的 root 宿主 —— 外壳通过 portal 直接渲染为 #screen 的子元素
+  // （#screen>*{position:absolute} 只作用于直接子元素，不能加包装 div）
   const host = document.createElement("div");
-  document.getElementById("screen").append(host);
   ReactDOM.createRoot(host).render(
     React.createElement(WorkloadBrowserShell, {
       onReady(nodes) {
