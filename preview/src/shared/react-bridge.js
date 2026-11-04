@@ -39,6 +39,17 @@ export function bridgeFlowBorderInto(node) {
   return node;
 }
 
+// React 岛 —— 把组件直接挂到既有容器元素上（不加包装层，CSS 直接子选择器安全），
+// 返回 update(props)/unmount()。命令式状态机持有岛屿并按渲染周期推送 props。
+export function mountIsland(host, Component, props) {
+  const root = ReactDOM.createRoot(host);
+  root.render(React.createElement(Component, props));
+  return {
+    update(next) { root.render(React.createElement(Component, next)); },
+    unmount() { root.unmount(); },
+  };
+}
+
 // 交互组件（输入框/发送按钮）：React 合成事件在节点移出容器后失效，
 // 原生复刻工厂版 Composer 的 sync + submit 行为
 export function bridgeComposer({ value = "", onSend } = {}) {
