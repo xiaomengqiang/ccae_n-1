@@ -9442,47 +9442,6 @@ window.HCComponents={EventTypeIcon,Header,Mode,Sidebar,MetricTile,MetricRibbon,G
   Object.assign(__export, { initHCComponents });
 })();
 
-/* ===== src/views/home-screen/legacy.js ===== */
-(function () {
-  const { HC_ASSETS } = __export;
-// home-screen legacy —— 剩余部分（Header/Sidebar/Composer/fit 已迁移到 React HomeScreen）
-// 此文件只保留 energyServiceCard + updateCompactStatusIcons + energyGradeTag（被其他模块调用）
-
-function initHomeScreen() {
-const C=HCComponents;
-
-function energyServiceCard({status,data}){
- const card=document.createElement('article');card.className='hc-workload hc-energy-card';card.setAttribute('aria-label',data.name+' 节能服务卡片');card.setAttribute('role','button');card.tabIndex=0;card.onclick=()=>window.openEnergyService?.(data);card.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();window.openEnergyService?.(data);}};card.style.left='0';card.style.top='20px';
- const header=document.createElement('header');const name=document.createElement('strong');name.textContent=data.name;const normal=C.Status({status});const energy=document.createElement('span');energy.className='hc-status normal';energy.textContent='节能中';const leaf=document.createElement('img');leaf.src=HC_ASSETS.icons['绿色叶子'];leaf.alt='';leaf.className='energy-label-leaf';energy.prepend(leaf);const date=document.createElement('time');date.textContent=data.start;const logo=C.WorkloadIcon(data.name);header.append(logo,name,normal,energy,date);card.append(header);
- const fields=document.createElement('dl');for(const [name,value] of [['百万Token能耗',(Number(data.energyUnit||1.82)/3.6).toFixed(2)+' kWh/Mtoken'],['总能耗',data.energyTotal],['节省能耗',data.energySaved],['节能增益',data.energyGain],['卡数',data.npu+' 卡'],['TTFT',data.ttft],['TPOT',data.tpot]]){const field=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=name;dd.textContent=value;if(name==='百万Token能耗'){field.className='energy-primary';dt.append(energyGradeTag(data));dd.innerHTML=(Number(data.energyUnit||1.82)/3.6).toFixed(2)+' <small>kWh/Mtoken</small>';}field.append(dt,dd);fields.append(field);}card.append(fields);const chart=document.createElementNS('http://www.w3.org/2000/svg','svg');chart.classList.add('energy-spark');chart.setAttribute('viewBox','0 0 70 30');chart.setAttribute('role','img');chart.setAttribute('aria-label','百万Token能耗趋势');chart.innerHTML='<path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20V29H1Z" fill="#3ac58d" opacity=".2"/><path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20" fill="none" stroke="#3ac58d" stroke-width="2"/>';card.append(chart);return card;
-}
-
-window.updateCompactStatusIcons=()=>{
- document.querySelectorAll('.hc-metric-group').forEach(group=>{
-  const compact=group.querySelector('.hc-metric-compact'),key=group.dataset.category;
-  const values=[...group.querySelectorAll('.hc-metric-row .hc-metric-content>b')].map(b=>Number(b.firstChild.textContent));
-  const count=key==='resource'?values[0]+values[1]:values.slice(1,4).reduce((a,b)=>a+b,0);
-  const known=Number.isFinite(count),bad=known&&count>0;
-  group.dataset.health=known?(bad?'abnormal':'normal'):'unknown';
-  group.dataset.severity=!bad?'normal':key==='resource'?(values[0]>0?'interrupted':'stuck'):values[1]>0?'interrupted':values[2]>0?'stuck':'degraded';
-  let orbit=compact.querySelector('.hc-health-orbit');
-  if(!orbit){orbit=document.createElement('span');orbit.className='hc-health-orbit';orbit.innerHTML='<span class="hc-health-ring" aria-hidden="true"></span><span class="hc-health-copy"><span class="hc-health-label"></span><span class="hc-health-total"></span></span>';compact.append(orbit);}
-  let glyphs=orbit.querySelector('.hc-summary-glyphs');if(!glyphs){glyphs=document.createElement('span');glyphs.className='hc-summary-glyphs';glyphs.setAttribute('aria-hidden','true');(key==='resource'?['故障数','隐患数','NPU利用率','更多']:['中断','卡死','劣化','正常运行']).forEach(name=>{if(name==='更多'){const more=document.createElement('span');more.className='hc-summary-more';more.textContent='…';more.title='更多指标';glyphs.append(more);}else{const img=document.createElement('img');img.src=HC_ASSETS.icons[name];img.alt='';glyphs.append(img);}});orbit.prepend(glyphs);}glyphs.querySelectorAll('img').forEach((img,i)=>{const active=key==='resource'?(i<2&&values[i]>0):(values[i+1]>0);img.classList.toggle('is-active',active);});orbit.querySelector('.hc-health-ring').textContent=known?(bad?count:'正常'):'—';
-  orbit.querySelector('.hc-health-label').textContent=known?(bad?'项异常':''):'待检测';
-  orbit.querySelector('.hc-health-total').textContent=key==='resource'?'NPU 1024 卡':'总数 '+(Number.isFinite(values[0])?values[0]:'—')+' 个';
-  const label=group.querySelector('.hc-metric-title').textContent;
-  compact.setAttribute('aria-label',label+'，'+(known?(bad?count+'异常':'正常'):'待检测')+'，展开指标');
-  compact.querySelector('.hc-compact-statuses')?.remove();
- });
-};
-window.updateCompactStatusIcons();
-
-function energyGradeTag(data){const size=Number((data.name||'').match(/-(\d+(?:\.\d+)?)B/i)?.[1]||0),limits=size>=70?[12,30]:size>=14?[3,8]:[1,2.5],value=Number(data.energyUnit??1.82),grade=data.energySaving?1:value<limits[0]?0:value<=limits[1]?1:2,tag=document.createElement('span');tag.className='hc-ept-grade';tag.textContent=['绿算','正常','未达标'][grade];tag.style.setProperty('--ept-grade-color',['#26b9b0','#3ac58d','#ef535b'][grade]);return tag;}
-window.energyGradeTag = energyGradeTag;
-}
-  Object.assign(__export, { initHomeScreen });
-})();
-
 /* ===== src/views/optical-event/event.js ===== */
 (function () {
   const { OPTICAL_ASSETS } = __export;
@@ -11202,10 +11161,9 @@ function initClock() {}
 
 /* ===== src/boot.js ===== */
 (function () {
-  const { initHCComponents, initHomeScreen, mountOpticalEvent, mountStoryRender } = __export;
+  const { initHCComponents, mountOpticalEvent, mountStoryRender } = __export;
 function runBoot() {
   initHCComponents();
-  initHomeScreen();
   mountOpticalEvent();
   mountStoryRender();
 }
@@ -13270,11 +13228,36 @@ function EnergyLeft({ s }) {
   Object.assign(__export, { EnergyLeft });
 })();
 
+/* ===== src/components/energy-grade-tag/index.jsx ===== */
+(function () {
+const GRADE_NAMES = ["绿算", "正常", "未达标"];
+const GRADE_COLORS = ["#26b9b0", "#3ac58d", "#ef535b"];
+
+function gradeOf(data) {
+  const size = Number((data.name || "").match(/-(\d+(?:\.\d+)?)B/i)?.[1] || 0);
+  const limits = size >= 70 ? [12, 30] : size >= 14 ? [3, 8] : [1, 2.5];
+  const value = Number(data.energyUnit ?? 1.82);
+  return data.energySaving ? 1 : value < limits[0] ? 0 : value <= limits[1] ? 1 : 2;
+}
+
+// 绿算等级徽标（原 window.energyGradeTag 的 React 版）
+function EnergyGradeTag({ data }) {
+  const grade = gradeOf(data);
+  return (
+    <span className="hc-ept-grade" style={{ "--ept-grade-color": GRADE_COLORS[grade] }}>
+      {GRADE_NAMES[grade]}
+    </span>
+  );
+}
+  Object.assign(__export, { EnergyGradeTag, gradeOf });
+})();
+
 /* ===== src/views/energy-detail/service-panel.jsx ===== */
 (function () {
   const { useMemo, useState } = React;
   const { HC_ASSETS, REPORT_ICONS, nodeCardModel, runtimeChartOption, setNodeRange } = __export;
   const EChart = __export.EChart;
+  const EnergyGradeTag = __export.EnergyGradeTag;
 // service-panel.jsx —— 右栏服务视图
 // 服务标题/徽章 + 基准指标（负载统计 + 绿算等级）+ 节点运行状态网格 + 节能优化趋势图
 
@@ -13283,18 +13266,6 @@ function EnergyLeft({ s }) {
 
 
 
-// 绿算等级徽标（window.energyGradeTag 的 JSX 版）
-function EnergyGradeTag({ data }) {
-  const size = Number((data.name || "").match(/-(\d+(?:\.\d+)?)B/i)?.[1] || 0);
-  const limits = size >= 70 ? [12, 30] : size >= 14 ? [3, 8] : [1, 2.5];
-  const value = Number(data.energyUnit ?? 1.82);
-  const grade = data.energySaving ? 1 : value < limits[0] ? 0 : value <= limits[1] ? 1 : 2;
-  return (
-    <span className="hc-ept-grade" style={{ "--ept-grade-color": ["#26b9b0", "#3ac58d", "#ef535b"][grade] }}>
-      {["绿算", "正常", "未达标"][grade]}
-    </span>
-  );
-}
 
 // 基准指标面板（内容只依赖服务数据，静态渲染）
 function LoadStats({ s }) {
@@ -15532,15 +15503,83 @@ function MetricTile({ name, value, iconName, unit = "", selected = false, onSele
   Object.assign(__export, { MetricTile });
 })();
 
+/* ===== src/views/home-screen/compact-status.js ===== */
+(function () {
+// 健康态计算 —— 指标带紧凑态健康信息（纯计算，不直接改 DOM）
+// 指标值仍由 useHealthMetrics 命令式更新（<b> 文本），此处从 DOM 读取数值计算健康态；
+// 结果通过 hc-compact-refresh 事件通知 MetricRibbon（React 拥有紧凑态按钮子树，
+// 避免 React re-render 与命令式 appendChild 争夺同一 DOM 节点）。
+//
+// 调用方：story-renderer（阶段变化后刷新）、home-screen InitEffects（挂载时刷新）
+
+function computeGroupHealth(group) {
+  const key = group.dataset.category;
+  const values = [...group.querySelectorAll(".hc-metric-row .hc-metric-content>b")].map((b) => Number(b.firstChild.textContent));
+  const count = key === "resource" ? values[0] + values[1] : values.slice(1, 4).reduce((a, b) => a + b, 0);
+  const known = Number.isFinite(count), bad = known && count > 0;
+  return {
+    category: key,
+    health: known ? (bad ? "abnormal" : "normal") : "unknown",
+    severity: !bad ? "normal" : key === "resource" ? (values[0] > 0 ? "interrupted" : "stuck") : values[1] > 0 ? "interrupted" : values[2] > 0 ? "stuck" : "degraded",
+    known,
+    bad,
+    count,
+    glyphActive: (i) => (key === "resource" ? i < 2 && values[i] > 0 : values[i + 1] > 0),
+    ringText: known ? (bad ? String(count) : "正常") : "—",
+    labelText: known ? (bad ? "项异常" : "") : "待检测",
+    totalText: key === "resource" ? "NPU 1024 卡" : "总数 " + (Number.isFinite(values[0]) ? values[0] : "—") + " 个",
+  };
+}
+
+window.updateCompactStatusIcons = () => {
+  document.dispatchEvent(new CustomEvent("hc-compact-refresh"));
+};
+
+function initCompactStatus() {
+  window.updateCompactStatusIcons();
+}
+  Object.assign(__export, { computeGroupHealth, initCompactStatus });
+})();
+
 /* ===== src/components/metric-ribbon/index.jsx ===== */
 (function () {
   const { useCallback, useEffect, useRef, useState } = React;
-  const { HC_ASSETS, springTo, REDUCED, SPRING_SOFT } = __export;
+  const { HC_ASSETS, springTo, REDUCED, SPRING_SOFT, computeGroupHealth } = __export;
   const MetricTile = __export.MetricTile;
 const KEYS = ["resource", "training", "inference"];
 const TITLES = ["基础设施", "训练作业", "推理服务"];
 const COMPACT_LABELS = { resource: "故障数", training: "运行总数", inference: "运行总数" };
 const COMPACT_VALUES = { resource: "2", training: "13", inference: "16" };
+
+const GLYPH_NAMES = {
+  resource: ["故障数", "隐患数", "NPU利用率", "更多"],
+  training: ["中断", "卡死", "劣化", "正常运行"],
+  inference: ["中断", "卡死", "劣化", "正常运行"],
+};
+
+// 健康态环绕标（React 拥有紧凑态按钮子树；info 由 computeGroupHealth 计算）
+function HealthOrbit({ info }) {
+  if (!info) return null;
+  const glyphs = GLYPH_NAMES[info.category] || [];
+  return (
+    <span className="hc-health-orbit">
+      <span className="hc-summary-glyphs" aria-hidden="true">
+        {glyphs.map((name, i) =>
+          name === "更多" ? (
+            <span key={name} className="hc-summary-more" title="更多指标">…</span>
+          ) : (
+            <img key={name} src={HC_ASSETS.icons[name]} alt="" className={info.glyphActive(i) ? "is-active" : ""} />
+          )
+        )}
+      </span>
+      <span className="hc-health-ring" aria-hidden="true">{info.ringText}</span>
+      <span className="hc-health-copy">
+        <span className="hc-health-label">{info.labelText}</span>
+        <span className="hc-health-total">{info.totalText}</span>
+      </span>
+    </span>
+  );
+}
 
 const METRICS = {
   resource: [["故障数", "2", "故障数", ""], ["隐患数", "0", "隐患数", ""], ["NPU利用率", "76.4", "NPU利用率", "%"], ["HBM利用率", "74.2", "HBM利用率", "%"], ["能耗", "771", "能耗", "kW"]],
@@ -15553,10 +15592,26 @@ const METRICS = {
 function MetricRibbon({ category = "resource", selected = 0, onChange }) {
   const [activeCategory, setActiveCategory] = useState(category);
   const [activeSelected, setActiveSelected] = useState(selected);
+  const [health, setHealth] = useState({});
   const ribbonRef = useRef(null);
   const groupRefs = useRef({});
 
   const activeCategoryRef = useRef(category);
+
+  // 健康态刷新 —— 从各组 DOM 读取指标值计算（值由 useHealthMetrics 命令式更新）
+  const refreshHealth = useCallback(() => {
+    const next = {};
+    Object.entries(groupRefs.current).forEach(([key, g]) => {
+      if (g && g.isConnected) next[key] = computeGroupHealth(g);
+    });
+    setHealth(next);
+  }, []);
+
+  useEffect(() => {
+    refreshHealth();
+    document.addEventListener("hc-compact-refresh", refreshHealth);
+    return () => document.removeEventListener("hc-compact-refresh", refreshHealth);
+  }, [refreshHealth]);
 
   const activate = useCallback((cat, index = 0, notify = false, initial = false) => {
     const changed = cat !== activeCategoryRef.current;
@@ -15609,6 +15664,8 @@ function MetricRibbon({ category = "resource", selected = 0, onChange }) {
           key={key}
           className={"hc-metric-group " + (key === activeCategory ? "expanded" : "collapsed")}
           data-category={key}
+          data-health={health[key]?.health}
+          data-severity={health[key]?.severity}
           ref={(el) => { groupRefs.current[key] = el; }}
         >
           <button type="button" className="hc-metric-title" onClick={() => activate(key, 0, true)}>
@@ -15631,10 +15688,12 @@ function MetricRibbon({ category = "resource", selected = 0, onChange }) {
           <button
             type="button"
             className="hc-metric-compact"
+            aria-label={health[key] ? TITLES[i] + "，" + (health[key].known ? (health[key].bad ? health[key].count + "异常" : "正常") : "待检测") + "，展开指标" : undefined}
             onClick={() => activate(key, 0, true)}
           >
             <span>{COMPACT_LABELS[key]}</span>
             <b>{COMPACT_VALUES[key]}</b>
+            <HealthOrbit info={health[key]} />
           </button>
         </section>
       ))}
@@ -15763,9 +15822,85 @@ function Sidebar() {
   Object.assign(__export, { Sidebar });
 })();
 
+/* ===== src/components/status/index.jsx ===== */
+(function () {
+const STATUS_NAMES = { degraded: "劣化", stuck: "卡死", interrupted: "中断", normal: "正常运行" };
+
+function Status({ status = "normal" }) {
+  return <span className={"hc-status " + status}>{STATUS_NAMES[status]}</span>;
+}
+  Object.assign(__export, { Status });
+})();
+
+/* ===== src/components/energy-service-card/index.jsx ===== */
+(function () {
+  const { HC_ASSETS } = __export;
+  const Status = __export.Status;
+  const WorkloadIcon = __export.WorkloadIcon;
+  const EnergyGradeTag = __export.EnergyGradeTag;
+const FIELDS = (data) => [
+  ["百万Token能耗", (Number(data.energyUnit || 1.82) / 3.6).toFixed(2) + " kWh/Mtoken"],
+  ["总能耗", data.energyTotal],
+  ["节省能耗", data.energySaved],
+  ["节能增益", data.energyGain],
+  ["卡数", data.npu + " 卡"],
+  ["TTFT", data.ttft],
+  ["TPOT", data.tpot],
+];
+
+// 节能服务卡片（原 workload-browser.energyServiceCard 的 React 版）
+// 交互（onclick/onkeydown）由 workload-browser 桥接层原生绑定 —— 卡片节点会被移入
+// 命令式卡片缓存列表，React 合成事件依赖容器委托，移出容器后失效。
+function EnergyServiceCard({ status, data }) {
+  return (
+    <article
+      className="hc-workload hc-energy-card"
+      aria-label={data.name + " 节能服务卡片"}
+      role="button"
+      tabIndex={0}
+      style={{ left: "0", top: "20px" }}
+    >
+      <header>
+        <WorkloadIcon name={data.name} />
+        <strong>{data.name}</strong>
+        <Status status={status} />
+        <span className="hc-status normal">
+          <img className="energy-label-leaf" src={HC_ASSETS.icons["绿色叶子"]} alt="" />
+          节能中
+        </span>
+        <time>{data.start}</time>
+      </header>
+      <dl>
+        {FIELDS(data).map(([name, value]) => (
+          <div key={name} className={name === "百万Token能耗" ? "energy-primary" : undefined}>
+            <dt>
+              {name}
+              {name === "百万Token能耗" && <EnergyGradeTag data={data} />}
+            </dt>
+            <dd>
+              {name === "百万Token能耗" ? (
+                <>{(Number(data.energyUnit || 1.82) / 3.6).toFixed(2)} <small>kWh/Mtoken</small></>
+              ) : (
+                value
+              )}
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <svg className="energy-spark" viewBox="0 0 70 30" role="img" aria-label="百万Token能耗趋势">
+        <path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20V29H1Z" fill="#3ac58d" opacity=".2" />
+        <path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20" fill="none" stroke="#3ac58d" strokeWidth="2" />
+      </svg>
+    </article>
+  );
+}
+  Object.assign(__export, { EnergyServiceCard });
+})();
+
 /* ===== src/views/home-screen/workload-browser.js ===== */
 (function () {
   const { HOME_WORKLOADS, HC_ASSETS } = __export;
+  const EnergyServiceCard = __export.EnergyServiceCard;
 // 工作负载浏览器 —— 从 initHomeScreen 提取的独立模块
 // 命令式 DOM 操作（rail 滚动浏览器 + WorkloadCard 列表 + 排序/反转/翻页）
 // 交互密集（pointermove/scroll/ResizeObserver 卡片缓存），暂不做声明式重写
@@ -15915,18 +16050,18 @@ function renderWorkloadView(category, filter) {
   window.refreshWorkloadCards = () => renderCards(false); renderCards(true);
 }
 
+// 节能服务卡片 —— React 组件渲染（结构/样式 JSX 化），桥接层原生绑定交互
+// （卡片节点移入命令式缓存列表后 React 合成事件失效，必须原生 onclick/onkeydown）
+
+
 function energyServiceCard({ status, data }) {
-  const C = window.HCComponents;
-  const card = document.createElement("article"); card.className = "hc-workload hc-energy-card"; card.setAttribute("aria-label", data.name + " 节能服务卡片"); card.setAttribute("role", "button"); card.tabIndex = 0; card.onclick = () => window.openEnergyService?.(data); card.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); window.openEnergyService?.(data); } }; card.style.left = "0"; card.style.top = "20px";
-  const header = document.createElement("header"); const name = document.createElement("strong"); name.textContent = data.name; const normal = C.Status({ status }); const energy = document.createElement("span"); energy.className = "hc-status normal"; energy.textContent = "节能中"; const leaf = document.createElement("img"); leaf.src = HC_ASSETS.icons["绿色叶子"]; leaf.alt = ""; leaf.className = "energy-label-leaf"; energy.prepend(leaf); const date = document.createElement("time"); date.textContent = data.start; const logo = C.WorkloadIcon(data.name); header.append(logo, name, normal, energy, date); card.append(header);
-  const fields = document.createElement("dl");
-  for (const [name, value] of [["百万Token能耗", (Number(data.energyUnit || 1.82) / 3.6).toFixed(2) + " kWh/Mtoken"], ["总能耗", data.energyTotal], ["节省能耗", data.energySaved], ["节能增益", data.energyGain], ["卡数", data.npu + " 卡"], ["TTFT", data.ttft], ["TPOT", data.tpot]]) {
-    const field = document.createElement("div"), dt = document.createElement("dt"), dd = document.createElement("dd"); dt.textContent = name; dd.textContent = value;
-    if (name === "百万Token能耗") { field.className = "energy-primary"; dt.append(window.energyGradeTag(data)); dd.innerHTML = (Number(data.energyUnit || 1.82) / 3.6).toFixed(2) + " <small>kWh/Mtoken</small>"; }
-    field.append(dt, dd); fields.append(field);
-  }
-  card.append(fields);
-  const chart = document.createElementNS("http://www.w3.org/2000/svg", "svg"); chart.classList.add("energy-spark"); chart.setAttribute("viewBox", "0 0 70 30"); chart.setAttribute("role", "img"); chart.setAttribute("aria-label", "百万Token能耗趋势"); chart.innerHTML = '<path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20V29H1Z" fill="#3ac58d" opacity=".2"/><path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20" fill="none" stroke="#3ac58d" stroke-width="2"/>'; card.append(chart);
+  const host = document.createElement("div");
+  ReactDOM.flushSync(() => {
+    ReactDOM.createRoot(host).render(React.createElement(EnergyServiceCard, { status, data }));
+  });
+  const card = host.firstElementChild;
+  card.onclick = () => window.openEnergyService?.(data);
+  card.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); window.openEnergyService?.(data); } };
   return card;
 }
 
@@ -15935,67 +16070,6 @@ function initWorkloadBrowserWindowAPI() {
   window.showWorkloads = showWorkloads;
 }
   Object.assign(__export, { initWorkloadBrowser, showWorkloads, initWorkloadBrowserWindowAPI });
-})();
-
-/* ===== src/views/home-screen/compact-status.js ===== */
-(function () {
-  const { HC_ASSETS } = __export;
-// 健康态图标更新 + 能耗等级标签 —— 从 initHomeScreen 提取的独立模块
-// updateCompactStatusIcons 被 story.js 调用（每次阶段变化后刷新指标带健康状态）
-// energyGradeTag 被 energy-detail / guard-events-table 调用
-
-window.updateCompactStatusIcons = () => {
-  document.querySelectorAll(".hc-metric-group").forEach((group) => {
-    const compact = group.querySelector(".hc-metric-compact"), key = group.dataset.category;
-    const values = [...group.querySelectorAll(".hc-metric-row .hc-metric-content>b")].map((b) => Number(b.firstChild.textContent));
-    const count = key === "resource" ? values[0] + values[1] : values.slice(1, 4).reduce((a, b) => a + b, 0);
-    const known = Number.isFinite(count), bad = known && count > 0;
-    group.dataset.health = known ? (bad ? "abnormal" : "normal") : "unknown";
-    group.dataset.severity = !bad ? "normal" : key === "resource" ? (values[0] > 0 ? "interrupted" : "stuck") : values[1] > 0 ? "interrupted" : values[2] > 0 ? "stuck" : "degraded";
-    let orbit = compact.querySelector(".hc-health-orbit");
-    if (!orbit) {
-      orbit = document.createElement("span"); orbit.className = "hc-health-orbit";
-      orbit.innerHTML = '<span class="hc-health-ring" aria-hidden="true"></span><span class="hc-health-copy"><span class="hc-health-label"></span><span class="hc-health-total"></span></span>';
-      compact.append(orbit);
-    }
-    let glyphs = orbit.querySelector(".hc-summary-glyphs");
-    if (!glyphs) {
-      glyphs = document.createElement("span"); glyphs.className = "hc-summary-glyphs"; glyphs.setAttribute("aria-hidden", "true");
-      (key === "resource" ? ["故障数", "隐患数", "NPU利用率", "更多"] : ["中断", "卡死", "劣化", "正常运行"]).forEach((name) => {
-        if (name === "更多") { const more = document.createElement("span"); more.className = "hc-summary-more"; more.textContent = "…"; more.title = "更多指标"; glyphs.append(more); }
-        else { const img = document.createElement("img"); img.src = HC_ASSETS.icons[name]; img.alt = ""; glyphs.append(img); }
-      });
-      orbit.prepend(glyphs);
-    }
-    glyphs.querySelectorAll("img").forEach((img, i) => {
-      const active = key === "resource" ? (i < 2 && values[i] > 0) : (values[i + 1] > 0);
-      img.classList.toggle("is-active", active);
-    });
-    orbit.querySelector(".hc-health-ring").textContent = known ? (bad ? count : "正常") : "—";
-    orbit.querySelector(".hc-health-label").textContent = known ? (bad ? "项异常" : "") : "待检测";
-    orbit.querySelector(".hc-health-total").textContent = key === "resource" ? "NPU 1024 卡" : "总数 " + (Number.isFinite(values[0]) ? values[0] : "—") + " 个";
-    const label = group.querySelector(".hc-metric-title").textContent;
-    compact.setAttribute("aria-label", label + "，" + (known ? (bad ? count + "异常" : "正常") : "待检测") + "，展开指标");
-    compact.querySelector(".hc-compact-statuses")?.remove();
-  });
-};
-
-window.energyGradeTag = (data) => {
-  const size = Number((data.name || "").match(/-(\d+(?:\.\d+)?)B/i)?.[1] || 0);
-  const limits = size >= 70 ? [12, 30] : size >= 14 ? [3, 8] : [1, 2.5];
-  const value = Number(data.energyUnit ?? 1.82);
-  const grade = data.energySaving ? 1 : value < limits[0] ? 0 : value <= limits[1] ? 1 : 2;
-  const tag = document.createElement("span");
-  tag.className = "hc-ept-grade";
-  tag.textContent = ["绿算", "正常", "未达标"][grade];
-  tag.style.setProperty("--ept-grade-color", ["#26b9b0", "#3ac58d", "#ef535b"][grade]);
-  return tag;
-};
-
-function initCompactStatus() {
-  window.updateCompactStatusIcons();
-}
-  Object.assign(__export, { initCompactStatus });
 })();
 
 /* ===== src/hooks/use-enhancements-portal.jsx ===== */

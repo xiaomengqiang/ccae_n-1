@@ -2,11 +2,42 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import MetricTile from "../metric-tile/index.jsx";
 import { HC_ASSETS } from "../../mock/hc-assets.js";
 import { springTo, REDUCED, SPRING_SOFT } from "../../shared/motion-runtime.js";
+import { computeGroupHealth } from "../../views/home-screen/compact-status.js";
 
 const KEYS = ["resource", "training", "inference"];
 const TITLES = ["基础设施", "训练作业", "推理服务"];
 const COMPACT_LABELS = { resource: "故障数", training: "运行总数", inference: "运行总数" };
 const COMPACT_VALUES = { resource: "2", training: "13", inference: "16" };
+
+const GLYPH_NAMES = {
+  resource: ["故障数", "隐患数", "NPU利用率", "更多"],
+  training: ["中断", "卡死", "劣化", "正常运行"],
+  inference: ["中断", "卡死", "劣化", "正常运行"],
+};
+
+// 健康态环绕标（React 拥有紧凑态按钮子树；info 由 computeGroupHealth 计算）
+function HealthOrbit({ info }) {
+  if (!info) return null;
+  const glyphs = GLYPH_NAMES[info.category] || [];
+  return (
+    <span className="hc-health-orbit">
+      <span className="hc-summary-glyphs" aria-hidden="true">
+        {glyphs.map((name, i) =>
+          name === "更多" ? (
+            <span key={name} className="hc-summary-more" title="更多指标">…</span>
+          ) : (
+            <img key={name} src={HC_ASSETS.icons[name]} alt="" className={info.glyphActive(i) ? "is-active" : ""} />
+          )
+        )}
+      </span>
+      <span className="hc-health-ring" aria-hidden="true">{info.ringText}</span>
+      <span className="hc-health-copy">
+        <span className="hc-health-label">{info.labelText}</span>
+        <span className="hc-health-total">{info.totalText}</span>
+      </span>
+    </span>
+  );
+}
 
 const METRICS = {
   resource: [["故障数", "2", "故障数", ""], ["隐患数", "0", "隐患数", ""], ["NPU利用率", "76.4", "NPU利用率", "%"], ["HBM利用率", "74.2", "HBM利用率", "%"], ["能耗", "771", "能耗", "kW"]],
@@ -19,10 +50,26 @@ const METRICS = {
 export default function MetricRibbon({ category = "resource", selected = 0, onChange }) {
   const [activeCategory, setActiveCategory] = useState(category);
   const [activeSelected, setActiveSelected] = useState(selected);
+  const [health, setHealth] = useState({});
   const ribbonRef = useRef(null);
   const groupRefs = useRef({});
 
   const activeCategoryRef = useRef(category);
+
+  // 健康态刷新 —— 从各组 DOM 读取指标值计算（值由 useHealthMetrics 命令式更新）
+  const refreshHealth = useCallback(() => {
+    const next = {};
+    Object.entries(groupRefs.current).forEach(([key, g]) => {
+      if (g && g.isConnected) next[key] = computeGroupHealth(g);
+    });
+    setHealth(next);
+  }, []);
+
+  useEffect(() => {
+    refreshHealth();
+    document.addEventListener("hc-compact-refresh", refreshHealth);
+    return () => document.removeEventListener("hc-compact-refresh", refreshHealth);
+  }, [refreshHealth]);
 
   const activate = useCallback((cat, index = 0, notify = false, initial = false) => {
     const changed = cat !== activeCategoryRef.current;
@@ -75,6 +122,8 @@ export default function MetricRibbon({ category = "resource", selected = 0, onCh
           key={key}
           className={"hc-metric-group " + (key === activeCategory ? "expanded" : "collapsed")}
           data-category={key}
+          data-health={health[key]?.health}
+          data-severity={health[key]?.severity}
           ref={(el) => { groupRefs.current[key] = el; }}
         >
           <button type="button" className="hc-metric-title" onClick={() => activate(key, 0, true)}>
@@ -97,10 +146,12 @@ export default function MetricRibbon({ category = "resource", selected = 0, onCh
           <button
             type="button"
             className="hc-metric-compact"
+            aria-label={health[key] ? TITLES[i] + "，" + (health[key].known ? (health[key].bad ? health[key].count + "异常" : "正常") : "待检测") + "，展开指标" : undefined}
             onClick={() => activate(key, 0, true)}
           >
             <span>{COMPACT_LABELS[key]}</span>
             <b>{COMPACT_VALUES[key]}</b>
+            <HealthOrbit info={health[key]} />
           </button>
         </section>
       ))}

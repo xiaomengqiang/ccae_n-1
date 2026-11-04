@@ -4,20 +4,8 @@ import { useMemo, useState } from "react";
 import { HC_ASSETS } from "../../mock/hc-assets.js";
 import { REPORT_ICONS, nodeCardModel, runtimeChartOption } from "./charts.jsx";
 import EChart from "./echart-box.jsx";
+import EnergyGradeTag from "../../components/energy-grade-tag/index.jsx";
 import { setNodeRange } from "./session-store.js";
-
-// 绿算等级徽标（window.energyGradeTag 的 JSX 版）
-function EnergyGradeTag({ data }) {
-  const size = Number((data.name || "").match(/-(\d+(?:\.\d+)?)B/i)?.[1] || 0);
-  const limits = size >= 70 ? [12, 30] : size >= 14 ? [3, 8] : [1, 2.5];
-  const value = Number(data.energyUnit ?? 1.82);
-  const grade = data.energySaving ? 1 : value < limits[0] ? 0 : value <= limits[1] ? 1 : 2;
-  return (
-    <span className="hc-ept-grade" style={{ "--ept-grade-color": ["#26b9b0", "#3ac58d", "#ef535b"][grade] }}>
-      {["绿算", "正常", "未达标"][grade]}
-    </span>
-  );
-}
 
 // 基准指标面板（内容只依赖服务数据，静态渲染）
 function LoadStats({ s }) {

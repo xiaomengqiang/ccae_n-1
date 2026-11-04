@@ -150,18 +150,18 @@ function renderWorkloadView(category, filter) {
   window.refreshWorkloadCards = () => renderCards(false); renderCards(true);
 }
 
+// 节能服务卡片 —— React 组件渲染（结构/样式 JSX 化），桥接层原生绑定交互
+// （卡片节点移入命令式缓存列表后 React 合成事件失效，必须原生 onclick/onkeydown）
+import EnergyServiceCard from "../../components/energy-service-card/index.jsx";
+
 function energyServiceCard({ status, data }) {
-  const C = window.HCComponents;
-  const card = document.createElement("article"); card.className = "hc-workload hc-energy-card"; card.setAttribute("aria-label", data.name + " 节能服务卡片"); card.setAttribute("role", "button"); card.tabIndex = 0; card.onclick = () => window.openEnergyService?.(data); card.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); window.openEnergyService?.(data); } }; card.style.left = "0"; card.style.top = "20px";
-  const header = document.createElement("header"); const name = document.createElement("strong"); name.textContent = data.name; const normal = C.Status({ status }); const energy = document.createElement("span"); energy.className = "hc-status normal"; energy.textContent = "节能中"; const leaf = document.createElement("img"); leaf.src = HC_ASSETS.icons["绿色叶子"]; leaf.alt = ""; leaf.className = "energy-label-leaf"; energy.prepend(leaf); const date = document.createElement("time"); date.textContent = data.start; const logo = C.WorkloadIcon(data.name); header.append(logo, name, normal, energy, date); card.append(header);
-  const fields = document.createElement("dl");
-  for (const [name, value] of [["百万Token能耗", (Number(data.energyUnit || 1.82) / 3.6).toFixed(2) + " kWh/Mtoken"], ["总能耗", data.energyTotal], ["节省能耗", data.energySaved], ["节能增益", data.energyGain], ["卡数", data.npu + " 卡"], ["TTFT", data.ttft], ["TPOT", data.tpot]]) {
-    const field = document.createElement("div"), dt = document.createElement("dt"), dd = document.createElement("dd"); dt.textContent = name; dd.textContent = value;
-    if (name === "百万Token能耗") { field.className = "energy-primary"; dt.append(window.energyGradeTag(data)); dd.innerHTML = (Number(data.energyUnit || 1.82) / 3.6).toFixed(2) + " <small>kWh/Mtoken</small>"; }
-    field.append(dt, dd); fields.append(field);
-  }
-  card.append(fields);
-  const chart = document.createElementNS("http://www.w3.org/2000/svg", "svg"); chart.classList.add("energy-spark"); chart.setAttribute("viewBox", "0 0 70 30"); chart.setAttribute("role", "img"); chart.setAttribute("aria-label", "百万Token能耗趋势"); chart.innerHTML = '<path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20V29H1Z" fill="#3ac58d" opacity=".2"/><path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20" fill="none" stroke="#3ac58d" stroke-width="2"/>'; card.append(chart);
+  const host = document.createElement("div");
+  ReactDOM.flushSync(() => {
+    ReactDOM.createRoot(host).render(React.createElement(EnergyServiceCard, { status, data }));
+  });
+  const card = host.firstElementChild;
+  card.onclick = () => window.openEnergyService?.(data);
+  card.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); window.openEnergyService?.(data); } };
   return card;
 }
 
