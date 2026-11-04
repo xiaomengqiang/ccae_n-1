@@ -35,7 +35,14 @@ function TimelineMarkerButton({ eventKey, phase, state, split, onOpen }) {
     >
       <img src={HC_ASSETS.icons[closed || split ? "灰色的故障" : "红色的故障"]} alt="" />
       {isManual && !split && (
-        <img className="story-marker-hand" src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+        <span
+          className="fault-status-flags"
+          style={{ position: "absolute", left: "24px", top: "-12px", zIndex: 6 }}
+          aria-label={eventKey === "qwen" ? "待人工处理，影响业务" : "待人工处理"}
+        >
+          <img src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+          {eventKey === "qwen" && <b className="business-impact-symbol" aria-label="影响业务" title="影响业务">✱</b>}
+        </span>
       )}
       {isAuto && !split && (
         <>
@@ -72,7 +79,19 @@ function FollowUpMarker({ eventKey, state, onOpen }) {
         src={HC_ASSETS.icons[eventKey === "qwen" && state === "auto" ? "红色的故障" : "红色小手"]}
         alt=""
       />
-      <EventTypeIcon closed={state === "closed"} size={20} />
+      {state === "manual" && (
+        <span
+          className="fault-status-flags"
+          style={{ position: "absolute", left: "24px", top: "-12px", zIndex: 6 }}
+          aria-label={eventKey === "qwen" ? "待人工处理，影响业务" : "待人工处理"}
+        >
+          <img src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+          {eventKey === "qwen" && <b className="business-impact-symbol" aria-label="影响业务" title="影响业务">✱</b>}
+        </span>
+      )}
+      {state === "manual" && (
+        <img className="hc-event-manual-hand" src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+      )}
     </button>
   );
 }
@@ -117,13 +136,36 @@ function TimelineAnchor({ eventKey, phase, startedAt, onOpen, expandedRecords, o
   const copy = window.HCStoryCopy;
   if (!copy) return null;
 
-  // 新标记首次出现时自动显示 popover（原版 bindPopover 的 announce 行为）
-  // 只在首次挂载时执行，phase 变化不重新触发
+  // 原版 bindPopover 逻辑：
+  // - 处理中（auto，phase < 6）：popover 始终可见
+  // - 非处理中（manual/closed）：auto-show 后 2200ms 隐藏，hover 可重新显示
+  // phase 从 auto 变为 manual 时，重新触发 hide timer
+  const hideTimerRef = useRef(null);
+  const isProcessing = phase < 6;
+
   useEffect(() => {
     setVisible(true);
-    const timer = setTimeout(() => setVisible(false), 2200);
-    return () => clearTimeout(timer);
-  }, []);
+    if (!isProcessing) {
+      hideTimerRef.current = setTimeout(() => setVisible(false), 2200);
+    } else {
+      // 处理中：清除可能存在的旧 timer，保持始终可见
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    }
+    return () => {
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    };
+  }, [isProcessing, startedAt]);
+
+  const handlePointerEnter = () => {
+    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    setVisible(true);
+  };
+  const handlePointerLeave = () => {
+    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    if (!isProcessing) {
+      hideTimerRef.current = setTimeout(() => setVisible(false), 180);
+    }
+  };
 
   const handleOpen = (key) => {
     if (key === "optical") window.openOpticalEvent();
@@ -139,8 +181,8 @@ function TimelineAnchor({ eventKey, phase, startedAt, onOpen, expandedRecords, o
       data-event-time={window.HCClock?.format(eventSecond) || ""}
       data-follow-state={split ? state : undefined}
       style={{ left: left + "%" }}
-      onPointerEnter={() => setVisible(true)}
-      onPointerLeave={() => setVisible(false)}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
     >
       {split && <SplitShape eventKey={eventKey} state={state} />}
       <TimelineMarkerButton eventKey={eventKey} phase={phase} state={state} split={split} onOpen={handleOpen} />
@@ -182,6 +224,9 @@ function CabinetD08Anchor({ index }) {
         onClick={() => setVisible(!visible)}
       >
         <img src={HC_ASSETS.icons["红色的故障"]} alt="故障" />
+        <span className="fault-status-flags" aria-label="待人工处理">
+          <img src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+        </span>
       </button>
       <div className="story-popover story-popover-grouped" role="tooltip">
         <section className="story-popover-section is-active" data-state="manual">

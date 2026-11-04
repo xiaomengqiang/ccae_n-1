@@ -11041,27 +11041,9 @@ const ENERGY_CABINET=document.querySelector('#screen>.cabinet-art').src;
     const url=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'})),a=el('a');a.href=url;a.download=s.name.replace(/[\\/:*?"<>|]/g,'-')+'-2026年8月节能月报.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
   }
   const baseRenderGuard=window.renderStoryGuard;
-  function augmentHome() {
-    const box=document.querySelector('#home-events .hc-guard-events') || document.getElementById('home-events').firstElementChild;
-    if(!box)return;
-    const tabs=box.querySelectorAll('[role="tab"]'),auto=tabs[1];if(!auto)return;
-    const impactOnly=box.querySelector('.hc-impact-filter')?.getAttribute('aria-checked')==='true';
-    const processing=impactOnly?[]:(window.getProcessingEnergyEvents?.()||[]);
-    const badge=auto.querySelector('.hc-tab-count');
-    if(badge){if(!badge.dataset.energyBase)badge.dataset.energyBase=badge.textContent;badge.textContent=Number(badge.dataset.energyBase)+processing.length;}
-    const oldList=box.querySelector('.hc-energy-home-list');
-    if(oldList){oldList.querySelectorAll('.hc-event-row:not(.hc-energy-home-row)').forEach(row=>box.insertBefore(row,oldList));oldList.remove();}
-    if(auto.getAttribute('aria-selected')!=='true'||!processing.length)return;
-    box.querySelector('.story-empty')?.remove();
-    const energyList=el('div','hc-energy-home-list');box.querySelectorAll('.hc-event-row').forEach(row=>energyList.append(row));box.append(energyList);
-    processing.forEach(item=>{
-      const row=el('article','hc-event-row hc-energy-home-row'),head=el('div','hc-event-head');
-      const ring=HCComponents.EventTypeIcon({domain:'inference',type:'energy',name:item.name,size:26});row.classList.add('hc-event-processing');HCComponents.FlowBorder(row);
-      head.append(ring,el('span','',item.name),el('time','',item.start.replace('今天 ','')));
-      row.append(head,el('p','',item.root));if(item.action==='energy'){row.setAttribute('aria-disabled','true');}energyList.append(row);
-    });
-  }
-
+  // augmentHome 被禁用：它直接操作 #home-events 内部 DOM（React StoryGuardPanel 管辖区域）
+  // 与 React 并发操作导致 removeChild 崩溃。节能事件列表由 React 组件渲染。
+  function augmentHome() {}
   window.renderStoryGuard=(...args)=>{baseRenderGuard(...args);augmentHome();};
   function syncHome() {
     augmentHome();
@@ -11847,7 +11829,7 @@ function GuardEventsTable() {
   const [size, setSize] = useState(15);                  // 每页条数
   const [query, setQuery] = useState("");
   const [energyResult, setEnergyResult] = useState("all");
-  const [showFilters, setShowFilters] = useState(true);               // 筛选栏可见性（表头触发器切换）
+  const [showFilters, setShowFilters] = useState(false);              // 筛选栏可见性（表头触发器切换，默认隐藏）
   const [records, setRecords] = useState(() => buildInitialRecords()); // 完整数据集（含能耗动态更新）
   const [selectedRecord, setSelectedRecord] = useState(null);           // 详情弹窗选中项
   const energyEventsRef = useRef(buildEnergyEvents());                 // 节能事件子集（hc-energy-change/reset 操作对象）
@@ -12542,8 +12524,8 @@ const progressText = (key, p) =>
     .replace("正在分析链路指标与设备日志", "分析链路指标与设备日志");
 
 const CABINET_D08 = [
-  { title: "NPU驱动固件版本不一致", time: "11:55:00", desc: "SuperpodD · 计算柜08，等待人工处理", key: "cabinetD08-0" },
-  { title: "NPU网口linkdown", time: "11:57:00", desc: "SuperpodD · 计算柜08，等待人工处理", key: "cabinetD08-1" },
+  { title: "NPU驱动固件版本不一致", time: "11:55:00", desc: "SuperpodD · 计算柜08，等待人工处理", d08Key: "cabinetD08-0" },
+  { title: "NPU网口linkdown", time: "11:57:00", desc: "SuperpodD · 计算柜08，等待人工处理", d08Key: "cabinetD08-1" },
 ];
 
 const open = (key) => {
@@ -12872,6 +12854,12 @@ function StoryPopover({ eventKey, phase, state, expandedRecords, onToggleExpand 
 
   const expanded = expandedRecords?.get(eventKey) || false;
 
+  // 原版逻辑：auto 状态下超过 3 条记录时显示展开/收起
+  // 展开时显示全部，收起时只显示最近 3 条（较旧的隐藏）
+  const autoRows = state === "auto" && rows.length > 3 ? rows : null;
+  const visibleRows = autoRows && !expanded ? autoRows.slice(-3) : rows;
+  const hiddenCount = autoRows && !expanded ? autoRows.length - 3 : 0;
+
   return (
     <div
       className={"story-popover" + (split || isQwen ? " story-popover-grouped" : "")}
@@ -12882,7 +12870,7 @@ function StoryPopover({ eventKey, phase, state, expandedRecords, onToggleExpand 
         <>
           <PopoverSection part="completed" state="closed" title={isQwen ? "Qwen-1.5B服务劣化，已恢复" : "光链路闪断，已完成优雅隔离"} status="已闭环">
             {rows.slice(0, 4).map((text, i) => (
-              <PopoverRow key={i} text={text} kind={i < 3 ? "done" : "done"} />
+              <PopoverRow key={i} text={text} kind="done" />
             ))}
             {!isQwen && <PopoverRow text="异常链路已优雅隔离" kind="done" />}
           </PopoverSection>
@@ -12906,19 +12894,26 @@ function StoryPopover({ eventKey, phase, state, expandedRecords, onToggleExpand 
           status={stateLabel}
           isActive
         >
-          {rows.map((text, i) => (
-            <PopoverRow key={i} text={text} kind={rowKinds[i]} />
+          {visibleRows.map((text, i) => (
+            <PopoverRow key={i} text={text} kind={rowKinds[rows.indexOf(text)] || "done"} />
           ))}
+          {autoRows && (
+            <RecordToggle
+              count={rows.length}
+              expanded={expanded}
+              onToggle={(v) => onToggleExpand?.(eventKey, v)}
+            />
+          )}
         </PopoverSection>
       ) : (
         <>
           {state === "auto" && (
             <PopoverHeading title="光链路闪断" status="自动处理中" />
           )}
-          {rows.map((text, i) => (
-            <PopoverRow key={i} text={text} kind={rowKinds[i]} />
+          {visibleRows.map((text, i) => (
+            <PopoverRow key={i} text={text} kind={rowKinds[rows.indexOf(text)] || "done"} />
           ))}
-          {state === "auto" && rows.length > 3 && (
+          {autoRows && (
             <RecordToggle
               count={rows.length}
               expanded={expanded}
@@ -12971,7 +12966,14 @@ function TimelineMarkerButton({ eventKey, phase, state, split, onOpen }) {
     >
       <img src={HC_ASSETS.icons[closed || split ? "灰色的故障" : "红色的故障"]} alt="" />
       {isManual && !split && (
-        <img className="story-marker-hand" src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+        <span
+          className="fault-status-flags"
+          style={{ position: "absolute", left: "24px", top: "-12px", zIndex: 6 }}
+          aria-label={eventKey === "qwen" ? "待人工处理，影响业务" : "待人工处理"}
+        >
+          <img src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+          {eventKey === "qwen" && <b className="business-impact-symbol" aria-label="影响业务" title="影响业务">✱</b>}
+        </span>
       )}
       {isAuto && !split && (
         <>
@@ -13008,7 +13010,19 @@ function FollowUpMarker({ eventKey, state, onOpen }) {
         src={HC_ASSETS.icons[eventKey === "qwen" && state === "auto" ? "红色的故障" : "红色小手"]}
         alt=""
       />
-      <EventTypeIcon closed={state === "closed"} size={20} />
+      {state === "manual" && (
+        <span
+          className="fault-status-flags"
+          style={{ position: "absolute", left: "24px", top: "-12px", zIndex: 6 }}
+          aria-label={eventKey === "qwen" ? "待人工处理，影响业务" : "待人工处理"}
+        >
+          <img src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+          {eventKey === "qwen" && <b className="business-impact-symbol" aria-label="影响业务" title="影响业务">✱</b>}
+        </span>
+      )}
+      {state === "manual" && (
+        <img className="hc-event-manual-hand" src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+      )}
     </button>
   );
 }
@@ -13053,13 +13067,36 @@ function TimelineAnchor({ eventKey, phase, startedAt, onOpen, expandedRecords, o
   const copy = window.HCStoryCopy;
   if (!copy) return null;
 
-  // 新标记首次出现时自动显示 popover（原版 bindPopover 的 announce 行为）
-  // 只在首次挂载时执行，phase 变化不重新触发
+  // 原版 bindPopover 逻辑：
+  // - 处理中（auto，phase < 6）：popover 始终可见
+  // - 非处理中（manual/closed）：auto-show 后 2200ms 隐藏，hover 可重新显示
+  // phase 从 auto 变为 manual 时，重新触发 hide timer
+  const hideTimerRef = useRef(null);
+  const isProcessing = phase < 6;
+
   useEffect(() => {
     setVisible(true);
-    const timer = setTimeout(() => setVisible(false), 2200);
-    return () => clearTimeout(timer);
-  }, []);
+    if (!isProcessing) {
+      hideTimerRef.current = setTimeout(() => setVisible(false), 2200);
+    } else {
+      // 处理中：清除可能存在的旧 timer，保持始终可见
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    }
+    return () => {
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    };
+  }, [isProcessing, startedAt]);
+
+  const handlePointerEnter = () => {
+    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    setVisible(true);
+  };
+  const handlePointerLeave = () => {
+    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    if (!isProcessing) {
+      hideTimerRef.current = setTimeout(() => setVisible(false), 180);
+    }
+  };
 
   const handleOpen = (key) => {
     if (key === "optical") window.openOpticalEvent();
@@ -13075,8 +13112,8 @@ function TimelineAnchor({ eventKey, phase, startedAt, onOpen, expandedRecords, o
       data-event-time={window.HCClock?.format(eventSecond) || ""}
       data-follow-state={split ? state : undefined}
       style={{ left: left + "%" }}
-      onPointerEnter={() => setVisible(true)}
-      onPointerLeave={() => setVisible(false)}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
     >
       {split && <SplitShape eventKey={eventKey} state={state} />}
       <TimelineMarkerButton eventKey={eventKey} phase={phase} state={state} split={split} onOpen={handleOpen} />
@@ -13118,6 +13155,9 @@ function CabinetD08Anchor({ index }) {
         onClick={() => setVisible(!visible)}
       >
         <img src={HC_ASSETS.icons["红色的故障"]} alt="故障" />
+        <span className="fault-status-flags" aria-label="待人工处理">
+          <img src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+        </span>
       </button>
       <div className="story-popover story-popover-grouped" role="tooltip">
         <section className="story-popover-section is-active" data-state="manual">
@@ -13265,9 +13305,20 @@ function FaultTip({ eventKey, phase, state, deviceLocated }) {
           <i className="hc-flow-halo"><i /></i>
           <i className="hc-flow-base" />
           <i className="hc-flow-ring" />
+          <span className="fault-status-flags" aria-label={eventKey === "qwen" ? "自动处理中，影响业务" : "自动处理中"}>
+            <span className="tip-auto-state">◌</span>
+            {eventKey === "qwen" && <b className="business-impact-symbol" aria-label="影响业务">✱</b>}
+            <span className="tip-state-label">自动处理中</span>
+            {eventKey === "qwen" && <span className="tip-impact-label">影响业务</span>}
+          </span>
         </>
       ) : (
-        <i className="hc-tip-arrow" />
+        <span className="fault-status-flags" aria-label={eventKey === "qwen" ? "待人工处理，影响业务" : "待人工处理"}>
+          <img src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+          {eventKey === "qwen" && <b className="business-impact-symbol" aria-label="影响业务">✱</b>}
+          <span className="tip-state-label">待人工处理</span>
+          {eventKey === "qwen" && <span className="tip-impact-label">影响业务</span>}
+        </span>
       )}
       <small className="hc-tip-device">
         {isOptical ? "计算柜11 · L1交换板02" : "计算柜13 · 112.34.23.1 · CPU02"}
@@ -13472,6 +13523,7 @@ function StoryRenderer() {
       <TimelineMarkers />
       <TimeNowSlot storyState={storyState} />
       <FaultTipsContainer storyState={storyState} />
+      <HealthMetricsSlot storyState={storyState} />
       <MetricSync storyState={storyState} />
       <StoryEventDispatcher storyState={storyState} />
       <BrandReset />
@@ -14340,6 +14392,8 @@ function OpticalEvent() {
 const createPortal = (node, host) => ReactDOM.createPortal(node, host);
 
 const SCENE_SRC = "./assets/scenes/multi-cabinet-scene.html";
+const RED_HAND_SVG = "PHN2ZyB2aWV3Qm94PSIwIDAgMTQgMTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNC4wMDAwMDAiIGhlaWdodD0iMTQuMDAwMDAwIiBmaWxsPSJub25lIj4KCTxyZWN0IGlkPSJpY19pY3RfYWlfY29tbWFuZHNfZmlsZSIgd2lkdGg9IjE0LjAwMDAwMCIgaGVpZ2h0PSIxNC4wMDAwMDAiIHg9IjAuMDAwMDAwIiB5PSIwLjAwMDAwMCIgLz4KCTxyZWN0IGlkPSLnn6nlvaIgNTUzNDIxIiB3aWR0aD0iMTQuMDAwMDAwIiBoZWlnaHQ9IjE0LjAwMDAwMCIgeD0iMC4wMDAwMDAiIHk9IjAuMDAwMDAwIiBmaWxsPSJyZ2IoMjUsMjUsMjUpIiBmaWxsLW9wYWNpdHk9IjAiIC8+Cgk8cGF0aCBpZD0icGF0aDUiIGQ9Ik03LjA3OTc4IDguMjU2NTdDNy4xMDc3NSA4LjI2MzcgNy4xMzcwMiA4LjI1MTEzIDcuMTUxMSA4LjIyNTkzTDcuODU1MyA2Ljk2NjA1QzguMTAyOTcgNi41MjI5NSA4LjY1ODAyIDYuMzU3MDMgOS4xMDgyMyA2LjU5MTUxQzkuNTU5NTIgNi44MjY1NCA5Ljc0NDMgNy4zNzYyNyA5LjUyNjYgNy44MzYxOEw4LjUyMjA2IDkuOTU4MzNDNy43Mjk5NCAxMi4wNTQ4IDYuMDI1ODEgMTMuMzk0OSA0LjE1MjAzIDEzLjM5NDlMMy43NzkyMyAxMy4zOTQ5QzEuODc2OTcgMTMuMzk0OSAwIDExLjQ5MTEgMCA5LjE0MjU4TDAgNi4zNzg1NEwwIDMuMzA0ODhDMCAyLjg4ODc2IDAuMzM3MzM4IDIuNTUxNDIgMC43NTM0NjUgMi41NTE0MkMxLjE2OTU5IDIuNTUxNDIgMS41MDY5MyAyLjg4ODc2IDEuNTA2OTMgMy4zMDQ4OEwxLjUwNjkzIDYuMjExMTFDMS41MDY5MyA2LjMwMzU4IDEuNTgxOSA2LjM3ODU0IDEuNjc0MzcgNi4zNzg1NEMxLjc2Njg0IDYuMzc4NTQgMS44NDE4IDYuMzAzNTggMS44NDE4IDYuMjExMTFMMS44NDE4IDEuNjAzOTRDMS44NDE4IDEuMTg3ODEgMi4xNzkxNCAwLjg1MDQ3MyAyLjU5NTI3IDAuODUwNDczQzMuMDExNCAwLjg1MDQ3MyAzLjM0ODc0IDEuMTg3ODEgMy4zNDg3NCAxLjYwMzk0TDMuMzQ4NzQgNS4zNjA2NEMzLjM0ODc0IDUuNDUzMTEgMy40MjM3IDUuNTI4MDcgMy41MTYxNyA1LjUyODA3QzMuNjA4NjUgNS41MjgwNyAzLjY4MzYxIDUuNDUzMTEgMy42ODM2MSA1LjM2MDY0TDMuNjgzNjEgMC43NTM0NjZDMy42ODM2MSAwLjMzNzMzOCA0LjAyMDk1IDcuNjQ0MTRlLTE3IDQuNDM3MDcgMS4yOTkxM2UtMzJDNC44NTMyIC03LjY0NDE0ZS0xNyA1LjE5MDU0IDAuMzM3MzM4IDUuMTkwNTQgMC43NTM0NjZMNS4xOTA1NCA1LjM2MDY0QzUuMTkwNTQgNS40NTMxMSA1LjI2NTUgNS41MjgwNyA1LjM1Nzk4IDUuNTI4MDdDNS40NTA0NSA1LjUyODA3IDUuNTI1NDEgNS40NTMxMSA1LjUyNTQxIDUuMzYwNjRMNS41MjU0MSAxLjYwMzk0QzUuNTI1NDEgMS4xODc4MSA1Ljg2Mjc1IDAuODUwNDczIDYuMjc4ODggMC44NTA0NzNDNi42OTUwMSAwLjg1MDQ3MyA3LjAzMjM0IDEuMTg3ODEgNy4wMzIzNCAxLjYwMzk0TDcuMDMyMzQgOC4xOTU1MkM3LjAzMjM0IDguMjI0MzIgNy4wNTE4NyA4LjI0OTQ1IDcuMDc5NzggOC4yNTY1N1oiIGZpbGw9InJnYigyMzEsNjcsNzQpIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0ibWF0cml4KC0xLDAsMCwxLDExLjM0NCwwLjMwMjczNCkiIC8+Cjwvc3ZnPgo=";
+const RED_HAND_DATA_URI = "data:image/svg+xml;base64," + RED_HAND_SVG;
 
 function sendStateTo(frame) {
   const story = window.HCStory;
@@ -14350,7 +14404,7 @@ function sendStateTo(frame) {
     state: {
       ...state,
       titles: Object.fromEntries(["optical", "qwen"].map((k) => [k, window.HCEventTitle(k, state[k])])),
-      hand: HC_ASSETS.icons["红色小手"],
+      hand: RED_HAND_DATA_URI,
     },
   }, "*");
 }

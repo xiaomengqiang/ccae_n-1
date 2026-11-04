@@ -22,7 +22,7 @@ export default function GuardEventsTable() {
   const [size, setSize] = useState(15);                  // 每页条数
   const [query, setQuery] = useState("");
   const [energyResult, setEnergyResult] = useState("all");
-  const [showFilters, setShowFilters] = useState(true);               // 筛选栏可见性（表头触发器切换）
+  const [showFilters, setShowFilters] = useState(false);              // 筛选栏可见性（表头触发器切换，默认隐藏）
   const [records, setRecords] = useState(() => buildInitialRecords()); // 完整数据集（含能耗动态更新）
   const [selectedRecord, setSelectedRecord] = useState(null);           // 详情弹窗选中项
   const energyEventsRef = useRef(buildEnergyEvents());                 // 节能事件子集（hc-energy-change/reset 操作对象）

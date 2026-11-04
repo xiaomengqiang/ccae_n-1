@@ -1,4 +1,4 @@
-import { HOME_WORKLOADS } from "../../mock/workloads.js";
+﻿import { HOME_WORKLOADS } from "../../mock/workloads.js";
 import { HC_ASSETS } from "../../mock/hc-assets.js";
 
 export function initEnergyDetail() {
@@ -572,27 +572,9 @@ const ENERGY_CABINET=document.querySelector('#screen>.cabinet-art').src;
     const url=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'})),a=el('a');a.href=url;a.download=s.name.replace(/[\\/:*?"<>|]/g,'-')+'-2026年8月节能月报.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
   }
   const baseRenderGuard=window.renderStoryGuard;
-  function augmentHome() {
-    const box=document.querySelector('#home-events .hc-guard-events') || document.getElementById('home-events').firstElementChild;
-    if(!box)return;
-    const tabs=box.querySelectorAll('[role="tab"]'),auto=tabs[1];if(!auto)return;
-    const impactOnly=box.querySelector('.hc-impact-filter')?.getAttribute('aria-checked')==='true';
-    const processing=impactOnly?[]:(window.getProcessingEnergyEvents?.()||[]);
-    const badge=auto.querySelector('.hc-tab-count');
-    if(badge){if(!badge.dataset.energyBase)badge.dataset.energyBase=badge.textContent;badge.textContent=Number(badge.dataset.energyBase)+processing.length;}
-    const oldList=box.querySelector('.hc-energy-home-list');
-    if(oldList){oldList.querySelectorAll('.hc-event-row:not(.hc-energy-home-row)').forEach(row=>box.insertBefore(row,oldList));oldList.remove();}
-    if(auto.getAttribute('aria-selected')!=='true'||!processing.length)return;
-    box.querySelector('.story-empty')?.remove();
-    const energyList=el('div','hc-energy-home-list');box.querySelectorAll('.hc-event-row').forEach(row=>energyList.append(row));box.append(energyList);
-    processing.forEach(item=>{
-      const row=el('article','hc-event-row hc-energy-home-row'),head=el('div','hc-event-head');
-      const ring=HCComponents.EventTypeIcon({domain:'inference',type:'energy',name:item.name,size:26});row.classList.add('hc-event-processing');HCComponents.FlowBorder(row);
-      head.append(ring,el('span','',item.name),el('time','',item.start.replace('今天 ','')));
-      row.append(head,el('p','',item.root));if(item.action==='energy'){row.setAttribute('aria-disabled','true');}energyList.append(row);
-    });
-  }
-
+  // augmentHome 被禁用：它直接操作 #home-events 内部 DOM（React StoryGuardPanel 管辖区域）
+  // 与 React 并发操作导致 removeChild 崩溃。节能事件列表由 React 组件渲染。
+  function augmentHome() {}
   window.renderStoryGuard=(...args)=>{baseRenderGuard(...args);augmentHome();};
   function syncHome() {
     augmentHome();

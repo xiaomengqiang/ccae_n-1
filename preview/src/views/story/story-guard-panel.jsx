@@ -25,8 +25,8 @@ const progressText = (key, p) =>
     .replace("正在分析链路指标与设备日志", "分析链路指标与设备日志");
 
 const CABINET_D08 = [
-  { title: "NPU驱动固件版本不一致", time: "11:55:00", desc: "SuperpodD · 计算柜08，等待人工处理", key: "cabinetD08-0" },
-  { title: "NPU网口linkdown", time: "11:57:00", desc: "SuperpodD · 计算柜08，等待人工处理", key: "cabinetD08-1" },
+  { title: "NPU驱动固件版本不一致", time: "11:55:00", desc: "SuperpodD · 计算柜08，等待人工处理", d08Key: "cabinetD08-0" },
+  { title: "NPU网口linkdown", time: "11:57:00", desc: "SuperpodD · 计算柜08，等待人工处理", d08Key: "cabinetD08-1" },
 ];
 
 const open = (key) => {

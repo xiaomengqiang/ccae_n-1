@@ -72,9 +72,20 @@ function FaultTip({ eventKey, phase, state, deviceLocated }) {
           <i className="hc-flow-halo"><i /></i>
           <i className="hc-flow-base" />
           <i className="hc-flow-ring" />
+          <span className="fault-status-flags" aria-label={eventKey === "qwen" ? "自动处理中，影响业务" : "自动处理中"}>
+            <span className="tip-auto-state">◌</span>
+            {eventKey === "qwen" && <b className="business-impact-symbol" aria-label="影响业务">✱</b>}
+            <span className="tip-state-label">自动处理中</span>
+            {eventKey === "qwen" && <span className="tip-impact-label">影响业务</span>}
+          </span>
         </>
       ) : (
-        <i className="hc-tip-arrow" />
+        <span className="fault-status-flags" aria-label={eventKey === "qwen" ? "待人工处理，影响业务" : "待人工处理"}>
+          <img src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+          {eventKey === "qwen" && <b className="business-impact-symbol" aria-label="影响业务">✱</b>}
+          <span className="tip-state-label">待人工处理</span>
+          {eventKey === "qwen" && <span className="tip-impact-label">影响业务</span>}
+        </span>
       )}
       <small className="hc-tip-device">
         {isOptical ? "计算柜11 · L1交换板02" : "计算柜13 · 112.34.23.1 · CPU02"}
@@ -279,6 +290,7 @@ export default function StoryRenderer() {
       <TimelineMarkers />
       <TimeNowSlot storyState={storyState} />
       <FaultTipsContainer storyState={storyState} />
+      <HealthMetricsSlot storyState={storyState} />
       <MetricSync storyState={storyState} />
       <StoryEventDispatcher storyState={storyState} />
       <BrandReset />

@@ -86,6 +86,12 @@ export default function StoryPopover({ eventKey, phase, state, expandedRecords, 
 
   const expanded = expandedRecords?.get(eventKey) || false;
 
+  // 原版逻辑：auto 状态下超过 3 条记录时显示展开/收起
+  // 展开时显示全部，收起时只显示最近 3 条（较旧的隐藏）
+  const autoRows = state === "auto" && rows.length > 3 ? rows : null;
+  const visibleRows = autoRows && !expanded ? autoRows.slice(-3) : rows;
+  const hiddenCount = autoRows && !expanded ? autoRows.length - 3 : 0;
+
   return (
     <div
       className={"story-popover" + (split || isQwen ? " story-popover-grouped" : "")}
@@ -96,7 +102,7 @@ export default function StoryPopover({ eventKey, phase, state, expandedRecords, 
         <>
           <PopoverSection part="completed" state="closed" title={isQwen ? "Qwen-1.5B服务劣化，已恢复" : "光链路闪断，已完成优雅隔离"} status="已闭环">
             {rows.slice(0, 4).map((text, i) => (
-              <PopoverRow key={i} text={text} kind={i < 3 ? "done" : "done"} />
+              <PopoverRow key={i} text={text} kind="done" />
             ))}
             {!isQwen && <PopoverRow text="异常链路已优雅隔离" kind="done" />}
           </PopoverSection>
@@ -120,19 +126,26 @@ export default function StoryPopover({ eventKey, phase, state, expandedRecords, 
           status={stateLabel}
           isActive
         >
-          {rows.map((text, i) => (
-            <PopoverRow key={i} text={text} kind={rowKinds[i]} />
+          {visibleRows.map((text, i) => (
+            <PopoverRow key={i} text={text} kind={rowKinds[rows.indexOf(text)] || "done"} />
           ))}
+          {autoRows && (
+            <RecordToggle
+              count={rows.length}
+              expanded={expanded}
+              onToggle={(v) => onToggleExpand?.(eventKey, v)}
+            />
+          )}
         </PopoverSection>
       ) : (
         <>
           {state === "auto" && (
             <PopoverHeading title="光链路闪断" status="自动处理中" />
           )}
-          {rows.map((text, i) => (
-            <PopoverRow key={i} text={text} kind={rowKinds[i]} />
+          {visibleRows.map((text, i) => (
+            <PopoverRow key={i} text={text} kind={rowKinds[rows.indexOf(text)] || "done"} />
           ))}
-          {state === "auto" && rows.length > 3 && (
+          {autoRows && (
             <RecordToggle
               count={rows.length}
               expanded={expanded}
