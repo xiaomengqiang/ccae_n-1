@@ -5,7 +5,6 @@ import { initClock } from "./utils/clock.js";
 import { initHomeScreen } from "./views/home-screen/legacy.js";
 import { initEnhancements } from "./views/home-screen/enhancements.js";
 import { initOpticalEvent } from "./views/optical-event/legacy.js";
-import { initNicEvent } from "./views/nic-event/legacy.js";
 import { initStory } from "./views/story/legacy.js";
 import { initEnergyDetail } from "./views/energy-detail/legacy.js";
 
@@ -17,7 +16,6 @@ export function runBoot() {
   initHomeScreen();
   initEnhancements();
   initOpticalEvent();
-  initNicEvent();
   initStory();
   initEnergyDetail();
 }

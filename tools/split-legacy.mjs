@@ -183,7 +183,6 @@ const segOrder = [
   ["optical-import", "src/views/optical-event/legacy.js", "initOpticalEvent"],
   ["optical-event", "src/views/optical-event/legacy.js", "initOpticalEvent"],
   ["optical-host", "src/views/optical-event/legacy.js", "initOpticalEvent"],
-  ["nic-event", "src/views/nic-event/legacy.js", "initNicEvent"],
   ["story-state", "src/views/story/legacy.js", "initStory"],
   ["story", "src/views/story/legacy.js", "initStory"],
   ["guardian", "src/views/story/legacy.js", "initStory"],
