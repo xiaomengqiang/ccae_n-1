@@ -580,8 +580,9 @@ const ENERGY_CABINET=document.querySelector('#screen>.cabinet-art').src;
     augmentHome();
     document.querySelector('.hc-energy-home-marker')?.remove();
   }
-  document.querySelector('#home-sidebar button[aria-label="首页"]').addEventListener('click',close);
-  document.querySelector('#home-header button').addEventListener('click',()=>{close();for(const s of sessions.values()){s.elapsed=0;s.liveTick=0;s.chartTick=0;s.logElapsed=0;s.logs=[];s.history=null;s.report=null;s.reports=[];s.prompt=true;s.tab='service';s.reportTabOpen=false;s.rightScroll={};s.expanded=false;s.expandedSteps.clear();s.stage=4;s.effectiveAt='10:17:14';s.stageElapsed=0;s.strategyGroupOpen=undefined;s.typedSteps=new Set();s.monitorOpen=true;s.composerText='';s.reportElapsed=0;}window.dispatchEvent(new CustomEvent('hc-energy-reset'));notifyEvents();});
+  document.addEventListener('click',e=>{if(e.target.closest('#home-sidebar button[aria-label="首页"]'))close();});
+  const headerBtn=document.querySelector('#home-header button');
+  if(headerBtn)headerBtn.addEventListener('click',()=>{close();for(const s of sessions.values()){s.elapsed=0;s.liveTick=0;s.chartTick=0;s.logElapsed=0;s.logs=[];s.history=null;s.report=null;s.reports=[];s.prompt=true;s.tab='service';s.reportTabOpen=false;s.rightScroll={};s.expanded=false;s.expandedSteps.clear();s.stage=4;s.effectiveAt='10:17:14';s.stageElapsed=0;s.strategyGroupOpen=undefined;s.typedSteps=new Set();s.monitorOpen=true;s.composerText='';s.reportElapsed=0;}window.dispatchEvent(new CustomEvent('hc-energy-reset'));notifyEvents();});
   root.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
   // Recognition also progresses on the home timeline; the detail timer owns it while open.
   const recognitionTimer=setInterval(()=>{if(!window.HCStory.get().energy||eventSession.stage===4||current===eventSession&&!root.hidden)return;const changed=E.advance(eventSession);if(changed.stage)notifyEvents();},187.5);

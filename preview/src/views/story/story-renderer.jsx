@@ -250,16 +250,35 @@ function StoryLoadTrigger() {
   return null;
 }
 
-// RunModeSync —— 运行模式切换
+// RunModeSync —— 运行模式切换（select 可能晚于本组件渲染，MutationObserver 等待）
 function RunModeSync() {
   useEffect(() => {
-    const select = document.querySelector("#home-header select");
-    if (!select) return;
-    const handleChange = (e) => {
-      document.documentElement.dataset.runMode = e.target.value;
+    let bound = false;
+    let cleanup = null;
+    const bind = (select) => {
+      if (bound) return;
+      bound = true;
+      const handleChange = (e) => {
+        document.documentElement.dataset.runMode = e.target.value;
+      };
+      select.addEventListener("change", handleChange);
+      cleanup = () => select.removeEventListener("change", handleChange);
     };
-    select.addEventListener("change", handleChange);
-    return () => select.removeEventListener("change", handleChange);
+    const el = document.querySelector("#home-header select");
+    if (el) {
+      bind(el);
+    } else {
+      const obs = new MutationObserver(() => {
+        const found = document.querySelector("#home-header select");
+        if (found) {
+          obs.disconnect();
+          bind(found);
+        }
+      });
+      obs.observe(document.body, { childList: true, subtree: true });
+      cleanup = () => obs.disconnect();
+    }
+    return () => cleanup?.();
   }, []);
   return null;
 }

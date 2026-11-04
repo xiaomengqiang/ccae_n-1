@@ -193,7 +193,7 @@ window.openNicEvent=()=>{
  panel.addEventListener('click',e=>{const flowBlank=e.target.closest('.nic-flow-viewport')&&!e.target.closest('button,a,input,select,[role=tab]');if(!flowBlank&&e.target.closest('button,input,select,.evt-step,.nic-upgrade-tip,.nic-process,.nic-event-summary'))return;selected=null;updateService();renderHistory();renderFlow();});
  stopLive=window.HCStory?.subscribe(next=>{if(!next.qwen){close();return;}if(next.qwen!==stage){stage=next.qwen;if(journeySecond===null&&selected===null)expanded=sections.map((_,i)=>stage<9&&i===currentSection(stage));render();}});
 };
-document.querySelector('#home-sidebar button[aria-label="首页"]').addEventListener('click',close);
+ document.addEventListener('click',e=>{if(e.target.closest('#home-sidebar button[aria-label="首页"]'))close();});
 
   cleanup = () => {
     window.closeNicEvent?.();

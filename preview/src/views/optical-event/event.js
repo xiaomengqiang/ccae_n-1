@@ -1279,7 +1279,7 @@ window.closeOpticalEvent=close;
 window.resetOpticalEvent=()=>{close();savedState=null;};
 window.openOpticalEvent=({mode='full'}={})=>{if(instance)return;window.closeEnergyDetail?.();window.closeNicEvent?.();detailMode=mode;root.hidden=false;instance=HCEventModule.mount({root,eventId:'optical-link-contamination',initialState:mode==='isolation'?null:savedState,detailMode:mode,entranceMode:'complete',storyStage:window.HCStory?.get().optical??6,onClose:close,onComplete:()=>{savedState=instance.exportState();window.dispatchEvent(new CustomEvent('hc-optical-complete',{detail:{eventId:'optical-link-contamination'}}));}});reference('optical')};root.hidden=true;
 window.addEventListener('hc-story-change',e=>instance?.setStoryStage(e.detail.optical));
-document.querySelector('#home-sidebar button[aria-label="首页"]').addEventListener('click',close);
+ document.addEventListener('click',e=>{if(e.target.closest('#home-sidebar button[aria-label="首页"]'))close();});
 })();
   cleanup = () => {
     window.closeOpticalEvent?.();

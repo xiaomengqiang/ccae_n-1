@@ -8572,528 +8572,21 @@ window.HCComponents={EventTypeIcon,Header,Mode,Sidebar,MetricTile,MetricRibbon,G
   Object.assign(__export, { initHCComponents });
 })();
 
-/* ===== src/mock/workloads.js ===== */
-(function () {
-const HOME_WORKLOADS={
-  "training": [
-    {
-      "status": "normal",
-      "data": {
-        "name": "Qwen3-72B 预训练",
-        "start": "08-22 09:10",
-        "npu": "256",
-        "quality": "99.73%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录"
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "DeepSeek-R1 微调",
-        "start": "08-22 08:32",
-        "npu": "128",
-        "quality": "99.36%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录"
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "Llama-3.1-70B SFT",
-        "start": "08-22 07:48",
-        "npu": "64",
-        "quality": "99.68%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录"
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "盘古多模态训练",
-        "start": "08-22 06:15",
-        "npu": "128",
-        "quality": "99.42%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录"
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "Qwen-VL 数据蒸馏",
-        "start": "08-22 05:40",
-        "npu": "32",
-        "quality": "99.81%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录"
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "MoE 专家并行实验",
-        "start": "08-22 03:20",
-        "npu": "64",
-        "quality": "99.57%",
-        "faults": "1",
-        "lastInterrupted": "08-22 03:20"
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "DeepSeek-R1 微调 · 007",
-        "start": "08-13 07:49",
-        "npu": "128",
-        "quality": "99.23%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录"
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "Llama-3.1-70B SFT · 008",
-        "start": "08-20 08:56",
-        "npu": "64",
-        "quality": "99.64%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录"
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "盘古多模态训练 · 009",
-        "start": "08-19 09:03",
-        "npu": "128",
-        "quality": "99.48%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录"
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "Qwen-VL 数据蒸馏 · 010",
-        "start": "08-18 10:10",
-        "npu": "32",
-        "quality": "99.76%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录"
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "Qwen3-72B 预训练 · 011",
-        "start": "08-17 11:17",
-        "npu": "256",
-        "quality": "99.39%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录"
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "DeepSeek-R1 微调 · 012",
-        "start": "08-16 12:24",
-        "npu": "128",
-        "quality": "99.61%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录"
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "Llama-3.1-70B SFT · 013",
-        "start": "08-15 13:31",
-        "npu": "64",
-        "quality": "99.54%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录"
-      }
-    }
-  ],
-  "inference": [
-    {
-      "status": "degraded",
-      "data": {
-        "name": "Qwen-1.5B 在线服务",
-        "start": "08-22 09:02",
-        "npu": "32",
-        "quality": "99.94%",
-        "faults": "1",
-        "lastInterrupted": "08-22 09:02",
-        "total": "124860",
-        "ok": "124785",
-        "fail": "75",
-        "tokens": "8.42M",
-        "ttft": "182 ms",
-        "tpot": "23.6 ms",
-        "energySaving": true,
-        "energyTotal": "1280 kWh",
-        "energySaved": "163 kWh",
-        "energyGain": "11.3 %",
-        "energyUnit": 1.82
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "Qwen-14B",
-        "start": "08-22 08:10",
-        "npu": "48",
-        "quality": "99.97%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "286420",
-        "ok": "286334",
-        "fail": "86",
-        "tokens": "16.8M",
-        "ttft": "146 ms",
-        "tpot": "18.2 ms",
-        "energySaving": true,
-        "energyTotal": "5520 kWh",
-        "energySaved": "384.7 kWh",
-        "energyGain": "6.5 %",
-        "energyUnit": 5.6
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "视觉理解服务-3B",
-        "start": "08-22 07:55",
-        "npu": "16",
-        "quality": "99.93%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "68210",
-        "ok": "68162",
-        "fail": "48",
-        "tokens": "3.21M",
-        "ttft": "238 ms",
-        "tpot": "31.4 ms",
-        "energySaving": true,
-        "energyTotal": "1280 kWh",
-        "energySaved": "163 kWh",
-        "energyGain": "11.3 %",
-        "energyUnit": 2.36
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "代码生成 Copilot-1.5B",
-        "start": "08-22 06:26",
-        "npu": "24",
-        "quality": "99.95%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "47380",
-        "ok": "47356",
-        "fail": "24",
-        "tokens": "2.08M",
-        "ttft": "520 ms",
-        "tpot": "66.8 ms",
-        "energySaving": true,
-        "energyTotal": "1280 kWh",
-        "energySaved": "163 kWh",
-        "energyGain": "11.3 %",
-        "energyUnit": 2.74
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "Embedding 检索服务-0.5B",
-        "start": "08-22 05:18",
-        "npu": "8",
-        "quality": "99.78%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "942810",
-        "ok": "940736",
-        "fail": "2074",
-        "tokens": "28.6M",
-        "ttft": "42 ms",
-        "tpot": "6.2 ms",
-        "energySaving": false
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "数字人实时推理-1.5B",
-        "start": "08-22 04:42",
-        "npu": "16",
-        "quality": "99.67%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "32150",
-        "ok": "32044",
-        "fail": "106",
-        "tokens": "1.46M",
-        "ttft": "680 ms",
-        "tpot": "72.5 ms",
-        "energySaving": true,
-        "energyTotal": "1280 kWh",
-        "energySaved": "163 kWh",
-        "energyGain": "11.3 %",
-        "energyUnit": 1.82
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "视觉理解服务 · 07-3B",
-        "start": "08-13 07:03",
-        "npu": "16",
-        "quality": "99.73%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "68210",
-        "ok": "68026",
-        "fail": "184",
-        "tokens": "3.21M",
-        "ttft": "238 ms",
-        "tpot": "31.4 ms",
-        "energySaving": true,
-        "energyTotal": "1280 kWh",
-        "energySaved": "163 kWh",
-        "energyGain": "11.3 %",
-        "energyUnit": 1.82
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "代码生成 Copilot · 08-1.5B",
-        "start": "08-20 08:12",
-        "npu": "24",
-        "quality": "99.61%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "47380",
-        "ok": "47195",
-        "fail": "185",
-        "tokens": "2.08M",
-        "ttft": "520 ms",
-        "tpot": "66.8 ms",
-        "energySaving": true,
-        "energyTotal": "1280 kWh",
-        "energySaved": "163 kWh",
-        "energyGain": "11.3 %",
-        "energyUnit": 1.82
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "Embedding 检索服务 · 09-0.5B",
-        "start": "08-19 09:21",
-        "npu": "8",
-        "quality": "99.82%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "942810",
-        "ok": "941113",
-        "fail": "1697",
-        "tokens": "28.6M",
-        "ttft": "42 ms",
-        "tpot": "6.2 ms",
-        "energySaving": true,
-        "energyTotal": "1280 kWh",
-        "energySaved": "163 kWh",
-        "energyGain": "11.3 %",
-        "energyUnit": 1.82
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "数字人实时推理 · 10-1.5B",
-        "start": "08-18 10:30",
-        "npu": "16",
-        "quality": "99.69%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "32150",
-        "ok": "32050",
-        "fail": "100",
-        "tokens": "1.46M",
-        "ttft": "680 ms",
-        "tpot": "72.5 ms",
-        "energySaving": true,
-        "energyTotal": "1280 kWh",
-        "energySaved": "163 kWh",
-        "energyGain": "11.3 %",
-        "energyUnit": 1.82
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "Deepseek-1",
-        "start": "08-17 11:39",
-        "npu": "64",
-        "quality": "99.76%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "286420",
-        "ok": "285733",
-        "fail": "687",
-        "tokens": "16.8M",
-        "ttft": "146 ms",
-        "tpot": "18.2 ms",
-        "energySaving": false,
-        "energyUnit": 12.8,
-        "energyTotal": "1280 kWh",
-        "energySaved": "163 kWh",
-        "energyGain": "11.3 %"
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "视觉理解服务 · 12-3B",
-        "start": "08-16 12:48",
-        "npu": "16",
-        "quality": "99.58%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "68210",
-        "ok": "67924",
-        "fail": "286",
-        "tokens": "3.21M",
-        "ttft": "238 ms",
-        "tpot": "31.4 ms",
-        "energySaving": true,
-        "energyTotal": "1280 kWh",
-        "energySaved": "163 kWh",
-        "energyGain": "11.3 %",
-        "energyUnit": 1.82
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "代码生成 Copilot · 13-1.5B",
-        "start": "08-15 13:57",
-        "npu": "24",
-        "quality": "99.71%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "47380",
-        "ok": "47243",
-        "fail": "137",
-        "tokens": "2.08M",
-        "ttft": "520 ms",
-        "tpot": "66.8 ms",
-        "energySaving": true,
-        "energyTotal": "1280 kWh",
-        "energySaved": "163 kWh",
-        "energyGain": "11.3 %",
-        "energyUnit": 1.82
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "Embedding 检索服务 · 14-0.5B",
-        "start": "08-14 14:06",
-        "npu": "8",
-        "quality": "99.64%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "942810",
-        "ok": "939416",
-        "fail": "3394",
-        "tokens": "28.6M",
-        "ttft": "42 ms",
-        "tpot": "6.2 ms",
-        "energySaving": true,
-        "energyTotal": "1280 kWh",
-        "energySaved": "163 kWh",
-        "energyGain": "11.3 %",
-        "energyUnit": 1.82
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "数字人实时推理 · 15-1.5B",
-        "start": "08-13 15:15",
-        "npu": "16",
-        "quality": "99.79%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "32150",
-        "ok": "32082",
-        "fail": "68",
-        "tokens": "1.46M",
-        "ttft": "680 ms",
-        "tpot": "72.5 ms",
-        "energySaving": true,
-        "energyTotal": "1280 kWh",
-        "energySaved": "163 kWh",
-        "energyGain": "11.3 %",
-        "energyUnit": 1.82
-      }
-    },
-    {
-      "status": "normal",
-      "data": {
-        "name": "Llama-3-70B",
-        "start": "08-20 16:24",
-        "npu": "64",
-        "quality": "99.68%",
-        "faults": "0",
-        "lastInterrupted": "无中断记录",
-        "total": "286420",
-        "ok": "285503",
-        "fail": "917",
-        "tokens": "16.8M",
-        "ttft": "146 ms",
-        "tpot": "18.2 ms",
-        "energySaving": true,
-        "energyUnit": 13.6
-      }
-    }
-  ]
-}
-;
-  Object.assign(__export, { HOME_WORKLOADS });
-})();
-
 /* ===== src/views/home-screen/legacy.js ===== */
 (function () {
-  const { HOME_WORKLOADS, HC_ASSETS } = __export;
-function initHomeScreen() {
-/* Assembly review: approved components + approved homepage artwork. */
-const C=HCComponents;
-function mount(id,node){document.getElementById(id).replaceChildren(node)}
-mount('home-header',C.Header());
-const sidebar=C.Sidebar();const expand=document.createElement('img');expand.className='sidebar-expand';expand.src=HC_ASSETS.icons['侧边栏展开'];expand.alt='展开侧栏';sidebar.append(expand);mount('home-sidebar',sidebar);
- // home-metrics 由 React MetricRibbon 渲染，不再在此挂载
- // home-events 由 React StoryGuardPanelContainer 渲染，不再在此挂载
- mount('home-composer',C.Composer());
- // ticks 由 React TicksSlot 组件渲染
- // time-now 由 React TimeNowSlot 组件渲染
-function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080),screen=document.getElementById('screen');screen.style.setProperty('--home-scale',s);screen.style.transform=`scale(${s})`;screen.style.left=(innerWidth-1920*s)/2+'px';screen.style.top=(innerHeight-1080*s)/2+'px'}addEventListener('resize',fit);fit();
+  const { HC_ASSETS } = __export;
+// home-screen legacy —— 剩余部分（Header/Sidebar/Composer/fit 已迁移到 React HomeScreen）
+// 此文件只保留 energyServiceCard + updateCompactStatusIcons + energyGradeTag（被其他模块调用）
 
- // workload browser now managed by workload-browser.js (initWorkloadBrowser in React HomeScreen)
+function initHomeScreen() {
+const C=HCComponents;
+
 function energyServiceCard({status,data}){
  const card=document.createElement('article');card.className='hc-workload hc-energy-card';card.setAttribute('aria-label',data.name+' 节能服务卡片');card.setAttribute('role','button');card.tabIndex=0;card.onclick=()=>window.openEnergyService?.(data);card.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();window.openEnergyService?.(data);}};card.style.left='0';card.style.top='20px';
  const header=document.createElement('header');const name=document.createElement('strong');name.textContent=data.name;const normal=C.Status({status});const energy=document.createElement('span');energy.className='hc-status normal';energy.textContent='节能中';const leaf=document.createElement('img');leaf.src=HC_ASSETS.icons['绿色叶子'];leaf.alt='';leaf.className='energy-label-leaf';energy.prepend(leaf);const date=document.createElement('time');date.textContent=data.start;const logo=C.WorkloadIcon(data.name);header.append(logo,name,normal,energy,date);card.append(header);
  const fields=document.createElement('dl');for(const [name,value] of [['百万Token能耗',(Number(data.energyUnit||1.82)/3.6).toFixed(2)+' kWh/Mtoken'],['总能耗',data.energyTotal],['节省能耗',data.energySaved],['节能增益',data.energyGain],['卡数',data.npu+' 卡'],['TTFT',data.ttft],['TPOT',data.tpot]]){const field=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=name;dd.textContent=value;if(name==='百万Token能耗'){field.className='energy-primary';dt.append(energyGradeTag(data));dd.innerHTML=(Number(data.energyUnit||1.82)/3.6).toFixed(2)+' <small>kWh/Mtoken</small>';}field.append(dt,dd);fields.append(field);}card.append(fields);const chart=document.createElementNS('http://www.w3.org/2000/svg','svg');chart.classList.add('energy-spark');chart.setAttribute('viewBox','0 0 70 30');chart.setAttribute('role','img');chart.setAttribute('aria-label','百万Token能耗趋势');chart.innerHTML='<path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20V29H1Z" fill="#3ac58d" opacity=".2"/><path d="M1 9L13 10L25 8L36 12L47 19L58 21L69 20" fill="none" stroke="#3ac58d" stroke-width="2"/>';card.append(chart);return card;
 }
+
 window.updateCompactStatusIcons=()=>{
  document.querySelectorAll('.hc-metric-group').forEach(group=>{
   const compact=group.querySelector('.hc-metric-compact'),key=group.dataset.category;
@@ -9118,46 +8611,6 @@ function energyGradeTag(data){const size=Number((data.name||'').match(/-(\d+(?:\
 window.energyGradeTag = energyGradeTag;
 }
   Object.assign(__export, { initHomeScreen });
-})();
-
-/* ===== src/views/home-screen/enhancements.js ===== */
-(function () {
-  const { HC_ASSETS, HOME_LINKS_SVG } = __export;
-function initEnhancements() {
-/* Parameters from reference-demo sections 2/3/4/6. */
-window.HCOpticalFlow=function(svg){
- if(HCMotion.REDUCED||svg.querySelector('.hc-flow-paths'))return;
- const ns='http://www.w3.org/2000/svg',group=document.createElementNS(ns,'g');group.classList.add('hc-flow-paths');group.setAttribute('aria-hidden','true');
- const seen=new Set();const paths=[...svg.querySelectorAll('path:not(defs path):not(.evt-npu-flow)')].filter(base=>{const key=base.getAttribute('d')+'|'+(base.getAttribute('transform')||'');if(seen.has(key))return false;seen.add(key);return true});svg.append(group);
- const speed=svg.classList.contains('evt-links')?315/(1.25*1.75):315;const lengths=paths.map(p=>p.getTotalLength()),cycle=Math.max(1,...lengths.map(L=>(L+110)/speed*1000));const epoch=document.timeline.currentTime;paths.forEach((base,i)=>{const L=lengths[i];if(!L)return;const end=(L+110)/speed*1000/cycle;[[110,.06],[70,.10],[40,.16],[16,.34]].forEach(([seg,opacity])=>{const p=document.createElementNS(ns,'path');p.setAttribute('d',base.getAttribute('d'));if(base.hasAttribute('transform'))p.setAttribute('transform',base.getAttribute('transform'));p.setAttribute('class','hc-flow-trace'+(base.classList.contains('evt-fault-link')?' hc-flow-fault':''));p.style.cssText=`fill:none;stroke:var(--hc-flow-color,rgb(99,213,168));stroke-opacity:${opacity};stroke-width:1;stroke-linecap:round;stroke-dasharray:${seg} ${L+110+seg};pointer-events:none`;group.append(p);const animation=p.animate([{strokeDashoffset:seg,offset:0},{strokeDashoffset:seg-(L+110),offset:end},{strokeDashoffset:seg-(L+110),offset:1}],{duration:cycle,delay:0,iterations:Infinity,easing:'linear'});animation.startTime=epoch;});});
-};
-window.HCFadeTip=function(node,text){
- const label=node.querySelector('span');if(node.dataset.copy===text)return;const first=node.dataset.copy===undefined;node.dataset.copy=text;
- clearTimeout(node._copyTimer);label.getAnimations().forEach(a=>a.cancel());
- if(first||HCMotion.REDUCED){label.textContent=text;return;}
- label.animate([{opacity:1,filter:'blur(0px)'},{opacity:0,filter:'blur(3px)'}],{duration:200,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'});
- node._copyTimer=setTimeout(()=>{if(!node.isConnected)return;label.getAnimations().forEach(a=>a.cancel());label.textContent=text;label.animate([{opacity:0,filter:'blur(6px)'},{opacity:1,filter:'blur(0px)'}],{duration:300,easing:'cubic-bezier(.33,0,.67,1)'});},250);
-};
-window.addEventListener('load',()=>{
- const screen=document.getElementById('screen'),original=screen.querySelector('img.cabinet-links');
- if(original){const svg=new DOMParser().parseFromString(HOME_LINKS_SVG,'image/svg+xml').documentElement;svg.removeAttribute('width');svg.removeAttribute('height');svg.setAttribute('class','cabinet-links hc-home-flow');svg.setAttribute('aria-hidden','true');svg.querySelectorAll('path').forEach(n=>{n.style.opacity='0';if(n.getAttribute('d')==="M0 72.9998C0 72.9998 74.1541 0.00011598 226.513 1.3952e-10C378.872 -0.00011598 408.537 72.3088 408.537 72.3088"&&n.getAttribute('transform')==="matrix(-1,0,0,1,1369.23,593.536)")n.classList.add('evt-fault-link');});original.after(svg);HCOpticalFlow(svg);}
- const info=document.querySelector('.energy-info');if(info){info.firstChild.textContent='';const img=document.createElement('img');img.src=HC_ASSETS.icons['tips-0909'];img.alt='';info.prepend(img);}
- let openMenu=null;
- function decorate(select,mode=false){
- const wrapper=select.parentElement;select.tabIndex=-1;select.setAttribute('aria-hidden','true');select.style.pointerEvents='none';
- const trigger=document.createElement('button');trigger.type='button';trigger.className='hc-select-trigger';trigger.setAttribute('aria-label',select.getAttribute('aria-label'));trigger.setAttribute('aria-haspopup','listbox');trigger.setAttribute('aria-expanded','false');
- const menu=document.createElement('div');menu.className='hc-select-menu';menu.setAttribute('role','listbox');menu.hidden=true;screen.append(menu);
- const close=()=>{menu.hidden=true;trigger.setAttribute('aria-expanded','false');if(openMenu===close)openMenu=null;};
- const sync=()=>{if(!mode)trigger.textContent=select.options[select.selectedIndex].textContent;};
- const choose=i=>{select.selectedIndex=i;select.dispatchEvent(new Event('change',{bubbles:true}));sync();close();trigger.focus();};
- const show=()=>{if(!menu.hidden){close();return;}openMenu?.();const sr=screen.getBoundingClientRect(),r=wrapper.getBoundingClientRect(),scale=sr.width/1920;menu.style.left=((r.left-sr.left)/scale)+'px';menu.style.top=((r.bottom-sr.top)/scale+8)+'px';menu.replaceChildren();[...select.options].forEach((option,i)=>{const b=document.createElement('button');b.type='button';b.textContent=option.textContent;b.setAttribute('role','option');b.setAttribute('aria-selected',String(i===select.selectedIndex));b.onclick=()=>choose(i);b.onkeydown=e=>{if(e.key==='Escape'){close();trigger.focus()}else if(['ArrowDown','ArrowUp'].includes(e.key)){e.preventDefault();menu.children[(i+(e.key==='ArrowDown'?1:-1)+select.options.length)%select.options.length].focus();}};menu.append(b)});menu.hidden=false;trigger.setAttribute('aria-expanded','true');openMenu=close;};
- trigger.onclick=show;trigger.onkeydown=e=>{if(e.key==='ArrowDown'){e.preventDefault();show();menu.children[select.selectedIndex]?.focus();}if(e.key==='Escape')close();};select.addEventListener('change',sync);wrapper.append(trigger);if(!mode){select.style.opacity='0';wrapper.querySelector(':scope>span')?.setAttribute('hidden','');}sync();
- document.addEventListener('click',e=>{if(!wrapper.contains(e.target)&&!menu.contains(e.target))close()});
- }
- decorate(document.querySelector('#home-header select'),true);decorate(document.getElementById('range'));
- document.querySelector('#home-header button').addEventListener('click',()=>openMenu?.());
-},{once:true});}
-  Object.assign(__export, { initEnhancements });
 })();
 
 /* ===== src/views/optical-event/event.js ===== */
@@ -10444,7 +9897,7 @@ window.closeOpticalEvent=close;
 window.resetOpticalEvent=()=>{close();savedState=null;};
 window.openOpticalEvent=({mode='full'}={})=>{if(instance)return;window.closeEnergyDetail?.();window.closeNicEvent?.();detailMode=mode;root.hidden=false;instance=HCEventModule.mount({root,eventId:'optical-link-contamination',initialState:mode==='isolation'?null:savedState,detailMode:mode,entranceMode:'complete',storyStage:window.HCStory?.get().optical??6,onClose:close,onComplete:()=>{savedState=instance.exportState();window.dispatchEvent(new CustomEvent('hc-optical-complete',{detail:{eventId:'optical-link-contamination'}}));}});reference('optical')};root.hidden=true;
 window.addEventListener('hc-story-change',e=>instance?.setStoryStage(e.detail.optical));
-document.querySelector('#home-sidebar button[aria-label="首页"]').addEventListener('click',close);
+ document.addEventListener('click',e=>{if(e.target.closest('#home-sidebar button[aria-label="首页"]'))close();});
 })();
   cleanup = () => {
     window.closeOpticalEvent?.();
@@ -10465,6 +9918,506 @@ function unmountOpticalEvent() {
 function mountStoryRender() {}
 function unmountStoryRender() {}
   Object.assign(__export, { mountStoryRender, unmountStoryRender });
+})();
+
+/* ===== src/mock/workloads.js ===== */
+(function () {
+const HOME_WORKLOADS={
+  "training": [
+    {
+      "status": "normal",
+      "data": {
+        "name": "Qwen3-72B 预训练",
+        "start": "08-22 09:10",
+        "npu": "256",
+        "quality": "99.73%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "DeepSeek-R1 微调",
+        "start": "08-22 08:32",
+        "npu": "128",
+        "quality": "99.36%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Llama-3.1-70B SFT",
+        "start": "08-22 07:48",
+        "npu": "64",
+        "quality": "99.68%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "盘古多模态训练",
+        "start": "08-22 06:15",
+        "npu": "128",
+        "quality": "99.42%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Qwen-VL 数据蒸馏",
+        "start": "08-22 05:40",
+        "npu": "32",
+        "quality": "99.81%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "MoE 专家并行实验",
+        "start": "08-22 03:20",
+        "npu": "64",
+        "quality": "99.57%",
+        "faults": "1",
+        "lastInterrupted": "08-22 03:20"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "DeepSeek-R1 微调 · 007",
+        "start": "08-13 07:49",
+        "npu": "128",
+        "quality": "99.23%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Llama-3.1-70B SFT · 008",
+        "start": "08-20 08:56",
+        "npu": "64",
+        "quality": "99.64%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "盘古多模态训练 · 009",
+        "start": "08-19 09:03",
+        "npu": "128",
+        "quality": "99.48%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Qwen-VL 数据蒸馏 · 010",
+        "start": "08-18 10:10",
+        "npu": "32",
+        "quality": "99.76%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Qwen3-72B 预训练 · 011",
+        "start": "08-17 11:17",
+        "npu": "256",
+        "quality": "99.39%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "DeepSeek-R1 微调 · 012",
+        "start": "08-16 12:24",
+        "npu": "128",
+        "quality": "99.61%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Llama-3.1-70B SFT · 013",
+        "start": "08-15 13:31",
+        "npu": "64",
+        "quality": "99.54%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录"
+      }
+    }
+  ],
+  "inference": [
+    {
+      "status": "degraded",
+      "data": {
+        "name": "Qwen-1.5B 在线服务",
+        "start": "08-22 09:02",
+        "npu": "32",
+        "quality": "99.94%",
+        "faults": "1",
+        "lastInterrupted": "08-22 09:02",
+        "total": "124860",
+        "ok": "124785",
+        "fail": "75",
+        "tokens": "8.42M",
+        "ttft": "182 ms",
+        "tpot": "23.6 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Qwen-14B",
+        "start": "08-22 08:10",
+        "npu": "48",
+        "quality": "99.97%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "286420",
+        "ok": "286334",
+        "fail": "86",
+        "tokens": "16.8M",
+        "ttft": "146 ms",
+        "tpot": "18.2 ms",
+        "energySaving": true,
+        "energyTotal": "5520 kWh",
+        "energySaved": "384.7 kWh",
+        "energyGain": "6.5 %",
+        "energyUnit": 5.6
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "视觉理解服务-3B",
+        "start": "08-22 07:55",
+        "npu": "16",
+        "quality": "99.93%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "68210",
+        "ok": "68162",
+        "fail": "48",
+        "tokens": "3.21M",
+        "ttft": "238 ms",
+        "tpot": "31.4 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 2.36
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "代码生成 Copilot-1.5B",
+        "start": "08-22 06:26",
+        "npu": "24",
+        "quality": "99.95%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "47380",
+        "ok": "47356",
+        "fail": "24",
+        "tokens": "2.08M",
+        "ttft": "520 ms",
+        "tpot": "66.8 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 2.74
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Embedding 检索服务-0.5B",
+        "start": "08-22 05:18",
+        "npu": "8",
+        "quality": "99.78%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "942810",
+        "ok": "940736",
+        "fail": "2074",
+        "tokens": "28.6M",
+        "ttft": "42 ms",
+        "tpot": "6.2 ms",
+        "energySaving": false
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "数字人实时推理-1.5B",
+        "start": "08-22 04:42",
+        "npu": "16",
+        "quality": "99.67%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "32150",
+        "ok": "32044",
+        "fail": "106",
+        "tokens": "1.46M",
+        "ttft": "680 ms",
+        "tpot": "72.5 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "视觉理解服务 · 07-3B",
+        "start": "08-13 07:03",
+        "npu": "16",
+        "quality": "99.73%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "68210",
+        "ok": "68026",
+        "fail": "184",
+        "tokens": "3.21M",
+        "ttft": "238 ms",
+        "tpot": "31.4 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "代码生成 Copilot · 08-1.5B",
+        "start": "08-20 08:12",
+        "npu": "24",
+        "quality": "99.61%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "47380",
+        "ok": "47195",
+        "fail": "185",
+        "tokens": "2.08M",
+        "ttft": "520 ms",
+        "tpot": "66.8 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Embedding 检索服务 · 09-0.5B",
+        "start": "08-19 09:21",
+        "npu": "8",
+        "quality": "99.82%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "942810",
+        "ok": "941113",
+        "fail": "1697",
+        "tokens": "28.6M",
+        "ttft": "42 ms",
+        "tpot": "6.2 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "数字人实时推理 · 10-1.5B",
+        "start": "08-18 10:30",
+        "npu": "16",
+        "quality": "99.69%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "32150",
+        "ok": "32050",
+        "fail": "100",
+        "tokens": "1.46M",
+        "ttft": "680 ms",
+        "tpot": "72.5 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Deepseek-1",
+        "start": "08-17 11:39",
+        "npu": "64",
+        "quality": "99.76%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "286420",
+        "ok": "285733",
+        "fail": "687",
+        "tokens": "16.8M",
+        "ttft": "146 ms",
+        "tpot": "18.2 ms",
+        "energySaving": false,
+        "energyUnit": 12.8,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %"
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "视觉理解服务 · 12-3B",
+        "start": "08-16 12:48",
+        "npu": "16",
+        "quality": "99.58%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "68210",
+        "ok": "67924",
+        "fail": "286",
+        "tokens": "3.21M",
+        "ttft": "238 ms",
+        "tpot": "31.4 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "代码生成 Copilot · 13-1.5B",
+        "start": "08-15 13:57",
+        "npu": "24",
+        "quality": "99.71%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "47380",
+        "ok": "47243",
+        "fail": "137",
+        "tokens": "2.08M",
+        "ttft": "520 ms",
+        "tpot": "66.8 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Embedding 检索服务 · 14-0.5B",
+        "start": "08-14 14:06",
+        "npu": "8",
+        "quality": "99.64%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "942810",
+        "ok": "939416",
+        "fail": "3394",
+        "tokens": "28.6M",
+        "ttft": "42 ms",
+        "tpot": "6.2 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "数字人实时推理 · 15-1.5B",
+        "start": "08-13 15:15",
+        "npu": "16",
+        "quality": "99.79%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "32150",
+        "ok": "32082",
+        "fail": "68",
+        "tokens": "1.46M",
+        "ttft": "680 ms",
+        "tpot": "72.5 ms",
+        "energySaving": true,
+        "energyTotal": "1280 kWh",
+        "energySaved": "163 kWh",
+        "energyGain": "11.3 %",
+        "energyUnit": 1.82
+      }
+    },
+    {
+      "status": "normal",
+      "data": {
+        "name": "Llama-3-70B",
+        "start": "08-20 16:24",
+        "npu": "64",
+        "quality": "99.68%",
+        "faults": "0",
+        "lastInterrupted": "无中断记录",
+        "total": "286420",
+        "ok": "285503",
+        "fail": "917",
+        "tokens": "16.8M",
+        "ttft": "146 ms",
+        "tpot": "18.2 ms",
+        "energySaving": true,
+        "energyUnit": 13.6
+      }
+    }
+  ]
+}
+;
+  Object.assign(__export, { HOME_WORKLOADS });
 })();
 
 /* ===== src/views/energy-detail/legacy.js ===== */
@@ -11049,8 +11002,9 @@ const ENERGY_CABINET=document.querySelector('#screen>.cabinet-art').src;
     augmentHome();
     document.querySelector('.hc-energy-home-marker')?.remove();
   }
-  document.querySelector('#home-sidebar button[aria-label="首页"]').addEventListener('click',close);
-  document.querySelector('#home-header button').addEventListener('click',()=>{close();for(const s of sessions.values()){s.elapsed=0;s.liveTick=0;s.chartTick=0;s.logElapsed=0;s.logs=[];s.history=null;s.report=null;s.reports=[];s.prompt=true;s.tab='service';s.reportTabOpen=false;s.rightScroll={};s.expanded=false;s.expandedSteps.clear();s.stage=4;s.effectiveAt='10:17:14';s.stageElapsed=0;s.strategyGroupOpen=undefined;s.typedSteps=new Set();s.monitorOpen=true;s.composerText='';s.reportElapsed=0;}window.dispatchEvent(new CustomEvent('hc-energy-reset'));notifyEvents();});
+  document.addEventListener('click',e=>{if(e.target.closest('#home-sidebar button[aria-label="首页"]'))close();});
+  const headerBtn=document.querySelector('#home-header button');
+  if(headerBtn)headerBtn.addEventListener('click',()=>{close();for(const s of sessions.values()){s.elapsed=0;s.liveTick=0;s.chartTick=0;s.logElapsed=0;s.logs=[];s.history=null;s.report=null;s.reports=[];s.prompt=true;s.tab='service';s.reportTabOpen=false;s.rightScroll={};s.expanded=false;s.expandedSteps.clear();s.stage=4;s.effectiveAt='10:17:14';s.stageElapsed=0;s.strategyGroupOpen=undefined;s.typedSteps=new Set();s.monitorOpen=true;s.composerText='';s.reportElapsed=0;}window.dispatchEvent(new CustomEvent('hc-energy-reset'));notifyEvents();});
   root.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
   // Recognition also progresses on the home timeline; the detail timer owns it while open.
   const recognitionTimer=setInterval(()=>{if(!window.HCStory.get().energy||eventSession.stage===4||current===eventSession&&!root.hidden)return;const changed=E.advance(eventSession);if(changed.stage)notifyEvents();},187.5);
@@ -11431,6 +11385,28 @@ window.HCStory = createHCStory();
   Object.assign(__export, { createHCStory });
 })();
 
+/* ===== src/shared/enhancement-animations.js ===== */
+(function () {
+  const { HOME_LINKS_SVG } = __export;
+// 动画引擎（命令式，不适合 React）—— HCOpticalFlow + HCFadeTip
+// 被 optical-event / nic-event / story-renderer FaultTips 调用
+
+
+window.HCOpticalFlow=function(svg){
+ if(HCMotion.REDUCED||svg.querySelector('.hc-flow-paths'))return;
+ const ns='http://www.w3.org/2000/svg',group=document.createElementNS(ns,'g');group.classList.add('hc-flow-paths');group.setAttribute('aria-hidden','true');
+ const seen=new Set();const paths=[...svg.querySelectorAll('path:not(defs path):not(.evt-npu-flow)')].filter(base=>{const key=base.getAttribute('d')+'|'+(base.getAttribute('transform')||'');if(seen.has(key))return false;seen.add(key);return true});svg.append(group);
+ const speed=svg.classList.contains('evt-links')?315/(1.25*1.75):315;const lengths=paths.map(p=>p.getTotalLength()),cycle=Math.max(1,...lengths.map(L=>(L+110)/speed*1000));const epoch=document.timeline.currentTime;paths.forEach((base,i)=>{const L=lengths[i];if(!L)return;const end=(L+110)/speed*1000/cycle;[[110,.06],[70,.10],[40,.16],[16,.34]].forEach(([seg,opacity])=>{const p=document.createElementNS(ns,'path');p.setAttribute('d',base.getAttribute('d'));if(base.hasAttribute('transform'))p.setAttribute('transform',base.getAttribute('transform'));p.setAttribute('class','hc-flow-trace'+(base.classList.contains('evt-fault-link')?' hc-flow-fault':''));p.style.cssText=`fill:none;stroke:var(--hc-flow-color,rgb(99,213,168));stroke-opacity:${opacity};stroke-width:1;stroke-linecap:round;stroke-dasharray:${seg} ${L+110+seg};pointer-events:none`;group.append(p);const animation=p.animate([{strokeDashoffset:seg,offset:0},{strokeDashoffset:seg-(L+110),offset:end},{strokeDashoffset:seg-(L+110),offset:1}],{duration:cycle,delay:0,iterations:Infinity,easing:'linear'});animation.startTime=epoch;});});
+};
+window.HCFadeTip=function(node,text){
+ const label=node.querySelector('span');if(node.dataset.copy===text)return;const first=node.dataset.copy===undefined;node.dataset.copy=text;
+ clearTimeout(node._copyTimer);label.getAnimations().forEach(a=>a.cancel());
+ if(first||HCMotion.REDUCED){label.textContent=text;return;}
+ label.animate([{opacity:1,filter:'blur(0px)'},{opacity:0,filter:'blur(3px)'}],{duration:200,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'});
+ node._copyTimer=setTimeout(()=>{if(!node.isConnected)return;label.getAnimations().forEach(a=>a.cancel());label.textContent=text;label.animate([{opacity:0,filter:'blur(6px)'},{opacity:1,filter:'blur(0px)'}],{duration:300,easing:'cubic-bezier(.33,0,.67,1)'});},250);
+};
+})();
+
 /* ===== src/utils/clock.js ===== */
 (function () {
 // 演示时钟 —— 虚拟业务时间（2026-09-09 12:00 起算）
@@ -11455,11 +11431,10 @@ function initClock() {}
 
 /* ===== src/boot.js ===== */
 (function () {
-  const { initHCComponents, initHomeScreen, initEnhancements, mountOpticalEvent, mountStoryRender, initEnergyDetail } = __export;
+  const { initHCComponents, initHomeScreen, mountOpticalEvent, mountStoryRender, initEnergyDetail } = __export;
 function runBoot() {
   initHCComponents();
   initHomeScreen();
-  initEnhancements();
   mountOpticalEvent();
   mountStoryRender();
   initEnergyDetail();
@@ -13483,16 +13458,35 @@ function StoryLoadTrigger() {
   return null;
 }
 
-// RunModeSync —— 运行模式切换
+// RunModeSync —— 运行模式切换（select 可能晚于本组件渲染，MutationObserver 等待）
 function RunModeSync() {
   useEffect(() => {
-    const select = document.querySelector("#home-header select");
-    if (!select) return;
-    const handleChange = (e) => {
-      document.documentElement.dataset.runMode = e.target.value;
+    let bound = false;
+    let cleanup = null;
+    const bind = (select) => {
+      if (bound) return;
+      bound = true;
+      const handleChange = (e) => {
+        document.documentElement.dataset.runMode = e.target.value;
+      };
+      select.addEventListener("change", handleChange);
+      cleanup = () => select.removeEventListener("change", handleChange);
     };
-    select.addEventListener("change", handleChange);
-    return () => select.removeEventListener("change", handleChange);
+    const el = document.querySelector("#home-header select");
+    if (el) {
+      bind(el);
+    } else {
+      const obs = new MutationObserver(() => {
+        const found = document.querySelector("#home-header select");
+        if (found) {
+          obs.disconnect();
+          bind(found);
+        }
+      });
+      obs.observe(document.body, { childList: true, subtree: true });
+      cleanup = () => obs.disconnect();
+    }
+    return () => cleanup?.();
   }, []);
   return null;
 }
@@ -13674,72 +13668,6 @@ function MetricRibbon({ category = "resource", selected = 0, onChange }) {
   Object.assign(__export, { MetricRibbon });
 })();
 
-/* ===== src/components/guard-events/index.jsx ===== */
-(function () {
-  const { HC_ASSETS } = __export;
-const TABS = [
-  { key: "manual", text: "待人工处理", count: 2 },
-  { key: "energy", text: "节能机会点", count: 1 },
-];
-
-const MANUAL_ROWS = [
-  { title: "光链路脏污，待清污", desc: "计算柜11- L1交换板02链路已隔离，等待人工清污", icon: "故障+小手" },
-  { title: "Qwen-1.5B服务劣化：网卡驱动待升级", desc: "节点112.34.23.1的hinic3驱动需由V11.8升级至V13.1", icon: "故障+小手" },
-];
-
-const ENERGY_ROWS = [
-  { title: "Qwen-14B服务存在节能空间，可优化策略", desc: "识别到低负载时段，预计开启均衡模式可日节能12.3%", icon: "节能+小手" },
-];
-
-// 守护事件卡片 —— 左面板中的事件列表（两个 tab + 事件行）
-// 被 home-screen 的 #home-events 槽位和 story.js 的 renderStoryGuard 使用
-function GuardEvents({ view = "manual", onChange, onViewAll }) {
-  const isManual = view !== "energy";
-  const isEnergy = view === "energy";
-  const rows = isEnergy ? ENERGY_ROWS : MANUAL_ROWS;
-  const activeTab = isEnergy ? "energy" : "manual";
-
-  return (
-    <section className="hc-guard">
-      <div className="hc-guard-head">
-        <h2>智能体事件</h2>
-        <button type="button" disabled={!onViewAll} onClick={onViewAll}>查看全部</button>
-      </div>
-      <div className="hc-tabs" role="tablist">
-        {TABS.map(({ key, text, count }) => (
-          <button
-            key={key}
-            type="button"
-            role="tab"
-            aria-selected={String(key === activeTab)}
-            onClick={() => onChange?.(key)}
-          >
-            {text} <b className="hc-tab-count">{view === "empty" ? 0 : count}</b>
-          </button>
-        ))}
-      </div>
-      {view === "empty" ? (
-        <div className="hc-empty">
-          <img className="hc-icon" src={HC_ASSETS.icons["暂无待处理事项"]} alt="" width={150} />
-        </div>
-      ) : (
-        rows.map(({ title, desc, icon }) => (
-          <article key={title} className="hc-event-row">
-            <div className="hc-event-head">
-              <img className="hc-icon" src={HC_ASSETS.icons[icon]} alt="" width={24} />
-              <span>{title}</span>
-              <time>14:59:30</time>
-            </div>
-            <p>{desc}</p>
-          </article>
-        ))
-      )}
-    </section>
-  );
-}
-  Object.assign(__export, { GuardEvents });
-})();
-
 /* ===== src/components/composer/index.jsx ===== */
 (function () {
   const { useState } = React;
@@ -13781,19 +13709,29 @@ function Composer({ value = "", onSend }) {
 
 /* ===== src/components/mode/index.jsx ===== */
 (function () {
+  const { useState } = React;
   const { HC_ASSETS } = __export;
 function Mode({ value = "smart", onChange }) {
+  const [current, setCurrent] = useState(value);
+  const smart = current === "smart";
   return (
     <div className="hc-mode">
       <img
         className="hc-icon"
-        src={HC_ASSETS.icons[value]}
+        src={HC_ASSETS.icons[current]}
         alt=""
-        width={value === "smart" ? 111 : 99}
-        height={value === "smart" ? 36 : 24}
-        style={value === "smart" ? { left: "-6px", top: "-6px" } : { left: "0", top: "0" }}
+        width={smart ? 111 : 99}
+        height={smart ? 36 : 24}
+        style={smart ? { left: "-6px", top: "-6px" } : { left: "0", top: "0" }}
       />
-      <select aria-label="运行模式" value={value} onChange={(e) => onChange?.(e.target.value)}>
+      <select
+        aria-label="运行模式"
+        value={current}
+        onChange={(e) => {
+          setCurrent(e.target.value);
+          onChange?.(e.target.value);
+        }}
+      >
         <option value="smart">智能模式</option>
         <option value="normal">普通模式</option>
       </select>
@@ -13823,13 +13761,23 @@ function Header({ onReset }) {
 
 /* ===== src/components/sidebar/index.jsx ===== */
 (function () {
+  const { useState } = React;
   const { HC_ASSETS } = __export;
+const BUTTONS = ["首页", "策略中心", "新建对话", "历史任务"];
+
 function Sidebar() {
+  const [selected, setSelected] = useState("首页");
   return (
-    <nav className="hc-sidebar" aria-label="侧边导航">
+    <nav className="hc-sidebar" aria-label="侧导航">
       <img className="hc-icon" src={HC_ASSETS.icons["侧边栏智慧体"]} alt="" width={56} />
-      {["首页", "策略中心", "新建对话", "历史任务"].map((name, i) => (
-        <button key={name} type="button" aria-label={name} className={i === 0 ? "selected" : ""}>
+      {BUTTONS.map((name) => (
+        <button
+          key={name}
+          type="button"
+          aria-label={name}
+          className={selected === name ? "selected" : ""}
+          onClick={() => setSelected(name)}
+        >
           <img className="hc-icon" src={HC_ASSETS.icons[name]} alt="" width={48} />
         </button>
       ))}
@@ -14074,19 +14022,232 @@ function initCompactStatus() {
   Object.assign(__export, { initCompactStatus });
 })();
 
+/* ===== src/hooks/use-enhancements-portal.jsx ===== */
+(function () {
+  const { useEffect, useRef, useState } = React;
+  const { HC_ASSETS, HOME_LINKS_SVG } = __export;
+const createPortal = (node, host) => ReactDOM.createPortal(node, host);
+
+// CabinetLinksFlow —— 机柜链路 SVG 替换 + 流光动画
+function CabinetLinksFlow() {
+  const replaced = useRef(false);
+  useEffect(() => {
+    if (replaced.current) return;
+    const original = document.querySelector("#screen img.cabinet-links");
+    if (!original) return;
+    replaced.current = true;
+    const svg = new DOMParser().parseFromString(HOME_LINKS_SVG, "image/svg+xml").documentElement;
+    svg.removeAttribute("width");
+    svg.removeAttribute("height");
+    svg.setAttribute("class", "cabinet-links hc-home-flow");
+    svg.setAttribute("aria-hidden", "true");
+    svg.querySelectorAll("path").forEach((n) => {
+      n.style.opacity = "0";
+      if (
+        n.getAttribute("d") === "M0 72.9998C0 72.9998 74.1541 0.00011598 226.513 1.3952e-10C378.872 -0.00011598 408.537 72.3088 408.537 72.3088" &&
+        n.getAttribute("transform") === "matrix(-1,0,0,1,1369.23,593.536)"
+      ) {
+        n.classList.add("evt-fault-link");
+      }
+    });
+    original.after(svg);
+    try {
+      window.HCOpticalFlow?.(svg);
+    } catch { }
+  }, []);
+  return null;
+}
+
+// EnergyInfoIcon —— 能耗信息区域添加图标
+function EnergyInfoIcon() {
+  const done = useRef(false);
+  useEffect(() => {
+    if (done.current) return;
+    const info = document.querySelector(".energy-info");
+    if (!info) return;
+    done.current = true;
+    info.firstChild.textContent = "";
+    const img = document.createElement("img");
+    img.src = HC_ASSETS.icons["tips-0909"];
+    img.alt = "";
+    info.prepend(img);
+  }, []);
+  return null;
+}
+
+// SelectDecorator —— select 美化器
+// trigger: portal 到 select 的 wrapper（absolute 覆盖）
+// menu: portal 到 #screen（和原版一致，getBoundingClientRect 定位）
+function SelectDecorator({ targetSelector, mode = false }) {
+  const [wrapper, setWrapper] = useState(null);
+  const [screen, setScreen] = useState(null);
+  const [select, setSelect] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [selectedText, setSelectedText] = useState("");
+  const [menuPos, setMenuPos] = useState({ left: 0, top: 0 });
+  const triggerRef = useRef(null);
+
+  useEffect(() => {
+    const scr = document.getElementById("screen");
+    if (!scr) return;
+    let el = null;
+    let bound = false;
+    let cleanup = null;
+    const bind = (node) => {
+      if (bound) return;
+      bound = true;
+      setWrapper(node.parentElement);
+      setScreen(scr);
+      setSelect(node);
+      node.tabIndex = -1;
+      node.setAttribute("aria-hidden", "true");
+      node.style.pointerEvents = "none";
+      setSelectedText(node.options[node.selectedIndex]?.textContent || "");
+      const handleChange = () => {
+        setSelectedText(node.options[node.selectedIndex]?.textContent || "");
+      };
+      node.addEventListener("change", handleChange);
+      cleanup = () => node.removeEventListener("change", handleChange);
+    };
+    el = document.querySelector(targetSelector);
+    if (el) {
+      bind(el);
+    } else {
+      // 目标 select 可能由 React 异步渲染（如 #home-header 内），等待出现后再绑定
+      const obs = new MutationObserver(() => {
+        const found = document.querySelector(targetSelector);
+        if (found) {
+          obs.disconnect();
+          bind(found);
+        }
+      });
+      obs.observe(document.body, { childList: true, subtree: true });
+      cleanup = () => obs.disconnect();
+    }
+    return () => { cleanup?.(); };
+  }, [targetSelector]);
+
+  useEffect(() => {
+    if (!select || mode) return;
+    select.style.opacity = "0";
+    const span = select.parentElement?.querySelector("span");
+    if (span) span.setAttribute("hidden", "");
+  }, [select, mode]);
+
+  useEffect(() => {
+    if (!open || !wrapper || !screen) return;
+    const wr = wrapper.getBoundingClientRect();
+    const sr = screen.getBoundingClientRect();
+    const scale = sr.width / 1920;
+    setMenuPos({
+      left: (wr.left - sr.left) / scale + "px",
+      top: (wr.bottom - sr.top) / scale + 8 + "px",
+    });
+  }, [open, wrapper, screen]);
+
+  useEffect(() => {
+    if (!open) return;
+    const close = (e) => {
+      if (!e.target.closest(".hc-select-trigger") && !e.target.closest(".hc-select-menu")) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
+  }, [open]);
+
+  if (!wrapper || !select) return null;
+
+  const options = [...select.options].map((opt) => ({ value: opt.value, text: opt.textContent }));
+
+  const choose = (value) => {
+    select.value = value;
+    select.dispatchEvent(new Event("change", { bubbles: true }));
+    setSelectedText(options.find((o) => o.value === value)?.text || "");
+    setOpen(false);
+    triggerRef.current?.focus();
+  };
+
+  const openMenu = () => {
+    setOpen(true);
+  };
+
+  return (
+    <>
+      {createPortal(
+        <button
+          ref={triggerRef}
+          type="button"
+          className="hc-select-trigger"
+          aria-label={select.getAttribute("aria-label") || ""}
+          aria-haspopup="listbox"
+          aria-expanded={String(open)}
+          onClick={() => { if (open) setOpen(false); else openMenu(); }}
+          onKeyDown={(e) => {
+            if (e.key === "ArrowDown") { e.preventDefault(); openMenu(); }
+            if (e.key === "Escape") setOpen(false);
+          }}
+        >
+          {mode ? "" : selectedText}
+        </button>,
+        wrapper
+      )}
+      {open && screen && createPortal(
+        <div className="hc-select-menu" role="listbox" style={{ left: menuPos.left, top: menuPos.top }}>
+          {options.map((opt) => (
+            <button
+              key={opt.value}
+              type="button"
+              role="option"
+              aria-selected={String(select.value === opt.value)}
+              onClick={() => choose(opt.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Escape") { setOpen(false); triggerRef.current?.focus(); }
+                if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+                  e.preventDefault();
+                  const idx = options.findIndex((o) => o.value === opt.value);
+                  const next = options[(idx + (e.key === "ArrowDown" ? 1 : -1) + options.length) % options.length];
+                  choose(next.value);
+                }
+              }}
+            >
+              {opt.text}
+            </button>
+          ))}
+        </div>,
+        screen
+      )}
+    </>
+  );
+}
+
+function EnhancementsPortal() {
+  return (
+    <>
+      <CabinetLinksFlow />
+      <EnergyInfoIcon />
+      <SelectDecorator targetSelector="#home-header select" mode={true} />
+      <SelectDecorator targetSelector="#range" />
+    </>
+  );
+}
+  Object.assign(__export, { EnhancementsPortal });
+})();
+
 /* ===== src/views/home-screen/index.jsx ===== */
 (function () {
   const { useEffect, useState } = React;
   const { useFitScale, useHealthMetrics, useLinkedEvent, HC_ASSETS, initWorkloadBrowser, initWorkloadBrowserWindowAPI, initCompactStatus } = __export;
   const StoryRenderer = __export.StoryRenderer;
   const MetricRibbon = __export.MetricRibbon;
-  const GuardEvents = __export.GuardEvents;
   const Composer = __export.Composer;
   const Header = __export.Header;
   const Sidebar = __export.Sidebar;
+  const EnhancementsPortal = __export.EnhancementsPortal;
 const createPortal = (node, host) => ReactDOM.createPortal(node, host);
 
-// home-screen 装配层
+// home-screen 装配层 —— 全部 React 化
+// Header / Sidebar / Composer / MetricRibbon 由 React portal 渲染
 // StoryRenderer 统一管理 story 状态驱动的全页联动
 function HomeScreen() {
   useFitScale();
@@ -14095,12 +14256,31 @@ function HomeScreen() {
 
   return (
     <>
+      <SlotPortal slotId="home-header">
+        <Header onReset={resetDemo} />
+      </SlotPortal>
+      <SlotPortal slotId="home-sidebar">
+        <SidebarWithExpand />
+      </SlotPortal>
       <SlotPortal slotId="home-metrics">
         <MetricRibbon onChange={(cat, idx) => window.showWorkloads?.(cat, idx)} />
       </SlotPortal>
+      <SlotPortal slotId="home-composer">
+        <Composer />
+      </SlotPortal>
       <StoryRenderer />
+      <EnhancementsPortal />
       <TicksSlot />
       <InitEffects />
+    </>
+  );
+}
+
+function SidebarWithExpand() {
+  return (
+    <>
+      <Sidebar />
+      <img className="sidebar-expand" src={HC_ASSETS.icons["侧边栏展开"]} alt="展开侧栏" />
     </>
   );
 }
@@ -14133,6 +14313,18 @@ function SlotPortal({ slotId, children }) {
   useEffect(() => setHost(document.getElementById(slotId)), []);
   if (!host) return null;
   return createPortal(children, host);
+}
+
+function resetDemo() {
+  window.HCClock?.reset();
+  window.resetOpticalEvent?.();
+  window.resetNicEvent?.();
+  const guardAll = document.getElementById("guard-all");
+  if (guardAll) guardAll.hidden = true;
+  const ribbon = document.querySelector("#home-metrics .hc-ribbon");
+  ribbon?.activate?.("resource", 0, true);
+  window.HCStory?.start();
+  window.restartMascotEntrance?.();
 }
   Object.assign(__export, { HomeScreen });
 })();
@@ -14334,7 +14526,7 @@ window.openNicEvent=()=>{
  panel.addEventListener('click',e=>{const flowBlank=e.target.closest('.nic-flow-viewport')&&!e.target.closest('button,a,input,select,[role=tab]');if(!flowBlank&&e.target.closest('button,input,select,.evt-step,.nic-upgrade-tip,.nic-process,.nic-event-summary'))return;selected=null;updateService();renderHistory();renderFlow();});
  stopLive=window.HCStory?.subscribe(next=>{if(!next.qwen){close();return;}if(next.qwen!==stage){stage=next.qwen;if(journeySecond===null&&selected===null)expanded=sections.map((_,i)=>stage<9&&i===currentSection(stage));render();}});
 };
-document.querySelector('#home-sidebar button[aria-label="首页"]').addEventListener('click',close);
+ document.addEventListener('click',e=>{if(e.target.closest('#home-sidebar button[aria-label="首页"]'))close();});
 
   cleanup = () => {
     window.closeNicEvent?.();
