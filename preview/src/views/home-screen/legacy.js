@@ -7,9 +7,9 @@ const C=HCComponents;
 function mount(id,node){document.getElementById(id).replaceChildren(node)}
 mount('home-header',C.Header());
 const sidebar=C.Sidebar();const expand=document.createElement('img');expand.className='sidebar-expand';expand.src=HC_ASSETS.icons['侧边栏展开'];expand.alt='展开侧栏';sidebar.append(expand);mount('home-sidebar',sidebar);
-mount('home-metrics',C.MetricRibbon({onChange:(category,index)=>showWorkloads(category,index)}));
-function guard(view='manual'){if(window.renderStoryGuard){window.renderStoryGuard(view);return;}mount('home-events',C.GuardEvents({view,onChange:guard,onViewAll:()=>window.openGuardEvents()}))}guard();
-mount('home-composer',C.Composer());
+ mount('home-metrics',C.MetricRibbon({onChange:(category,index)=>showWorkloads(category,index)}));
+ // home-events 由 React StoryGuardPanelContainer 渲染，不再在此挂载
+ mount('home-composer',C.Composer());
 document.getElementById('ticks').replaceChildren(...Array.from({length:20},(_,i)=>{const span=document.createElement('span');span.textContent=HCClock.format(i*60-360).slice(0,8);return span}));
 document.querySelector('.time-now b').textContent=HCClock.format(0);
 function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080),screen=document.getElementById('screen');screen.style.setProperty('--home-scale',s);screen.style.transform=`scale(${s})`;screen.style.left=(innerWidth-1920*s)/2+'px';screen.style.top=(innerHeight-1080*s)/2+'px'}addEventListener('resize',fit);fit();

@@ -9081,9 +9081,9 @@ const C=HCComponents;
 function mount(id,node){document.getElementById(id).replaceChildren(node)}
 mount('home-header',C.Header());
 const sidebar=C.Sidebar();const expand=document.createElement('img');expand.className='sidebar-expand';expand.src=HC_ASSETS.icons['侧边栏展开'];expand.alt='展开侧栏';sidebar.append(expand);mount('home-sidebar',sidebar);
-mount('home-metrics',C.MetricRibbon({onChange:(category,index)=>showWorkloads(category,index)}));
-function guard(view='manual'){if(window.renderStoryGuard){window.renderStoryGuard(view);return;}mount('home-events',C.GuardEvents({view,onChange:guard,onViewAll:()=>window.openGuardEvents()}))}guard();
-mount('home-composer',C.Composer());
+ mount('home-metrics',C.MetricRibbon({onChange:(category,index)=>showWorkloads(category,index)}));
+ // home-events 由 React StoryGuardPanelContainer 渲染，不再在此挂载
+ mount('home-composer',C.Composer());
 document.getElementById('ticks').replaceChildren(...Array.from({length:20},(_,i)=>{const span=document.createElement('span');span.textContent=HCClock.format(i*60-360).slice(0,8);return span}));
 document.querySelector('.time-now b').textContent=HCClock.format(0);
 function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080),screen=document.getElementById('screen');screen.style.setProperty('--home-scale',s);screen.style.transform=`scale(${s})`;screen.style.left=(innerWidth-1920*s)/2+'px';screen.style.top=(innerHeight-1080*s)/2+'px'}addEventListener('resize',fit);fit();
@@ -10616,33 +10616,6 @@ const open=key=>{if(key==='optical')window.openOpticalEvent();else window.openNi
 const stateOf=(key,p)=>p===9?'closed':p===6?'manual':'auto';
 const guardAutoRows=new Map(),cabinetTipCache=new Map();
 const progressText=(key,p)=>copy[key][p].replace('生成链路闪断 issue','生成链路闪断issue').replace('正在分析链路指标与设备日志','分析链路指标与设备日志');
-window.renderStoryGuard=(view=guardView)=>{
- guardView=view==='energy'?'auto':view;
- const s=story.get(),keys=['optical','qwen'].filter(k=>!impactOnly||affectsBusiness(k)),automatic=keys.filter(k=>s[k]>0&&s[k]<9&&s[k]!==6),manual=keys.filter(k=>s[k]===6);
- const box=C.GuardEvents({view:guardView==='auto'?'energy':'manual',onChange:window.renderStoryGuard,onViewAll:window.openGuardEvents});
- const head=box.querySelector('.hc-guard-head'),filter=U.button('','hc-impact-filter',()=>{impactOnly=!impactOnly;window.renderStoryGuard();document.querySelector('#home-events .hc-impact-filter')?.focus({preventScroll:true});});
- filter.setAttribute('role','checkbox');filter.setAttribute('aria-label','仅显示影响业务事件');filter.setAttribute('aria-checked',String(impactOnly));filter.title='仅显示影响业务事件';filter.append(U.el('i','hc-impact-check'),U.el('span','','仅显示影响业务事件'));head.insertBefore(filter,head.lastElementChild);
- box.querySelectorAll('.hc-event-row').forEach(n=>n.remove());
- box.querySelectorAll('[role="tab"]').forEach((n,i)=>{n.firstChild.textContent=i?'自动处理中 ':'待人工处理 ';n.querySelector('.hc-tab-count').textContent=i?automatic.length:manual.length+(impactOnly?0:2);});
- for(const [key,cached] of guardAutoRows){if(guardView!=='auto'||!automatic.includes(key)||cached.stage!==s[key]||cached.startedAt!==s.startedAt){clearInterval(cached.timer);guardAutoRows.delete(key);}}
- const entries=guardView==='auto'?automatic:manual;
- for(const key of entries){
-  const cached=guardAutoRows.get(key);if(cached){box.append(cached.row);continue;}
-  const row=U.el('article','hc-event-row'),head=U.el('div','hc-event-head'),processing=guardView==='auto';
-  row.dataset.linkedEvent=key;
-  const eventIcon=processing?C.EventTypeIcon({size:24}):manualFaultSymbol(key==='qwen');if(processing){eventIcon.classList.add('guard-auto-symbol');eventIcon.setAttribute('aria-label','故障自动处理中');C.FlowBorder(eventIcon);}head.append(eventIcon,U.el('span','',HCEventTitle(key,s[key])),U.el('time','',key==='optical'?(processing?'12:00:00':'12:00:40'):'12:05:12'));
-  if(processing){row.classList.add('hc-event-processing');C.FlowBorder(row);}
-  const desc=U.el('p','',processing?'':key==='optical'?'计算柜11-L1交换板02链路已优雅隔离，等待人工清污':'112.34.23.1 无可替换节点，服务仍劣化，需人工将 hinic3 从V11.8升级至V13.1');row.append(head,desc);
-  row.setAttribute('role','button');row.tabIndex=0;row.setAttribute('aria-label',key==='optical'?'查看光链路脏污故障详情':'查看Qwen处理进度');row.onclick=()=>open(key);row.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(key)}};
-  if(processing){const chars=Array.from(progressText(key,s[key]));let count=0;const entry={row,stage:s[key],startedAt:s.startedAt,timer:null};entry.timer=setInterval(()=>{desc.textContent=chars.slice(0,++count).join('');if(count>=chars.length)clearInterval(entry.timer);},35);guardAutoRows.set(key,entry);}
-  box.append(row);
- }
- if(guardView!=='auto'&&!impactOnly)for(let i=0;i<2;i++){const row=U.el('article','hc-event-row');row.dataset.linkedEvent='cabinetD08-'+i;const head=U.el('div','hc-event-head');head.append(manualFaultSymbol(false),U.el('span','',['NPU驱动固件版本不一致','NPU网口linkdown'][i]),U.el('time','',i?'11:57:00':'11:55:00'));row.append(head,U.el('p','','SuperpodD · 计算柜08，等待人工处理'));box.append(row);}
- if(!entries.length&&impactOnly){const empty=U.el('div','story-impact-empty','暂无影响业务的'+(guardView==='auto'?'自动处理事件':'待人工处理事件'));empty.setAttribute('role','status');box.append(empty);}else if(!entries.length&&(guardView==='auto'||impactOnly)){const empty=U.el('div','story-empty'),img=U.el('img');img.src=HC_ASSETS.icons['暂无待处理事项'];img.alt=guardView==='auto'?'暂无自动处理中的事件':'暂无待处理事项';if(guardView==='auto'){empty.classList.add('story-empty-processing');const art=U.el('div','story-empty-art');art.append(img);empty.append(art,U.el('span','story-empty-caption','暂无自动处理中事项'));}else empty.append(img);box.append(empty);}
- // Newest events first; moving existing rows preserves their handlers.
- Array.from(box.querySelectorAll(':scope > .hc-event-row')).sort((a,b)=>(b.querySelector('time')?.textContent||'').localeCompare(a.querySelector('time')?.textContent||'')).forEach(row=>box.append(row));
- mount('home-events',box);
-};
 window.storyWorkloads=category=>HOME_WORKLOADS[category].map(item=>{const x={...item,data:{...item.data}},s=story.get();if(category==='inference'&&/^Qwen-1.5B/.test(x.data.name)){const active=s.qwen>0&&s.qwen<9;x.status=active?'degraded':'normal';x.data.faults=active?'1':'0';x.data.processingText=active?copy.qwen[s.qwen]:'';x.data.processingManual=s.qwen===6;x.data.pendingManual=s.qwen===6?1:0;if(s.qwen>0){const total=Number(x.data.total);x.data.ok=String(Math.round(total*(active?.775:.9994)));x.data.fail=String(total-Number(x.data.ok));x.data.quality=(100*Number(x.data.ok)/total).toFixed(2)+'%';x.data.ttft=active?'186 ms':'182 ms';x.data.tpot=active?'43 ms':'23.6 ms';}}return x});
 
 function impactFlags(impact=false){
@@ -10669,7 +10642,7 @@ const timelineStart=-360;const now=document.querySelector('.time-now');now.style
  document.querySelector('.cabinet-fault-link').hidden=!(s.optical>0&&s.optical<9);
  document.querySelector('.cabinet-red').hidden=!deviceLocated;
  window.updateCompactStatusIcons?.();
- window.renderStoryGuard();
+ // renderStoryGuard now handled by React StoryGuardPanelContainer
  const tips=document.getElementById('home-tips');for(const [key,tip] of cabinetTipCache){if(!s[key]||s[key]>=9||(key==='qwen'&&!deviceLocated)||tip.dataset.startedAt!==String(s.startedAt)){clearTimeout(tip._copyTimer);tip.remove();cabinetTipCache.delete(key);}}const marks=document.getElementById('home-timeline-markers');const existingMarks=new Map([...marks.children].map(node=>[node.dataset.eventKey,node]));for(const node of marks.children){if((!s[node.dataset.eventKey]&&!node.dataset.eventKey.startsWith('cabinetD08-'))||node.dataset.startedAt!==String(s.startedAt))node.remove();}
  ['optical','qwen'].forEach((key,i)=>{const p=s[key];if(!p)return;const state=stateOf(key,p);
  if(state!=='closed'&&p<9&&(key!=='qwen'||deviceLocated)){let tip=cabinetTipCache.get(key);if(!tip){tip=C.FaultTip({state:state==='auto'?'auto':key});tip.classList.add(key);tip.dataset.startedAt=s.startedAt;cabinetTipCache.set(key,tip);tips.append(tip);}const nextMode=state==='auto'?'auto':'manual';if(!tip.classList.contains(nextMode)){const oldCopy=tip.querySelector('span').textContent;const next=C.FaultTip({state:state==='auto'?'auto':key});tip.className=next.className+' '+key;tip.replaceChildren(...next.childNodes);tip.querySelector('span').textContent=oldCopy;}HCFadeTip(tip,HCEventTitle(key,p));if(!tip.querySelector('.hc-tip-device'))tip.append(U.el('small','hc-tip-device',key==='optical'?'计算柜11 · L1交换板02':'计算柜13 · 112.34.23.1 · CPU02'));let detail=tip.querySelector('.hc-tip-detail');if(!detail){detail=U.el('div','hc-tip-detail');tip.append(detail);}detail.replaceChildren(U.el('strong','',HCEventTitle(key,p)),U.el('p','',key==='optical'?'故障对象：计算柜11 · L1交换板02':'故障对象：计算柜13 · 112.34.23.1 · CPU02'),U.el('p','',key==='optical'?(p>=5?'光模块端面脏污，异常链路已优雅隔离，健康通道承载业务':'检测到光链路闪断，正在分析链路指标与设备日志'):'hinic3 驱动版本 V11.8，需升级至 V13.1；无可替换节点，Qwen-1.5B 服务劣化'),U.el('p','',state==='manual'?'当前状态：待人工处理':'当前状态：自动处理中'),U.el('p','','点击查看处理详情'));tip.setAttribute('role','button');tip.tabIndex=0;tip.setAttribute('aria-label','查看'+(key==='optical'?'光链路脏污故障详情':'Qwen处理进度'));tip.onclick=()=>open(key);tip.onkeydown=e=>{if(e.key==='Enter')open(key)};}
@@ -12721,6 +12694,382 @@ function useLinkedEvent() {
   Object.assign(__export, { useLinkedEvent });
 })();
 
+/* ===== src/components/workload-icon/index.jsx ===== */
+(function () {
+  const { HC_ASSETS } = __export;
+const KEY = { qwen: "千问", deepseek: "DeepSeek" };
+
+function WorkloadIcon({ name = "" }) {
+  const key = /qwen|千问/i.test(name) ? "千问" : /deepseek/i.test(name) ? "DeepSeek" : "AI";
+  return (
+    <img
+      className="hc-icon"
+      src={HC_ASSETS.icons[key]}
+      alt=""
+      width={24}
+      style={key === "AI" ? { filter: "brightness(0) invert(.84)" } : undefined}
+    />
+  );
+}
+  Object.assign(__export, { WorkloadIcon });
+})();
+
+/* ===== src/components/event-type-icon/index.jsx ===== */
+(function () {
+  const { HC_ASSETS } = __export;
+  const WorkloadIcon = __export.WorkloadIcon;
+const DOMAIN_LABELS = { training: "训练作业", inference: "推理服务", resource: "资源" };
+const TYPE_LABELS = { fault: "故障", risk: "隐患", energy: "节能机会" };
+
+function EventTypeIcon({ domain = "resource", name = "Qwen", type = "fault", closed = false, size = 24 }) {
+  if (type === "fault") {
+    return (
+      <i className="hc-event-type-icon hc-unified-fault" style={{ "--event-icon-size": size + "px" }}
+        data-type="fault" data-closed={String(closed)} role="img"
+        aria-label={"故障" + (closed ? "，已闭环" : "")}>
+        <img className="hc-icon" src={HC_ASSETS.icons[closed ? "灰色的故障" : "红色的故障"]} alt="" width={size} />
+      </i>
+    );
+  }
+  const actualDomain = type === "energy" ? "inference" : domain;
+  return (
+    <i className="hc-event-type-icon" style={{ "--event-icon-size": size + "px" }}
+      data-domain={actualDomain} data-type={type} data-closed={String(closed)} role="img"
+      aria-label={(DOMAIN_LABELS[actualDomain] || actualDomain) + (TYPE_LABELS[type] || type) + (closed ? "，已闭环" : "")}>
+      {actualDomain === "inference" ? (
+        <span className="hc-event-model"><WorkloadIcon name={name} /></span>
+      ) : (
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="hc-event-object">
+          {actualDomain === "training" ? (
+            <>
+              <path d="M8 3h9a2 2 0 0 1 2 2v13M5 6h9a2 2 0 0 1 2 2v12H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" />
+              <path d="M7 10h5M7 14h5M7 17h3" />
+            </>
+          ) : (
+            <>
+              <rect x="3" y="4" width="17" height="7" rx="2.4" />
+              <rect x="3" y="14" width="17" height="7" rx="2.4" />
+              <path d="M7 7.5h.1M7 17.5h.1M12 7.5h4M12 17.5h4" />
+            </>
+          )}
+        </svg>
+      )}
+      <img className="hc-icon hc-event-type-mark" src={HC_ASSETS.icons[type === "energy" ? "绿色叶子" : type === "risk" ? "橙色隐患" : "红色的故障"]} alt="" width={12} />
+    </i>
+  );
+}
+  Object.assign(__export, { EventTypeIcon });
+})();
+
+/* ===== src/components/flow-border/index.jsx ===== */
+(function () {
+function FlowBorder({ children }) {
+  return (
+    <>
+      {children}
+      <i className="hc-flow-halo"><i /></i>
+      <i className="hc-flow-base" />
+      <i className="hc-flow-ring" />
+    </>
+  );
+}
+  Object.assign(__export, { FlowBorder });
+})();
+
+/* ===== src/components/fault-tip/index.jsx ===== */
+(function () {
+  const { HC_ASSETS } = __export;
+  const FlowBorder = __export.FlowBorder;
+function FaultTip({ state = "optical" }) {
+  const auto = state === "auto";
+  return (
+    <div className={"hc-fault-tip " + (auto ? "auto" : "manual")}>
+      {!auto && <img className="hc-icon" src={HC_ASSETS.icons["红色的故障"]} alt="" width={14} />}
+      <span>{auto ? "正在分析链路指标与设备日志" : state === "qwen" ? "网卡驱动待升级" : "光链路待清污"}</span>
+      {auto ? (
+        <>
+          <i className="hc-flow-halo"><i /></i>
+          <i className="hc-flow-base" />
+          <i className="hc-flow-ring" />
+        </>
+      ) : (
+        <i className="hc-tip-arrow" />
+      )}
+    </div>
+  );
+}
+  Object.assign(__export, { FaultTip });
+})();
+
+/* ===== src/views/story/story-guard-panel.jsx ===== */
+(function () {
+  const { useEffect, useRef, useState } = React;
+  const { HC_ASSETS } = __export;
+  const EventTypeIcon = __export.EventTypeIcon;
+  const FlowBorder = __export.FlowBorder;
+  const FaultTip = __export.FaultTip;
+const createPortal2 = (node, host) => ReactDOM.createPortal(node, host);
+
+const STORY_COPY = {
+  optical: ["", "发现链路闪断告警", "30条告警聚合，生成链路闪断 issue", "正在分析链路指标与设备日志", "定位根因：光链路脏污", "优雅隔离异常链路", "光链路待清污", "链路复核完成，已清污", "关闭光链路清污待办", "光链路隔离已取消"],
+  qwen: ["", "发现 Qwen-1.5B 服务劣化告警", "定位 D实例01 异常退出", "无可替换节点，自动恢复受阻", "分析 BMC、OS 与 vmcore 日志", "定位根因：hinic3 网卡驱动版本过低", "服务劣化，待人工升级网卡驱动", "人工已确认，正在升级网卡驱动", "驱动已升级，正在核查节点与服务健康", "网卡升级与健康核查通过，服务恢复并闭环"],
+};
+const NAMES = { optical: "光链路脏污，待清污", qwen: "Qwen-1.5B服务劣化：网卡驱动版本低，待升级" };
+
+const HCEventTitle = (key, p) =>
+  p === 6 ? NAMES[key]
+  : key === "qwen" && p >= 7 ? "网卡升级与服务恢复"
+  : key === "qwen" && p >= 4 ? "网卡驱动故障诊断"
+  : STORY_COPY[key]?.[1] || NAMES[key];
+
+const stateOf = (key, p) => (p === 9 ? "closed" : p === 6 ? "manual" : "auto");
+const progressText = (key, p) =>
+  STORY_COPY[key][p]
+    .replace("生成链路闪断 issue", "生成链路闪断issue")
+    .replace("正在分析链路指标与设备日志", "分析链路指标与设备日志");
+
+const CABINET_D08 = [
+  { title: "NPU驱动固件版本不一致", time: "11:55:00", desc: "SuperpodD · 计算柜08，等待人工处理", key: "cabinetD08-0" },
+  { title: "NPU网口linkdown", time: "11:57:00", desc: "SuperpodD · 计算柜08，等待人工处理", key: "cabinetD08-1" },
+];
+
+const open = (key) => {
+  if (key === "optical") window.openOpticalEvent();
+  else window.openNicEvent();
+};
+
+// ImpactFlags —— 待人工处理标记（红色小手 + 影响业务星标）
+function ImpactFlags({ impact = false }) {
+  return (
+    <span className="fault-status-flags" aria-label={impact ? "待人工处理，影响业务" : "待人工处理"}>
+      <img src={HC_ASSETS.icons["红色小手"]} alt="待人工处理" />
+      {impact && <b className="business-impact-symbol" aria-label="影响业务" title="影响业务">✱</b>}
+    </span>
+  );
+}
+
+// GuardEventRow —— 单条守护事件行（自动处理/待人工处理两种状态）
+function GuardEventRow({ eventKey, title, time, description, isProcessing, isManual, storyPhase }) {
+  const [typedText, setTypedText] = useState(isProcessing ? "" : description);
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    if (!isProcessing) return;
+    const chars = Array.from(progressText(eventKey, storyPhase));
+    let count = 0;
+    timerRef.current = setInterval(() => {
+      count++;
+      setTypedText(chars.slice(0, count).join(""));
+      if (count >= chars.length) clearInterval(timerRef.current);
+    }, 35);
+    return () => clearInterval(timerRef.current);
+  }, [eventKey, storyPhase, isProcessing]);
+
+  const handleOpen = () => open(eventKey);
+
+  return (
+    <article
+      className={"hc-event-row" + (isProcessing ? " hc-event-processing" : "")}
+      data-linked-event={eventKey}
+      role="button"
+      tabIndex={0}
+      aria-label={eventKey === "optical" ? "查看光链路脏污故障详情" : "查看Qwen处理进度"}
+      onClick={handleOpen}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleOpen(); } }}
+    >
+      <div className="hc-event-head">
+        {isProcessing ? (
+          <span className="guard-auto-symbol" aria-label="故障自动处理中">
+            <FlowBorder>
+              <EventTypeIcon size={24} />
+            </FlowBorder>
+          </span>
+        ) : (
+          <span className="thermal-symbol">
+            <EventTypeIcon size={24} />
+            <ImpactFlags impact={eventKey === "qwen"} />
+          </span>
+        )}
+        <span>{title}</span>
+        <time>{time}</time>
+      </div>
+      <p>{isProcessing ? typedText : description}</p>
+      {isProcessing && (
+        <FlowBorder>
+          <span />
+        </FlowBorder>
+      )}
+    </article>
+  );
+}
+
+// CabinetD08Row —— SuperpodD 计算柜08 的两个固定待人工处理事件
+function CabinetD08Row({ title, time, desc, d08Key }) {
+  return (
+    <article className="hc-event-row" data-linked-event={d08Key}>
+      <div className="hc-event-head">
+        <span className="thermal-symbol">
+          <EventTypeIcon size={24} />
+          <ImpactFlags impact={false} />
+        </span>
+        <span>{title}</span>
+        <time>{time}</time>
+      </div>
+      <p>{desc}</p>
+    </article>
+  );
+}
+
+// StoryGuardPanel —— 守护事件面板（真正声明式）
+// 左面板中的事件列表：标题 + tab + 事件行 + 空状态
+function StoryGuardPanel({ view = "manual", storyState, onViewAll, onViewChange }) {
+  const [impactOnly, setImpactOnly] = useState(false);
+  const [host, setHost] = useState(null);
+
+  useEffect(() => {
+    const el = document.getElementById("home-events");
+    if (el) setHost(el);
+  }, []);
+
+  const s = storyState || { optical: 0, qwen: 0, startedAt: 0 };
+  const isAuto = view === "auto" || view === "energy";
+  const keys = ["optical", "qwen"].filter((k) => !impactOnly || k === "qwen");
+  const automatic = keys.filter((k) => s[k] > 0 && s[k] < 9 && s[k] !== 6);
+  const manual = keys.filter((k) => s[k] === 6);
+  const entries = isAuto ? automatic : manual;
+
+  // 按时间倒序排列事件行
+  const sortedEntries = [...entries].sort((a, b) => {
+    const timeA = a === "optical" ? (isAuto ? "12:00:00" : "12:00:40") : "12:05:12";
+    const timeB = b === "optical" ? (isAuto ? "12:00:00" : "12:00:40") : "12:05:12";
+    return timeB.localeCompare(timeA);
+  });
+
+  const manualCount = manual.length + (impactOnly ? 0 : 2);
+  const showD08 = !isAuto && !impactOnly;
+  const showEmpty = !entries.length && (impactOnly || isAuto);
+
+  if (!host) return null;
+
+  return createPortal2(
+    <section className="hc-guard">
+      <div className="hc-guard-head">
+        <h2>智能体事件</h2>
+        <button
+          type="button"
+          className="hc-impact-filter"
+          role="checkbox"
+          aria-label="仅显示影响业务事件"
+          aria-checked={String(impactOnly)}
+          title="仅显示影响业务事件"
+          onClick={() => {
+            setImpactOnly(!impactOnly);
+          }}
+        >
+          <i className="hc-impact-check" />
+          <span>仅显示影响业务事件</span>
+        </button>
+        <button type="button" disabled={!onViewAll} onClick={onViewAll}>查看全部</button>
+      </div>
+      <div className="hc-tabs" role="tablist">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={String(!isAuto)}
+          onClick={() => onViewChange?.("manual")}
+        >
+          待人工处理 <b className="hc-tab-count">{manualCount}</b>
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={String(isAuto)}
+          onClick={() => onViewChange?.("energy")}
+        >
+          自动处理中 <b className="hc-tab-count">{automatic.length}</b>
+        </button>
+      </div>
+      {showEmpty && impactOnly && (
+        <div className="story-impact-empty" role="status">
+          暂无影响业务的{isAuto ? "自动处理事件" : "待人工处理事件"}
+        </div>
+      )}
+      {showEmpty && !impactOnly && isAuto && (
+        <div className="story-empty story-empty-processing">
+          <div className="story-empty-art">
+            <img src={HC_ASSETS.icons["暂无待处理事项"]} alt="暂无自动处理中的事件" />
+          </div>
+          <span className="story-empty-caption">暂无自动处理中事项</span>
+        </div>
+      )}
+      {!showEmpty && sortedEntries.map((key) => (
+        <GuardEventRow
+          key={key}
+          eventKey={key}
+          title={HCEventTitle(key, s[key])}
+          time={key === "optical" ? (isAuto ? "12:00:00" : "12:00:40") : "12:05:12"}
+          description={
+            isAuto ? ""
+            : key === "optical" ? "计算柜11-L1交换板02链路已优雅隔离，等待人工清污"
+            : "112.34.23.1 无可替换节点，服务仍劣化，需人工将 hinic3 从V11.8升级至V13.1"
+          }
+          isProcessing={isAuto}
+          isManual={!isAuto}
+          storyPhase={s[key]}
+        />
+      ))}
+      {showD08 && CABINET_D08.map((d) => (
+        <CabinetD08Row key={d.key} {...d} />
+      ))}
+    </section>,
+    host
+  );
+}
+  Object.assign(__export, { StoryGuardPanel, HCEventTitle });
+})();
+
+/* ===== src/views/story/story-guard-container.jsx ===== */
+(function () {
+  const { useEffect, useRef, useState } = React;
+  const { useFitScale, useHealthMetrics, useLinkedEvent } = __export;
+  const StoryGuardPanel = __export.StoryGuardPanel;
+const createPortal = (node, host) => ReactDOM.createPortal(node, host);
+
+// StoryGuardPanelContainer —— 订阅 HCStory 状态，驱动 StoryGuardPanel
+function StoryGuardPanelContainer() {
+  const [storyState, setStoryState] = useState(() => window.HCStory?.get() || { optical: 0, qwen: 0, startedAt: 0 });
+  const [view, setView] = useState("manual");
+  const viewRef = useRef(view);
+  viewRef.current = view;
+
+  useEffect(() => {
+    const unsubscribe = window.HCStory?.subscribe((s) => {
+      setStoryState(s);
+      // story 状态变化时保持当前 view
+    });
+    // 暴露 window.renderStoryGuard 供外部调用
+    window.renderStoryGuard = (v) => {
+      if (v) setView(v === "energy" ? "energy" : "manual");
+      setStoryState(window.HCStory?.get() || storyState);
+    };
+    return () => {
+      unsubscribe?.();
+      delete window.renderStoryGuard;
+    };
+  }, []);
+
+  return (
+    <StoryGuardPanel
+      view={view}
+      storyState={storyState}
+      onViewAll={() => window.openGuardEvents?.()}
+      onViewChange={(v) => setView(v)}
+    />
+  );
+}
+  Object.assign(__export, { StoryGuardPanelContainer });
+})();
+
 /* ===== src/components/metric-tile/index.jsx ===== */
 (function () {
   const { HC_ASSETS } = __export;
@@ -13263,6 +13612,7 @@ function initCompactStatus() {
 (function () {
   const { useEffect, useLayoutEffect, useState } = React;
   const { useFitScale, useHealthMetrics, useLinkedEvent, HC_ASSETS, initWorkloadBrowser, initWorkloadBrowserWindowAPI, initCompactStatus } = __export;
+  const StoryGuardPanelContainer = __export.StoryGuardPanelContainer;
   const MetricRibbon = __export.MetricRibbon;
   const GuardEvents = __export.GuardEvents;
   const Composer = __export.Composer;
@@ -13283,13 +13633,7 @@ function HomeScreen() {
       <SlotPortal slotId="home-metrics">
         <MetricRibbon onChange={(cat, idx) => window.showWorkloads?.(cat, idx)} />
       </SlotPortal>
-      <SlotPortal slotId="home-events">
-        <GuardEvents
-          view="manual"
-          onChange={handleGuardViewChange}
-          onViewAll={() => window.openGuardEvents?.()}
-        />
-      </SlotPortal>
+      <StoryGuardPanelContainer />
       <TicksSlot />
       <InitEffects />
     </>
@@ -13788,6 +14132,7 @@ function App() {
       />
       {booted && (
         <>
+          <HomeScreen />
           <AgentPanel />
           <GuardEventsTable />
           <NicEvent />

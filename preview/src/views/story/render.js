@@ -44,33 +44,6 @@ const open=key=>{if(key==='optical')window.openOpticalEvent();else window.openNi
 const stateOf=(key,p)=>p===9?'closed':p===6?'manual':'auto';
 const guardAutoRows=new Map(),cabinetTipCache=new Map();
 const progressText=(key,p)=>copy[key][p].replace('生成链路闪断 issue','生成链路闪断issue').replace('正在分析链路指标与设备日志','分析链路指标与设备日志');
-window.renderStoryGuard=(view=guardView)=>{
- guardView=view==='energy'?'auto':view;
- const s=story.get(),keys=['optical','qwen'].filter(k=>!impactOnly||affectsBusiness(k)),automatic=keys.filter(k=>s[k]>0&&s[k]<9&&s[k]!==6),manual=keys.filter(k=>s[k]===6);
- const box=C.GuardEvents({view:guardView==='auto'?'energy':'manual',onChange:window.renderStoryGuard,onViewAll:window.openGuardEvents});
- const head=box.querySelector('.hc-guard-head'),filter=U.button('','hc-impact-filter',()=>{impactOnly=!impactOnly;window.renderStoryGuard();document.querySelector('#home-events .hc-impact-filter')?.focus({preventScroll:true});});
- filter.setAttribute('role','checkbox');filter.setAttribute('aria-label','仅显示影响业务事件');filter.setAttribute('aria-checked',String(impactOnly));filter.title='仅显示影响业务事件';filter.append(U.el('i','hc-impact-check'),U.el('span','','仅显示影响业务事件'));head.insertBefore(filter,head.lastElementChild);
- box.querySelectorAll('.hc-event-row').forEach(n=>n.remove());
- box.querySelectorAll('[role="tab"]').forEach((n,i)=>{n.firstChild.textContent=i?'自动处理中 ':'待人工处理 ';n.querySelector('.hc-tab-count').textContent=i?automatic.length:manual.length+(impactOnly?0:2);});
- for(const [key,cached] of guardAutoRows){if(guardView!=='auto'||!automatic.includes(key)||cached.stage!==s[key]||cached.startedAt!==s.startedAt){clearInterval(cached.timer);guardAutoRows.delete(key);}}
- const entries=guardView==='auto'?automatic:manual;
- for(const key of entries){
-  const cached=guardAutoRows.get(key);if(cached){box.append(cached.row);continue;}
-  const row=U.el('article','hc-event-row'),head=U.el('div','hc-event-head'),processing=guardView==='auto';
-  row.dataset.linkedEvent=key;
-  const eventIcon=processing?C.EventTypeIcon({size:24}):manualFaultSymbol(key==='qwen');if(processing){eventIcon.classList.add('guard-auto-symbol');eventIcon.setAttribute('aria-label','故障自动处理中');C.FlowBorder(eventIcon);}head.append(eventIcon,U.el('span','',HCEventTitle(key,s[key])),U.el('time','',key==='optical'?(processing?'12:00:00':'12:00:40'):'12:05:12'));
-  if(processing){row.classList.add('hc-event-processing');C.FlowBorder(row);}
-  const desc=U.el('p','',processing?'':key==='optical'?'计算柜11-L1交换板02链路已优雅隔离，等待人工清污':'112.34.23.1 无可替换节点，服务仍劣化，需人工将 hinic3 从V11.8升级至V13.1');row.append(head,desc);
-  row.setAttribute('role','button');row.tabIndex=0;row.setAttribute('aria-label',key==='optical'?'查看光链路脏污故障详情':'查看Qwen处理进度');row.onclick=()=>open(key);row.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(key)}};
-  if(processing){const chars=Array.from(progressText(key,s[key]));let count=0;const entry={row,stage:s[key],startedAt:s.startedAt,timer:null};entry.timer=setInterval(()=>{desc.textContent=chars.slice(0,++count).join('');if(count>=chars.length)clearInterval(entry.timer);},35);guardAutoRows.set(key,entry);}
-  box.append(row);
- }
- if(guardView!=='auto'&&!impactOnly)for(let i=0;i<2;i++){const row=U.el('article','hc-event-row');row.dataset.linkedEvent='cabinetD08-'+i;const head=U.el('div','hc-event-head');head.append(manualFaultSymbol(false),U.el('span','',['NPU驱动固件版本不一致','NPU网口linkdown'][i]),U.el('time','',i?'11:57:00':'11:55:00'));row.append(head,U.el('p','','SuperpodD · 计算柜08，等待人工处理'));box.append(row);}
- if(!entries.length&&impactOnly){const empty=U.el('div','story-impact-empty','暂无影响业务的'+(guardView==='auto'?'自动处理事件':'待人工处理事件'));empty.setAttribute('role','status');box.append(empty);}else if(!entries.length&&(guardView==='auto'||impactOnly)){const empty=U.el('div','story-empty'),img=U.el('img');img.src=HC_ASSETS.icons['暂无待处理事项'];img.alt=guardView==='auto'?'暂无自动处理中的事件':'暂无待处理事项';if(guardView==='auto'){empty.classList.add('story-empty-processing');const art=U.el('div','story-empty-art');art.append(img);empty.append(art,U.el('span','story-empty-caption','暂无自动处理中事项'));}else empty.append(img);box.append(empty);}
- // Newest events first; moving existing rows preserves their handlers.
- Array.from(box.querySelectorAll(':scope > .hc-event-row')).sort((a,b)=>(b.querySelector('time')?.textContent||'').localeCompare(a.querySelector('time')?.textContent||'')).forEach(row=>box.append(row));
- mount('home-events',box);
-};
 window.storyWorkloads=category=>HOME_WORKLOADS[category].map(item=>{const x={...item,data:{...item.data}},s=story.get();if(category==='inference'&&/^Qwen-1.5B/.test(x.data.name)){const active=s.qwen>0&&s.qwen<9;x.status=active?'degraded':'normal';x.data.faults=active?'1':'0';x.data.processingText=active?copy.qwen[s.qwen]:'';x.data.processingManual=s.qwen===6;x.data.pendingManual=s.qwen===6?1:0;if(s.qwen>0){const total=Number(x.data.total);x.data.ok=String(Math.round(total*(active?.775:.9994)));x.data.fail=String(total-Number(x.data.ok));x.data.quality=(100*Number(x.data.ok)/total).toFixed(2)+'%';x.data.ttft=active?'186 ms':'182 ms';x.data.tpot=active?'43 ms':'23.6 ms';}}return x});
 
 function impactFlags(impact=false){
@@ -97,7 +70,7 @@ const timelineStart=-360;const now=document.querySelector('.time-now');now.style
  document.querySelector('.cabinet-fault-link').hidden=!(s.optical>0&&s.optical<9);
  document.querySelector('.cabinet-red').hidden=!deviceLocated;
  window.updateCompactStatusIcons?.();
- window.renderStoryGuard();
+ // renderStoryGuard now handled by React StoryGuardPanelContainer
  const tips=document.getElementById('home-tips');for(const [key,tip] of cabinetTipCache){if(!s[key]||s[key]>=9||(key==='qwen'&&!deviceLocated)||tip.dataset.startedAt!==String(s.startedAt)){clearTimeout(tip._copyTimer);tip.remove();cabinetTipCache.delete(key);}}const marks=document.getElementById('home-timeline-markers');const existingMarks=new Map([...marks.children].map(node=>[node.dataset.eventKey,node]));for(const node of marks.children){if((!s[node.dataset.eventKey]&&!node.dataset.eventKey.startsWith('cabinetD08-'))||node.dataset.startedAt!==String(s.startedAt))node.remove();}
  ['optical','qwen'].forEach((key,i)=>{const p=s[key];if(!p)return;const state=stateOf(key,p);
  if(state!=='closed'&&p<9&&(key!=='qwen'||deviceLocated)){let tip=cabinetTipCache.get(key);if(!tip){tip=C.FaultTip({state:state==='auto'?'auto':key});tip.classList.add(key);tip.dataset.startedAt=s.startedAt;cabinetTipCache.set(key,tip);tips.append(tip);}const nextMode=state==='auto'?'auto':'manual';if(!tip.classList.contains(nextMode)){const oldCopy=tip.querySelector('span').textContent;const next=C.FaultTip({state:state==='auto'?'auto':key});tip.className=next.className+' '+key;tip.replaceChildren(...next.childNodes);tip.querySelector('span').textContent=oldCopy;}HCFadeTip(tip,HCEventTitle(key,p));if(!tip.querySelector('.hc-tip-device'))tip.append(U.el('small','hc-tip-device',key==='optical'?'计算柜11 · L1交换板02':'计算柜13 · 112.34.23.1 · CPU02'));let detail=tip.querySelector('.hc-tip-detail');if(!detail){detail=U.el('div','hc-tip-detail');tip.append(detail);}detail.replaceChildren(U.el('strong','',HCEventTitle(key,p)),U.el('p','',key==='optical'?'故障对象：计算柜11 · L1交换板02':'故障对象：计算柜13 · 112.34.23.1 · CPU02'),U.el('p','',key==='optical'?(p>=5?'光模块端面脏污，异常链路已优雅隔离，健康通道承载业务':'检测到光链路闪断，正在分析链路指标与设备日志'):'hinic3 驱动版本 V11.8，需升级至 V13.1；无可替换节点，Qwen-1.5B 服务劣化'),U.el('p','',state==='manual'?'当前状态：待人工处理':'当前状态：自动处理中'),U.el('p','','点击查看处理详情'));tip.setAttribute('role','button');tip.tabIndex=0;tip.setAttribute('aria-label','查看'+(key==='optical'?'光链路脏污故障详情':'Qwen处理进度'));tip.onclick=()=>open(key);tip.onkeydown=e=>{if(e.key==='Enter')open(key)};}

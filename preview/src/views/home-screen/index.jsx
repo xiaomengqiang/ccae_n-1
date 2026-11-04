@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { useFitScale } from "../../hooks/use-fit-scale.js";
 import { useHealthMetrics } from "../../hooks/use-health-metrics.js";
 import { useLinkedEvent } from "../../hooks/use-linked-event.js";
+import StoryGuardPanelContainer from "../story/story-guard-container.jsx";
 import MetricRibbon from "../../components/metric-ribbon/index.jsx";
 import GuardEvents from "../../components/guard-events/index.jsx";
 import Composer from "../../components/composer/index.jsx";
@@ -26,13 +27,7 @@ export default function HomeScreen() {
       <SlotPortal slotId="home-metrics">
         <MetricRibbon onChange={(cat, idx) => window.showWorkloads?.(cat, idx)} />
       </SlotPortal>
-      <SlotPortal slotId="home-events">
-        <GuardEvents
-          view="manual"
-          onChange={handleGuardViewChange}
-          onViewAll={() => window.openGuardEvents?.()}
-        />
-      </SlotPortal>
+      <StoryGuardPanelContainer />
       <TicksSlot />
       <InitEffects />
     </>
