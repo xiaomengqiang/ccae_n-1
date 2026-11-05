@@ -70,32 +70,24 @@ export default function DiagnosticHistory({ v, journeySecond, expanded, selected
   const visible = sections.map((s, i) => (v >= s.at ? i : -1)).filter((i) => i >= 0);
   const allExpanded = visible.length > 0 && visible.every((i) => expanded[i]);
 
-  // 资源故障诊断/故障恢复步骤的自定义取证注入（幂等：先移除既有块）
+  // 步骤 3/5 取证条目（v 阈值控制注入时机；null = 跳过）
+  const evidence3 = v >= 5 ? [
+    { verb: "生成", label: "BMC 日志分析结果", tool: "BMC 日志分析", kind: "file", text: "分析对象：112.34.23.1 · CPU02\n分析结论：关联节点重启记录，确认故障发生于 D-08 实例所在节点\n关联事件：12:05:06 操作系统崩溃重启" },
+    { verb: "生成", label: "OS 日志分析结果", tool: "OS 日志分析", kind: "file", text: "分析对象：112.34.23.1 · 操作系统\n分析结论：操作系统内存耗尽并崩溃重启，导致 D-08 实例异常退出\n业务影响：Qwen-1.5B 请求成功率降至 77.5%" },
+    { verb: "生成", label: "vmcore 分析结果", tool: "vmcore 分析", kind: "file", text: "分析对象：112.34.23.1 · 内核转储\n分析结论：发现内核空指针异常；结合 OS 日志与 hinic3 驱动版本信息，定位根因为网卡驱动版本过低\n当前版本：V11.8\n处置建议：升级至 V13.1，随后核查节点、D-08 实例及 Qwen-1.5B 服务" },
+  ] : null;
+  const evidence5 = v >= 7 ? [
+    { verb: "记录", label: "人工确认记录", tool: "人工授权", kind: "run" },
+  ] : null;
+
+  // 步骤 3 取证展开 + 摘要改名（注入后的命令式后处理）
   useEffect(() => {
     const b3 = body3.current;
-    if (b3) {
-      b3.querySelector(".evt-diagnostic-operations")?.remove();
-      if (v >= 5) {
-        window.HCOpticalEvidence?.attach(b3, sections[3].title, true, false, [
-          { verb: "生成", label: "BMC 日志分析结果", tool: "BMC 日志分析", kind: "file", text: "分析对象：112.34.23.1 · CPU02\n分析结论：关联节点重启记录，确认故障发生于 D-08 实例所在节点\n关联事件：12:05:06 操作系统崩溃重启" },
-          { verb: "生成", label: "OS 日志分析结果", tool: "OS 日志分析", kind: "file", text: "分析对象：112.34.23.1 · 操作系统\n分析结论：操作系统内存耗尽并崩溃重启，导致 D-08 实例异常退出\n业务影响：Qwen-1.5B 请求成功率降至 77.5%" },
-          { verb: "生成", label: "vmcore 分析结果", tool: "vmcore 分析", kind: "file", text: "分析对象：112.34.23.1 · 内核转储\n分析结论：发现内核空指针异常；结合 OS 日志与 hinic3 驱动版本信息，定位根因为网卡驱动版本过低\n当前版本：V11.8\n处置建议：升级至 V13.1，随后核查节点、D-08 实例及 Qwen-1.5B 服务" },
-        ]);
-        const results = b3.querySelector("details.evt-diagnostic-operations");
-        if (results) {
-          results.open = true;
-          results.querySelector("summary > span:not(.evt-operation-icon)").textContent = "诊断分析结果";
-        }
-      }
-    }
-    const b5 = body5.current;
-    if (b5) {
-      b5.querySelector(".evt-diagnostic-operations")?.remove();
-      if (v >= 7) {
-        window.HCOpticalEvidence?.attach(b5, sections[5].title, true, false, [
-          { verb: "记录", label: "人工确认记录", tool: "人工授权", kind: "run" },
-        ]);
-      }
+    if (!b3) return;
+    const results = b3.querySelector("details.evt-diagnostic-operations");
+    if (results) {
+      results.open = true;
+      results.querySelector("summary > span:not(.evt-operation-icon)").textContent = "诊断分析结果";
     }
   }, [v]);
 
@@ -167,7 +159,7 @@ export default function DiagnosticHistory({ v, journeySecond, expanded, selected
                 statusIcon={waiting ? "红色小手" : undefined}
                 dim={dim}
                 section={i}
-                evidence={i !== 3 && i !== 5}
+                evidence={i === 3 ? evidence3 : i === 5 ? evidence5 : undefined}
                 bodyRef={i === 3 ? body3 : i === 5 ? body5 : undefined}
               >
                 <p className="nic-section-copy">
