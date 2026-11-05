@@ -4,19 +4,22 @@ import WorkloadIcon from "../workload-icon/index.jsx";
 const DOMAIN_LABELS = { training: "训练作业", inference: "推理服务", resource: "资源" };
 const TYPE_LABELS = { fault: "故障", risk: "隐患", energy: "节能机会" };
 
-export default function EventTypeIcon({ domain = "resource", name = "Qwen", type = "fault", closed = false, size = 24 }) {
+// className/children 为可选扩展 props（nic-event 头部图标追加 evt-icon 类与 fault-status-flags）
+export default function EventTypeIcon({ domain = "resource", name = "Qwen", type = "fault", closed = false, size = 24, className = "", children }) {
+  const base = "hc-event-type-icon" + (type === "fault" ? " hc-unified-fault" : "") + (className ? " " + className : "");
   if (type === "fault") {
     return (
-      <i className="hc-event-type-icon hc-unified-fault" style={{ "--event-icon-size": size + "px" }}
+      <i className={base} style={{ "--event-icon-size": size + "px" }}
         data-type="fault" data-closed={String(closed)} role="img"
         aria-label={"故障" + (closed ? "，已闭环" : "")}>
         <img className="hc-icon" src={HC_ASSETS.icons[closed ? "灰色的故障" : "红色的故障"]} alt="" width={size} />
+        {children}
       </i>
     );
   }
   const actualDomain = type === "energy" ? "inference" : domain;
   return (
-    <i className="hc-event-type-icon" style={{ "--event-icon-size": size + "px" }}
+    <i className={base} style={{ "--event-icon-size": size + "px" }}
       data-domain={actualDomain} data-type={type} data-closed={String(closed)} role="img"
       aria-label={(DOMAIN_LABELS[actualDomain] || actualDomain) + (TYPE_LABELS[type] || type) + (closed ? "，已闭环" : "")}>
       {actualDomain === "inference" ? (
@@ -38,6 +41,7 @@ export default function EventTypeIcon({ domain = "resource", name = "Qwen", type
         </svg>
       )}
       <img className="hc-icon hc-event-type-mark" src={HC_ASSETS.icons[type === "energy" ? "绿色叶子" : type === "risk" ? "橙色隐患" : "红色的故障"]} alt="" width={12} />
+      {children}
     </i>
   );
 }

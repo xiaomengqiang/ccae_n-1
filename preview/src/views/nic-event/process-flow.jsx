@@ -1,20 +1,29 @@
-import { Fragment, useLayoutEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { OPTICAL_ASSETS } from "../../mock/hc-assets.js";
 
-// 处理环节流程图 —— 节点/刻度 JSX 渲染；连线与定位依赖 offsetHeight 实测，
+// 处理环节流程图 —— 视口/节点/刻度 JSX 渲染；连线与定位依赖 offsetHeight 实测，
 // 在 useLayoutEffect 中计算（与原 drawFlowLines 同一套数学），测量结果进 state 渲染 SVG 连线。
 // stage 用 viewStage（节点可见性 f[4]），rawStage 用于 nic-waiting/待处理态（原实现即用原始 stage）。
 
 const LINKS = [[0, 1], [1, 2], [2, 3], [1, 4], [4, 5], [5, 6], [6, 7], [7, 8], [8, 9], [9, 10], [10, 11], [11, 12]];
 
-export default function ProcessFlow({ flow, stage, rawStage, selected, visible, viewport, onSelectStep }) {
+export default function ProcessFlow({ flow, stage, rawStage, selected, hidden, onSelectStep }) {
+  const viewportRef = useRef(null);
   const listRef = useRef(null);
   const lastStageRef = useRef(null);
   const [lines, setLines] = useState({ paths: [], w: 0, h: 0 });
 
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    const onScroll = () => viewport.classList.toggle("has-earlier", viewport.scrollLeft > 1);
+    viewport.addEventListener("scroll", onScroll, { passive: true });
+    return () => viewport.removeEventListener("scroll", onScroll);
+  }, []);
+
   useLayoutEffect(() => {
-    const list = listRef.current;
-    if (!list || !visible || !list.isConnected) return;
+    const list = listRef.current, viewport = viewportRef.current;
+    if (!list || !viewport || hidden || !list.isConnected) return;
     const gap = 12;
     const width = Math.max(138, (viewport.clientWidth - 7 * gap) / 8);
     const visibleCount = flow.filter((f) => stage >= f[4]).length;
@@ -55,52 +64,54 @@ export default function ProcessFlow({ flow, stage, rawStage, selected, visible, 
       lastStageRef.current = stage;
     }
     viewport.classList.toggle("has-earlier", viewport.scrollLeft > 1);
-  }, [stage, rawStage, selected, visible, flow, viewport]);
+  }, [stage, rawStage, selected, hidden, flow]);
 
   return (
-    <div className="nic-flow" ref={listRef} role="tablist" hidden={!visible}>
-      {lines.paths.length > 0 && (
-        <svg className="nic-flow-lines" viewBox={"0 0 " + lines.w + " " + lines.h} aria-hidden="true">
-          {lines.paths.map((d, i) => <path key={i} d={d} />)}
-        </svg>
-      )}
-      {flow.map((f, i) => {
-        if (stage < f[4]) return null;
-        const manual = i === 9 && rawStage === 6;
-        const iconName = i === 10 ? "人工处理-绿色" : manual ? "红色小手" : "故障诊断-圆-原稿绿色";
-        const description = f[1].replaceAll("／", "\n");
-        const dim = selected !== null && selected !== i;
-        return (
-          <Fragment key={i}>
-            <button
-              type="button"
-              className={"evt-process-card nic-flow-node" + (manual ? " evt-pending" : "")
-                + (manual ? " nic-waiting" : "")
-                + (dim ? " evt-focus-dim" : "")}
-              role="tab"
-              aria-selected={String(selected === i)}
-              aria-label={description.replace(/\n/g, "")}
-              data-flow-index={i}
-              data-column={i < 4 ? i : i - 2}
-              onClick={() => onSelectStep?.(i)}
-            >
-              <img className="evt-icon" src={OPTICAL_ASSETS.icons[iconName]} alt="" width={32} height={32} />
-              <span>
-                <span className="evt-process-title">{f[0]}</span>
-                <span className="evt-process-description">{description}</span>
-              </span>
-            </button>
-            {(i < 2 || i >= 4) && (
-              <div
-                className={"evt-process-tick nic-flow-tick" + (selected === i ? " evt-current" : "")}
+    <div className="nic-flow-viewport" ref={viewportRef} hidden={hidden}>
+      <div className="nic-flow" ref={listRef} role="tablist">
+        {lines.paths.length > 0 && (
+          <svg className="nic-flow-lines" viewBox={"0 0 " + lines.w + " " + lines.h} aria-hidden="true">
+            {lines.paths.map((d, i) => <path key={i} d={d} />)}
+          </svg>
+        )}
+        {flow.map((f, i) => {
+          if (stage < f[4]) return null;
+          const manual = i === 9 && rawStage === 6;
+          const iconName = i === 10 ? "人工处理-绿色" : manual ? "红色小手" : "故障诊断-圆-原稿绿色";
+          const description = f[1].replaceAll("／", "\n");
+          const dim = selected !== null && selected !== i;
+          return (
+            <Fragment key={i}>
+              <button
+                type="button"
+                className={"evt-process-card nic-flow-node" + (manual ? " evt-pending" : "")
+                  + (manual ? " nic-waiting" : "")
+                  + (dim ? " evt-focus-dim" : "")}
+                role="tab"
+                aria-selected={String(selected === i)}
+                aria-label={description.replace(/\n/g, "")}
                 data-flow-index={i}
+                data-column={i < 4 ? i : i - 2}
+                onClick={() => onSelectStep?.(i)}
               >
-                <span>{f[3]}</span>
-              </div>
-            )}
-          </Fragment>
-        );
-      })}
+                <img className="evt-icon" src={OPTICAL_ASSETS.icons[iconName]} alt="" width={32} height={32} />
+                <span>
+                  <span className="evt-process-title">{f[0]}</span>
+                  <span className="evt-process-description">{description}</span>
+                </span>
+              </button>
+              {(i < 2 || i >= 4) && (
+                <div
+                  className={"evt-process-tick nic-flow-tick" + (selected === i ? " evt-current" : "")}
+                  data-flow-index={i}
+                >
+                  <span>{f[3]}</span>
+                </div>
+              )}
+            </Fragment>
+          );
+        })}
+      </div>
     </div>
   );
 }
