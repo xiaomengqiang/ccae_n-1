@@ -2,7 +2,9 @@
 // 包含 6 个顶级模块：HCEventUI / HCEntrance / quickQuery / HCOpticalEventUI / HCEventModule / optical host
 // 硬编码坐标和连线数据后续讨论是否抽公共拓扑框架
 import { OPTICAL_ASSETS } from "../../mock/hc-assets.js";
-import { bridgeEventTypeIcon, bridgeComposer } from "../../shared/react-bridge.js";
+import { bridgeEventTypeIcon, bridgeComposer, bridgeNode, mountIsland } from "../../shared/react-bridge.js";
+import IsolationAnimationView from "./isolation-animation.jsx";
+import Topology2D from "./topology-2d.jsx";
 
 let cleanup = null;
 
@@ -627,295 +629,6 @@ window.HCEventModule = (() => {
 
     return card;
   }
-  function IsolationAnimation(){
-    const figure=U.el('figure','evt-isolation-animation');
-    figure.innerHTML="<div class=\"motion-scene\"><canvas role=\"img\" aria-label=\"L2单口连接L1的LPO01至08；异常支路闪断后流量转移，随后隔离。\"></canvas><span class=\"motion-device-label label-l2\">灵衢L2-01</span><span class=\"motion-device-label label-l1\">计算柜11 · L1交换板02</span></div><div class=\"motion-legend\"><span><b class=\"cyan-dot\">●</b> 健康通道原有流量</span><span><b class=\"yellow-dot\">●</b> 原 LPO 01 支路流量</span></div><div class=\"motion-footer\"><span class=\"detail\" aria-live=\"polite\"></span></div>";
-figure.prepend(figure.querySelector('.motion-footer'));
-const root=figure,canvas=root.querySelector('canvas'),ctx=canvas.getContext('2d'),detail=root.querySelector('.detail');
-let elapsed=0,last=0,previousPhase=-1;
-const W=620,H=450;
-const p=(x,y,z=0)=>({x:305+x*.79-y*.61,y:45+x*.32+y*.52-z});
-function poly(points,fill,stroke,width=1){ctx.beginPath();points.forEach((q,i)=>i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y));ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=width;ctx.stroke()}}
-function line(points,color,width=1){ctx.beginPath();points.forEach((q,i)=>i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y));ctx.strokeStyle=color;ctx.lineWidth=width;ctx.lineCap='round';ctx.lineJoin='round';ctx.stroke()}
-function face(x,y,w,d,z,color,edge){poly([p(x,y,z),p(x+w,y,z),p(x+w,y+d,z),p(x,y+d,z)],color,edge)}
-function text(s,x,y,z,size,color){const q=p(x,y,z);ctx.fillStyle=color;ctx.font=`500 ${size}px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif`;ctx.fillText(s,q.x,q.y)}
-function box(x,y,w,d,h,top,front,side){poly([p(x,y+d,0),p(x+w,y+d,0),p(x+w,y+d,h),p(x,y+d,h)],front,'#53616c',.7);poly([p(x+w,y,0),p(x+w,y+d,0),p(x+w,y+d,h),p(x+w,y,h)],side,'#44535e',.7);face(x,y,w,d,h,top,'#7d8d9960')}
-const l2OutletX=165;
-const ports=Array.from({length:8},(_,i)=>38+i*39);
-function device(y,l1){const h=24;ctx.save();ctx.shadowColor='#0009';ctx.shadowBlur=10;ctx.shadowOffsetY=6;face(-15,y-8,360,105,0,'#080d11');ctx.restore();let grad=ctx.createLinearGradient(250,100,530,480);grad.addColorStop(0,l1?'#a4b3bf':'#3c4a56');grad.addColorStop(.55,l1?'#7c8f9d':'#25313b');grad.addColorStop(1,l1?'#445867':'#18232c');box(0,y,330,76,h,grad,l1?'#5c6d79':'#1e2831','#1b2832');
-for(let k=0;k<14;k++){line([p(14+k*7,y+12,25),p(14+k*7,y+32,25)],'#09151e85',1.3)}
-
-
-if(!l1){
-  line([p(0,y+76,19),p(330,y+76,19)],'#a94e54',1.3);
-
-}
-(l1?ports:[l2OutletX]).forEach((x,i)=>{const py=l1?y:y+76;face(x-9,py-5,19,10,26,'#0b161c','#8cabb5');face(x-6,py-3,13,6,27,'#223d49','#87bac780');if(l1){text('LPO',x-11,y+19,28,12,'#e4eef4');text(String(i+1).padStart(2,'0'),x-7,y+38,28,13,'#e4eef4')}});
-
-}
-// A single L2 port feeds a short common trunk, then fans out to eight L1 ports.
-function route(i,t){const u=Math.max(0,(t-.18)/.82),spread=u*u*(3-2*u);return p(l2OutletX+(ports[i]-l2OutletX)*spread,116+t*250,26)}
-function routeLine(i,a,b,color,width){line(Array.from({length:70},(_,j)=>route(i,a+(b-a)*j/69)),color,width)}
-function dot(q,color,r=1.9,alpha=1){ctx.save();ctx.globalAlpha=alpha;ctx.shadowColor=color;ctx.shadowBlur=2;ctx.fillStyle=color;ctx.beginPath();ctx.arc(q.x,q.y,r,0,Math.PI*2);ctx.fill();ctx.restore()}
-function draw(t){ctx.clearRect(0,0,W,H);let bg=ctx.createRadialGradient(420,280,20,400,300,480);bg.addColorStop(0,'#273743');bg.addColorStop(.6,'#17222c');bg.addColorStop(1,'#10161c');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-for(let k=-8;k<20;k++){line([p(k*36,0,-5),p(k*36,490,-5)],'#96b8cb06');line([p(-130,k*32,-5),p(490,k*32,-5)],'#96b8cb06')}
-const phase=t<4.5?0:t<6.8?1:2;
-device(40,false);
-routeLine(0,0,.18,'#8bc5d340',11);routeLine(0,0,.18,'#8fd4df88',1);
-ports.forEach((_,i)=>{routeLine(i,.18,1,i===0?'#92999f40':'#8bc5d322',9);routeLine(i,.18,1,i===0?'#dc697565':'#66c8d445',5);routeLine(i,.18,1,i===0?'#e07883':'#8fd4df66',1);routeLine(i,.18,.995,'#ddf6ff25',.6);
-if(i===0){
-// All positions increase from L2 (0) toward L1 (1). The queue never crosses the break.
-if(phase<2){const queueTime=Math.min(t,4.5),alpha=phase===0?1:Math.max(0,1-(t-4.5)/1.4);for(let j=0;j<10;j++){const age=queueTime-j*.32;if(age<0)continue;const s=Math.min(.52-j*.028,age*.22);if(alpha>0)dot(route(0,s),'#f3c77c',1.9,alpha)}const q=route(0,.55);ctx.save();ctx.shadowBlur=12;ctx.shadowColor='#ff6477';line([{x:q.x-7,y:q.y-6},{x:q.x+6,y:q.y+6}],'#fd8997',2);line([{x:q.x-4,y:q.y+6},{x:q.x+4,y:q.y-6}],'#fd8997',2);ctx.restore()}
-if(phase===2){routeLine(0,.22,1,'#9ca6ad50',10);routeLine(0,.22,1,'#e0808b',1);}
-}else{for(let j=0;j<9;j++){const s=(t*.19+j/9+i*.025)%1;dot(route(i,s),'#9ee2ee',1.7)}}});
-// One continuous journey: new traffic starts inside L2, reaches its healthy port,
-// then enters that same external route. No reverse motion or teleporting queue.
-if(phase>0){
-// Redistribute one yellow stream across seven routes; do not multiply it sevenfold.
-for(let k=0;k<40;k++){const i=1+k%7,age=t-4.5-k*.32;if(age<.8)continue;const s=(age-.8)*.19;if(s<=1)dot(route(i,s),'#f3c77c',1.8)}}
-device(366,true);
-// Draw the badge last so devices, tubes and particles cannot cover it.
-if(phase===2){const q=route(0,.55);ctx.fillStyle='#323c44';ctx.strokeStyle='#9aa8b0';ctx.lineWidth=.8;ctx.beginPath();ctx.roundRect(q.x-31,q.y-12,62,24,5);ctx.fill();ctx.stroke();ctx.fillStyle='#e4ecef';ctx.font='12px sans-serif';ctx.fillText('已隔离',q.x-18,q.y+4)}
-
-if(phase!==previousPhase){previousPhase=phase;detail.textContent=['LPO 01 闪断，流量在断点前积压','流量转至 LPO 02–08 健康通道','LPO 01 已隔离，健康通道持续承载业务'][phase]}
-}
-function resize(){let width=canvas.clientWidth||canvas.getBoundingClientRect().width,dpr=Math.min(2,devicePixelRatio||1);canvas.width=width*dpr;canvas.height=width*H/W*dpr;ctx.setTransform(canvas.width/W,0,0,canvas.height/H,0,0)}
-const observer=new ResizeObserver(resize);observer.observe(canvas);resize();
-function frame(now){if(!figure.isConnected){observer.disconnect();return;}if(document.hidden||!figure.getClientRects().length){last=0;setTimeout(()=>requestAnimationFrame(frame),250);return;}if(last&&now-last<33){requestAnimationFrame(frame);return;}if(last)elapsed+=Math.min(now-last,100)*1.3/1000;last=now;draw(elapsed%16);requestAnimationFrame(frame)}requestAnimationFrame(frame);
-return figure;
-  }
-  // 用一致的斜俯视投影绘制机柜、抽出刀片和板上器件，保持标签水平可读。
-  function RackDetailView(onPort) {
-    const scene=U.el('div','evt-rack-detail');
-    let trayCoordinates=false;
-    const project=(x,y,z)=>{if(trayCoordinates){x-=145;z+=150;}return [340+(x*.78+y*.48)*.82,395+(-x*.23+y*.40-z)*.82];};
-    const points=vertices=>vertices.map(v=>project(...v).join(',')).join(' ');
-    const box=(x,y,z,w,d,h,top='#647984',front='#344954',side='#263b46')=>{
-      const a=[x,y,z+h],b=[x+w,y,z+h],cc=[x+w,y+d,z+h],dd=[x,y+d,z+h];
-      return `<polygon points="${points([a,dd,[x,y+d,z],[x,y,z]])}" fill="${side}"/><polygon points="${points([a,b,cc,dd])}" fill="${top}"/><polygon points="${points([dd,cc,[x+w,y+d,z],[x,y+d,z]])}" fill="${front}"/><polygon points="${points([b,[x+w,y,z],[x+w,y+d,z],cc])}" fill="${side}"/>`;
-    };
-    const label=(x,y,z,text,cls='')=>{const q=project(x,y,z);return `<text x="${q[0]}" y="${q[1]}" class="${cls}">${text}</text>`;};
-    let rack='';
-    // 透明计算机柜：立柱、横梁及内部插槽保留可辨识的纵深。
-    rack+=`<g opacity=".18">${box(80,100,-100,240,220,440,'#c4d9dd','#526872','#6a818c')}</g>`;
-    for(const x of [80,310])for(const y of [100,310])rack+=box(x,y,-100,10,10,440,'#b7cbd0','#627984','#425a68');
-    // 六层抽屉；从上往下第二层留空，导轨连接抽出的服务器。
-    for(let i=0;i<6;i++){
-      const z=-85+i*70;
-      rack+=`<g opacity="${i===4?1:.32}">`;
-      rack+=box(90,110,z,220,200,6,'#8ba1aa','#4a606d','#354b57');
-      if(i!==4){
-        rack+=box(92,115,z+6,216,194,56,'#8ca2ad','#485f6c','#354d5b');
-        for(let j=0;j<6;j++)rack+=box(102+j*33,309,z+16,24,5,34,'#78909b','#233641','#536b77');
-      }else{
-        for(const x of [90,302])rack+=box(x,200,z,8,260,6,'#d3e0e3','#829aa4','#627b89');
-        rack+=label(82,325,z+25,'02');
-      }
-      rack+='</g>';
-    }
-    let parts='';
-    // 右后方密集银白板卡塔，以薄金属层和暗色间隙表达真实机箱。
-    for(let i=0;i<19;i++){
-      const z=-100+i*23;
-      parts+=box(360,100,z,215,220,14,'#bac9cd','#82979f','#596f7b');
-      parts+=box(368,106,z+14,198,202,2,'#dce5e5','#9dafb5','#80969f');
-      for(let j=0;j<10;j++)parts+=box(372+j*19,316,z+3,12,3,4,'#748892','#263c49','#354b55');
-    }
-    parts+=label(360,85,365,'灵衢互联柜01 · L2-01');
-    parts+=label(70,90,360,'计算柜11');
-    parts+='<g class="evt-rack-drawer">';
-    trayCoordinates=true;
-    // 狭长服务器托盘从前方抽出，金属边框包围主板和散热器。
-    parts+=box(235,330,45,240,290,14,'#bccbd0','#8198a2','#5c737f');
-    parts+=box(245,340,59,220,270,4,'#315e54','#284c45','#203e3a');
-    for(const x of [235,465])parts+=box(x,330,59,10,290,35,'#d2dfe0','#9cafb5','#69828e');
-    for(let i=0;i<4;i++){
-      const x=255+(i%2)*100,y=365+Math.floor(i/2)*90;
-      parts+=box(x,y,63,70,65,13,'#a3b7bf','#627e8c','#425d6d');
-      for(let f=0;f<9;f++)parts+=box(x+3+f*7,y+3,76,3,58,8,'#d1dee0','#8fa5af','#617d8c');
-    }
-    for(let i=0;i<8;i++)parts+=box(250+i*25,345,64,15,12,12,'#c6d2d1','#4b666e','#324c58');
-    parts+=label(235,322,105,'NPU计算刀片01 · NPU卡 8');
-    parts+=`<g class="evt-rack-board">${box(260,570,80,190,150,7,'#398a70','#25614f','#1b493f')}`;
-    for(let i=0;i<4;i++)parts+=box(274+i*42,590,87,28,38,10,'#304b46','#182b29','#203832');
-    for(let i=0;i<8;i++){
-      const q=project(268+i*22,725,100);
-      parts+=`<g class="evt-rack-port ${i===0?'evt-rack-fault-port':''}" data-port="${i}" role="button" tabindex="0" aria-label="聚焦 LPO光模块${String(i+1).padStart(2,'0')}">${box(264+i*22,675,87,18,64,23,i===0?'#e89994':'#c8d9d8',i===0?'#ae4b52':'#7c969a','#536e77')}<text x="${q[0]}" y="${q[1]+25}" class="evt-rack-port-number">${String(i+1).padStart(2,'0')}</text></g>`;
-    }
-    parts+='</g>'+label(260,560,115,'L1交换板02')+label(260,785,95,'LPO 01—08');
-    parts+='</g>';
-    trayCoordinates=false;
-    const source=project(370,105,350);
-    let links='';
-    for(let i=0;i<8;i++){
-      const target=project(128+i*22,725,260);
-      links+=`<path class="evt-rack-wire ${i===0?'evt-rack-fault-wire':''}" d="M${source} C${source[0]+65} ${source[1]+70} ${target[0]+90} ${target[1]-80} ${target}"/>`;
-    }
-    scene.innerHTML=`<svg viewBox="0 0 1332 660" role="img" aria-label="机柜三维展开详情：互联柜L2连接抽出刀片上的L1光模块"><defs><radialGradient id="rack-floor"><stop stop-color="#303030"/><stop offset="1" stop-color="#191919" stop-opacity="0"/></radialGradient></defs><ellipse cx="610" cy="435" rx="520" ry="215" fill="url(#rack-floor)"/><g class="evt-rack-shell">${rack}</g><g class="evt-rack-extracted">${parts}${links}</g></svg>`;
-    scene.querySelectorAll('[data-port]').forEach(port=>{
-      const select=()=>onPort(Number(port.dataset.port));
-      port.addEventListener('click',event=>{event.stopPropagation();select();});
-      port.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();select();}});
-    });
-    return scene;
-  }
-  function Topology(isolationOnly=false) {
-    const node = U.el('section', 'evt-topology');
-    node.setAttribute('aria-label', '光链路诊断拓扑');
-    const crumb = U.el('div', 'evt-breadcrumb');
-    ['SuperPod-1024','/','计算柜03','/','P03-N05·NPU计算刀片'].forEach(t => crumb.append(U.el('span','',t)));
-    node.append(crumb);
-    for (const [name, top, height, cls] of [['灵衢互联柜01',50,130,''],['本板·灵衢互联刀片03',193.8,388,' evt-board'],['NPU计算刀片',595.6,113,'']]) {
-      const group = U.el('div', 'evt-topo-group'+cls);
-      group.style.top = `${top}px`;
-      group.style.height = `${height}px`;
-      group.append(U.el('h3','',name));
-      node.append(group);
-    }
-    for (const [name,x,y,w,h] of [['灵衢互联柜',64,72,125,125],['灵衢SFU板',81.7,349.1,97.9,163.6],['NPU板',64,596,112,112]]) {
-      const replacement={"灵衢互联柜": "./assets/uploads/167-150903.png", "灵衢SFU板": "./assets/uploads/167-150904.png"};
-      const art = replacement[name]?document.createElement('img'):U.icon(name,w);
-      if(replacement[name]){art.src=replacement[name];art.alt=name;}
-      art.className = 'evt-device-art';
-      if(name==='灵衢互联柜'){
-        const crop=U.el('div','evt-device-art');U.place(crop,x,72,w,108);crop.style.overflow='hidden';
-        U.place(art,0,0,w,175);crop.append(art);node.append(crop);
-      }else{U.place(art,x,y,w,h);node.append(art);}
-    }
-    for (let i=0;i<4;i++) node.append(U.TopologyNode({label:`灵衢L2-0${i+1}`,subtitle:'互联芯片',count:'2',x:258+i*260,y:96.2,width:250,height:72}));
-    for (const [top,height] of [[299,84],[389.2,174.6]]) {
-      const outline = U.el('div','evt-topo-outline');
-      outline.style.top=`${top}px`; outline.style.height=`${height}px`; node.append(outline);
-    }
-    const label = (text,x,y) => node.append(U.place(U.el('span','evt-topo-label',text),x,y));
-    label('光模块  3',264.1,302.5);
-    label('互联Union  4',736.5,399.2);
-    for (let i=0;i<32;i++) {
-      const port=U.TopologyNode({label:`LPO\n${String(i+1).padStart(2,'0')}`,kind:'port',x:264.2+i*29.65+Math.floor(i/4)*10,y:323,width:27.65,height:40});
-      port.title=`LPO光模块${String(i+1).padStart(2,'0')}`;
-      if (!i) port.classList.add('evt-fault');
-      node.append(port);
-    }
-    for(let g=0;g<8;g++){const pic=U.el('span','evt-pic-label',`PIC${g<4?g*2+1:(g-4)*2+2}`);U.place(pic,264.2+g*128.6,365,116.6,16);node.append(pic);}
-    for(let i=0;i<4;i++) node.append(U.TopologyNode({label:`U2.${i+1}`,kind:'union',x:650+i*59.7,y:423,width:57.7,height:41}));
-    for(let side=0;side<2;side++) {
-      label(`下行Union·${side===0?'左':'右'}侧  8`,264.9+side*520,494.6);
-      for(let i=0;i<8;i++) node.append(U.TopologyNode({label:`U1.${i*2+1+side}`,kind:'union',x:264.9+side*520+i*61.45,y:515,width:58.5,height:41}));
-    }
-    for(let i=0;i<8;i++){const blade=U.TopologyNode({label:`NPU计算刀片0${i+1}`,subtitle:'NPU卡',count:'8',x:258+i*130,y:638.8,width:120,height:56});blade.title=`NPU计算刀片0${i+1}`;node.append(blade);}
-    const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.setAttribute('class','evt-links');svg.setAttribute('viewBox','0 0 1332 722');svg.setAttribute('aria-hidden','true');
-    const paths=[];
-    for(let i=0;i<32;i++) {
-      const x1=383+Math.floor(i/8)*260,x2=278.025+i*29.65+Math.floor(i/4)*10;
-      paths.push(`<path class="${i===0?'evt-fault-link':''}" d="M${x1} 168.2 C${x1} 280 ${x2} 253 ${x2} 323"/>`);
-    }
-    // Each U2 connects to all eight U1 nodes on its own side (32 links).
-    for(let u2=0;u2<4;u2++)for(let i=0;i<8;i++) {
-      const side=Math.floor(u2/2),x1=678.85+u2*59.7,x2=294.15+side*520+i*61.45;
-      paths.push(`<path class="evt-npu-flow evt-union-flow" d="M${x1} 464 C${x1} 486 ${x2} 488 ${x2} 515"/>`);
-    }
-    for(let side=0;side<2;side++)for(let i=0;i<8;i++) {
-      const x1=294.15+side*520+i*61.45,x2=318+i*130;
-      paths.push(`<path class="evt-npu-flow" d="M${x1} 556 C${x1} 604 ${x2} 610 ${x2} 638.8"/>`);
-    }
-    // 根据参考图：每四个光模块连接同一对下行 Union，左右各八个 Union。
-    const opticalDownlinks=Array.from({length:32},(_,port)=>{
-      const side=Math.floor(port/16),pair=Math.floor((port%16)/4)*2;
-      return [0,1].map(offset=>({port,union:side*8+pair+offset}));
-    }).flat();
-    opticalDownlinks.forEach(({port,union})=>{
-      const side=Math.floor(union/8),slot=union%8;
-      const x1=278.025+port*29.65+Math.floor(port/4)*10;
-      const x2=294.15+side*520+slot*61.45;
-      paths.push(`<path class="evt-npu-flow evt-optical-downlink" d="M${x1} 363 C${x1} 426 ${x2} 452 ${x2} 515"/>`);
-    });
-    svg.innerHTML='<defs><radialGradient id="evt-junction-glow"><stop stop-color="#b4ebd3" stop-opacity=".9"/><stop offset="1" stop-color="#67c798" stop-opacity="0"/></radialGradient></defs>'+paths.join('')+
-      [0,1,2,3].map(i=>`<ellipse cx="${383+i*260}" cy="168.2" rx="9" ry="3" fill="url(#evt-junction-glow)"/>`).join('')+
-      Array.from({length:8},(_,i)=>`<ellipse cx="${318+i*130}" cy="638.8" rx="9" ry="3" fill="url(#evt-junction-glow)"/>`).join('');
-    node.append(svg);requestAnimationFrame(()=>{window.HCOpticalFlow?.(svg);applySelection();});
-    const context=U.el('div','evt-topo-state-label');context.hidden=true;node.append(context);
-    const modules=[...node.querySelectorAll('.evt-topo-node')];
-    const links=[...svg.querySelectorAll(':scope > path')];
-    const endpoints=[];
-    for(let i=0;i<32;i++)endpoints.push([Math.floor(i/8),4+i]);
-    for(let u2=0;u2<4;u2++)for(let i=0;i<8;i++)endpoints.push([36+u2,40+Math.floor(u2/2)*8+i]);
-    for(let side=0;side<2;side++)for(let i=0;i<8;i++)endpoints.push([40+side*8+i,56+i]);
-    opticalDownlinks.forEach(({port,union})=>endpoints.push([4+port,40+union]));
-    // 外层轮廓与内层底色形成套管，中心仍保留原始细灰线。
-    const faultPath=links[0];
-    const sleeve=document.createElementNS('http://www.w3.org/2000/svg','g');
-    sleeve.setAttribute('class','evt-isolation-sleeve');
-    ['evt-sleeve-outline','evt-sleeve-inner'].forEach(name=>{
-      const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-      path.setAttribute('d',faultPath.getAttribute('d'));path.setAttribute('class',name);sleeve.append(path);
-    });
-    svg.insertBefore(sleeve,faultPath);
-    // Place the status badge on the same cubic curve as the isolated link.
-    const coordinates=faultPath.getAttribute('d').match(/-?\d+(?:\.\d+)?/g).map(Number);
-    const t=.6,u=1-t;
-    const anchor=axis=>u*u*u*coordinates[axis]+3*u*u*t*coordinates[axis+2]+3*u*t*t*coordinates[axis+4]+t*t*t*coordinates[axis+6];
-    node.style.setProperty('--evt-isolation-x',anchor(0)+'px');
-    node.style.setProperty('--evt-isolation-y',anchor(1)+'px');
-    const isolationBadge=U.el('div','evt-link-isolated-badge');
-    isolationBadge.append(U.el('span','evt-link-isolated-symbol','⊘'),U.el('span','','已隔离'));
-    node.append(isolationBadge);
-
-    let selected=null;
-    function applySelection(){
-      node.classList.toggle('evt-has-selection',selected!==null);
-      const related=new Set(selected===null?[]:[selected]);
-      // 沿有向连接分别追溯上游、下游，不扩散到上游的其他分支。
-      if(selected!==null){
-        for(const direction of [0,1]){
-          const queue=[selected],visited=new Set(queue);
-          while(queue.length){const current=queue.shift();endpoints.forEach(edge=>{
-            if(edge[direction]!==current)return;const next=edge[1-direction];
-            related.add(next);if(!visited.has(next)){visited.add(next);queue.push(next);}
-          });}
-        }
-      }
-      modules.forEach((item,i)=>{item.classList.toggle('evt-selected',related.has(i));item.setAttribute('aria-pressed',String(i===selected));});
-      sleeve.classList.toggle('evt-sleeve-muted',selected!==null&&!related.has(4));
-      const activePaths=new Set();
-      links.forEach((path,i)=>{const active=selected!==null&&endpoints[i].every(index=>related.has(index));path.classList.toggle('evt-selected-link',active);path.classList.toggle('evt-downlink-visible',selected!==null&&((selected>=4&&selected<36)||(selected>=40&&selected<56))&&endpoints[i].includes(selected));if(active)activePaths.add(path.getAttribute('d'));});
-      svg.querySelectorAll('.hc-flow-trace').forEach(path=>path.classList.toggle('evt-selected-link',activePaths.has(path.getAttribute('d'))));
-      context.classList.toggle('evt-selection-hidden',selected!==null&&selected!==4);
-      isolationBadge.classList.toggle('evt-sleeve-muted',selected!==null&&!related.has(4));
-    }
-    node.selectModule=module=>{selected=module===null?null:modules.indexOf(module);if(selected===-1)selected=null;applySelection();};
-    modules.forEach(module=>{
-      module.setAttribute('role','button');module.tabIndex=0;
-      module.setAttribute('aria-label','聚焦 '+(module.title||module.textContent.trim().replace(/\s+/g,' ')));
-      module.addEventListener('click',event=>{event.stopPropagation();node.selectModule(module);});
-      module.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();node.selectModule(module);}});
-    });
-    node.addEventListener('click',event=>{if(!event.target.closest('.evt-topo-node,.evt-topo-state-label,button,a'))node.selectModule(null);});
-    node.addEventListener('keydown',event=>{if(event.key==='Escape')node.selectModule(null);});
-    node.update = index => {
-      node.dataset.view=String(index);
-      const tipIndex=index===1?0:index===3?3:index===5?4:index===7?8:index;
-      const labels=['链路闪断告警','30条告警聚合','光链路脏污','已生成预案','优雅隔离完成，事件已关闭','','链路恢复正常，隔离状态解除','待办已关闭','隔离状态解除'];
-      const descriptions=['计算柜11-L1交换板02上发生闪断3次','聚合链路闪断及相关设备告警','L1-L2 设备光链路端面脏污','对L1-L2异常链路进行优雅隔离','计算柜11·L1交换板02光链路已完成优雅隔离','','检测到通道4光功率恢复正常，错误计数归零','光链路清污待办已关闭','链路运行正常，隔离状态已解除'];
-      const title=U.el('strong','evt-tip-title');title.append(U.el('span','evt-tip-name',labels[tipIndex]));
-      if(tipIndex===3){const doc=U.el('span','evt-plan-icon');doc.setAttribute('aria-hidden','true');doc.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>';title.prepend(doc);}else title.prepend(U.icon(tipIndex>=4?'完成':'红色的故障',20));
-      if(tipIndex===2)title.append(U.el('em','','根因'));
-      context.replaceChildren(title,U.el('p','',descriptions[tipIndex]));if(index===5&&isolationOnly){const task=isolationOnly?U.button('','evt-tip-manual',()=>{window.closeOpticalEvent();window.openOpticalEvent({mode:'full'});}):U.el('div','evt-tip-manual');const badge=U.Badge('待人工处理','manual');badge.prepend(U.icon('红色小手',16));task.append(badge,U.el('span','evt-tip-task-copy','光模块端面脏污，等待人工清污'));if(isolationOnly)task.append(U.el('span','evt-tip-task-arrow','→'));context.append(task);}context.hidden=false;
-    };
-    const switcher=U.el('div','evt-view-switch');switcher.setAttribute('role','radiogroup');switcher.setAttribute('aria-label','拓扑视图');
-    const rackView=RackDetailView(index=>{const port=modules[4+index];if(port)port.click();});
-    const setMode=mode=>{
-      node.dataset.dimension=mode;rackView.hidden=mode!=='3d';
-      switcher.querySelectorAll('button').forEach(button=>{const active=button.dataset.mode===mode;button.setAttribute('aria-checked',String(active));button.tabIndex=active?0:-1;});
-    };
-    ['2D','3D'].forEach(label=>{
-      const button=U.button(label,'',()=>setMode(label.toLowerCase()));button.dataset.mode=label.toLowerCase();button.setAttribute('role','radio');
-      button.addEventListener('keydown',event=>{if(['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();const mode=node.dataset.dimension==='2d'?'3d':'2d';setMode(mode);switcher.querySelector(`[data-mode="${mode}"]`).focus();}});
-      switcher.append(button);
-    });
-    node.append(rackView,switcher);setMode('2d');
-    return node;
-  }
   function mount({root,eventId=EVENT_ID,initialState=null,entranceMode='complete',onClose=()=>{},onComplete=()=>{},storyStage=6,detailMode='full'}) {
     if(!root)throw new Error('缺少事件挂载节点 root');
     if(eventId!==EVENT_ID)throw new Error('此模块仅支持光链路脏污事件');
@@ -957,12 +670,11 @@ return figure;
     const fullscreen=U.button('','',()=>{});fullscreen.disabled=true;fullscreen.setAttribute('aria-label','诊断详情');
     fullscreen.append(U.icon('放大-0910',16));
     actions.append(fullscreen);toolbar.append(actions);right.append(toolbar);
-    const topology=Topology(isolationOnly);right.append(topology);
-    const faultPort=topology.querySelector('.evt-fault');
-    topology.selectModule(faultPort);
     let experienceCard=null, experienceStartedAt=0;
     let completeCleaning=null;
-    if(!isolationOnly){const clean=()=>{if(liveStage<6||state.cleanedAt!==null)return;state.cleanedAt=HCClock.seconds();experienceStartedAt=Date.now();state.phase='reviewed';state.view=6;focusIndex=null;renderHistory(true);renderTimeline();const row=scroll.querySelector('.evt-recovery-row[data-view="6"]');if(row){const copy=U.el('div','evt-cleanup-copy');copy.append(...Array.from(row.children).filter(n=>n.matches('strong,p')));row.prepend(copy);const released=scroll.querySelector('.evt-recovery-row[data-view="7"]');if(released){released.dataset.streamHidden=released.style.visibility;released.style.visibility='hidden';}entrance.stream(copy,0,()=>{if(!released||!released.isConnected)return;released.style.visibility='';delete released.dataset.streamHidden;entrance.stream(released);});}onComplete({eventId,result:'resolved'});};completeCleaning=clean;faultPort.addEventListener('click',()=>completeCleaning());}
+    if(!isolationOnly){const clean=()=>{if(liveStage<6||state.cleanedAt!==null)return;state.cleanedAt=HCClock.seconds();experienceStartedAt=Date.now();state.phase='reviewed';state.view=6;focusIndex=null;renderHistory(true);renderTimeline();const row=scroll.querySelector('.evt-recovery-row[data-view="6"]');if(row){const copy=U.el('div','evt-cleanup-copy');copy.append(...Array.from(row.children).filter(n=>n.matches('strong,p')));row.prepend(copy);const released=scroll.querySelector('.evt-recovery-row[data-view="7"]');if(released){released.dataset.streamHidden=released.style.visibility;released.style.visibility='hidden';}entrance.stream(copy,0,()=>{if(!released||!released.isConnected)return;released.style.visibility='';delete released.dataset.streamHidden;entrance.stream(released);});}onComplete({eventId,result:'resolved'});};completeCleaning=clean;}
+    const topologyHost=U.el('div');right.append(topologyHost);
+    const topologyIsland=mountIsland(topologyHost,Topology2D,{view:state.view,isolationOnly,cleanedAt:state.cleanedAt,onFaultPortClean:completeCleaning});
 
     let timeline;const appearedViews=new Set();
     function steps() {
@@ -995,7 +707,7 @@ return figure;
           appearedViews.add(key);
           if(!HCMotion.REDUCED)item.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:700,delay:key>=6?1100+(key-6)*1200:Math.min(i,7)*50,easing:'cubic-bezier(.2,0,0,1)',fill:'backwards'});
         }
-      });topology.update(state.view);if(isolationOnly&&state.view===4){topology.querySelector('.evt-tip-name').textContent='优雅隔离已完成';}if(!isolationOnly&&state.cleanedAt===null&&[4,5].includes(state.view)){const name=topology.querySelector('.evt-tip-name');if(name){const title=topology.querySelector('.evt-tip-title');const icon=bridgeEventTypeIcon({size:20});const flags=U.el('span','fault-status-flags');flags.append(U.icon('红色小手',10));icon.append(flags);title.replaceChildren(icon,U.el('span','evt-tip-name','光模块脏污，待人工清污'),U.Badge('根因','manual'));topology.querySelector('.evt-topo-state-label p').textContent='计算柜11·L1交换板02光模块端面脏污，需人工清污。系统持续监控通道4光功率与错误计数';}}if(isolationOnly&&state.view===5){topology.querySelector('.evt-tip-name').textContent='事件已关闭';topology.querySelector('.evt-topo-state-label p').textContent='生成待人工处理事件';}if(state.cleanedAt!==null&&!isolationOnly){topology.querySelector('.evt-fault').style.background='#247247';topology.querySelector('.evt-fault-link').style.stroke=[4,5].includes(state.view)?'#888':'#49876c';}if(liveStage<6){const label=topology.querySelector('.evt-topo-state-label');label.hidden=false;}applyFocus();
+      });topologyIsland.update({view:state.view,isolationOnly,cleanedAt:state.cleanedAt,onFaultPortClean:completeCleaning});applyFocus();
     }
     function applyFocus(){
       const selectedStep=[0,1,1,2,3,3,3,3][focusIndex];
@@ -1179,7 +891,7 @@ return figure;
       snapshot.querySelector('svg').setAttribute('aria-label','四通道光功率及错误计数趋势：尚未清污，每15分钟采样，10:15:28至12:00:28');snapshot.querySelectorAll('svg>text[x="30"]').forEach(n=>{n.setAttribute('x','16');n.setAttribute('text-anchor','start');});snapshot.querySelectorAll('svg>text[x="411"]').forEach(n=>n.setAttribute('x','397'));snapshot.classList.add('evt-static-chart');analysis.replaceChildren(bodyText('12:00:28 完成光链路状态分析：通道4从12:00:00开始处于异常低功率状态，截至12:00:28已持续28秒，光功率约为−12.9dBm；同期通道1～3保持在0～−1dBm，错误计数持续异常'),snapshot);}
       const recovery=U.el('div');const recoveryCard=U.el('div','evt-card evt-recovery');
       const isolated=U.el('div','evt-recovery-row');isolated.dataset.view='4';isolated.append(recoveryTitle('已完成L1-L2异常链路优雅隔离','12:00:40'));
-      isolated.append(IsolationAnimation());
+      isolated.append(bridgeNode(IsolationAnimationView));
       isolated.append(U.MetricComparison({label:'带宽',before:'3.2',after:'2.4',unit:'Tb/s',changeLabel:'25%',direction:'down'}),U.MetricComparison({label:'流量',before:'420',after:'450',unit:'Gb/s',changeLabel:'7.14%',direction:'up'}));
       const manual=U.el('div','evt-recovery-row');manual.dataset.view='5';manual.append(recoveryTitle('持续监控光链路状态','12:00:40'));
       if(state.cleanedAt===null)manual.append(bodyText('正在持续监控计算柜11-L1交换板02的光链路。1～3通道保持正常，通道4仍处于异常低功率状态，链路错误计数仍有异常，等待人工清污'));
