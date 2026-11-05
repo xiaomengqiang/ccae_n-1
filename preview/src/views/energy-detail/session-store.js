@@ -2,7 +2,7 @@
 // 职责：sessions 注册表、open/close/reset、每秒 tick、识别定时器、
 //      hc-energy-change/reset 事件桥、渲染订阅（notify）
 // 对外契约与 legacy.js 完全一致：window API 由 index.jsx 注册到本模块动作上
-import { create, advance, appendLog, requestReport } from "../../shared/energy-state.js";
+import { create, advance, appendLog, requestReport } from "../../utils/energy-state.js";
 import { HOME_WORKLOADS } from "../../mock/workloads.js";
 
 const service = (name) => HOME_WORKLOADS.inference.find((x) => x.data.name === name)?.data || { name, npu: "128", energyTotal: "1280 kWh", energySaved: "163 kWh", energyGain: "11.3 %", ttft: "2.5 ms", tpot: "12.3 ms" };

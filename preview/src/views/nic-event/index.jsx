@@ -7,6 +7,9 @@ import NicTopology from "./nic-topology.jsx";
 import ProcessFlow from "./process-flow.jsx";
 import ServiceJourney from "./service-journey.jsx";
 import DiagnosticHistory from "./diagnostic-history.jsx";
+import { usePanelEntrance } from "../../hooks/use-panel-entrance.js";
+import { EvidenceTabsBar, EvidencePanel } from "../optical-event/evidence-tabs.jsx";
+import { EvidenceProvider } from "../../components/evidence-context/index.jsx";
 
 // Qwen 网卡驱动故障事件详情 —— 完整 React 组件（状态机 + 面板 + 四个子区域）
 // 阶段状态（stage/journeySecond/selected/expanded）由 HCStory 订阅与交互驱动；
@@ -77,6 +80,7 @@ export default function NicEvent() {
 
   useEffect(() => setHost(document.getElementById("screen")), []);
 
+
   // 供订阅回调读取最新值的 refs
   const stageRef = useRef(stage); stageRef.current = stage;
   const journeyRef = useRef(journeySecond); journeyRef.current = journeySecond;
@@ -122,13 +126,8 @@ export default function NicEvent() {
     });
   }, [open]);
 
-  // 入场动画（命令式 HCEntrance，开关面板各执行一次）
-  useEffect(() => {
-    if (!open || !panelRef.current) return;
-    const entrance = HCEntrance(panelRef.current);
-    entrance.enter(stageRef.current < 6 ? "live" : "complete");
-    return () => entrance.stop();
-  }, [open]);
+  // 入场动画（useEntrance：开关面板各执行一次 enter/stop；模式取打开时的 stage）
+  const entranceRef = usePanelEntrance(panelRef, { mode: stageRef.current < 6 ? "live" : "complete", enabled: open });
 
   // 侧边栏「首页」关闭面板
   useEffect(() => {
@@ -205,6 +204,7 @@ export default function NicEvent() {
 
   if (!open || !host) return null;
   return createPortal(
+    <EvidenceProvider>
     <section
       ref={panelRef}
       className="hc-event-module hc-nic-module nic-unified"
@@ -260,7 +260,10 @@ export default function NicEvent() {
         </div>
       </aside>
       <main className="evt-right">
-        <div className="evt-detail-toolbar"><span>诊断详情</span></div>
+        <div className="evt-detail-toolbar">
+          <span>诊断详情</span>
+          <EvidenceTabsBar />
+        </div>
         <section className={"nic-service" + (repaired ? " nic-service-recovered" : "")}>
           <div className="nic-service-title">
             <span>Qwen-1.5B服务</span>
@@ -299,8 +302,10 @@ export default function NicEvent() {
             <button type="button" onClick={backToLatest}>返回最新</button>
           </div>
         </section>
+        <EvidencePanel />
       </main>
-    </section>,
+    </section>
+    </EvidenceProvider>,
     host
   );
 }

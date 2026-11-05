@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { MASCOT_LAYERS } from "./mascot-layers.js";
+import { MASCOT_LAYERS } from "../../constants/mascot-layers.js";
 import { useMascotChoreography } from "../../hooks/use-mascot-choreography.js";
 import { useEntrance } from "../../hooks/use-entrance.js";
 import { prepareContour, computeFit, applyFit } from "./contour.js";

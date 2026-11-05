@@ -70,28 +70,27 @@ export default function DiagnosticHistory({ v, journeySecond, expanded, selected
   const visible = sections.map((s, i) => (v >= s.at ? i : -1)).filter((i) => i >= 0);
   const allExpanded = visible.length > 0 && visible.every((i) => expanded[i]);
 
-  // 步骤 3/5 取证条目（v 阈值控制注入时机；null = 跳过）
-  const evidence3 = v >= 5 ? [
-    { verb: "生成", label: "BMC 日志分析结果", tool: "BMC 日志分析", kind: "file", text: "分析对象：112.34.23.1 · CPU02\n分析结论：关联节点重启记录，确认故障发生于 D-08 实例所在节点\n关联事件：12:05:06 操作系统崩溃重启" },
-    { verb: "生成", label: "OS 日志分析结果", tool: "OS 日志分析", kind: "file", text: "分析对象：112.34.23.1 · 操作系统\n分析结论：操作系统内存耗尽并崩溃重启，导致 D-08 实例异常退出\n业务影响：Qwen-1.5B 请求成功率降至 77.5%" },
-    { verb: "生成", label: "vmcore 分析结果", tool: "vmcore 分析", kind: "file", text: "分析对象：112.34.23.1 · 内核转储\n分析结论：发现内核空指针异常；结合 OS 日志与 hinic3 驱动版本信息，定位根因为网卡驱动版本过低\n当前版本：V11.8\n处置建议：升级至 V13.1，随后核查节点、D-08 实例及 Qwen-1.5B 服务" },
-  ] : null;
-  const evidence5 = v >= 7 ? [
-    { verb: "记录", label: "人工确认记录", tool: "人工授权", kind: "run" },
-  ] : null;
+  // 步骤 3/5 取证条目（v 阈值控制；null = 跳过；步骤 3 默认展开 + 摘要改名由 props 声明式控制）
+  const evidence3 = v >= 5 ? {
+    defaultOpen: true, captionOverride: "诊断分析结果",
+    entries: [
+      { verb: "生成", label: "BMC 日志分析结果", tool: "BMC 日志分析", kind: "file", text: "分析对象：112.34.23.1 · CPU02\n分析结论：关联节点重启记录，确认故障发生于 D-08 实例所在节点\n关联事件：12:05:06 操作系统崩溃重启" },
+      { verb: "生成", label: "OS 日志分析结果", tool: "OS 日志分析", kind: "file", text: "分析对象：112.34.23.1 · 操作系统\n分析结论：操作系统内存耗尽并崩溃重启，导致 D-08 实例异常退出\n业务影响：Qwen-1.5B 请求成功率降至 77.5%" },
+      { verb: "生成", label: "vmcore 分析结果", tool: "vmcore 分析", kind: "file", text: "分析对象：112.34.23.1 · 内核转储\n分析结论：发现内核空指针异常；结合 OS 日志与 hinic3 驱动版本信息，定位根因为网卡驱动版本过低\n当前版本：V11.8\n处置建议：升级至 V13.1，随后核查节点、D-08 实例及 Qwen-1.5B 服务" },
+    ],
+  } : null;
+  const evidence5 = v >= 7 ? {
+    entries: [
+      { verb: "记录", label: "人工确认记录", tool: "人工授权", kind: "run" },
+    ],
+  } : null;
 
-  // 步骤 3 取证展开 + 摘要改名（注入后的命令式后处理）
-  useEffect(() => {
-    const b3 = body3.current;
-    if (!b3) return;
-    const results = b3.querySelector("details.evt-diagnostic-operations");
-    if (results) {
-      results.open = true;
-      results.querySelector("summary > span:not(.evt-operation-icon)").textContent = "诊断分析结果";
-    }
-  }, [v]);
+  // 步骤 4 证据条目（原版：已生成处置方案）
+  const evidence4 = {
+    entries: [{ verb: "生成", label: "处置方案", tool: "方案生成", kind: "file", text: "12:06:06 已生成网卡升级方案：将 hinic3 驱动由 V11.8 升级至 V13.1" }],
+  };
 
-  // 诊断分析操作行的选中联动 dim（取证注入的命令式 DOM）
+  // 诊断分析操作行的选中联动 dim（取证列表的命令式 class 联动）
   useEffect(() => {
     const b3 = body3.current;
     if (!b3) return;
@@ -159,7 +158,7 @@ export default function DiagnosticHistory({ v, journeySecond, expanded, selected
                 statusIcon={waiting ? "红色小手" : undefined}
                 dim={dim}
                 section={i}
-                evidence={i === 3 ? evidence3 : i === 5 ? evidence5 : undefined}
+                evidence={i === 3 ? evidence3 : i === 4 ? evidence4 : i === 5 ? evidence5 : null}
                 bodyRef={i === 3 ? body3 : i === 5 ? body5 : undefined}
               >
                 <p className="nic-section-copy">

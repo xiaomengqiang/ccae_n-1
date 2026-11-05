@@ -1,0 +1,154 @@
+/* Scope controls override legacy styles. */
+
+#screen #hf-pod-heading{display:flex;align-items:center;gap:14px;padding:8px 32px 24px}
+.core-node-select{min-width:0;max-width:100%;flex:1;background:#333638;color:#f1f1f1;border:1px solid #575a5b;border-radius:8px;font:inherit;font-size:28px;line-height:1.5;padding:12px 36px 12px 12px;cursor:pointer;color-scheme:dark}
+.core-node-select:focus-visible{outline:3px solid #73b7ff;outline-offset:2px}
+#screen .core-pod-card{display:flex;flex-direction:column;justify-content:center;gap:16px;text-align:left;cursor:default}
+#screen .core-pod-card .core-node-select{flex:none;width:100%;font-size:28px;font-weight:600}
+#screen .core-pod-card .hf-card-search{font:inherit;font-size:24px;text-align:left;background:transparent;color:#aaa;border:1px solid #555;border-radius:6px;padding:12px;cursor:pointer}
+#screen #hf-pod-heading #hf-collapse{flex:none;margin:0;background:transparent}
+#screen .core-top-select{margin-left:24px;font-size:24px;vertical-align:middle;max-width:450px}
+#screen #hf-pod-heading #hf-collapse svg{width:28px;height:28px;fill:none;stroke:#aeb7bd;stroke-width:1.6}
+/* Custom menu avoids OS-native option sizing outside the scaled scene. */
+#screen .core-node-select{display:inline-flex;align-items:center;justify-content:space-between;gap:16px;background:transparent;border:1px solid transparent;border-radius:6px;padding:8px 4px;color:#f1f1f1;font-family:inherit;font-size:32px;line-height:1.5;text-align:left;font-weight:600}
+#screen .core-node-select:hover,#screen .core-node-select[aria-expanded="true"]{background:rgba(255,255,255,.06)}
+#screen .core-node-select .core-node-label{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#screen .core-node-select svg{width:24px;height:24px;flex:none;fill:none;stroke:#bbc2c7;stroke-width:1.5}
+#screen .core-pod-card .core-node-select{font-size:32px}
+.core-node-menu{position:fixed;z-index:2147483647;box-sizing:border-box;padding:.4em;background:#383b3d;border:1px solid #515456;border-radius:.45em;box-shadow:0 4px 14px #0006;color:#eee;font-family:Arial,"Microsoft YaHei",sans-serif}
+.core-node-option{display:flex;align-items:center;justify-content:space-between;gap:1em;width:100%;padding:.65em .8em;border:0;border-radius:.25em;background:transparent;color:inherit;font:inherit;text-align:left;white-space:nowrap;cursor:pointer}
+.core-node-option:hover,.core-node-option:focus-visible{background:#484d50;outline:none}
+.core-node-option[aria-selected="true"]{background:#234b65;color:#83c8ff}
+.core-node-check{width:1em;flex:none}
+#screen .core-node-select .core-node-label{font:inherit;color:inherit;opacity:1;display:block}
+/* Separate node selection and resource-tree controls into distinct rows. */
+#screen #hf-pod-heading{display:grid;grid-template-columns:1fr;gap:18px;padding-bottom:20px}
+#screen #hf-pod-heading .core-node-select{min-height:80px;width:100%;padding:12px 8px}
+#screen #hf-pod-heading #hf-collapse{justify-self:end;width:180px!important;height:76px!important;padding:12px 20px!important;display:flex;align-items:center;justify-content:center;gap:12px;background:#3e4346;border-radius:8px}
+#screen #hf-pod-heading #hf-collapse:after{content:'收起树';font-size:28px;color:#c7cccf}
+#screen #hf-pod-heading #hf-collapse svg{width:40px;height:40px}
+#screen .core-pod-card .hf-card-search{min-height:76px;font-size:30px;display:flex;align-items:center;gap:16px;color:#c7cccf}
+#screen #hf-expand{min-height:76px;padding:14px 24px!important;font-size:30px!important;margin-right:28px}
+#screen #flipBtn{top:auto!important;bottom:170px!important}
+/* The legacy header artwork includes the smart-mode pill; omit it in the core release. */
+
+/* Compact top-row tree controls; keep search available in the collapsed card. */
+#screen #hf-pod-heading{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:0 32px 12px}
+#screen #hf-pod-heading #hf-collapse{order:-1;align-self:flex-end;width:64px!important;min-width:64px!important;height:52px!important;min-height:52px!important;padding:6px!important;background:transparent!important;border:0!important;box-shadow:none!important}
+#screen #hf-pod-heading #hf-collapse:after{content:none}
+#screen #hf-pod-heading .core-node-select{min-height:64px;padding:8px 4px}
+#screen .core-node-select svg{width:40px;height:40px;stroke-width:2}
+#screen .core-pod-card{position:relative;padding-top:42px!important;gap:8px}
+#screen .core-tree-open{position:absolute;top:0;right:24px;display:flex;align-items:center;justify-content:center;width:64px;height:48px;padding:4px;border:0;background:transparent;color:#bcc4c8;cursor:pointer}
+#screen .core-tree-open svg{width:36px;height:36px;fill:none;stroke:currentColor;stroke-width:1.6}
+#screen .core-tree-open:hover,#screen #hf-collapse:hover{color:#fff}
+#screen .core-tree-open:focus-visible{outline:3px solid #73b7ff;border-radius:6px}
+#screen .core-pod-card .hf-card-search{min-height:52px;font-size:24px;padding:8px 12px}
+/* Node selection and tree toggle share one row, with distinct surfaces. */
+#screen #hf-pod-heading{display:grid;grid-template-columns:minmax(0,1fr) 64px;align-items:center;gap:20px;padding:12px 32px 18px}
+#screen #hf-pod-heading .core-node-select{grid-column:1;grid-row:1;width:100%;min-height:72px;padding:12px 16px;background:#414649;border:1px solid #505659;border-radius:8px}
+#screen #hf-pod-heading #hf-collapse{grid-column:2;grid-row:1;order:0;align-self:center;justify-self:end;width:64px!important;height:64px!important;min-height:64px!important;padding:10px!important}
+#screen #hf-pod-heading #hf-collapse svg{transform:scaleX(-1);width:40px;height:40px}
+#screen .core-pod-card{display:grid;grid-template-columns:minmax(0,1fr) 64px;grid-template-rows:auto auto;align-content:center;align-items:center;column-gap:20px;row-gap:12px;padding-top:16px!important}
+#screen .core-pod-card .core-node-select{grid-column:1;grid-row:1;width:100%;min-height:72px;padding:12px 16px;background:#414649;border:1px solid #505659;border-radius:8px}
+#screen .core-pod-card .core-tree-open{position:static;grid-column:2;grid-row:1;width:64px;height:64px;padding:10px;justify-self:end;background:transparent}
+#screen .core-pod-card .core-tree-open svg{width:40px;height:40px;transform:none}
+#screen .core-pod-card .hf-card-search{grid-column:1 / -1;grid-row:2;width:100%;box-sizing:border-box}
+#screen .core-node-select:hover,#screen .core-node-select[aria-expanded="true"]{background:#4b5155}
+
+/* Correct tree-toggle directions: collapse left, expand right. */
+#screen #hf-pod-heading #hf-collapse svg{transform:none}
+#screen .core-pod-card .core-tree-open svg{transform:scaleX(-1)}
+#screen #r4-legend .core-legend-toggle{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:6px;background:transparent;color:inherit;font:inherit;padding:8px 6px;cursor:pointer;pointer-events:auto}
+#screen #r4-legend .core-legend-toggle:hover{background:#ffffff12}
+#screen #r4-legend .core-legend-toggle[aria-pressed="false"]{opacity:.38;text-decoration:line-through}
+#screen #r4-legend .core-legend-toggle:focus-visible{outline:2px solid #73b7ff}
+#stageInner .core-legend-muted{filter:grayscale(1)!important;opacity:.18!important}
+#stageInner .core-legend-base{fill:transparent!important;stroke:transparent!important}
+#stageInner .core-legend-hidden{display:none}
+
+/* Cover baked-in colored rack glyphs with a neutral surface when excluded. */
+#stageInner .core-legend-base{fill:#41484c!important;stroke:transparent!important}
+#screen .core-page-tabs{display:inline-flex;align-items:center;gap:22px;vertical-align:middle}
+#screen .core-page-tabs button{font:inherit;font-size:32px;font-weight:600;border:0;background:transparent;padding:12px 0;color:#c2c5c7;cursor:pointer}
+#screen .core-page-tabs button[aria-selected="true"]{color:#55adff}
+#screen .core-page-tabs button[aria-disabled="true"]{cursor:default}
+#screen .core-page-tabs>span{color:#72787c;font-size:30px;font-weight:400}
+
+/* Filtered load views expose neutral cabinet artwork, with selected live overlays supplying color. */
+#stageInner .core-load-filtered image{filter:grayscale(1)!important}
+#stageInner .core-load-empty{filter:grayscale(1)!important}
+#stageInner .core-load-empty .optical-flow{display:none!important}
+
+/* 01 — cabinet fault aggregation */
+.core-fault-group{cursor:pointer}.core-fault-group:hover rect,.core-fault-group:focus rect{filter:brightness(1.15);stroke:#fff;stroke-width:1}
+
+.core-fault-inline{overflow:visible}.fault-inline-body{box-sizing:border-box;height:100%;position:relative;display:flex;flex-direction:column;padding:34px 6px 6px;background:#373939;border:1.5px solid var(--fault-color);border-radius:12px;box-shadow:0 6px 20px #0007;color:#fff;font-family:Arial,"PingFang SC",sans-serif;animation:fault-unfold .18s ease-out}
+.fault-inline-close{position:absolute;right:12px;top:6px;border:0;background:transparent;color:#bbb;font:13px Arial,"PingFang SC",sans-serif;cursor:pointer;padding:2px 6px}.fault-inline-close:hover{color:white}.fault-inline-list{overflow:auto;min-height:0;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#777 transparent}.fault-inline-item{display:block;box-sizing:border-box;width:100%;padding:7px 10px;border:0;background:transparent;color:white;text-align:left;font:17px Arial,"PingFang SC",sans-serif;line-height:22px;cursor:pointer;border-radius:5px}.fault-inline-item:hover,.fault-inline-item:focus-visible{background:#505454;outline:none}.fault-inline-close:focus-visible{outline:1px solid white}
+@keyframes fault-unfold{from{opacity:0;transform:scale(.35)}to{opacity:1;transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.fault-inline-body{animation:none}}
+
+/* 01.3: device-hover-card styling, independent of canvas scale. */
+.fault-popover{position:fixed;z-index:100000;box-sizing:border-box;display:flex;flex-direction:column;background:#363636;color:#f3f3f3;border:1px solid #555;border-radius:8px;box-shadow:0 8px 28px #0006;font:14px Arial,"PingFang SC",sans-serif;animation:fault-pop-in .16s ease-out;overflow:hidden}
+.fault-popover header{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid #525252}.fault-popover header strong{font-size:14px;font-weight:500}.fault-popover header span{font-size:12px;color:#ff747c}.fault-popover header button{margin-left:auto;border:0;background:transparent;color:#b9bdc0;font-size:12px;cursor:pointer;padding:4px}.fault-popover-list{overflow:auto;overscroll-behavior:contain;padding:4px 8px;scrollbar-width:thin;scrollbar-color:#707070 transparent}.fault-popover-item{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid #ffffff0c;color:#f3f3f3;background:transparent;padding:12px 8px;font:14px/20px Arial,"PingFang SC",sans-serif;cursor:pointer;border-radius:4px}.fault-popover-item:last-child{border-bottom:0}.fault-popover-item:hover,.fault-popover-item:focus-visible{background:#484d52;outline:none;color:#fff}
+@keyframes fault-pop-in{from{opacity:0;transform:translateY(6px) scale(.97)}to{opacity:1;transform:none}}
+#screen #r4-legend .core-legend-toggle{border:1px solid #737a7e;border-radius:6px;background:#ffffff10;padding:8px 10px;transition:background .12s,border-color .12s}
+#screen #r4-legend .core-legend-toggle:hover{background:#ffffff25;border-color:#b6c6d2}
+#screen #r4-legend .core-legend-toggle[aria-pressed="false"]{opacity:.65;text-decoration:none;background:transparent;border-color:#4c5053}
+#screen #r4-legend .core-legend-toggle[aria-pressed="false"] i{filter:grayscale(1);opacity:.35}
+.core-filter-label{color:#c7cdd1;margin-right:12px;font-weight:500}
+@media(prefers-reduced-motion:reduce){.fault-popover{animation:none}}
+
+/* 01.4 — use the same design-unit scale as #hcard.r4-hover. */
+.fault-popover{padding:calc(40px * var(--hover-scale)) calc(44px * var(--hover-scale));border-radius:calc(24px * var(--hover-scale));box-shadow:0 calc(16px * var(--hover-scale)) calc(40px * var(--hover-scale)) #0006;font-size:calc(26px * var(--hover-scale))}
+.fault-popover header{padding:0 0 calc(28px * var(--hover-scale));gap:calc(12px * var(--hover-scale));flex-wrap:wrap;flex-shrink:0}
+.fault-popover header strong{font-size:calc(32px * var(--hover-scale));font-weight:500}
+.fault-popover header .fault-count-tag{font-size:calc(20px * var(--hover-scale));line-height:1.4;color:#fff;background:#e7434a;border:1px solid #e7434a;border-radius:calc(4px * var(--hover-scale));padding:calc(2px * var(--hover-scale)) calc(8px * var(--hover-scale));white-space:nowrap}
+.fault-popover header button{font-size:calc(22px * var(--hover-scale));padding:0;color:#aaa}
+.fault-popover-list{padding:calc(12px * var(--hover-scale)) 0 0;min-height:0}
+.fault-popover-item{font-size:calc(26px * var(--hover-scale));line-height:1.7;padding:calc(12px * var(--hover-scale)) 0;border-radius:calc(4px * var(--hover-scale));font-weight:400}
+
+/* 05 — one flip control, clear of the cabinet alarm row. */
+#screen #flipBtn{bottom:52px!important;display:flex;align-items:center;gap:14px;height:64px!important;padding:10px 18px!important}
+#screen #flipBtn .ft{flex-direction:row;align-items:center}
+#screen #flipBtn .fq{position:static!important;display:inline-flex;align-items:center;gap:8px;margin:0!important;padding:4px 10px!important;border-radius:4px!important;font-size:20px!important;line-height:1.4;background:#e7434a!important}
+#screen #flipBtn .fq .r6-alert{display:none!important}
+#screen #flipBtn .ft b{white-space:nowrap}
+
+/* Keep the enlarged pointer target invisible on hover/focus. */
+.core-fault-group:hover rect[fill="transparent"],.core-fault-group:focus rect[fill="transparent"]{filter:none;stroke:none}
+
+/* 01.6: raise the merged flip control slightly. */
+#screen #flipBtn{bottom:84px!important}
+
+/* 06: no rear cabinet view in this release. */
+
+
+/* Filtering keeps geometry and labels; only state color is suppressed. */
+#stageInner .core-legend-muted{filter:grayscale(1)!important;opacity:1!important}
+#stageInner .core-selection-outline{fill:none!important;stroke:#58b3ff!important;stroke-width:2;pointer-events:none;filter:none!important}
+.core-metric-help{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-left:8px;border:1px solid #aeb4b9;border-radius:50%;background:transparent;color:#d9dfe4;font:16px Arial;cursor:help;position:relative;vertical-align:middle}
+.core-metric-help:focus-visible{outline:2px solid #58b3ff;outline-offset:3px}
+.core-metric-help .core-help-text{display:none;position:absolute;top:30px;left:0;width:290px;padding:14px 16px;background:#30343a;border:1px solid #626970;border-radius:8px;color:#eee;font:18px/1.5 Arial;text-align:left;white-space:normal;box-shadow:0 6px 22px #0005;z-index:1000;pointer-events:none}
+.core-metric-help:hover .core-help-text,.core-metric-help:focus .core-help-text{display:block}
+#kpis .kpi:last-child .core-help-text{left:auto;right:0}
+#kpis .kpi{overflow:visible}
+
+#hcard .blade-fault-list{border-top:1px solid #626262;margin-top:24px;padding-top:18px;max-height:480px;overflow:auto}
+#hcard .blade-fault-list h4{font-size:24px;font-weight:500;margin:0 0 12px;color:#ccc}
+#hcard .blade-fault-list button{display:flex;align-items:center;gap:12px;width:100%;border:0;border-radius:6px;padding:14px 8px;background:transparent;color:#eee;text-align:left;font:24px/1.4 Arial;cursor:pointer}
+#hcard .blade-fault-list button:hover,#hcard .blade-fault-list button:focus-visible{background:#4a4a4a;outline:1px solid #699ac4}
+#hcard .blade-fault-list button>span:nth-child(2){flex:1}
+.blade-fault-severity{font-size:20px;color:#f77983;white-space:nowrap}
+.blade-fault-severity[data-severity="重要"]{color:#efb16a}.blade-fault-severity[data-severity="次要"]{color:#dfcf6a}.blade-fault-severity[data-severity="提示"]{color:#81b9ed}
+
+/* Hide status overlays to reveal the original rack image. */
+#stageInner .r2-home-svg .core-overlay-hidden{visibility:hidden!important}
+#screen #stage-bar #hf-expand{position:static!important;display:inline-flex;align-items:center;justify-content:center;min-height:40px;width:40px;padding:6px!important;margin:0 12px 0 0;border:0;border-radius:6px;background:transparent;color:#b9c2cc;flex:none}
+#screen #stage-bar #hf-expand svg{width:28px;height:28px}
+#screen #stage-bar #hf-expand:hover{background:#454b52;color:#fff}
+#screen #stage-bar #hf-expand[hidden]{display:none!important}
+
+/* The source rack bitmap contains green LEDs: neutralize the bitmap, color only overlays. */
+#stageInner image.core-neutral-rack{filter:grayscale(1)!important}
+#screen #stage-bar #hf-expand{width:40px!important;min-width:40px!important;max-width:40px!important;height:40px!important;min-height:40px!important;max-height:40px!important;flex:0 0 40px!important;box-sizing:border-box!important;align-self:center;padding:6px!important}

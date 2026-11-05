@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import MetricTile from "../metric-tile/index.jsx";
 import { HC_ASSETS } from "../../mock/hc-assets.js";
-import { springTo, REDUCED, SPRING_SOFT } from "../../shared/motion-runtime.js";
+import { springTo, REDUCED, SPRING_SOFT } from "../../utils/motion-runtime.js";
 import { computeGroupHealth } from "../../views/home-screen/compact-status.js";
 
 const KEYS = ["resource", "training", "inference"];

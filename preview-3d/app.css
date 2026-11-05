@@ -1,0 +1,18 @@
+/* 3D 场景宿主页 — 场景为暗色原生设计（自带视觉体系，见 src/styles/）。
+   深色底 + 溢出隐藏在应用层先落地，避免 Babel 编译期白屏闪烁；
+   #screen 3840×2160 由引擎 fit() 自缩放，无需应用层布局干预。 */
+body {
+  background: #000;
+  overflow: hidden;
+}
+
+.app-root {
+  height: 100%;
+  background: #000;
+}
+
+/* 引擎启动前的骨架隐藏（对应原页面 <html class="ccae-booting">）：
+   类由 SceneRoot 在挂载时加上，cluster/cluster-view.js 启动完成后移除。 */
+html.ccae-booting #screen {
+  visibility: hidden;
+}

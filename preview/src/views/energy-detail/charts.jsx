@@ -2,7 +2,7 @@
 // 全部为纯函数 option 构建器：数据采样与数值算法沿用 legacy 原样，渲染交给 ECharts（SVG renderer）
 // 交互语义保留：列悬浮 tooltip（formatter 复用 .hc-energy-tooltip 的行样式）、
 // 节点图调频点标记与 per-bar 提示、月报三图联动由 echart-box 的 linkGroup 承担
-import { snapshot, time, nodeState, nodeSeries, runtimeWindow } from "../../shared/energy-state.js";
+import { snapshot, time, nodeState, nodeSeries, runtimeWindow } from "../../utils/energy-state.js";
 
 // 月报/策略卡片用到的上传图标（legacy.js reportIcons 同源）
 export const REPORT_ICONS = {

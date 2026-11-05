@@ -1,0 +1,169 @@
+
+/* ====== 集群视图（多超节点）· 2026-10-15 ======
+   独立图层：不改原有渲染链，只在 render 最外层挂一层。设计稿坐标系 3840×2160。 */
+#clu{position:absolute;left:64px;top:288px;width:3712px;bottom:56px;display:none;flex-direction:column;z-index:30}
+#screen.clu-show #clu{display:flex}
+#screen.clu-hidebody #body{visibility:hidden}
+#screen.clu-idle #body{display:none}
+#screen.clu-hidebody #hcard{display:none}
+#clu-title{display:none!important;position:absolute;top:158px;left:64px;display:flex;align-items:center;gap:14px;font-size:32px;font-weight:500;color:#eee;z-index:31;white-space:nowrap}
+#clu-title .home{color:#eee;cursor:default;border:0;background:none;font:inherit;padding:0}
+#clu-title.in .home{color:#9aa3ad;cursor:pointer}
+#clu-title.in .home:hover{color:#fff}
+#clu-title .back{display:none;width:44px;height:44px;border-radius:8px;border:1px solid #52565b;background:#292c30;color:#ddd;font-size:26px;line-height:40px;text-align:center;cursor:pointer;padding:0}
+#clu-title.in .back{display:inline-block}
+#clu-title .back:hover{border-color:#4F8BFF;color:#fff}
+#clu-title .sep{display:none;color:#6b7280;font-weight:400}
+#clu-title .pod{display:none;align-items:center;gap:10px;border:1px solid transparent;border-radius:8px;padding:4px 14px 4px 12px;background:none;color:#fff;font:inherit;cursor:pointer}
+#clu-title.in .pod,#clu-title.in .sep{display:inline-flex}
+#clu-title .pod:hover,#clu-title .pod.open{border-color:#52565b;background:#2f3236}
+#clu-title .pod i{font-style:normal;font-size:26px;color:#9aa3ad;transform:translateY(-3px)}
+#clu-title .dot{width:14px;height:14px;border-radius:50%;display:inline-block}
+
+#clu-kpis{flex:0 0 220px}
+#clu-kpis .clu-first{flex:1 1 0;min-width:0;height:220px;padding:28px 30px;display:flex;flex-direction:column;gap:22px;border-radius:32px;background:#414141;color:#eee}
+#clu-kpis .clu-first strong{font-size:36px;font-weight:500;line-height:40px}
+#clu-kpis .clu-first input{width:100%;height:52px;border-radius:8px;border:1px solid #5a5d61;background:#383a3c;color:#eee;font:inherit;font-size:24px;padding:0 18px 0 52px;outline:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-size:24px;background-position:16px center}
+#clu-kpis .clu-first input:focus{border-color:#4F8BFF}
+
+#clu-bar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;margin:40px 0 24px}
+#clu-bar .t{font-size:30px;color:#eee;font-weight:500}
+#clu-bar .t small{font-size:24px;color:#9aa3ad;font-weight:400;margin-left:18px}
+#clu-filter{display:flex;padding:4px;border:1px solid #52565b;border-radius:6px;background:#292c30}
+#clu-filter button{font:inherit;font-size:24px;color:#ddd;background:transparent;border:0;border-radius:4px;padding:8px 26px;cursor:pointer}
+#clu-filter button b{font-weight:400;color:#9aa3ad;margin-left:8px}
+#clu-filter button.on{background:#3a3d42;color:#fff}
+#clu-filter button.on b{color:#cfd5db}
+
+#clu-grid{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;display:grid;gap:40px;align-content:start;padding:4px 4px 24px}
+#clu-grid::-webkit-scrollbar{width:12px}#clu-grid::-webkit-scrollbar-thumb{background:#4a4c50;border-radius:6px}
+.clu-tile{position:relative;border-radius:28px;background:#333436;border:3px solid transparent;padding:22px 30px 26px;cursor:pointer;transition:border-color .15s,background .15s,opacity .25s}
+.clu-tile:hover{border-color:#4F8BFF;background:#37393b}
+.clu-tile:focus-visible{outline:none;border-color:#4F8BFF}
+.clu-tile.dim{opacity:.22}
+.clu-tile.off{cursor:not-allowed}
+.clu-tile.off:hover{border-color:#55585c}
+.clu-tile.last{border-color:#4F8BFF;box-shadow:0 0 0 6px rgba(79,139,255,.16)}
+.clu-head{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:14px;height:48px}
+.clu-name{display:flex;align-items:baseline;gap:18px;min-width:0}
+.clu-name strong{font-size:32px;font-weight:500;color:#f2f2f2;white-space:nowrap}
+.clu-name span{font-size:22px;color:#9aa3ad;white-space:nowrap}
+.clu-st{display:flex;align-items:center;gap:12px;font-size:24px;color:#cfd5db;white-space:nowrap}
+.clu-st .chip{display:inline-flex;align-items:center;gap:8px;border-radius:6px;padding:4px 14px;font-size:22px}
+.clu-st .chip.err{background:#e7434a;color:#fff}
+.clu-st .chip.off{background:#4a4c50;color:#cfd5db}
+.clu-st .chip.tag{background:rgba(255,255,255,.08);color:#cfd5db}
+.clu-st .dot{width:14px;height:14px;border-radius:50%;background:#2dc16f}
+.clu-st b{font-weight:500;color:#fff;font-size:28px}
+.clu-seen{position:absolute;top:-18px;left:30px;background:#4F8BFF;color:#fff;font-size:20px;border-radius:6px;padding:2px 12px;pointer-events:none}
+.clu-body{display:block;width:100%;height:auto}
+.clu-tile.off .clu-body{filter:grayscale(1);opacity:.32}
+.clu-offmsg{position:absolute;left:0;right:0;bottom:44%;text-align:center;font-size:24px;color:#cfd5db;pointer-events:none}
+.clu-empty{grid-column:1/-1;text-align:center;color:#9aa3ad;font-size:28px;padding:160px 0}
+.clu-ghost{position:absolute;z-index:40;transform-origin:0 0;pointer-events:none}
+.clu-ghost svg{width:100%;height:100%;display:block}
+
+#clu-legend{flex:0 0 64px;display:flex;align-items:center;justify-content:center;gap:28px;font-size:24px;color:#cfd5db}
+#clu-legend .g{display:flex;align-items:center;gap:22px}
+#clu-legend .h{color:#9aa3ad}
+#clu-legend i{display:inline-block;width:20px;height:20px;border-radius:3px;margin-right:10px;vertical-align:-3px}
+#clu-legend .dv{width:2px;height:28px;background:#52565b}
+
+#clu-pop{position:absolute;top:214px;left:64px;width:720px;max-height:1100px;display:none;flex-direction:column;background:#2f3236;border:1px solid #52565b;border-radius:16px;box-shadow:0 24px 64px rgba(0,0,0,.5);z-index:60;padding:20px}
+#clu-pop.on{display:flex}
+#clu-pop input{height:56px;border-radius:8px;border:1px solid #5a5d61;background:#383a3c;color:#eee;font:inherit;font-size:24px;padding:0 18px;outline:none;margin-bottom:14px}
+#clu-pop input:focus{border-color:#4F8BFF}
+#clu-pop .ls{overflow-y:auto}
+#clu-pop .it{display:flex;align-items:center;gap:16px;height:64px;padding:0 18px;border-radius:8px;font-size:26px;color:#eee;cursor:pointer}
+#clu-pop .it:hover{background:#3a3d42}
+#clu-pop .it.cur{background:rgba(79,139,255,.16)}
+#clu-pop .it.off{color:#7a8088;cursor:not-allowed}
+#clu-pop .it.off:hover{background:none}
+#clu-pop .it .m{margin-left:auto;font-size:22px;color:#9aa3ad}
+#clu-pop .it .m.e{color:#ff6b72}
+#clu-pop .ft{border-top:1px solid #45484c;margin-top:12px;padding:16px 18px 4px;font-size:24px;color:#9aa3ad;cursor:pointer}
+#clu-pop .ft:hover{color:#fff}
+@media (prefers-reduced-motion:reduce){.clu-tile{transition:none}}
+
+#clu{pointer-events:none;z-index:30;top:288px}
+#clu>#clu-kpis,#clu>#clu-bar #clu-filter{pointer-events:auto}
+#clu-space{flex:1 1 auto;position:relative}
+#clu .kpi,#clu .clu-first{background:rgba(38,40,43,.58)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.07)}
+#clu-bar{margin:28px 0 0}
+#clu-bar .t{text-shadow:0 2px 12px rgba(0,0,0,.6)}
+#clu-filter{background:rgba(30,32,35,.7)!important;backdrop-filter:blur(12px)}
+#clu-legend{text-shadow:0 2px 8px #000}
+#clu3d{position:absolute;left:0;top:220px;width:3840px;bottom:0;display:none;z-index:20;cursor:grab;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 140px);mask-image:linear-gradient(to bottom,transparent 0,#000 140px)}
+#screen.clu-show #clu3d{display:block}
+#clu3d canvas{width:100%!important;height:100%!important;display:block}
+#clu3d::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 55%,transparent 55%,rgba(0,0,0,.55) 100%)}
+#clu-labels{position:absolute;inset:0;pointer-events:none;z-index:25;display:none;transition:opacity .3s}
+#screen.clu-show #clu-labels{display:block}
+.clu-lab{position:absolute;left:0;top:0;pointer-events:auto;cursor:pointer;padding:0 0 18px 2px;white-space:nowrap;will-change:transform;transition:opacity .3s}
+.clu-lab .nm{display:inline-flex;align-items:center;gap:14px;font-size:28px;font-weight:500;color:#f4f6f8;background:rgba(20,22,25,.72);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:6px 14px;backdrop-filter:blur(6px)}
+.clu-lab .nm .ok{width:14px;height:14px;border-radius:50%;background:#2dc16f;box-shadow:0 0 12px #2dc16f}
+.clu-lab .chip{font-size:22px;border-radius:6px;padding:3px 12px;font-weight:400;text-shadow:none}
+.clu-lab .chip.err{background:#e7434a;color:#fff;box-shadow:0 0 18px rgba(231,67,74,.6);cursor:pointer;transition:transform .15s}
+.clu-lab .chip.err:hover{transform:scale(1.08);box-shadow:0 0 26px rgba(231,67,74,.9)}
+.clu-lab .chip.off{background:#4a4c50;color:#cfd5db}
+.clu-lab .chip.tag{background:rgba(255,255,255,.12);color:#dfe5ea}
+.clu-lab .chip.hot{background:rgba(252,200,0,.18);color:#ffd84d}
+.clu-lab .val{font-size:28px;color:#fff}.clu-lab .val small{font-size:20px;color:#b8c0c8;margin-left:4px}
+.clu-lab .more{max-height:0;overflow:hidden;opacity:0;font-size:22px;color:#c9d1d9;transition:all .2s;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.clu-lab.hov .more,.clu-lab:hover .more{max-height:40px;opacity:1;margin-top:6px}
+.clu-lab.hov .nm,.clu-lab:hover .nm{color:#8fb6ff}
+.clu-lab.off .nm{color:#8a9097}
+#clu-hint{position:absolute;left:64px;bottom:76px;font-size:22px;color:#7d858e;z-index:26;display:none;pointer-events:none}
+#screen.clu-show #clu-hint{display:block}
+
+.clu-bubs{position:absolute;left:0;top:0;z-index:2}
+.clu-lab{z-index:3}
+.clu-lab.r{text-align:left}.clu-lab:not(.r){text-align:right}.clu-lab:not(.r) .more{text-align:right}
+.clu-bub{position:absolute;left:0;top:0;pointer-events:none;will-change:transform}
+.clu-bub .pill{position:absolute;left:0;transform:translateX(-50%);display:flex;align-items:center;gap:8px;height:48px;padding:0 14px 0 12px;border-radius:16px;background:#e7434a;color:#fff;font-size:24px;white-space:nowrap;pointer-events:auto;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35);transition:background .15s,transform .15s}
+.clu-bub .pill i{font-style:normal;font-size:32px;margin-left:6px;opacity:.9;transform:translateY(-2px)}
+.clu-bub .pill:hover{background:#ef5057;transform:translateX(-50%) scale(1.06)}
+.clu-bub .pill b{font-weight:500;font-size:20px;background:rgba(255,255,255,.22);border-radius:8px;padding:1px 8px;margin-left:4px}
+.clu-bub .lead{position:absolute;left:-1px;bottom:0;width:2px;background:#e7434a}
+.clu-bub.back .pill{background:#e7434a}
+.clu-lab{padding:0}
+
+.clu-lab .nm .rl{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;border:2px solid rgba(220,228,236,.7);border-radius:8px;font-size:24px;font-weight:700;margin-right:2px}
+.clu-bub.loc .pill{background:#2f7cf6}.clu-bub.loc .lead{background:#2f7cf6}
+.clu-bub .pill em{font-style:normal;font-weight:600;background:rgba(0,0,0,.18);border-radius:8px;padding:2px 8px;margin-right:2px}
+
+.clu-fb{position:absolute;left:0;top:0;pointer-events:none;--lift:44px}
+.clu-fb .dot{position:absolute;left:0;bottom:var(--lift);transform:translateX(-50%);width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:auto;cursor:pointer;
+  box-shadow:0 0 0 3px rgba(255,255,255,.92),0 6px 16px rgba(0,0,0,.5);transition:transform .15s}
+.clu-fb .dot:hover{transform:translateX(-50%) scale(1.14)}
+.clu-fb .dot b{position:absolute;top:-14px;right:-20px;min-width:30px;height:30px;padding:0 8px;border-radius:15px;background:#fff;color:#1b1c1e;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.clu-fb.grp .dot{box-shadow:0 0 0 3px rgba(255,255,255,.92),0 0 0 9px rgba(255,255,255,.18),0 6px 16px rgba(0,0,0,.5)}
+.clu-fb.s0 .dot::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:3px solid #e7434a;animation:cluPing 1.8s ease-out infinite;pointer-events:none}
+@keyframes cluPing{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+@media (prefers-reduced-motion:reduce){.clu-fb.s0 .dot::after{animation:none}}
+.clu-fb .lead{position:absolute;left:-1px;bottom:0;width:2px;height:var(--lift);background:linear-gradient(rgba(255,255,255,.85),rgba(255,255,255,.2))}
+#clu-fpop{position:absolute;left:0;top:0;width:640px;display:none;z-index:45;pointer-events:auto;background:rgba(32,34,37,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.1);border-radius:16px;box-shadow:0 18px 48px rgba(0,0,0,.55);padding:18px 0 6px;color:#eee}
+#clu-fpop .h{display:flex;align-items:center;gap:14px;padding:0 24px 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+#clu-fpop .h b{font-size:28px;font-weight:600}
+#clu-fpop .h span{font-size:22px;color:#9aa3ad;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#clu-fpop .h em{font-style:normal;font-size:20px;color:#fff;border-radius:6px;padding:3px 10px;white-space:nowrap}
+#clu-fpop .r{display:flex;align-items:center;gap:16px;padding:14px 24px;cursor:pointer}
+#clu-fpop .r:hover{background:rgba(255,255,255,.06)}
+#clu-fpop .r i{font-style:normal;font-size:20px;border:1.5px solid;border-radius:6px;padding:2px 8px;white-space:nowrap}
+#clu-fpop .r .t{flex:1;min-width:0}
+#clu-fpop .r .t b{display:block;font-size:24px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#clu-fpop .r .t small{display:block;font-size:20px;color:#9aa3ad;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#clu-fpop .r>span{font-size:30px;color:#9aa3ad}
+#clu-fpop .ls{max-height:820px;overflow-y:auto}
+#clu-fpop .ls::-webkit-scrollbar{width:10px}#clu-fpop .ls::-webkit-scrollbar-thumb{background:#4a4c50;border-radius:5px}
+#clu-fpop .r.g .cs{display:flex;gap:8px;margin-top:8px}
+#clu-fpop .r.g .cs i{font-style:normal;font-size:18px;border:1.5px solid;border-radius:6px;padding:1px 8px}
+#clu-fpop .r.g>span{font-size:22px;white-space:nowrap}
+#clu-fpop .h .bk{font-size:34px;color:#9aa3ad;cursor:pointer;margin-right:2px;line-height:1}
+#clu-fpop .h .bk:hover{color:#fff}
+#clu-fpop .ft{border-top:1px solid rgba(255,255,255,.08);margin-top:4px;padding:14px 24px 10px;font-size:22px;color:#8fb6ff;cursor:pointer}
+#clu-fpop .ft:hover{color:#fff}
+.clu-empty{position:absolute;left:0;right:0;top:40%;text-align:center;color:#c9d1d9;font-size:30px;text-shadow:0 2px 12px #000}

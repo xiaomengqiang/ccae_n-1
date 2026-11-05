@@ -1,4 +1,4 @@
-import { CONTOUR_TEMPLATE } from "./contour-template.js";
+import { CONTOUR_TEMPLATE } from "../../constants/contour-template.js";
 
 export function prepareContour(imgEl) {
   const source = decodeURIComponent(escape(atob(imgEl.src.split(",")[1])));

@@ -1,0 +1,3 @@
+fit=function(){SCALE=innerWidth/3840;document.getElementById('fit').style.transform='scale('+SCALE+')'};fit();dispatchEvent(new Event('resize'));document.getElementById('clu-hint').textContent='拖拽旋转 · 滚轮缩放 · 点击 超节点 A 查看机柜';
+;
+document.addEventListener('click',e=>{const label=e.target.closest('.clu-lab[data-i="0"]');if(label){e.preventDefault();e.stopImmediatePropagation();window.roomEnter(0);}},true);

@@ -1,7 +1,7 @@
 // strategy-step.jsx —— “节能机会识别并下发策略”的子步骤
 // 每步为 details.hc-energy-step；激活步骤带打字机逐字显示，完成步骤挂接 HCEvidence 证据链
 import { useEffect, useRef } from "react";
-import { time } from "../../shared/energy-state.js";
+import { time } from "../../utils/energy-state.js";
 import { HC_ASSETS } from "../../mock/hc-assets.js";
 import { REPORT_ICONS } from "./charts.jsx";
 import { getCurrent } from "./session-store.js";

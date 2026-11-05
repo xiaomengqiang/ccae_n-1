@@ -8,7 +8,6 @@ import Composer from "../../components/composer/index.jsx";
 import Header from "../../components/header/index.jsx";
 import Sidebar from "../../components/sidebar/index.jsx";
 import { HC_ASSETS } from "../../mock/hc-assets.js";
-import { initWorkloadBrowser, initWorkloadBrowserWindowAPI } from "./workload-browser.js";
 import { initCompactStatus } from "./compact-status.js";
 import EnhancementsPortal from "../../hooks/use-enhancements-portal.jsx";
 
@@ -69,8 +68,6 @@ function TicksSlot() {
 
 function InitEffects() {
   useEffect(() => {
-    initWorkloadBrowser();
-    initWorkloadBrowserWindowAPI();
     initCompactStatus();
   }, []);
   return null;
