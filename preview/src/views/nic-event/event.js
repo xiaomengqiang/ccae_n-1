@@ -4,6 +4,7 @@ import { bridgeEventTypeIcon, bridgeComposer, mountIsland } from "../../shared/r
 import NicTopology from "./nic-topology.jsx";
 import ProcessFlow from "./process-flow.jsx";
 import ServiceJourney from "./service-journey.jsx";
+import DiagnosticHistory from "./diagnostic-history.jsx";
 
 let cleanup = null;
 
@@ -11,7 +12,7 @@ export function mountNicEvent() {
 
 const U=HCEventUI,screen=document.getElementById('screen');
 let panel=null,expanded=Array(6).fill(true),selected=null,draft='',stopLive=null,entrance=null;
-let topologyIsland=null,flowIsland=null,journeyIsland=null;
+let topologyIsland=null,flowIsland=null,journeyIsland=null,historyIsland=null;
 const sections=[
  {title:'事件感知',at:1,text:'推理服务劣化 12:05:12\n业务影响：Qwen-1.5B 请求成功率降至77.5%\n实例异常：D-08 实例异常退出，服务持续劣化'},
  {title:'业务故障诊断',at:2,text:'12:05:22 完成业务故障诊断：节点操作系统崩溃重启，导致 D-08 实例异常退出',chain:['操作系统崩溃重启','D-08 实例异常退出','Qwen-1.5B 请求成功率降至77.5%']},
@@ -35,7 +36,7 @@ const flow=[
  ['故障恢复','驱动升级完成／核查节点与实例健康',5,'12:06:20',8],
  ['故障恢复','健康核查通过／服务恢复，事件闭环',5,'12:06:35',9]
 ];
- function close(){stopLive?.();stopLive=null;entrance?.stop();entrance=null;topologyIsland?.unmount();topologyIsland=null;flowIsland?.unmount();flowIsland=null;journeyIsland?.unmount();journeyIsland=null;panel?.remove();panel=null;}
+ function close(){stopLive?.();stopLive=null;entrance?.stop();entrance=null;topologyIsland?.unmount();topologyIsland=null;flowIsland?.unmount();flowIsland=null;journeyIsland?.unmount();journeyIsland=null;historyIsland?.unmount();historyIsland=null;panel?.remove();panel=null;}
 window.closeNicEvent=close;
 window.resetNicEvent=()=>{close();expanded=Array(6).fill(true);selected=null;draft='';};
 window.openNicEvent=()=>{
@@ -45,7 +46,7 @@ window.openNicEvent=()=>{
  panel=U.el('section','hc-event-module hc-nic-module nic-unified');panel.dataset.detailMode='unified';panel.setAttribute('aria-label','Qwen网卡驱动业务故障详情');
  const left=U.el('aside','evt-left'),head=U.el('div','evt-event-heading'),back=U.button('','evt-back',close);back.setAttribute('aria-label','返回');back.append(U.icon('返回-原稿尺寸',20));
  const heading=U.el('div','evt-heading-copy');heading.append(U.el('h1'),U.el('time','','2026-09-09 12:05:12'));head.append(back,heading);left.append(head);
- const intro=U.el('div','evt-diagnosis-intro'),introCopy=U.el('p'),all=U.button('收起全部','evt-expand-all',()=>{const visible=sections.map((s,i)=>viewStage()>=s.at?i:-1).filter(i=>i>=0),next=!visible.every(i=>expanded[i]);visible.forEach(i=>expanded[i]=next);renderHistory();});intro.append(introCopy);
+  const intro=U.el('div','evt-diagnosis-intro'),introCopy=U.el('p');intro.append(introCopy);
  const history=U.el('div','evt-diagnostic-scroll');left.append(history);
  const composerWrap=U.el('div','evt-composer-wrap'),composer=bridgeComposer({value:draft,onSend:()=>{}});composer.querySelector('input').addEventListener('input',e=>draft=e.target.value);composerWrap.append(composer);left.append(composerWrap);
  const right=U.el('main','evt-right'),toolbar=U.el('div','evt-detail-toolbar');toolbar.append(U.el('span','','诊断详情'));right.append(toolbar);
@@ -111,33 +112,14 @@ window.openNicEvent=()=>{
    topology.setAttribute('aria-label',repaired?'原节点完成网卡升级，Qwen服务恢复':'无可替换节点，D-08 实例异常，Qwen服务劣化');
   }
  function renderHistory(){
-  const v=viewStage(),top=history.scrollTop;history.replaceChildren();const visible=sections.map((s,i)=>v>=s.at?i:-1).filter(i=>i>=0),allExpanded=visible.length>0&&visible.every(i=>expanded[i]);all.replaceChildren(U.icon('展开全部',12),U.el('span','',allExpanded?'收起全部':'展开全部'));all.setAttribute('aria-expanded',String(allExpanded));
-
-  const group=U.el('section','nic-event-overview'),summary=U.el('section','nic-event-summary nic-summary-compact');summary.setAttribute('aria-label','事件摘要');summary.dataset.recovered=String(v===9);summary.append(U.el('div','nic-summary-heading','事件摘要'));
-  summary.append(U.button(v>=5?'网卡驱动版本低导致系统崩溃、D-08 实例退出，影响 Qwen-1.5B 服务':v>=2?'节点操作系统崩溃重启，导致 D-08 实例异常退出':v>0?'Qwen-1.5B 服务劣化，正在定位故障':'故障发生前，节点和服务运行正常','nic-summary-conclusion',()=>{if(v>0)focus(v>=5?7:v>=2?1:0);}));
-  const facts=U.el('div','nic-summary-facts');[['故障对象','112.34.23.1 · CPU02 · hinic3 网卡驱动'],['业务影响',v===9?'Qwen-1.5B 已恢复，请求成功率99.94%':v>0?'Qwen-1.5B 请求成功率降至77.5%':'暂无业务影响'],['处置状态',v===9?'驱动已升级至 V13.1，节点、实例及服务健康核查通过':v===8?'驱动已升级，正在核查节点、实例及服务健康':v===7?'人工已确认，正在执行网卡升级':v>=3?'无可替换节点，无法自动恢复，待人工升级网卡':'正在诊断并评估恢复方案']].forEach(([name,value])=>{const row=U.el('div','nic-summary-fact');row.append(U.el('span','nic-summary-caption',name),U.el('span','nic-summary-outcome',value));facts.append(row);});summary.append(facts);
-  const body=U.el('div','nic-event-process-body'),processHead=U.el('div','nic-process-heading');processHead.append(U.el('strong','','处理过程'),all);body.append(processHead);group.append(summary,body);history.append(group);
-
-  sections.forEach((s,i)=>{if(v<s.at)return;const content=U.el('div'),text=U.el('p','nic-section-copy',s.text);content.append(text);
-   if(s.chain&&(i!==3||v>=5)){const chain=U.CauseChain(s.chain.map((title,j)=>({title,description:j===0?'OS IP 112.34.23.1':'',icon:(i===1?['系统-0910','实例-0910','实例-0910']:['网卡-0910','内存-0910','指针-0910','服务-0910','实例-0910','实例-0910'])[j],root:i===3&&j===0})));chain.querySelector('h3').textContent=i===1?'业务故障因果链':'故障因果链';chain.querySelectorAll('.evt-cause-title').forEach((n,j)=>{const tag=i===1?(j===0?'直接原因':'业务影响'):(j===3?'直接原因':j>=4?'业务影响':'');if(tag)n.append(U.Badge(tag,tag==='直接原因'?'degraded':'impact'));});content.append(chain);}
-   if(i===3&&v===4)text.textContent='12:05:48 正在采集并分析 BMC、OS 日志与 vmcore，定位资源故障根因';
-   if(s.manual){
-    const waiting=U.el('div','nic-manual-copy'),list=U.el('ol','nic-upgrade-results');
-    const versions=U.el('div','nic-upgrade-versions');versions.setAttribute('aria-label',v>=8?'网卡驱动已从 V11.8 升级至 V13.1':'当前版本 V11.8，待升级版本 V13.1');
-    waiting.append(U.el('strong','nic-upgrade-object','hinic3 网卡驱动'),U.el('div','nic-upgrade-device','112.34.23.1 · CPU02'));
-    const before=U.el('div','nic-version-before'),after=U.el('div','nic-version-after');before.append(U.el('small','',v>=8?'升级前版本':'当前版本'),U.el('strong','','V11.8'));after.append(U.el('small','',v>=8?'当前版本 · 已升级':'待升级版本'),U.el('strong','','V13.1'));versions.append(before,U.el('span','nic-version-arrow','→'),after);waiting.append(versions);
-    const rows=['12:06:06 待人工确认执行网卡升级，升级后核查驱动版本、D-08 实例和 Qwen-1.5B 服务'];
-    if(v>=7)rows.push('12:06:12 已人工授权，开始执行网卡驱动升级');if(v>=8)rows.push('12:06:20 驱动升级至 V13.1，正在检查节点与实例健康');if(v===9)rows.push('12:06:35 节点和实例健康核查通过，Qwen-1.5B 服务恢复，事件已闭环');
-    rows.forEach(t=>list.append(U.el('li','',t)));waiting.prepend(list);
-    if(v===6&&journeySecond===null)waiting.append(U.button('授权升级网卡','nic-confirm-execute',()=>{selected=null;window.HCStory?.complete('qwen');}));const upgradeCard=U.el('div','nic-upgrade-card');[...waiting.children].filter(child=>child!==list).forEach(child=>upgradeCard.append(child));list.firstElementChild.append(upgradeCard);content.append(waiting);
-   }
-   const waiting=i===5&&v===6,working=i===5&&v>=7&&v<9||i===3&&v===4;
-   const step=U.DiagnosticStep({title:s.title,time:null,badge:waiting?'待人工处理':working?'处理中':i===2?'无可用方案':'已完成',tone:waiting?'manual':working?'processing':'done',content,evidence:i===4?[{verb:'生成',label:'处置方案',tool:'方案生成',kind:'file'}]:i===5&&viewStage()>=7?[{verb:'记录',label:'人工确认记录',tool:'人工授权',kind:'run'}]:null,expanded:expanded[i],onToggle:v=>{expanded[i]=v;renderHistory();},onSelect:()=>focus(flow.findIndex(f=>f[2]===i))});if(i===3){step.querySelector('.evt-diagnostic-operations')?.remove();if(v>=5){window.HCOpticalEvidence?.attach(step.querySelector('.evt-step-body'),s.title,true,false,[
-     {verb:'生成',label:'BMC 日志分析结果',tool:'BMC 日志分析',kind:'file',text:'分析对象：112.34.23.1 · CPU02\n分析结论：关联节点重启记录，确认故障发生于 D-08 实例所在节点\n关联事件：12:05:06 操作系统崩溃重启'},
-     {verb:'生成',label:'OS 日志分析结果',tool:'OS 日志分析',kind:'file',text:'分析对象：112.34.23.1 · 操作系统\n分析结论：操作系统内存耗尽并崩溃重启，导致 D-08 实例异常退出\n业务影响：Qwen-1.5B 请求成功率降至 77.5%'},
-     {verb:'生成',label:'vmcore 分析结果',tool:'vmcore 分析',kind:'file',text:'分析对象：112.34.23.1 · 内核转储\n分析结论：发现内核空指针异常；结合 OS 日志与 hinic3 驱动版本信息，定位根因为网卡驱动版本过低\n当前版本：V11.8\n处置建议：升级至 V13.1，随后核查节点、D-08 实例及 Qwen-1.5B 服务'}
-    ]);const results=step.querySelector('details.evt-diagnostic-operations');if(results){results.open=true;results.querySelector('summary > span:not(.evt-operation-icon)').textContent='诊断分析结果';}}}if(i===5){step.querySelector('.evt-diagnostic-operations')?.remove();if(viewStage()>=7)window.HCOpticalEvidence?.attach(step.querySelector('.evt-step-body'),s.title,true,false,[{verb:'记录',label:'人工确认记录',tool:'人工授权',kind:'run'}]);}if(i===2){const badge=step.querySelector('.evt-step-header > .evt-badge');badge.classList.replace('evt-badge-done','evt-badge-manual');}if(waiting)step.querySelector('.evt-step-select').firstElementChild.replaceWith(U.icon('红色小手',16));step.dataset.section=i;step.classList.toggle('evt-focus-dim',selected!==null&&flow[selected][2]!==i);if(i===5&&selected!==null&&selected>=9)step.querySelectorAll('.nic-upgrade-results>li').forEach((row,j)=>row.classList.toggle('evt-focus-dim',j!==selected-9));if(i===3&&selected!==null&&selected>=4&&selected<=6)step.querySelectorAll('.evt-operation-list>li').forEach((row,j)=>row.classList.toggle('evt-focus-dim',j!==selected-4));body.append(step);
-  });history.scrollTop=top;
+  const v=viewStage(),visible=sections.map((s,i)=>v>=s.at?i:-1).filter(i=>i>=0),allExpanded=visible.length>0&&visible.every(i=>expanded[i]);
+  const props={v,journeySecond,expanded:[...expanded],selected,flow,sections,
+   onToggle:(i,val)=>{expanded[i]=val;renderHistory();},
+   onStepSelect:(i)=>focus(flow.findIndex(f=>f[2]===i)),
+   onSummaryClick:(fi)=>focus(fi),
+   onAuthorize:()=>{selected=null;window.HCStory?.complete('qwen');},
+   onToggleAll:()=>{const next=!allExpanded;visible.forEach(i=>expanded[i]=next);renderHistory();}};
+  if(!historyIsland)historyIsland=mountIsland(history,DiagnosticHistory,props);else historyIsland.update(props);
  }
  const render=()=>{updateService();renderHistory();updateFlowIsland();updateJourneyIsland();};panel.append(left,right);screen.append(panel);entrance=HCEntrance(panel);render();entrance.enter(stage<6?'live':'complete');
  panel.addEventListener('click',e=>{const flowBlank=e.target.closest('.nic-flow-viewport')&&!e.target.closest('button,a,input,select,[role=tab]');if(!flowBlank&&e.target.closest('button,input,select,.evt-step,.nic-upgrade-tip,.nic-process,.nic-event-summary'))return;selected=null;updateService();renderHistory();updateFlowIsland();});
