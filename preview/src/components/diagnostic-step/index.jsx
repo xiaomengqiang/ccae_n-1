@@ -9,11 +9,12 @@ import EvtBadge from "../evt-badge/index.jsx";
 // - null：跳过取证注入（父级用 bodyRef 做自定义后处理的步骤）
 // - 数组：HCOpticalEvidence 显式条目注入（optical-event 用法）
 // statusIcon 支持待人工手型图标替换；dim 为选中联动淡化；last 补 evt-step-last 类。
+// onBodyClick 为可选扩展 prop（optical-event：点击恢复行联动选中时间轴节点）。
 export default function DiagnosticStep({
   title, time, badge, tone = "done", badgeTone,
   expanded = true, onToggle, onSelect,
   statusIcon, dim, section, last,
-  evidence, bodyRef, children,
+  evidence, bodyRef, onBodyClick, children,
 }) {
   const localBodyRef = useRef(null);
   const processing = tone === "processing" || tone === "manual";
@@ -60,7 +61,7 @@ export default function DiagnosticStep({
           <i className="evt-chevron" />
         </button>
       </div>
-      <div className="evt-step-body" ref={bodyRef || localBodyRef} hidden={!expanded}>
+      <div className="evt-step-body" ref={bodyRef || localBodyRef} hidden={!expanded} onClick={onBodyClick}>
         {children}
       </div>
     </section>

@@ -3,7 +3,8 @@ import { HC_ASSETS } from "../../mock/hc-assets.js";
 
 // 问答输入框 —— 底部对话输入区（输入 + 发送按钮）
 // onChange 为可选扩展 prop（nic-event 受控追踪草稿用）
-export default function Composer({ value = "", onSend, onChange }) {
+// disabled 为可选扩展 prop（optical-event：story 阶段未到 6 时禁用提问）
+export default function Composer({ value = "", onSend, onChange, disabled = false }) {
   const [text, setText] = useState(value);
   const canSend = text.trim().length > 0;
 
@@ -22,6 +23,7 @@ export default function Composer({ value = "", onSend, onChange }) {
         placeholder={'输入问题或输入"/"触发提示词'}
         aria-label="输入问题"
         value={text}
+        disabled={disabled}
         onChange={(e) => {
           setText(e.target.value);
           onChange?.(e.target.value);
