@@ -1151,6 +1151,14 @@
 .nic-journey-metric:focus-visible{outline:1px solid #8fcaff;border-radius:3px}
 .nic-journey-fault{color:#ed747c}
 .hc-nic-module .nic-service-journey svg{width:100%;height:125px;overflow:visible}
+/* 服务旅程图表已由手写 svg 迁移到 ECharts（SVG renderer）：.nic-journey-chart 承接原 svg 的定高与焦点规则；
+   内部 zrender svg 充满宿主（覆盖上方对后代 svg 的 125px 定高，避免与宿主高度打架） */
+.nic-service-journey .nic-journey-chart{display:block;width:100%;height:125px}
+.hc-nic-module.nic-unified .nic-service-journey .nic-journey-chart{height:150px}
+.hc-nic-module .nic-service-journey .nic-journey-chart svg{width:100%;height:100%;overflow:hidden}
+.nic-service-journey .nic-journey-chart:focus:not(:focus-visible){outline:none}
+/* 事件标记 hover（对齐原 .journey-event:hover 的 pointer 光标）：!important 压过 zrender 可能写入的内联 cursor；图标增亮由 renderItem 换色实现 */
+.nic-journey-chart.marker-hot,.nic-journey-chart.marker-hot *{cursor:pointer!important}
 
 /* Approved paired status capsule and two-stage timeline explanation. */
 .thermal-event .thermal-symbol{margin-right:34px;overflow:visible}

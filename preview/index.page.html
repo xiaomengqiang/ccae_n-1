@@ -5362,6 +5362,14 @@ input.ant-input.ant-input-sm {
 .nic-journey-metric:focus-visible{outline:1px solid #8fcaff;border-radius:3px}
 .nic-journey-fault{color:#ed747c}
 .hc-nic-module .nic-service-journey svg{width:100%;height:125px;overflow:visible}
+/* 服务旅程图表已由手写 svg 迁移到 ECharts（SVG renderer）：.nic-journey-chart 承接原 svg 的定高与焦点规则；
+   内部 zrender svg 充满宿主（覆盖上方对后代 svg 的 125px 定高，避免与宿主高度打架） */
+.nic-service-journey .nic-journey-chart{display:block;width:100%;height:125px}
+.hc-nic-module.nic-unified .nic-service-journey .nic-journey-chart{height:150px}
+.hc-nic-module .nic-service-journey .nic-journey-chart svg{width:100%;height:100%;overflow:hidden}
+.nic-service-journey .nic-journey-chart:focus:not(:focus-visible){outline:none}
+/* 事件标记 hover（对齐原 .journey-event:hover 的 pointer 光标）：!important 压过 zrender 可能写入的内联 cursor；图标增亮由 renderItem 换色实现 */
+.nic-journey-chart.marker-hot,.nic-journey-chart.marker-hot *{cursor:pointer!important}
 
 /* Approved paired status capsule and two-stage timeline explanation. */
 .thermal-event .thermal-symbol{margin-right:34px;overflow:visible}
@@ -9847,7 +9855,9 @@ window.HCEnergyState = { nodeSeries, nodeState, time, create, snapshot, appendLo
 // 节点图调频点标记与 per-bar 提示、月报三图联动由 echart-box 的 linkGroup 承担
 
 
-// 月报/策略卡片用到的上传图标（legacy.js reportIcons 同源）
+// 月报/策略卡片用到的图标（与源码 energy.js reportIcons 同源；全部为 assets/uploads 下既有文件，
+// 与源码 base64 逐字节一致（MD5 已核对），按相对路径引用，避免 base64 撑大源码；
+// “下载月报”导出的 HTML 会注入 <base> 指向本页目录，保证导出文件内图标可解析）
 const REPORT_ICONS = {
   "energy-total": "./assets/uploads/149-129774.png",
   "energy-gain": "./assets/uploads/149-129806.png",
@@ -9858,6 +9868,11 @@ const REPORT_ICONS = {
   "strategy-2": "./assets/uploads/149-129560.png",
   "strategy-3": "./assets/uploads/149-129562.png",
 };
+
+// 叶子图标经 CSS mask 按状态染色（灰/绿/紫），本环境下 mask 加载外部文件不生效
+// （原版源码的 reportIcons 也因此对 mask 图标内联 base64）。仅这一个 mask 图标
+// 保留 data URI（由 assets/uploads/149-129790.png 生成）；其余图标均走文件引用。
+const LEAF_MASK_URI = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAEpElEQVR4Ae3gAZAkSZIkSRKLqpm7R0REZmZmVlVVVVV3d3d3d/fMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMdHd3d3dXV1VVVVVmZkZGRIS7m5kKz0xmV3d1d3dPz8zMzMxMovifDfE/G+J/NsT/bIj/2RDPx0/91E8df5u3eZtd/vshnstP/dRPHbd9EfhrSW/zNm/zNrfy3wfxXH78x3/8rSPip7hiV9JnA9/zNm/zNrv810M8l5/6qZ/6KNtfzXPalfTbwK3ArbZ3bT8EICJeyvZx4MHAceA4sAvsArdK+utpmn7mHd7hHX6bfz3Ec/mJn/iJz5b0WfzH27X9NW/3dm/32bzoEM/lp37qp77K9kfzn+evJb3N27zN29zKvwzxXH7qp37qu2y/N/+5bpX0Om/zNm9zKy8c4rn8xE/8xGdL+iz+8936tm/7tg/hhUM8l5/6qZ/6KNtfzQu3Cxzn38n2+7zd273dd/OCIZ7LT/7kT74X8N28YLdKehngs2x/NP8+f/22b/u2L8MLhnguP/ZjP/bapZTf4oWw/T5v93Zv990/9mM/9tq11vey/dbAcf4NJD3kbd7mbW7l+UM8Hz/5kz9pXrjdaZpe5x3f8R3/GuCnfuqnjk/T9NK11pcCXho4bvulgQfzL2itvc47vMM7/DbPH+L5+Mmf/MnfAl6bF27X9tdExFe/zdu8zS7Px0/91E8dBx4MvJbttwZem+f13m/7tm/7PTx/iOfjJ37iJz5b0mfxotmV9NO2f1vS77zN27zNrbwAP/VTP/XSwEfZfm+eyfbnvN3bvd1n8/whno+f+qmferDtp/Nvsyvpt4FbW2u/U0r57bd5m7fZ5QF+7Md+7LVLKd8FPFjSR7/N27zN1/D8IV6An/qpn/ou2+/Nf4zftv07EfHVb/M2b7ML8FM/9VPHge8ax/Fz3vEd3/Gvef4QL8BP/dRPPdj20/mPtWv7ayLiq9/mbd5ml38Z4oX4iZ/4ic+W9Fn8x9ttrb3NO7zDO/w2LxziX/CTP/mTTwcezH8C2x/zdm/3dl/NC4b4F/zUT/3Ug23/FvBg/hPY/pi3e7u3+2qeP8SL4Kd+6qcebPu3gAfzH+NW4ME80zRNL/OO7/iOf83zQryIfuqnfurBtr8LeG3+ff5a0usAX2X7vbniVkmv8zZv8za38pwQ/0o/9mM/9tqllO8CHsy/ku3Pebu3e7vPBvipn/qpB9t+Os8k6bvf5m3e5n14Toh/ox/7sR977VrrW9l+b+A4L9itkn4b+Jy3eZu3uZUH+Kmf+qnvsv3ePJOkh7zN27zNrTwb4j/AT/3UTz0YON5ae3BEHANorT2j1vrXb/M2b7PLC/BTP/VTL237r3gmSR/9Nm/zNl/DsyH+m/3kT/7k04EHA0j66rd5m7f5GJ4N8d/sJ37iJz5a0lcBtNZe5x3e4R1+m2dD/A/wkz/5k+8l6Xfe5m3e5laeE+J/NsT/bIj/2RD/syH+Z0P8z4b4n41/BGFqajjoZEseAAAAAElFTkSuQmCC)";
 
 // tooltip 外观复用 .hc-energy-tooltip 的 CSS（行布局/圆点/配色）；
 // extraCssText 压过 ECharts 写在 tooltip div 上的内联默认（背景/边框/内边距）
@@ -9934,7 +9949,8 @@ function runtimeChartOption(s) {
     tooltip: { ...tooltip("padding:16px !important;min-width:196px;font-size:12px;line-height:20px;color:#eee;", formatter), axisPointer: { type: "none" } },
     xAxis: {
       type: "value", min: -15, max: 15, interval: 3,
-      axisLabel: { formatter: dateLabel, color: "#999", fontSize: 12, margin: 16 },
+      // 首末刻度标签交给 custom 系列按 legacy 钳位规则绘制（x∈[28,1264]），避免贴边被画布裁掉一半
+      axisLabel: { formatter: dateLabel, color: "#999", fontSize: 12, margin: 16, showMinLabel: false, showMaxLabel: false },
       axisLine: { show: false }, axisTick: { show: false }, splitLine: { show: false },
     },
     yAxis: [
@@ -9944,30 +9960,37 @@ function runtimeChartOption(s) {
     ],
     series: [
       { name: "平均请求量", type: "bar", yAxisIndex: 1, data: barData, barWidth: 12, z: 1 },
-      {
-        name: "实际功耗", type: "line", data: actualPts, symbol: "none", z: 2,
-        lineStyle: { color: "#bdbdbd", width: 1 },
-        markLine: {
-          silent: true, symbol: ["none", "none"], animation: false,
-          data: s.effectiveAt ? [{ xAxis: -15, lineStyle: { color: "#53c49c", width: 1 }, label: { show: false } }] : [],
-        },
-      },
+      { name: "实际功耗", type: "line", data: actualPts, symbol: "none", z: 2, lineStyle: { color: "#bdbdbd", width: 1 } },
       { name: "基线预测功耗", type: "line", data: basePts, symbol: "none", z: 2, lineStyle: { color: "#aaa", width: 1, type: [1.5, 2.5] } },
       { name: "策略后预测功耗", type: "line", data: optPts, symbol: "none", z: 2, lineStyle: { color: "#20aa78", width: 1, type: [1.5, 2] } },
       {
-        // now 标记（legacy M646 0V120 M640 0H652）：从容器顶 y=0 画到 y=120/148 处（穿过网格下缘），
-        // T 形横帽在最顶端；markLine 会被裁剪在绘图区内，故用 custom 系列按容器像素直绘（resize 自动重算）
+        // 像素级装饰按容器尺寸直绘（resize 自动重算），复刻 legacy SVG 几何（viewBox 1292×148）：
+        // 1) now 标记（M646 0V120 M640 0H652）：从容器顶画到 120/148 处，T 形横帽在最顶端
+        // 2) 策略启动虚线（M0 14V106，dasharray 3 3，#53c49c）：贴左边缘，仅 s.effectiveAt 存在时绘制
+        // 3) 首末日期标签：legacy 钳位 x∈[28,1264] 居中绘制，避免 ECharts 轴标签贴边被裁一半
         name: "now标记", type: "custom", silent: true, clip: false, z: 10,
         renderItem: (params, api) => {
           const w = api.getWidth(), h = api.getHeight(), cx = w / 2, cap = (6 / 1292) * w;
           const style = { stroke: "#6a94ff", lineWidth: 2 };
-          return {
-            type: "group",
-            children: [
-              { type: "line", shape: { x1: cx, y1: 0, x2: cx, y2: (120 / 148) * h }, style },
-              { type: "line", shape: { x1: cx - cap, y1: 0, x2: cx + cap, y2: 0 }, style },
-            ],
-          };
+          const children = [
+            { type: "line", shape: { x1: cx, y1: 0, x2: cx, y2: (120 / 148) * h }, style },
+            { type: "line", shape: { x1: cx - cap, y1: 0, x2: cx + cap, y2: 0 }, style },
+          ];
+          if (s.effectiveAt) {
+            children.push({
+              type: "line",
+              shape: { x1: 0, y1: (14 / 148) * h, x2: 0, y2: (106 / 148) * h },
+              style: { stroke: "#53c49c", lineWidth: 1, lineDash: [(3 / 148) * h, (3 / 148) * h] },
+            });
+          }
+          // 与轴标签同一基线（grid 下缘 + margin 16），字号颜色一致
+          const labelY = h * (1 - 0.284) + 16;
+          const edge = (t, px) => ({
+            type: "text", silent: true,
+            style: { text: dateLabel(t), x: (px / 1292) * w, y: labelY, fill: "#999", fontSize: 12, textAlign: "center", textVerticalAlign: "top" },
+          });
+          children.push(edge(-15, 28), edge(15, 1264));
+          return { type: "group", children };
         },
         data: [0],
       },
@@ -10057,11 +10080,28 @@ function nodeLoadChartOption(s, { nodeIndex, start, end, samples, frequencySampl
         },
         markPoint: {
           silent: true, animation: false, symbol: "circle", symbolSize: 5,
-          data: frequencySamples.map((fs) => ({
-            coord: [fs.sample.at, fs.sample.request],
-            itemStyle: { color: "#55c6ad" },
-            label: { show: true, formatter: stamp(fs.event.at) + " 已调频", position: "top", distance: 6, color: "#55c6ad", fontSize: 9 },
-          })),
+          data: [
+            // 数据点圆点（虚线底端）
+            ...frequencySamples.map((fs) => ({
+              coord: [fs.sample.at, fs.sample.request],
+              itemStyle: { color: "#55c6ad" },
+              label: { show: false },
+            })),
+            // “已调频”文字挂在虚线顶端上方（legacy text y=18 / 虚线顶 y=23）；
+            // 近左右边缘时按 legacy clamp 规则翻转对齐（markX>288→end、<65→left），防止溢出
+            ...frequencySamples.map((fs) => {
+              const f = end > start ? (fs.sample.at - start) / (end - start) : 0.5;
+              return {
+                coord: [fs.sample.at, maxRequest],
+                symbolSize: 0,
+                label: {
+                  show: true, formatter: stamp(fs.event.at) + " 已调频", position: "top", distance: 3,
+                  color: "#55c6ad", fontSize: 9,
+                  align: f > 0.86 ? "right" : f < 0.1 ? "left" : "center",
+                },
+              };
+            }),
+          ],
         },
       },
       { name: "节省能耗", type: "line", yAxisIndex: 1, silent: true, symbol: "none", data: samples.map((p) => [p.at, p.saving]), lineStyle: { color: "#45c49f", width: 1.7 } },
@@ -10169,7 +10209,7 @@ function reportChartOption(data, kind) {
   };
   return { option, width: 590, height: 240, label: kind === "requests" ? "推理请求量与SLA达标率" : "NPU及CPU利用率" };
 }
-  Object.assign(__export, { runtimeChartOption, nodeCardModel, dailyEnergyChartOption, reportChartOption, REPORT_ICONS });
+  Object.assign(__export, { runtimeChartOption, nodeCardModel, dailyEnergyChartOption, reportChartOption, REPORT_ICONS, LEAF_MASK_URI });
 })();
 
 /* ===== src/mock/workloads.js ===== */
@@ -10731,7 +10771,8 @@ function notifyEvents() {
   homeSync?.();
 }
 
-// 模块初始化：Qwen-14B 演示会话（守护态 stage 4），并同步 workloads 的 energySaving 标记
+// 模块初始化：Qwen-14B 演示会话（守护态 stage 4，事件表首行即"节能策略执行中/已开启节能"，
+// 打开详情即完成态：策略组完成收起、运行监控自动推进），并同步 workloads 的 energySaving 标记
 const eventSession = ensureSession("Qwen-14B", false);
 syncSavingServices();
 
@@ -11235,7 +11276,9 @@ function downloadReport(s) {
   flushSync(() => { root.render(<main className="hc-energy-right"><ReportPanel s={s} embedded /></main>); });
   const escape = (t) => t.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const style = Array.from(document.querySelectorAll("style")).map((n) => n.textContent).filter((t) => t.includes("#hc-energy-root")).join("\n");
-  const html = '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>' + escape(s.name) + ' 2026年8月节能月报</title><style>' + style + '\nhtml,body{height:auto;overflow:auto;background:#050505;color:#eee;font-family:Arial,"Microsoft YaHei",sans-serif}#hc-energy-root{position:static;display:block;width:auto;height:auto;max-width:1440px;margin:auto}#hc-energy-root .hc-energy-right{overflow:visible;padding:32px}svg{width:100%}@media print{body{print-color-adjust:exact}#hc-energy-root .hc-energy-panel{break-inside:avoid}}</style><body><section id="hc-energy-root">' + container.innerHTML + "</section></body></html>";
+  // 导出 HTML 注入 <base> 指向当前页面所在目录：月报图标（REPORT_ICONS）为相对路径文件引用，
+  // 下载后的独立 HTML 需借它解析 ./assets/uploads/*（原版靠 base64 内联自包含）
+  const html = '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><base href="' + new URL(".", location.href).href + '"><title>' + escape(s.name) + ' 2026年8月节能月报</title><style>' + style + '\nhtml,body{height:auto;overflow:auto;background:#050505;color:#eee;font-family:Arial,"Microsoft YaHei",sans-serif}#hc-energy-root{position:static;display:block;width:auto;height:auto;max-width:1440px;margin:auto}#hc-energy-root .hc-energy-right{overflow:visible;padding:32px}svg{width:100%}@media print{body{print-color-adjust:exact}#hc-energy-root .hc-energy-panel{break-inside:avoid}}</style><body><section id="hc-energy-root">' + container.innerHTML + "</section></body></html>";
   // 卸载以释放 ECharts 实例（layout effect cleanup → chart.dispose）
   root.unmount();
   const url = URL.createObjectURL(new Blob([html], { type: "text/html;charset=utf-8" })), a = document.createElement("a");
@@ -11327,7 +11370,7 @@ function EnergyLeft({ s }) {
           className="hc-energy-step hc-energy-strategy-group"
           data-state={groupState}
           open={s.strategyGroupOpen ?? s.stage < 4}
-          onToggle={(e) => setStrategyGroupOpen(e.target.open)}
+          onToggle={(e) => { if (e.target === e.currentTarget) setStrategyGroupOpen(e.currentTarget.open); }}
         >
           <summary>
             <StepIcon status={groupState} />
@@ -11342,7 +11385,7 @@ function EnergyLeft({ s }) {
         </details>
 
         {s.stage === 4 && (
-          <details className="hc-energy-step" data-state="working" open={s.monitorOpen} onToggle={(e) => setMonitorOpen(e.target.open)}>
+          <details className="hc-energy-step" data-state="working" open={s.monitorOpen} onToggle={(e) => { if (e.target === e.currentTarget) setMonitorOpen(e.currentTarget.open); }}>
             <summary>
               <StepIcon status="working" />
               运行监控
@@ -11475,7 +11518,7 @@ function EnergyGradeTag({ data }) {
 /* ===== src/views/energy-detail/service-panel.jsx ===== */
 (function () {
   const { useMemo, useState } = React;
-  const { HC_ASSETS, REPORT_ICONS, nodeCardModel, runtimeChartOption, setNodeRange } = __export;
+  const { HC_ASSETS, LEAF_MASK_URI, REPORT_ICONS, nodeCardModel, runtimeChartOption, setNodeRange } = __export;
   const EChart = __export.EChart;
   const EnergyGradeTag = __export.EnergyGradeTag;
 // service-panel.jsx —— 右栏服务视图
@@ -11613,7 +11656,7 @@ function ServicePanel({ s }) {
           <>
             {s.name}
             <span className="hc-energy-badge">
-              <span className="hc-energy-clean-leaf" aria-hidden="true" style={{ "--leaf-image": `url(${REPORT_ICONS["energy-leaf"]})` }} />
+              <span className="hc-energy-clean-leaf" aria-hidden="true" style={{ "--leaf-image": LEAF_MASK_URI }} />
               节能中
             </span>
             <span className="hc-energy-badge">运行态均衡模式已开启</span>
@@ -12017,11 +12060,12 @@ function buildInitialRecords() {
 /* ===== src/views/guard-events-table/index.jsx ===== */
 (function () {
   const { useEffect, useMemo, useRef, useState } = React;
-  const { HC_ASSETS, BASE_FAULT_EVENTS, buildHistoricalEvents, buildEnergyEvents, STATES, buildInitialRecords } = __export;
+  const { HC_ASSETS, BASE_FAULT_EVENTS, buildHistoricalEvents, buildEnergyEvents, STATES, buildInitialRecords, LEAF_MASK_URI } = __export;
   const EventTypeIcon = __export.EventTypeIcon;
 // 智能体事件全屏表格页 —— 从左侧"守护事件 → 查看全部"打开
 // 声明式渲染：表格行/筛选/分页/统计卡片/详情弹窗全部由 React state 驱动
 // CSS 在 src/styles/legacy.css（.guard-* 选择器，从演示 HTML 机械提取）
+
 
 
 
@@ -12084,6 +12128,7 @@ function GuardEventsTable() {
     setPage(1);
   }
   // 行点击：根据 action 字段跳转到对应事件模块，或打开详情弹窗
+  // 仅 Qwen-14B 的完成态节能行（节能策略执行中）可进入节能详情；识别中/无空间行不响应
   function showRecord(item) {
     if (item.type === "节能" && (item.object !== "推理服务 / Qwen-14B" || item.stateClass === "energy-wait")) return;
     if (item.type === "节能" && item.action !== "energy-none") { window.openEnergyEvent?.(item); return; }
@@ -12255,7 +12300,7 @@ function GuardEventsTable() {
                           {originalIndex === 1 && list === "energy" && item.stateClass === "energy-wait" && <i className="story-step-icon working" />}
                           {originalIndex === 1 && list === "energy" && item.stateClass !== "energy-wait" && <img className="guard-asset guard-energy-closed-leaf" src={HC_ASSETS.icons[item.stateClass === "energy-done" ? "绿色叶子" : "灰色叶子"]} alt="" />}
                           {originalIndex === 1 && list !== "energy" && item.type !== "节能" && <img className="guard-asset" src={HC_ASSETS.icons[STATE_ICON_KEYS[item.stateClass]]} alt="" />}
-                          {originalIndex === 1 && list !== "energy" && item.type === "节能" && <i className="guard-clean-leaf" style={{ "--leaf": "url(./assets/uploads/149-129790.png)" }} />}
+                          {originalIndex === 1 && list !== "energy" && item.type === "节能" && <i className="guard-clean-leaf" style={{ "--leaf": LEAF_MASK_URI }} />}
                           {originalIndex === 2 && list === "energy" && item.result !== "—" && <i className={"guard-result-dot" + (item.result === "已开启节能" ? " enabled" : "")} aria-hidden="true" />}
                           {originalIndex === 2 && list !== "energy" && <span className={"event-type " + (item.type === "故障" ? "fault" : "other")}>{text}</span>}
                           {originalIndex === 2 && list !== "energy" ? null : text}
@@ -15260,11 +15305,15 @@ function ProcessFlow({ flow, stage, rawStage, selected, hidden, onSelectStep }) 
 
 /* ===== src/views/nic-event/service-journey.jsx ===== */
 (function () {
-  const { useRef, useState } = React;
+  const { useMemo, useRef, useState } = React;
   const { OPTICAL_ASSETS } = __export;
-// 服务旅程 —— React SVG 声明式图表（柱状请求数 + 指标线 + 劣化带 + 事件标记 + 回看游标）
-// 指标切换（legend 下拉）与悬浮卡为组件内部状态；阶段/回看时刻由 event.js 以 props 推送。
-// 数学公式与原 renderJourney 逐行对齐（position/高度/分段线/事件几何）。
+  const EChart = __export.EChart;
+// 服务旅程 —— ECharts 图表（每秒请求数柱 + 分段指标线 + 劣化带 + 双泳道 + 事件标记 + 回看游标 + 时间刻度）
+// 由手写 SVG 迁移到 ECharts（SVG renderer，复用 energy-detail/echart-box 宿主组件）。
+// 坐标映射与原 viewBox(0 0 1280 156) + preserveAspectRatio="none" 几何逐一对齐：
+// grid 满边距、xAxis 0..120（秒）、yAxis 0..156（value = 156 - 原像素 y），随容器宽高线性拉伸；
+// 装饰层/柱/事件标记/游标用 custom series 按 viewBox 单位换算绘制，指标线为 line series + visualMap 分段着色。
+// 指标切换（legend 下拉）、悬浮卡、键盘回看保持 React 内部状态；阶段/回看时刻由 index.jsx 以 props 推送。
 
 const METRICS = {
   ttft: { label: "TTFT P99", unit: "ms", normal: 182, bad: 186 },
@@ -15275,10 +15324,13 @@ const METRICS = {
   output: { label: "输出吞吐", unit: "k tok/s", normal: 11.2, bad: 8.7 },
 };
 const LATEST = [0, 12, 22, 40, 48, 56, 66, 72, 80, 120];
-const position = (t) => t / 120 * 1280;
+const VBW = 1280; // 原 viewBox 宽（横向单位换算基准）
+const VBH = 156; // 原 viewBox 高（纵向单位换算基准）
+const BASELINE = 77; // 柱状图基线（原 svg y=77）
+const TEXT_MID = 4.2; // 12px 文字基线→视觉中心偏移（≈0.35em）：zrender 文本不认 textBaseline:'alphabetic'，统一用 textVerticalAlign:'middle' 锚定后按此补偿回原基线位置
+const TIME_TICKS = [0, 12, 40, 66, 95, 120];
 const timeLabel = (t) => "12:" + String(5 + Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0");
 const latestSecond = (stage) => LATEST[stage];
-const stageAt = (t) => t < 12 ? 0 : t < 22 ? 1 : t < 30 ? 2 : t < 48 ? 3 : t < 56 ? 4 : t < 66 ? 5 : t < 72 ? 6 : t < 80 ? 7 : t < 95 ? 8 : 9;
 const degradedAt = (stage) => (t) => t >= 12 && !(stage === 9 && t >= 95);
 const barHeight = (i) => 34 + Math.sin(i * 1.7) * 9 + (i % 7) * 2;
 
@@ -15329,36 +15381,154 @@ function HoverCard({ t, metricKey, stage }) {
 function ServiceJourney({ stage, journeySecond, visible, onSelectTime }) {
   const [metricKey, setMetricKey] = useState("ttft");
   const [hoverT, setHoverT] = useState(null);
+  const [hoverMarker, setHoverMarker] = useState(null); // 当前 hover 命中的事件标记下标（null=未命中）
   const wrapRef = useRef(null);
   const hoverSecondRef = useRef(0);
 
   const m = METRICS[metricKey];
   const end = latestSecond(stage);
   const badEnd = stage === 9 ? 95 : end;
-  const degraded = degradedAt(stage);
-  const normalY = m.bad < m.normal ? 24 : 53;
-  const badY = m.bad === m.normal ? normalY : m.bad < m.normal ? 62 : 21;
   const events = journeyEvents(stage);
 
-  const segments = [
-    [0, Math.min(12, end), "#55c8a0"],
-    [12, badEnd, "#ffad52"],
-    [95, stage === 9 ? end : 95, "#55c8a0"],
-  ];
+  const option = useMemo(() => {
+    const degraded = degradedAt(stage);
+    const normalY = m.bad < m.normal ? 24 : 53;
+    const badY = m.bad === m.normal ? normalY : m.bad < m.normal ? 62 : 21;
+    const seconds = Array.from({ length: end + 1 }, (_, t) => t);
+    return {
+      animation: false,
+      tooltip: { show: false },
+      grid: { left: 0, right: 0, top: 0, bottom: 0 },
+      xAxis: { type: "value", min: 0, max: 120, show: false },
+      yAxis: { type: "value", min: 0, max: VBH, show: false },
+      // 指标线分段着色：正常绿 / 劣化橙 / 恢复绿（分段边界与原 segments 一致：12s 与 95s）
+      visualMap: {
+        show: false,
+        type: "piecewise",
+        dimension: 0,
+        seriesIndex: 2,
+        pieces: [
+          { gte: 0, lt: 12, color: "#55c8a0" },
+          { gte: 12, lt: 95, color: "#ffad52" },
+          { gte: 95, color: "#55c8a0" },
+        ],
+      },
+      series: [
+        { // 装饰层：劣化带 / 双泳道 / 劣化覆盖与文案 / 时间刻度（原 svg 静态几何，viewBox 单位换算）
+          type: "custom",
+          silent: true,
+          data: [[end, badEnd]],
+          renderItem: (params, api) => {
+            const endV = api.value(0);
+            const badEndV = api.value(1);
+            const W = api.getWidth();
+            const H = api.getHeight();
+            const px = (sec) => (sec / 120) * W;
+            const py = (yUnit) => (yUnit / VBH) * H;
+            const r4 = (4 / VBW) * W;
+            const children = [];
+            if (endV >= 12)
+              children.push({ type: "rect", shape: { x: px(12), y: py(4), width: px(badEndV) - px(12), height: py(100) - py(4), r: r4 }, style: { fill: "#f5a544", opacity: 0.16 } });
+            children.push({ type: "rect", shape: { x: 0, y: py(83), width: W, height: py(100) - py(83), r: r4 }, style: { fill: "#414141" } });
+            children.push({ type: "rect", shape: { x: 0, y: py(106), width: W, height: py(123) - py(106), r: r4 }, style: { fill: "#414141" } });
+            if (endV >= 12) {
+              children.push({ type: "rect", shape: { x: px(12), y: py(83), width: px(badEndV) - px(12), height: py(100) - py(83) }, style: { fill: "#ed9a36" } });
+              children.push({ type: "text", style: { text: "服务劣化", x: px(12) + (8 / VBW) * W, y: py(95) - TEXT_MID, fill: "white", fontSize: 12, textAlign: "left", textVerticalAlign: "middle" } });
+            }
+            TIME_TICKS.forEach((t) =>
+              children.push({ type: "text", style: { text: timeLabel(t), x: px(t), y: py(151) - TEXT_MID, fill: "#bcbcbc", fontSize: 12, textAlign: t === 120 ? "right" : "left", textVerticalAlign: "middle" } })
+            );
+            return { type: "group", children };
+          },
+        },
+        { // 每秒请求数柱（6 单位宽圆角柱，基线 y=77，随 stage 逐秒增多）
+          type: "custom",
+          silent: true,
+          data: seconds.map((t) => [t, barHeight(t)]),
+          renderItem: (params, api) => {
+            const t = api.value(0);
+            const h = api.value(1);
+            const W = api.getWidth();
+            const H = api.getHeight();
+            const halfW = (3 / VBW) * W;
+            const x = (t / 120) * W;
+            const yTop = ((BASELINE - h) / VBH) * H;
+            const yBot = (BASELINE / VBH) * H;
+            return { type: "rect", shape: { x: x - halfW, y: yTop, width: halfW * 2, height: yBot - yTop, r: (1 / VBW) * W }, style: { fill: "#87bfe9", opacity: 0.85 } };
+          },
+        },
+        { // 指标线（逐秒采样 + 微抖动，原 segments 的三段折线合并为 visualMap 分段着色）
+          type: "line",
+          silent: true,
+          showSymbol: false,
+          lineStyle: { width: 2 },
+          data: seconds.map((t) => [t, VBH - ((degraded(t) ? badY : normalY) + Math.sin(t * 1.7) * 0.6)]),
+        },
+        { // 事件标记：故障三角（▲ y108..119）/ 处置圆圈（⇄ cy=115 r=7）；类型用数值编码（字符串维度经数据解析后 api.value 不保真）
+          // hover 增亮对齐原 .journey-event:hover{filter:brightness(1.5)}：按命中下标（hoverMarker）切换为预先算好的 1.5 倍提亮色
+          type: "custom",
+          silent: true,
+          data: events.map((e) => [e[0], e[3] === "fault" ? 0 : 1]),
+          renderItem: (params, api) => {
+            const t = api.value(0);
+            const hot = params.dataIndex === hoverMarker;
+            const W = api.getWidth();
+            const H = api.getHeight();
+            const px = (sec) => (sec / 120) * W;
+            const py = (yUnit) => (yUnit / VBH) * H;
+            const x = px(t);
+            if (api.value(1) === 0) {
+              const hw = (4.5 / VBW) * W;
+              return { type: "polygon", shape: { points: [[x, py(108)], [x - hw, py(119)], [x + hw, py(119)]] }, style: { fill: hot ? "#ffaeba" : "#ed747c" } };
+            }
+            return {
+              type: "group",
+              children: [
+                { type: "circle", shape: { cx: x, cy: py(115), r: (7 / VBH) * H }, style: { fill: hot ? "#38414d" : "#252b33", stroke: hot ? "#b9ffff" : "#7bb8f6", lineWidth: 1 } },
+                { type: "text", style: { text: "⇄", x, y: py(115), fill: hot ? "#b9ffff" : "#7bb8f6", fontSize: 12, textAlign: "center", textVerticalAlign: "middle" } },
+              ],
+            };
+          },
+        },
+        { // 回看游标（原 y0..133 蓝色竖线）
+          type: "custom",
+          silent: true,
+          data: journeySecond !== null ? [[journeySecond]] : [],
+          renderItem: (params, api) => {
+            const W = api.getWidth();
+            const H = api.getHeight();
+            const x = (api.value(0) / 120) * W;
+            return { type: "line", shape: { x1: x, y1: 0, x2: x, y2: (133 / VBH) * H }, style: { stroke: "#80bfff", lineWidth: 2 } };
+          },
+        },
+      ],
+    };
+  }, [stage, metricKey, journeySecond, hoverMarker, m, end, badEnd]);
 
   const clampT = (t) => Math.max(0, Math.min(end, Math.round(t)));
-  const pointerT = (e) => {
-    const marker = e.target.closest?.(".journey-event");
-    if (marker) return clampT(Number(marker.dataset.second));
-    const rect = e.currentTarget.getBoundingClientRect();
-    return clampT((e.clientX - rect.left) / rect.width * 120);
+  // 标记命中判定（与原 svg 透明 hit-rect 一致：故障 ±5 / 处置 ±9 个 viewBox 横向像素，纵向限定 y104..126 资源泳道带）
+  const markerHitIndex = (rect, clientX, clientY) => {
+    if (rect.width <= 0 || rect.height <= 0) return null;
+    const vRatio = (clientY - rect.top) / rect.height;
+    if (vRatio < 104 / VBH || vRatio > 126 / VBH) return null;
+    const rawT = ((clientX - rect.left) / rect.width) * 120;
+    for (let i = 0; i < events.length; i++) {
+      const limit = ((events[i][3] === "fault" ? 5 : 9) / VBW) * 120; // viewBox 像素 → 秒
+      if (Math.abs(rawT - events[i][0]) <= limit) return i;
+    }
+    return null;
   };
-
+  const pointerT = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const idx = markerHitIndex(rect, e.clientX, e.clientY);
+    setHoverMarker(idx);
+    // 命中标记时吸附到标记秒（对齐原 closest(".journey-event") 分支：悬浮卡直接显示事件详情）
+    return idx !== null ? events[idx][0] : clampT(((e.clientX - rect.left) / rect.width) * 120);
+  };
   const showPoint = (t) => { const c = clampT(t); hoverSecondRef.current = c; setHoverT(c); };
-
   const hoverLeft = () => {
     const w = wrapRef.current?.clientWidth ?? 0;
-    return Math.max(0, Math.min(w - 300, hoverT / 120 * w + 14)) + "px";
+    return Math.max(0, Math.min(w - 300, (hoverT / 120) * w + 14)) + "px";
   };
 
   return (
@@ -15374,84 +15544,28 @@ function ServiceJourney({ stage, journeySecond, visible, onSelectTime }) {
         <span className="nic-journey-fault">▲ 故障</span>
         <span className="nic-journey-operation">⇄ 处置操作</span>
       </div>
-      <svg
-        viewBox="0 0 1280 156"
-        preserveAspectRatio="none"
+      <div
+        className={"nic-journey-chart" + (hoverMarker !== null ? " marker-hot" : "")}
         tabIndex={0}
-        role="img"
         data-metric={metricKey}
-        aria-label={m.label + "与请求数，" + (stage === 9 ? "人工升级及健康核查后服务恢复" : "服务持续劣化，尚未恢复")}
         onPointerMove={(e) => showPoint(pointerT(e))}
-        onPointerLeave={() => setHoverT(null)}
+        onPointerLeave={() => { setHoverT(null); setHoverMarker(null); }}
         onClick={(e) => { e.stopPropagation(); onSelectTime?.(pointerT(e)); }}
         onBlur={() => setHoverT(null)}
         onKeyDown={(e) => {
           if (!["ArrowLeft", "ArrowRight", "Enter", " ", "Escape"].includes(e.key)) return;
           e.preventDefault(); e.stopPropagation();
           if (e.key === "Escape") { setHoverT(null); return; }
-          if (e.key === "Enter" || e.key === " ") { onSelectTime?.(Number(e.target.dataset?.second) || hoverSecondRef.current); return; }
+          if (e.key === "Enter" || e.key === " ") { onSelectTime?.(hoverSecondRef.current); return; }
           showPoint(hoverSecondRef.current + (e.key === "ArrowRight" ? 1 : -1));
         }}
       >
-        {end >= 12 && (
-          <rect x={position(12)} y={4} width={position(badEnd - 12)} height={96} rx={4} fill="#f5a544" opacity=".16" />
-        )}
-        {Array.from({ length: end + 1 }, (_, i) => {
-          const h = barHeight(i);
-          return <rect key={i} x={position(i)} y={77 - h} width={6} height={h} rx={1} fill="#87bfe9" opacity=".85" />;
-        })}
-        {segments.map(([start, stop, color], si) => {
-          if (stop <= start) return null;
-          let d = "";
-          for (let t = start; t <= stop; t++) {
-            const y = (degraded(t) ? badY : normalY) + Math.sin(t * 1.7) * 0.6;
-            d += (t === start ? "M" : "L") + position(t) + " " + y;
-          }
-          return <path key={si} d={d} fill="none" stroke={color} strokeWidth={2} />;
-        })}
-        <rect x={0} y={83} width={1280} height={17} rx={4} fill="#414141" />
-        <rect className="journey-resource-lane" x={0} y={106} width={1280} height={17} rx={4} fill="#414141" />
-        {end >= 12 && (
-          <>
-            <rect x={position(12)} y={83} width={position(badEnd - 12)} height={17} fill="#ed9a36" />
-            <text x={position(12) + 8} y={96} fill="white" fontSize={12}>服务劣化</text>
-          </>
-        )}
-        {events.map(([t, name, detail, type]) => {
-          const x = position(t);
-          const fault = type === "fault";
-          return (
-            <g
-              key={t}
-              className="journey-event"
-              tabIndex={0}
-              role="button"
-              aria-label={timeLabel(t) + " " + name}
-              data-type={type}
-              data-second={t}
-              onFocus={() => showPoint(t)}
-            >
-              <rect x={x - (fault ? 5 : 9)} y={104} width={fault ? 10 : 18} height={22} fill="transparent" />
-              {fault ? (
-                <path d={"M" + x + " 108 l-4.5 11 h9 Z"} fill="#ed747c" />
-              ) : (
-                <>
-                  <circle cx={x} cy={115} r={7} fill="#252b33" stroke="#7bb8f6" />
-                  <text x={x} y={119} textAnchor="middle" fill="#7bb8f6" fontSize={12}>⇄</text>
-                </>
-              )}
-            </g>
-          );
-        })}
-        {[0, 12, 40, 66, 95, 120].map((t) => (
-          <text key={t} x={position(t)} y={151} textAnchor={t === 120 ? "end" : "start"} fill="#bcbcbc" fontSize={12}>
-            {timeLabel(t)}
-          </text>
-        ))}
-        {journeySecond !== null && (
-          <line x1={position(journeySecond)} x2={position(journeySecond)} y1={0} y2={133} stroke="#80bfff" strokeWidth={2} />
-        )}
-      </svg>
+        <EChart
+          option={option}
+          label={m.label + "与请求数，" + (stage === 9 ? "人工升级及健康核查后服务恢复" : "服务持续劣化，尚未恢复")}
+          style={{ width: "100%", height: "100%" }}
+        />
+      </div>
       {hoverT !== null && (
         <div className="nic-journey-hover" style={{ left: hoverLeft() }}>
           <HoverCard t={hoverT} metricKey={metricKey} stage={stage} />

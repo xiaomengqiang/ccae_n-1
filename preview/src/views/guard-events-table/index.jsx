@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { HC_ASSETS } from "../../mock/hc-assets.js";
 import EventTypeIcon from "../../components/event-type-icon/index.jsx";
 import { BASE_FAULT_EVENTS, buildHistoricalEvents, buildEnergyEvents, STATES, buildInitialRecords } from "../../mock/guard-events.js";
+import { LEAF_MASK_URI } from "../energy-detail/charts.jsx";
 
 const createPortal = (node, host) => ReactDOM.createPortal(node, host);
 const STATES_BY_ENERGY = STATES.filter(([k]) => k.startsWith("energy"));
@@ -63,6 +64,7 @@ export default function GuardEventsTable() {
     setPage(1);
   }
   // 行点击：根据 action 字段跳转到对应事件模块，或打开详情弹窗
+  // 仅 Qwen-14B 的完成态节能行（节能策略执行中）可进入节能详情；识别中/无空间行不响应
   function showRecord(item) {
     if (item.type === "节能" && (item.object !== "推理服务 / Qwen-14B" || item.stateClass === "energy-wait")) return;
     if (item.type === "节能" && item.action !== "energy-none") { window.openEnergyEvent?.(item); return; }
@@ -234,7 +236,7 @@ export default function GuardEventsTable() {
                           {originalIndex === 1 && list === "energy" && item.stateClass === "energy-wait" && <i className="story-step-icon working" />}
                           {originalIndex === 1 && list === "energy" && item.stateClass !== "energy-wait" && <img className="guard-asset guard-energy-closed-leaf" src={HC_ASSETS.icons[item.stateClass === "energy-done" ? "绿色叶子" : "灰色叶子"]} alt="" />}
                           {originalIndex === 1 && list !== "energy" && item.type !== "节能" && <img className="guard-asset" src={HC_ASSETS.icons[STATE_ICON_KEYS[item.stateClass]]} alt="" />}
-                          {originalIndex === 1 && list !== "energy" && item.type === "节能" && <i className="guard-clean-leaf" style={{ "--leaf": "url(./assets/uploads/149-129790.png)" }} />}
+                          {originalIndex === 1 && list !== "energy" && item.type === "节能" && <i className="guard-clean-leaf" style={{ "--leaf": LEAF_MASK_URI }} />}
                           {originalIndex === 2 && list === "energy" && item.result !== "—" && <i className={"guard-result-dot" + (item.result === "已开启节能" ? " enabled" : "")} aria-hidden="true" />}
                           {originalIndex === 2 && list !== "energy" && <span className={"event-type " + (item.type === "故障" ? "fault" : "other")}>{text}</span>}
                           {originalIndex === 2 && list !== "energy" ? null : text}
