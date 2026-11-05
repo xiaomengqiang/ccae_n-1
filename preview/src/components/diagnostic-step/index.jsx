@@ -2,28 +2,36 @@ import { useEffect, useRef } from "react";
 import { OPTICAL_ASSETS } from "../../mock/hc-assets.js";
 import EvtBadge from "../evt-badge/index.jsx";
 
-// 诊断步骤卡（原 HCEventUI DiagnosticStep 工厂的 React 版）
-// 展开状态由父级持有（expanded/onToggle）；取证引擎 HCEvidence.attach 保持命令式——
-// 在 effect 中注入 body（幂等：先移除既有块再附加），React 子内容在其后不受影响。
-// evidence=false 时跳过自动取证（nic-event 的资源诊断/故障恢复步骤用自定义注入）。
+// 诊断步骤卡（原 HCEventUI/HCOpticalEventUI DiagnosticStep 工厂的 React 版）
+// 展开状态由父级持有（expanded/onToggle）；取证引擎保持命令式——effect 注入 body
+// （幂等：先移除既有块再附加）。evidence prop 三态：
+// - undefined（默认）：HCEvidence 规则引擎自动匹配
+// - null：跳过取证注入（父级用 bodyRef 做自定义后处理的步骤）
+// - 数组：HCOpticalEvidence 显式条目注入（optical-event 用法）
+// statusIcon 支持待人工手型图标替换；dim 为选中联动淡化；last 补 evt-step-last 类。
 export default function DiagnosticStep({
   title, time, badge, tone = "done", badgeTone,
   expanded = true, onToggle, onSelect,
-  statusIcon, dim, section,
-  evidence = true, bodyRef, children,
+  statusIcon, dim, section, last,
+  evidence, bodyRef, children,
 }) {
   const localBodyRef = useRef(null);
   const processing = tone === "processing" || tone === "manual";
 
   useEffect(() => {
     const body = (bodyRef || localBodyRef).current;
-    if (!body || !evidence) return;
+    if (!body) return;
     body.querySelector(".evt-diagnostic-operations")?.remove();
-    window.HCEvidence?.attach(body, title, badge !== "待处理" && tone !== "processing");
-  }, [evidence, title, badge, tone]);
+    if (evidence === null) return;
+    if (evidence === undefined) {
+      window.HCEvidence?.attach(body, title, badge !== "待处理" && tone !== "processing");
+    } else {
+      window.HCOpticalEvidence?.attach(body, title, badge !== "待处理" && tone !== "processing", false, evidence);
+    }
+  }, [title, badge, tone, evidence]);
 
   return (
-    <section className={"evt-step" + (dim ? " evt-focus-dim" : "")} data-section={section}>
+    <section className={"evt-step" + (dim ? " evt-focus-dim" : "") + (last ? " evt-step-last" : "")} data-section={section}>
       <div className="evt-step-header">
         <button type="button" className="evt-step-select" aria-label={"查看" + title + "环节"} onClick={onSelect}>
           {processing ? (
