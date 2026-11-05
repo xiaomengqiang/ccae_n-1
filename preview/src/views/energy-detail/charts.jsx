@@ -4,7 +4,9 @@
 // 节点图调频点标记与 per-bar 提示、月报三图联动由 echart-box 的 linkGroup 承担
 import { snapshot, time, nodeState, nodeSeries, runtimeWindow } from "../../shared/energy-state.js";
 
-// 月报/策略卡片用到的上传图标（legacy.js reportIcons 同源）
+// 月报/策略卡片用到的图标（与源码 energy.js reportIcons 同源；全部为 assets/uploads 下既有文件，
+// 与源码 base64 逐字节一致（MD5 已核对），按相对路径引用，避免 base64 撑大源码；
+// “下载月报”导出的 HTML 会注入 <base> 指向本页目录，保证导出文件内图标可解析）
 export const REPORT_ICONS = {
   "energy-total": "./assets/uploads/149-129774.png",
   "energy-gain": "./assets/uploads/149-129806.png",
@@ -15,6 +17,11 @@ export const REPORT_ICONS = {
   "strategy-2": "./assets/uploads/149-129560.png",
   "strategy-3": "./assets/uploads/149-129562.png",
 };
+
+// 叶子图标经 CSS mask 按状态染色（灰/绿/紫），本环境下 mask 加载外部文件不生效
+// （原版源码的 reportIcons 也因此对 mask 图标内联 base64）。仅这一个 mask 图标
+// 保留 data URI（由 assets/uploads/149-129790.png 生成）；其余图标均走文件引用。
+export const LEAF_MASK_URI = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAEpElEQVR4Ae3gAZAkSZIkSRKLqpm7R0REZmZmVlVVVVV3d3d3d/fMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMdHd3d3dXV1VVVVVmZkZGRIS7m5kKz0xmV3d1d3dPz8zMzMxMovifDfE/G+J/NsT/bIj/2RDPx0/91E8df5u3eZtd/vshnstP/dRPHbd9EfhrSW/zNm/zNrfy3wfxXH78x3/8rSPip7hiV9JnA9/zNm/zNrv810M8l5/6qZ/6KNtfzXPalfTbwK3ArbZ3bT8EICJeyvZx4MHAceA4sAvsArdK+utpmn7mHd7hHX6bfz3Ec/mJn/iJz5b0WfzH27X9NW/3dm/32bzoEM/lp37qp77K9kfzn+evJb3N27zN29zKvwzxXH7qp37qu2y/N/+5bpX0Om/zNm9zKy8c4rn8xE/8xGdL+iz+8936tm/7tg/hhUM8l5/6qZ/6KNtfzQu3Cxzn38n2+7zd273dd/OCIZ7LT/7kT74X8N28YLdKehngs2x/NP8+f/22b/u2L8MLhnguP/ZjP/bapZTf4oWw/T5v93Zv990/9mM/9tq11vey/dbAcf4NJD3kbd7mbW7l+UM8Hz/5kz9pXrjdaZpe5x3f8R3/GuCnfuqnjk/T9NK11pcCXho4bvulgQfzL2itvc47vMM7/DbPH+L5+Mmf/MnfAl6bF27X9tdExFe/zdu8zS7Px0/91E8dBx4MvJbttwZem+f13m/7tm/7PTx/iOfjJ37iJz5b0mfxotmV9NO2f1vS77zN27zNrbwAP/VTP/XSwEfZfm+eyfbnvN3bvd1n8/whno+f+qmferDtp/Nvsyvpt4FbW2u/U0r57bd5m7fZ5QF+7Md+7LVLKd8FPFjSR7/N27zN1/D8IV6An/qpn/ou2+/Nf4zftv07EfHVb/M2b7ML8FM/9VPHge8ax/Fz3vEd3/Gvef4QL8BP/dRPPdj20/mPtWv7ayLiq9/mbd5ml38Z4oX4iZ/4ic+W9Fn8x9ttrb3NO7zDO/w2LxziX/CTP/mTTwcezH8C2x/zdm/3dl/NC4b4F/zUT/3Ug23/FvBg/hPY/pi3e7u3+2qeP8SL4Kd+6qcebPu3gAfzH+NW4ME80zRNL/OO7/iOf83zQryIfuqnfurBtr8LeG3+ff5a0usAX2X7vbniVkmv8zZv8za38pwQ/0o/9mM/9tqllO8CHsy/ku3Pebu3e7vPBvipn/qpB9t+Os8k6bvf5m3e5n14Toh/ox/7sR977VrrW9l+b+A4L9itkn4b+Jy3eZu3uZUH+Kmf+qnvsv3ePJOkh7zN27zNrTwb4j/AT/3UTz0YON5ae3BEHANorT2j1vrXb/M2b7PLC/BTP/VTL237r3gmSR/9Nm/zNl/DsyH+m/3kT/7k04EHA0j66rd5m7f5GJ4N8d/sJ37iJz5a0lcBtNZe5x3e4R1+m2dD/A/wkz/5k+8l6Xfe5m3e5laeE+J/NsT/bIj/2RD/syH+Z0P8z4b4n41/BGFqajjoZEseAAAAAElFTkSuQmCC)";
 
 // tooltip 外观复用 .hc-energy-tooltip 的 CSS（行布局/圆点/配色）；
 // extraCssText 压过 ECharts 写在 tooltip div 上的内联默认（背景/边框/内边距）
@@ -91,7 +98,8 @@ export function runtimeChartOption(s) {
     tooltip: { ...tooltip("padding:16px !important;min-width:196px;font-size:12px;line-height:20px;color:#eee;", formatter), axisPointer: { type: "none" } },
     xAxis: {
       type: "value", min: -15, max: 15, interval: 3,
-      axisLabel: { formatter: dateLabel, color: "#999", fontSize: 12, margin: 16 },
+      // 首末刻度标签交给 custom 系列按 legacy 钳位规则绘制（x∈[28,1264]），避免贴边被画布裁掉一半
+      axisLabel: { formatter: dateLabel, color: "#999", fontSize: 12, margin: 16, showMinLabel: false, showMaxLabel: false },
       axisLine: { show: false }, axisTick: { show: false }, splitLine: { show: false },
     },
     yAxis: [
@@ -101,30 +109,37 @@ export function runtimeChartOption(s) {
     ],
     series: [
       { name: "平均请求量", type: "bar", yAxisIndex: 1, data: barData, barWidth: 12, z: 1 },
-      {
-        name: "实际功耗", type: "line", data: actualPts, symbol: "none", z: 2,
-        lineStyle: { color: "#bdbdbd", width: 1 },
-        markLine: {
-          silent: true, symbol: ["none", "none"], animation: false,
-          data: s.effectiveAt ? [{ xAxis: -15, lineStyle: { color: "#53c49c", width: 1 }, label: { show: false } }] : [],
-        },
-      },
+      { name: "实际功耗", type: "line", data: actualPts, symbol: "none", z: 2, lineStyle: { color: "#bdbdbd", width: 1 } },
       { name: "基线预测功耗", type: "line", data: basePts, symbol: "none", z: 2, lineStyle: { color: "#aaa", width: 1, type: [1.5, 2.5] } },
       { name: "策略后预测功耗", type: "line", data: optPts, symbol: "none", z: 2, lineStyle: { color: "#20aa78", width: 1, type: [1.5, 2] } },
       {
-        // now 标记（legacy M646 0V120 M640 0H652）：从容器顶 y=0 画到 y=120/148 处（穿过网格下缘），
-        // T 形横帽在最顶端；markLine 会被裁剪在绘图区内，故用 custom 系列按容器像素直绘（resize 自动重算）
+        // 像素级装饰按容器尺寸直绘（resize 自动重算），复刻 legacy SVG 几何（viewBox 1292×148）：
+        // 1) now 标记（M646 0V120 M640 0H652）：从容器顶画到 120/148 处，T 形横帽在最顶端
+        // 2) 策略启动虚线（M0 14V106，dasharray 3 3，#53c49c）：贴左边缘，仅 s.effectiveAt 存在时绘制
+        // 3) 首末日期标签：legacy 钳位 x∈[28,1264] 居中绘制，避免 ECharts 轴标签贴边被裁一半
         name: "now标记", type: "custom", silent: true, clip: false, z: 10,
         renderItem: (params, api) => {
           const w = api.getWidth(), h = api.getHeight(), cx = w / 2, cap = (6 / 1292) * w;
           const style = { stroke: "#6a94ff", lineWidth: 2 };
-          return {
-            type: "group",
-            children: [
-              { type: "line", shape: { x1: cx, y1: 0, x2: cx, y2: (120 / 148) * h }, style },
-              { type: "line", shape: { x1: cx - cap, y1: 0, x2: cx + cap, y2: 0 }, style },
-            ],
-          };
+          const children = [
+            { type: "line", shape: { x1: cx, y1: 0, x2: cx, y2: (120 / 148) * h }, style },
+            { type: "line", shape: { x1: cx - cap, y1: 0, x2: cx + cap, y2: 0 }, style },
+          ];
+          if (s.effectiveAt) {
+            children.push({
+              type: "line",
+              shape: { x1: 0, y1: (14 / 148) * h, x2: 0, y2: (106 / 148) * h },
+              style: { stroke: "#53c49c", lineWidth: 1, lineDash: [(3 / 148) * h, (3 / 148) * h] },
+            });
+          }
+          // 与轴标签同一基线（grid 下缘 + margin 16），字号颜色一致
+          const labelY = h * (1 - 0.284) + 16;
+          const edge = (t, px) => ({
+            type: "text", silent: true,
+            style: { text: dateLabel(t), x: (px / 1292) * w, y: labelY, fill: "#999", fontSize: 12, textAlign: "center", textVerticalAlign: "top" },
+          });
+          children.push(edge(-15, 28), edge(15, 1264));
+          return { type: "group", children };
         },
         data: [0],
       },
@@ -214,11 +229,28 @@ function nodeLoadChartOption(s, { nodeIndex, start, end, samples, frequencySampl
         },
         markPoint: {
           silent: true, animation: false, symbol: "circle", symbolSize: 5,
-          data: frequencySamples.map((fs) => ({
-            coord: [fs.sample.at, fs.sample.request],
-            itemStyle: { color: "#55c6ad" },
-            label: { show: true, formatter: stamp(fs.event.at) + " 已调频", position: "top", distance: 6, color: "#55c6ad", fontSize: 9 },
-          })),
+          data: [
+            // 数据点圆点（虚线底端）
+            ...frequencySamples.map((fs) => ({
+              coord: [fs.sample.at, fs.sample.request],
+              itemStyle: { color: "#55c6ad" },
+              label: { show: false },
+            })),
+            // “已调频”文字挂在虚线顶端上方（legacy text y=18 / 虚线顶 y=23）；
+            // 近左右边缘时按 legacy clamp 规则翻转对齐（markX>288→end、<65→left），防止溢出
+            ...frequencySamples.map((fs) => {
+              const f = end > start ? (fs.sample.at - start) / (end - start) : 0.5;
+              return {
+                coord: [fs.sample.at, maxRequest],
+                symbolSize: 0,
+                label: {
+                  show: true, formatter: stamp(fs.event.at) + " 已调频", position: "top", distance: 3,
+                  color: "#55c6ad", fontSize: 9,
+                  align: f > 0.86 ? "right" : f < 0.1 ? "left" : "center",
+                },
+              };
+            }),
+          ],
         },
       },
       { name: "节省能耗", type: "line", yAxisIndex: 1, silent: true, symbol: "none", data: samples.map((p) => [p.at, p.saving]), lineStyle: { color: "#45c49f", width: 1.7 } },

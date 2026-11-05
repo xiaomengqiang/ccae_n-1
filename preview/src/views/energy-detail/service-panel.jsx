@@ -2,7 +2,7 @@
 // 服务标题/徽章 + 基准指标（负载统计 + 绿算等级）+ 节点运行状态网格 + 节能优化趋势图
 import { useMemo, useState } from "react";
 import { HC_ASSETS } from "../../mock/hc-assets.js";
-import { REPORT_ICONS, nodeCardModel, runtimeChartOption } from "./charts.jsx";
+import { LEAF_MASK_URI, REPORT_ICONS, nodeCardModel, runtimeChartOption } from "./charts.jsx";
 import EChart from "./echart-box.jsx";
 import EnergyGradeTag from "../../components/energy-grade-tag/index.jsx";
 import { setNodeRange } from "./session-store.js";
@@ -133,7 +133,7 @@ export default function ServicePanel({ s }) {
           <>
             {s.name}
             <span className="hc-energy-badge">
-              <span className="hc-energy-clean-leaf" aria-hidden="true" style={{ "--leaf-image": `url(${REPORT_ICONS["energy-leaf"]})` }} />
+              <span className="hc-energy-clean-leaf" aria-hidden="true" style={{ "--leaf-image": LEAF_MASK_URI }} />
               节能中
             </span>
             <span className="hc-energy-badge">运行态均衡模式已开启</span>

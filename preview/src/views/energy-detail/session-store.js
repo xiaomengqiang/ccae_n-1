@@ -54,7 +54,8 @@ function notifyEvents() {
   homeSync?.();
 }
 
-// 模块初始化：Qwen-14B 演示会话（守护态 stage 4），并同步 workloads 的 energySaving 标记
+// 模块初始化：Qwen-14B 演示会话（守护态 stage 4，事件表首行即"节能策略执行中/已开启节能"，
+// 打开详情即完成态：策略组完成收起、运行监控自动推进），并同步 workloads 的 energySaving 标记
 const eventSession = ensureSession("Qwen-14B", false);
 syncSavingServices();
 

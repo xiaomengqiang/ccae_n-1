@@ -73,7 +73,7 @@ export default function EnergyLeft({ s }) {
           className="hc-energy-step hc-energy-strategy-group"
           data-state={groupState}
           open={s.strategyGroupOpen ?? s.stage < 4}
-          onToggle={(e) => setStrategyGroupOpen(e.target.open)}
+          onToggle={(e) => { if (e.target === e.currentTarget) setStrategyGroupOpen(e.currentTarget.open); }}
         >
           <summary>
             <StepIcon status={groupState} />
@@ -88,7 +88,7 @@ export default function EnergyLeft({ s }) {
         </details>
 
         {s.stage === 4 && (
-          <details className="hc-energy-step" data-state="working" open={s.monitorOpen} onToggle={(e) => setMonitorOpen(e.target.open)}>
+          <details className="hc-energy-step" data-state="working" open={s.monitorOpen} onToggle={(e) => { if (e.target === e.currentTarget) setMonitorOpen(e.currentTarget.open); }}>
             <summary>
               <StepIcon status="working" />
               运行监控

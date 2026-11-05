@@ -139,7 +139,9 @@ export function downloadReport(s) {
   flushSync(() => { root.render(<main className="hc-energy-right"><ReportPanel s={s} embedded /></main>); });
   const escape = (t) => t.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const style = Array.from(document.querySelectorAll("style")).map((n) => n.textContent).filter((t) => t.includes("#hc-energy-root")).join("\n");
-  const html = '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>' + escape(s.name) + ' 2026年8月节能月报</title><style>' + style + '\nhtml,body{height:auto;overflow:auto;background:#050505;color:#eee;font-family:Arial,"Microsoft YaHei",sans-serif}#hc-energy-root{position:static;display:block;width:auto;height:auto;max-width:1440px;margin:auto}#hc-energy-root .hc-energy-right{overflow:visible;padding:32px}svg{width:100%}@media print{body{print-color-adjust:exact}#hc-energy-root .hc-energy-panel{break-inside:avoid}}</style><body><section id="hc-energy-root">' + container.innerHTML + "</section></body></html>";
+  // 导出 HTML 注入 <base> 指向当前页面所在目录：月报图标（REPORT_ICONS）为相对路径文件引用，
+  // 下载后的独立 HTML 需借它解析 ./assets/uploads/*（原版靠 base64 内联自包含）
+  const html = '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><base href="' + new URL(".", location.href).href + '"><title>' + escape(s.name) + ' 2026年8月节能月报</title><style>' + style + '\nhtml,body{height:auto;overflow:auto;background:#050505;color:#eee;font-family:Arial,"Microsoft YaHei",sans-serif}#hc-energy-root{position:static;display:block;width:auto;height:auto;max-width:1440px;margin:auto}#hc-energy-root .hc-energy-right{overflow:visible;padding:32px}svg{width:100%}@media print{body{print-color-adjust:exact}#hc-energy-root .hc-energy-panel{break-inside:avoid}}</style><body><section id="hc-energy-root">' + container.innerHTML + "</section></body></html>";
   // 卸载以释放 ECharts 实例（layout effect cleanup → chart.dispose）
   root.unmount();
   const url = URL.createObjectURL(new Blob([html], { type: "text/html;charset=utf-8" })), a = document.createElement("a");
